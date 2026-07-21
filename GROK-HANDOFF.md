@@ -27,7 +27,8 @@ Amazon's Creators API page says PA API catalog access requires at least 10 quali
 ## Behavior until eligibility is granted
 
 - The importer attempts Creators GetItems first.
-- Only when Amazon returns `AssociateNotEligible`, it reports the block and temporarily uses the existing Amazon product-detail enrichment path.
+- Only when Amazon returns `AssociateNotEligible`, it reports the block and temporarily uses product-page enrichment (when available).
+- **Short-term images:** BSR/search list cards supply real `images-na.ssl-images-amazon.com` / `media-amazon.com/images/I/…` URLs (not the broken `images/P/{ASIN}` pattern). Brand art under `/public/brand/` is the final fallback.
 - Other Creators API errors still fail visibly instead of silently falling back.
 - Once GetItems succeeds, the fallback is bypassed automatically; no integration rewrite should be necessary.
 

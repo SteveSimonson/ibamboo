@@ -117,7 +117,11 @@ export function ProductPage() {
                     <img
                       src={src}
                       alt=""
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className={`absolute inset-0 w-full h-full ${
+                        src.startsWith('/brand/')
+                          ? 'object-cover'
+                          : 'object-contain p-1'
+                      }`}
                       referrerPolicy="no-referrer"
                     />
                   </button>

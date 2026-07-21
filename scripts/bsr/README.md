@@ -2,7 +2,7 @@
 
 Pulls Amazon **Best Sellers Rank** Top ~100 lists for home-adjacent categories, enriches ASINs, keeps bamboo-related household goods, and regenerates the **limited-time** catalog drop.
 
-Best Sellers and search result pages are used only to discover this week's ASINs and ranks. Product details (title, images, features, offers, and browse-node sales ranks) are enriched through the official Amazon Creators API; Amazon product-detail HTML is not fetched by the active import path.
+Best Sellers and search result pages discover this week's ASINs, ranks, **titles, and product images** (from list-card `images/I/…` CDN URLs, upgraded to larger sizes). Official **Creators API GetItems** is preferred for full details when the Associates account is eligible; until then, list-page images + brand fallbacks keep the storefront visual.
 
 ## Creators API setup
 

@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint src",
     "preview": "vite preview",
-    "import:bsr": "node scripts/bsr/import-bsr.mjs",
+    "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
+    "fill:quota": "node scripts/bsr/fill-quota.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
     "deploy": "npm run build && wrangler deploy"
   },

@@ -86,14 +86,101 @@ async function fetchText(url) {
   return res.text()
 }
 
-/** Parse Amazon Best Sellers grid → { rank, asin, title? }[] */
+/** Brand / lifestyle fallbacks when Amazon list images are missing. */
+const CATEGORY_FALLBACK_IMAGES = {
+  kitchen: [
+    '/brand/products-flatlay.png',
+    '/brand/products-hero.png',
+  ],
+  'cutting-boards': [
+    '/brand/products-flatlay.png',
+    '/brand/soho-collection.png',
+  ],
+  dining: ['/brand/soho-collection.png', '/brand/products-hero.png'],
+  bath: ['/brand/landing-forest.png', '/brand/products-flatlay.png'],
+  organization: ['/brand/products-hero.png', '/brand/soho-collection.png'],
+  desk: ['/brand/products-hero.png', '/brand/soho-collection.png'],
+  outdoor: ['/brand/landing-forest.png', '/brand/hero.png'],
+  baby: ['/brand/products-flatlay.png', '/brand/soho-collection.png'],
+}
+
+/**
+ * Normalize Amazon CDN image URLs to a larger display size.
+ * List cards often ship as _AC_UL300_SR300,200_ thumbs.
+ */
+function upgradeAmazonImageUrl(url) {
+  if (!url || typeof url !== 'string') return null
+  let u = url.trim().replace(/&amp;/g, '&')
+  // Skip tracking pixels / sprites
+  if (/\/images\/G\//i.test(u) || /pixel|sprite|transparent/i.test(u)) return null
+  if (
+    !/media-amazon\.com\/images\//i.test(u) &&
+    !/ssl-images-amazon\.com\/images\//i.test(u)
+  ) {
+    return null
+  }
+  // Prefer https
+  u = u.replace(/^http:\/\//i, 'https://')
+  // Upgrade common thumbnail modifiers to a usable large size
+  u = u
+    .replace(/\._AC_UL\d+_SR\d+,\d+_\./, '._AC_SL1000_.')
+    .replace(/\._AC_UX\d+_.*?\./, '._AC_SL1000_.')
+    .replace(/\._AC_UY\d+_.*?\./, '._AC_SL1000_.')
+    .replace(/\._SX\d+_\./, '._SL1000_.')
+    .replace(/\._SY\d+_\./, '._SL1000_.')
+    .replace(/\._US\d+_\./, '._SL1000_.')
+    .replace(/\._SS\d+_\./, '._SL1000_.')
+  // Avoid the unreliable images/P/{ASIN} pattern as primary
+  if (/\/images\/P\/[A-Z0-9]{10}/i.test(u)) return null
+  return u
+}
+
+/** Extract product photo URLs from a list-card HTML chunk. */
+function extractListImages(chunk, { max = 4 } = {}) {
+  const found = []
+  const patterns = [
+    /src="(https:\/\/[^"]+(?:media-amazon|ssl-images-amazon)\.com\/images\/I\/[^"]+)"/gi,
+    /srcset="(https:\/\/[^"\s]+(?:media-amazon|ssl-images-amazon)\.com\/images\/I\/[^"\s]+)/gi,
+    /data-src="(https:\/\/[^"]+(?:media-amazon|ssl-images-amazon)\.com\/images\/I\/[^"]+)"/gi,
+    /(https:\/\/(?:m\.media-amazon|images-na\.ssl-images-amazon)\.com\/images\/I\/[A-Za-z0-9+%_.,\-]+)/gi,
+  ]
+  for (const re of patterns) {
+    for (const m of chunk.matchAll(re)) {
+      const upgraded = upgradeAmazonImageUrl(m[1])
+      if (upgraded && !found.includes(upgraded)) found.push(upgraded)
+      if (found.length >= max) return found
+    }
+  }
+  return found
+}
+
+function resolveProductImages({ listImages, enrichedImages, category, asin }) {
+  const out = []
+  const push = (url) => {
+    const u = upgradeAmazonImageUrl(url) || (url?.startsWith('/') ? url : null)
+    if (u && !out.includes(u)) out.push(u)
+  }
+  for (const u of enrichedImages || []) push(u)
+  for (const u of listImages || []) push(u)
+  // Brand fallbacks last
+  for (const u of CATEGORY_FALLBACK_IMAGES[category] || CATEGORY_FALLBACK_IMAGES.kitchen) {
+    if (!out.includes(u)) out.push(u)
+  }
+  // Absolute last resort only if nothing else (often a blank gif — prefer brand art)
+  if (out.length === 0 && asin) {
+    // skip broken P/ pattern — leave brand only
+  }
+  return out.slice(0, 6)
+}
+
+/** Parse Amazon Best Sellers grid → { rank, asin, title?, images[] }[] */
 function parseBsrPage(html, pageOffset = 0) {
   const items = []
   const starts = [...html.matchAll(/id="p13n-asin-index-(\d+)"/g)]
   for (let i = 0; i < starts.length; i++) {
     const idx = Number(starts[i][1])
     const from = starts[i].index
-    const to = i + 1 < starts.length ? starts[i + 1].index : from + 6000
+    const to = i + 1 < starts.length ? starts[i + 1].index : from + 8000
     const chunk = html.slice(from, to)
     const am = chunk.match(/data-asin="([A-Z0-9]{10})"/)
     if (!am) continue
@@ -112,6 +199,7 @@ function parseBsrPage(html, pageOffset = 0) {
     if (rm) rating = Number(rm[1])
     const rvm = chunk.match(/([\d,]+)\s*ratings?/i)
     if (rvm) reviewCount = Number(rvm[1].replace(/,/g, ''))
+    const images = extractListImages(chunk)
 
     items.push({
       rank: pageOffset + idx + 1,
@@ -119,6 +207,7 @@ function parseBsrPage(html, pageOffset = 0) {
       title,
       rating,
       reviewCount,
+      images,
     })
   }
   if (items.length === 0) {
@@ -127,23 +216,47 @@ function parseBsrPage(html, pageOffset = 0) {
       if (!asins.includes(x[1]) && x[1].startsWith('B')) asins.push(x[1])
     }
     asins.slice(0, 50).forEach((asin, i) => {
-      items.push({ rank: pageOffset + i + 1, asin })
+      items.push({ rank: pageOffset + i + 1, asin, images: [] })
     })
   }
   return items
 }
 
-/** Parse Amazon search results → asin list in order */
-function parseSearchAsins(html, limit = 30) {
-  const asins = []
+/** Parse Amazon search results → cards with asin, title?, images[] */
+function parseSearchCards(html, limit = 30) {
+  const cards = []
+  const seen = new Set()
   const parts = html.split('data-component-type="s-search-result"')
   for (const block of parts.slice(1)) {
-    const m = block.slice(0, 800).match(/data-asin="(B0[0-9A-Z]{8})"/)
-    if (!m) continue
-    if (!asins.includes(m[1])) asins.push(m[1])
-    if (asins.length >= limit) break
+    const b = block.slice(0, 12000)
+    const m = b.match(/data-asin="(B0[0-9A-Z]{8})"/)
+    if (!m || seen.has(m[1])) continue
+    seen.add(m[1])
+    let title
+    const tm =
+      b.match(/<h2[^>]*\saria-label="([^"]{10,250})"/) ||
+      b.match(/a-text-normal[^>]*>([^<]{10,200})</)
+    if (tm) {
+      title = unescapeHtml(tm[1].replace(/\s+/g, ' ').trim())
+      if (/buying options/i.test(title)) title = undefined
+    }
+    let rating
+    const rm = b.match(/([\d.]+)\s+out of 5/)
+    if (rm) rating = Number(rm[1])
+    let reviewCount
+    const rvm = b.match(/aria-label="([\d,]+)\s+ratings?"/i)
+    if (rvm) reviewCount = Number(rvm[1].replace(/,/g, ''))
+    const images = extractListImages(b)
+    cards.push({
+      asin: m[1],
+      title,
+      rating,
+      reviewCount,
+      images,
+    })
+    if (cards.length >= limit) break
   }
-  return asins
+  return cards
 }
 
 function isBambooRelated(title = '', features = []) {
@@ -292,7 +405,10 @@ async function pullBsrCategory(cat) {
       const pageOffset = (pg - 1) * 50
       const items = parseBsrPage(html, pageOffset)
       const withTitle = items.filter((i) => i.title).length
-      console.log(`    → ${items.length} ranks (${withTitle} with titles)`)
+      const withImg = items.filter((i) => i.images?.length).length
+      console.log(
+        `    → ${items.length} ranks (${withTitle} titles, ${withImg} with images)`,
+      )
       ranks.push(...items)
     } catch (e) {
       console.warn(`    fail: ${e.message}`)
@@ -310,18 +426,23 @@ async function pullBsrCategory(cat) {
 
 /** Build product from list-page data when detail enrich fails. */
 function productFromListCard(card, meta, weekOf, expiresAt) {
-  const title = card.title || `Amazon Best Seller ${card.asin}`
+  const title = card.title || meta.title || `Amazon Best Seller ${card.asin || meta.asin}`
   if (!isBambooRelated(title, [])) return null
+  const asin = card.asin || meta.asin
+  const listImages = card.images || meta.images || []
   return toProduct(
     {
-      asin: card.asin,
+      asin,
       title,
-      images: [
-        `https://m.media-amazon.com/images/P/${card.asin}.01._SCLZZZZZZZ_SX500_.jpg`,
-      ],
+      images: resolveProductImages({
+        listImages,
+        enrichedImages: [],
+        category: meta.ibambooCategory,
+        asin,
+      }),
       price: undefined,
-      rating: card.rating,
-      reviewCount: card.reviewCount,
+      rating: card.rating ?? meta.rating,
+      reviewCount: card.reviewCount ?? meta.reviewCount,
       brand: undefined,
       features: [
         `Amazon Best Sellers · #${meta.rank} in ${meta.bsrLabel}`,
@@ -337,7 +458,7 @@ function productFromListCard(card, meta, weekOf, expiresAt) {
       ],
       material: 'Bamboo (confirm on Amazon listing)',
       bsrLines: [{ rank: meta.rank, category: meta.bsrLabel }],
-      productUrl: `https://www.amazon.com/dp/${card.asin}?tag=${TAG}`,
+      productUrl: `https://www.amazon.com/dp/${asin}?tag=${TAG}`,
     },
     meta,
     weekOf,
@@ -345,18 +466,41 @@ function productFromListCard(card, meta, weekOf, expiresAt) {
   )
 }
 
-async function pullSearch(query, limit) {
-  const url = `https://www.amazon.com/s?k=${encodeURIComponent(query)}`
-  console.log(`  SEARCH ${query}`)
-  try {
-    const html = await fetchText(url)
-    const asins = parseSearchAsins(html, limit)
-    console.log(`    → ${asins.length} asins`)
-    return asins.map((asin, i) => ({ rank: i + 1, asin, source: 'search' }))
-  } catch (e) {
-    console.warn(`    fail: ${e.message}`)
-    return []
+async function pullSearch(query, limit, { pages = 2 } = {}) {
+  const cards = []
+  const seen = new Set()
+  const maxPages = Math.max(1, Math.min(pages, 3))
+  console.log(`  SEARCH ${query} (up to ${limit}, ${maxPages} page(s))`)
+  for (let page = 1; page <= maxPages && cards.length < limit; page++) {
+    const url =
+      `https://www.amazon.com/s?k=${encodeURIComponent(query)}` +
+      (page > 1 ? `&page=${page}` : '')
+    try {
+      const html = await fetchText(url)
+      const pageCards = parseSearchCards(html, limit)
+      for (const card of pageCards) {
+        if (seen.has(card.asin)) continue
+        seen.add(card.asin)
+        cards.push(card)
+        if (cards.length >= limit) break
+      }
+    } catch (e) {
+      console.warn(`    page ${page} fail: ${e.message}`)
+      break
+    }
+    await sleep(700)
   }
+  const withImg = cards.filter((c) => c.images?.length).length
+  console.log(`    → ${cards.length} cards (${withImg} with images)`)
+  return cards.map((card, i) => ({
+    rank: i + 1,
+    asin: card.asin,
+    title: card.title,
+    rating: card.rating,
+    reviewCount: card.reviewCount,
+    images: card.images,
+    source: 'search',
+  }))
 }
 
 function toProduct(enriched, meta, weekOf, expiresAt) {
@@ -441,10 +585,12 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
     asin: enriched.asin,
     searchKeywords: enriched.title,
     badge,
-    images:
-      enriched.images?.length > 0
-        ? enriched.images
-        : [`https://m.media-amazon.com/images/P/${enriched.asin}.01._SCLZZZZZZZ_SX500_.jpg`],
+    images: resolveProductImages({
+      listImages: meta.images || [],
+      enrichedImages: enriched.images || [],
+      category: meta.ibambooCategory,
+      asin: enriched.asin,
+    }),
     ...(enriched.rating != null ? { rating: enriched.rating } : {}),
     ...(enriched.reviewCount != null
       ? { reviewCount: enriched.reviewCount }
@@ -490,6 +636,7 @@ async function main() {
         title: r.title,
         rating: r.rating,
         reviewCount: r.reviewCount,
+        images: r.images || [],
         source: 'bsr',
         bsrLabel: cat.label,
         bsrId: cat.id,
@@ -502,11 +649,15 @@ async function main() {
 
   for (const s of config.supplementalSearches.filter((x) => x.enabled)) {
     console.log(`\n== Supplemental: ${s.label}`)
-    const ranks = await pullSearch(s.query, s.limit || 20)
+    const ranks = await pullSearch(s.query, s.limit || 30, { pages: 2 })
     for (const r of ranks) {
       candidates.push({
         asin: r.asin,
         rank: r.rank,
+        title: r.title,
+        rating: r.rating,
+        reviewCount: r.reviewCount,
+        images: r.images || [],
         source: 'search',
         bsrLabel: s.label,
         bsrId: s.id,
@@ -515,17 +666,30 @@ async function main() {
         bambooBias: 'high',
       })
     }
-    await sleep(800)
+    await sleep(500)
   }
 
-  // Prefer best rank per ASIN
+  // Prefer best rank per ASIN (merge images from all sightings)
   const best = new Map()
   for (const c of candidates) {
     const prev = best.get(c.asin)
-    if (!prev || c.rank < prev.rank) best.set(c.asin, c)
+    if (!prev || c.rank < prev.rank) {
+      best.set(c.asin, {
+        ...c,
+        images: [...(c.images || [])],
+      })
+    } else if (c.images?.length) {
+      for (const img of c.images) {
+        if (!prev.images.includes(img)) prev.images.push(img)
+      }
+      if (!prev.title && c.title) prev.title = c.title
+    }
   }
   let unique = [...best.values()]
   console.log(`\nUnique ASINs: ${unique.length}`)
+  console.log(
+    `With list images: ${unique.filter((c) => c.images?.length).length}`,
+  )
 
   // Fast path: list-page titles already containing "bamboo"
   const listBamboo = unique.filter(
@@ -550,7 +714,7 @@ async function main() {
   const rawEnriched = []
   const usedAsins = new Set()
 
-  // 1) Immediate products from list titles (no detail fetch required)
+  // 1) Immediate products from list titles + list images (no detail fetch required)
   for (const meta of listBamboo) {
     const p = productFromListCard(
       {
@@ -558,6 +722,7 @@ async function main() {
         title: meta.title,
         rating: meta.rating,
         reviewCount: meta.reviewCount,
+        images: meta.images || [],
       },
       meta,
       weekOf,
@@ -567,7 +732,12 @@ async function main() {
     products.push(p)
     usedAsins.add(meta.asin)
   }
-  console.log(`Products from BSR list titles: ${products.length}`)
+  const listImgCount = products.filter((p) =>
+    p.images?.some((u) => /media-amazon|ssl-images-amazon/i.test(u)),
+  ).length
+  console.log(
+    `Products from BSR list titles: ${products.length} (${listImgCount} with Amazon CDN images)`,
+  )
 
   // 2) Enrich a capped set for better images/specs (and catch bamboo not in list title)
   const toEnrich = unique
@@ -640,11 +810,25 @@ async function main() {
       continue
     }
 
-    console.log(`OK ${enriched.title.slice(0, 55)}`)
+    // Prefer Creators images; fill gaps from list-page photos
+    if ((!enriched.images || enriched.images.length === 0) && meta.images?.length) {
+      enriched.images = meta.images
+    } else if (meta.images?.length) {
+      for (const img of meta.images) {
+        if (!enriched.images.includes(img)) enriched.images.push(img)
+      }
+    }
+    console.log(
+      `OK ${enriched.title.slice(0, 50)} imgs=${(enriched.images || meta.images || []).length}`,
+    )
     rawEnriched.push({ meta, enriched })
     if (!usedAsins.has(meta.asin)) {
       products.push(toProduct(enriched, meta, weekOf, expiresAt))
       usedAsins.add(meta.asin)
+    } else {
+      // Upgrade earlier list-only product with better enrich data
+      const idx = products.findIndex((p) => p.asin === meta.asin)
+      if (idx >= 0) products[idx] = toProduct(enriched, meta, weekOf, expiresAt)
     }
   }
 
@@ -665,6 +849,7 @@ async function main() {
           bsrId: 'prior-scrape',
           ibambooCategory: a.category || 'kitchen',
           collection: a.collection || 'Kitchen',
+          images: a.images || [],
         }
         products.push(
           toProduct(
@@ -701,6 +886,91 @@ async function main() {
   } catch (e) {
     console.warn('prior seed skip', e.message)
   }
+
+  // 4) Fill each iBamboo category to quota (default 20) via extra bamboo searches
+  const quota = Number(
+    process.env.CATEGORY_QUOTA || config.perCategoryQuota || 20,
+  )
+  const allCats = [
+    'kitchen',
+    'cutting-boards',
+    'dining',
+    'bath',
+    'organization',
+    'desk',
+    'outdoor',
+    'baby',
+  ]
+  const fillMap = config.quotaFillSearches || {}
+  const collectionFor = {
+    kitchen: 'Kitchen',
+    'cutting-boards': 'Boards',
+    dining: 'Tabletop',
+    bath: 'Bath',
+    organization: 'Organize',
+    desk: 'Workspace',
+    outdoor: 'Outdoor',
+    baby: 'Little Ones',
+  }
+
+  function countByCategory(list) {
+    const m = {}
+    for (const p of list) m[p.category] = (m[p.category] || 0) + 1
+    return m
+  }
+
+  console.log(`\n== Quota fill (target ${quota} bamboo items per category)`)
+  let counts = countByCategory(products)
+  console.log('  before:', counts)
+
+  for (const cat of allCats) {
+    let n = counts[cat] || 0
+    if (n >= quota) {
+      console.log(`  ${cat}: ${n} (ok)`)
+      continue
+    }
+    const queries = [
+      ...(fillMap[cat] || []),
+      `bamboo ${cat.replace(/-/g, ' ')}`,
+      `100% bamboo ${cat.replace(/-/g, ' ')}`,
+    ]
+    console.log(`  ${cat}: ${n}/${quota} — filling…`)
+    for (const q of queries) {
+      if (n >= quota) break
+      const need = quota - n
+      const ranks = await pullSearch(q, Math.max(need + 10, 25), { pages: 2 })
+      for (const r of ranks) {
+        if (n >= quota) break
+        if (usedAsins.has(r.asin)) continue
+        if (!r.title || !isBambooRelated(r.title, [])) continue
+        const meta = {
+          asin: r.asin,
+          rank: 100 + n,
+          title: r.title,
+          rating: r.rating,
+          reviewCount: r.reviewCount,
+          images: r.images || [],
+          source: 'search',
+          bsrLabel: `Bamboo search · ${cat}`,
+          bsrId: `quota-${cat}`,
+          ibambooCategory: cat,
+          collection: collectionFor[cat] || 'Kitchen',
+          bambooBias: 'high',
+        }
+        const p = productFromListCard(r, meta, weekOf, expiresAt)
+        if (!p) continue
+        products.push(p)
+        usedAsins.add(r.asin)
+        n++
+      }
+      await sleep(600)
+    }
+    counts[cat] = n
+    console.log(`  ${cat}: now ${n}/${quota}`)
+  }
+
+  counts = countByCategory(products)
+  console.log('  after quota fill:', counts)
 
   // Sort: limited BSR rank first
   products.sort((a, b) => {
