@@ -1,0 +1,24 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { ScrollToTop } from './components/ScrollToTop'
+import { Home } from './pages/Home'
+import { Shop } from './pages/Shop'
+import { ProductPage } from './pages/Product'
+import { Why } from './pages/Why'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="product/:slug" element={<ProductPage />} />
+          <Route path="why" element={<Why />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}

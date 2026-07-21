@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ibamboo",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  // Custom domains become the origin (GHL A/CNAME records removed first).
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "ibamboo.com", "custom_domain": true },
+    { "pattern": "www.ibamboo.com", "custom_domain": true }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

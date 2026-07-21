@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+
+  /* Premium forest palette */
+  --color-ink: #121a12;
+  --color-ink-soft: #3d4a3c;
+  --color-muted: #6b7768;
+  --color-paper: #f6f3eb;
+  --color-paper-2: #ebe6d9;
+  --color-card: #ffffff;
+  --color-line: #ddd6c6;
+  --color-bamboo: #3f6b35;
+  --color-bamboo-deep: #2c4f25;
+  --color-leaf: #7a9e5a;
+  --color-moss: #1e3320;
+  --color-cream: #f3eee3;
+  --color-wood: #b8956a;
+  --color-gold: #c4a35a;
+  --color-sunset: #c4784a;
+  --color-charcoal: #0f1610;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  ::selection {
+    background: rgba(63, 107, 53, 0.22);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .label-micro {
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-bamboo;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-moss text-paper px-7 py-3.5 text-sm font-semibold tracking-wide shadow-[0_10px_30px_-10px_rgba(30,51,32,0.55)] transition hover:bg-bamboo-deep;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-card px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-bamboo/40 hover:bg-paper-2;
+  }
+  .btn-amazon {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#FF9900] text-ink px-7 py-3.5 text-sm font-bold tracking-tight shadow-[0_8px_24px_-8px_rgba(255,153,0,0.4)] transition hover:bg-[#e88b00];
+  }
+  .card-soft {
+    @apply rounded-2xl border border-line/80 bg-card shadow-[0_2px_20px_-12px_rgba(18,26,18,0.14)] transition duration-300;
+  }
+  .card-soft:hover {
+    @apply shadow-[0_18px_40px_-18px_rgba(18,26,18,0.2)] border-bamboo/25;
+    transform: translateY(-2px);
+  }
+  .price {
+    @apply font-semibold tabular-nums tracking-tight;
+  }
+}

@@ -1,0 +1,729 @@
+#!/usr/bin/env node
+/**
+ * iBamboo Amazon BSR importer
+ * ---------------------------
+ * Pulls Top ~100 from Amazon Best Sellers leaf categories + bamboo searches,
+ * enriches ASINs, filters for bamboo-related household goods, and writes:
+ *   - data/bsr/raw/snapshot-{timestamp}.json
+ *   - src/data/bsr-snapshot.json
+ *   - src/data/products.bsr.generated.ts
+ *
+ * Weekly refresh:
+ *   npm run import:bsr
+ *   npm run refresh:weekly   # import + build + deploy
+ *
+ * Marketing: products are tagged limitedTime / weekOf for
+ * "OPTIONS ONLY AVAILABLE FOR A LIMITED TIME" merchandising.
+ */
+
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const ROOT = join(__dirname, '../..')
+const TAG =
+  process.env.VITE_AMAZON_ASSOCIATE_TAG ||
+  process.env.AMAZON_ASSOCIATE_TAG ||
+  'iu0e3-20'
+
+const UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+function weekOfIso(d = new Date()) {
+  // ISO week start Monday
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
+  const day = date.getUTCDay() || 7
+  if (day !== 1) date.setUTCDate(date.getUTCDate() - (day - 1))
+  return date.toISOString().slice(0, 10)
+}
+
+function nextRefreshIso(from = new Date()) {
+  const d = new Date(from)
+  const day = d.getDay() // 0 Sun
+  const daysUntilMon = day === 0 ? 1 : day === 1 ? 7 : 8 - day
+  d.setDate(d.getDate() + daysUntilMon)
+  d.setHours(9, 0, 0, 0)
+  return d.toISOString()
+}
+
+function slugify(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/&amp;/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+    .slice(0, 80)
+}
+
+function unescapeHtml(s) {
+  return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+}
+
+async function fetchText(url) {
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': UA,
+      'Accept-Language': 'en-US,en;q=0.9',
+      Accept: 'text/html,application/xhtml+xml',
+    },
+    redirect: 'follow',
+  })
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`)
+  return res.text()
+}
+
+/** Parse Amazon Best Sellers grid → { rank, asin, title? }[] */
+function parseBsrPage(html, pageOffset = 0) {
+  const items = []
+  const starts = [...html.matchAll(/id="p13n-asin-index-(\d+)"/g)]
+  for (let i = 0; i < starts.length; i++) {
+    const idx = Number(starts[i][1])
+    const from = starts[i].index
+    const to = i + 1 < starts.length ? starts[i + 1].index : from + 6000
+    const chunk = html.slice(from, to)
+    const am = chunk.match(/data-asin="([A-Z0-9]{10})"/)
+    if (!am) continue
+    const asin = am[1]
+    let title
+    const tm =
+      chunk.match(/p13n-sc-css-line-clamp[^"]*"[^>]*>([^<]{10,220})</) ||
+      chunk.match(/_cDEzb_p13n-sc-css-line-clamp[^"]*"[^>]*>([^<]{10,220})</)
+    if (tm) {
+      title = unescapeHtml(tm[1].replace(/\s+/g, ' ').trim())
+      if (/out of 5 stars/i.test(title)) title = undefined
+    }
+    let rating
+    let reviewCount
+    const rm = chunk.match(/([\d.]+)\s+out of 5/)
+    if (rm) rating = Number(rm[1])
+    const rvm = chunk.match(/([\d,]+)\s*ratings?/i)
+    if (rvm) reviewCount = Number(rvm[1].replace(/,/g, ''))
+
+    items.push({
+      rank: pageOffset + idx + 1,
+      asin,
+      title,
+      rating,
+      reviewCount,
+    })
+  }
+  if (items.length === 0) {
+    const asins = []
+    for (const x of html.matchAll(/\/dp\/([A-Z0-9]{10})/g)) {
+      if (!asins.includes(x[1]) && x[1].startsWith('B')) asins.push(x[1])
+    }
+    asins.slice(0, 50).forEach((asin, i) => {
+      items.push({ rank: pageOffset + i + 1, asin })
+    })
+  }
+  return items
+}
+
+/** Parse Amazon search results → asin list in order */
+function parseSearchAsins(html, limit = 30) {
+  const asins = []
+  const parts = html.split('data-component-type="s-search-result"')
+  for (const block of parts.slice(1)) {
+    const m = block.slice(0, 800).match(/data-asin="(B0[0-9A-Z]{8})"/)
+    if (!m) continue
+    if (!asins.includes(m[1])) asins.push(m[1])
+    if (asins.length >= limit) break
+  }
+  return asins
+}
+
+function isBambooRelated(title = '', features = []) {
+  const t = `${title} ${features.join(' ')}`.toLowerCase()
+  if (!t.includes('bamboo')) return false
+  // exclude obvious non-home junk if needed
+  const deny = ['ebook', 'kindle edition', 'poster only', 'sticker pack only']
+  return !deny.some((d) => t.includes(d))
+}
+
+function materialFamily(title = '', material = '') {
+  const t = `${title} ${material}`.toLowerCase()
+  if (/viscose|rayon|fabric|sheet|towel|sock|underwear|clothing/.test(t)) {
+    return 'bamboo-fiber'
+  }
+  if (/solid bamboo|100%\s*bamboo|bamboo wood|bamboo board|bamboo utensil/.test(t)) {
+    return 'solid-bamboo'
+  }
+  if (t.includes('bamboo')) return 'bamboo'
+  return 'other'
+}
+
+async function enrichAsin(asin) {
+  const url = `https://www.amazon.com/dp/${asin}?th=1&psc=1`
+  try {
+    const html = await fetchText(url)
+    const titleM = html.match(/id="productTitle"[^>]*>\s*([^<]+)/)
+    if (!titleM) return null
+    const title = unescapeHtml(titleM[1].replace(/\s+/g, ' ').trim())
+
+    const images = []
+    const landing = html.match(/data-old-hires="(https:\/\/[^"]+)"/)
+    if (landing) images.push(landing[1].replace(/\\u002F/g, '/'))
+    for (const m of html.matchAll(
+      /"hiRes"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
+    )) {
+      const u = m[1].replace(/\\u002F/g, '/')
+      if (!images.includes(u)) images.push(u)
+    }
+    for (const m of html.matchAll(
+      /"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
+    )) {
+      const u = m[1].replace(/\\u002F/g, '/')
+      if (!images.includes(u)) images.push(u)
+    }
+
+    let price
+    const priceM = html.match(/"priceAmount"\s*:\s*([0-9.]+)/)
+    if (priceM) price = Number(priceM[1])
+
+    let rating
+    const ratingM = html.match(/([\d.]+)\s+out of 5/)
+    if (ratingM) rating = Number(ratingM[1])
+
+    let reviewCount
+    const revM = html.match(/id="acrCustomerReviewText"[^>]*>\s*([\d,]+)/)
+    if (revM) reviewCount = Number(revM[1].replace(/,/g, ''))
+
+    let brand
+    const brandM = html.match(/id="bylineInfo"[^>]*>([^<]+)/)
+    if (brandM) {
+      brand = unescapeHtml(brandM[1])
+        .replace(/Visit the|Brand:|Store/gi, '')
+        .trim()
+    }
+
+    const features = []
+    const featSec = html.match(/id="feature-bullets"([\s\S]*?)<\/ul>/)
+    if (featSec) {
+      for (const m of featSec[1].matchAll(
+        /class="a-list-item">\s*([^<]{12,220})/g,
+      )) {
+        const f = m[1].replace(/\s+/g, ' ').trim()
+        if (f && !/click here/i.test(f)) features.push(f)
+      }
+    }
+
+    const specs = []
+    for (const row of html.matchAll(
+      /<th[^>]*>\s*([^<]{2,40})\s*<\/th>\s*<td[^>]*>\s*(?:<[^>]*>)?\s*([^<]+)/g,
+    )) {
+      const label = row[1].replace(/\s+/g, ' ').trim()
+      const value = row[2].replace(/\s+/g, ' ').trim()
+      if (
+        [
+          'Material',
+          'Brand',
+          'Color',
+          'Item Weight',
+          'Product Dimensions',
+          'Number of Pieces',
+          'Shape',
+          'Finish Type',
+          'Manufacturer',
+          'Item Dimensions LxWxH',
+        ].includes(label)
+      ) {
+        specs.push({ label, value })
+      }
+    }
+
+    // Nested BSR lines: #1 in Cutting Boards
+    const bsrLines = []
+    for (const m of html.matchAll(/#([\d,]+)\s+in\s+([^<\n(]+)/g)) {
+      bsrLines.push({
+        rank: Number(m[1].replace(/,/g, '')),
+        category: m[2].replace(/\s+/g, ' ').trim(),
+      })
+    }
+
+    const material =
+      specs.find((s) => s.label.toLowerCase() === 'material')?.value ||
+      (title.toLowerCase().includes('bamboo') ? 'Bamboo' : 'See listing')
+
+    return {
+      asin,
+      title,
+      images: images.slice(0, 6),
+      price,
+      rating,
+      reviewCount,
+      brand,
+      features: features.slice(0, 6),
+      specs,
+      material,
+      bsrLines: bsrLines.slice(0, 6),
+      productUrl: `https://www.amazon.com/dp/${asin}?tag=${TAG}`,
+    }
+  } catch (e) {
+    console.warn(`  enrich fail ${asin}: ${e.message}`)
+    return null
+  }
+}
+
+async function pullBsrCategory(cat) {
+  const ranks = []
+  const base = cat.node
+    ? `https://www.amazon.com/gp/bestsellers/${cat.department}/${cat.node}`
+    : `https://www.amazon.com/gp/bestsellers/${cat.department}`
+
+  for (const pg of [1, 2]) {
+    const url = `${base}?pg=${pg}`
+    console.log(`  BSR ${cat.label} pg${pg}`)
+    try {
+      const html = await fetchText(url)
+      const pageOffset = (pg - 1) * 50
+      const items = parseBsrPage(html, pageOffset)
+      const withTitle = items.filter((i) => i.title).length
+      console.log(`    → ${items.length} ranks (${withTitle} with titles)`)
+      ranks.push(...items)
+    } catch (e) {
+      console.warn(`    fail: ${e.message}`)
+    }
+    await sleep(900)
+  }
+
+  // dedupe by asin keep best rank
+  const by = new Map()
+  for (const r of ranks) {
+    if (!by.has(r.asin) || r.rank < by.get(r.asin).rank) by.set(r.asin, r)
+  }
+  return [...by.values()].sort((a, b) => a.rank - b.rank).slice(0, 100)
+}
+
+/** Build product from list-page data when detail enrich fails. */
+function productFromListCard(card, meta, weekOf, expiresAt) {
+  const title = card.title || `Amazon Best Seller ${card.asin}`
+  if (!isBambooRelated(title, [])) return null
+  return toProduct(
+    {
+      asin: card.asin,
+      title,
+      images: [
+        `https://m.media-amazon.com/images/P/${card.asin}.01._SCLZZZZZZZ_SX500_.jpg`,
+      ],
+      price: undefined,
+      rating: card.rating,
+      reviewCount: card.reviewCount,
+      brand: undefined,
+      features: [
+        `Amazon Best Sellers · #${meta.rank} in ${meta.bsrLabel}`,
+        'Limited-time placement on iBamboo this week',
+        'Buy on Amazon — price and stock set by Amazon',
+      ],
+      specs: [
+        {
+          label: 'Amazon Best Sellers Rank',
+          value: `#${meta.rank} in ${meta.bsrLabel}`,
+        },
+        { label: 'Material', value: 'Bamboo (confirm on Amazon listing)' },
+      ],
+      material: 'Bamboo (confirm on Amazon listing)',
+      bsrLines: [{ rank: meta.rank, category: meta.bsrLabel }],
+      productUrl: `https://www.amazon.com/dp/${card.asin}?tag=${TAG}`,
+    },
+    meta,
+    weekOf,
+    expiresAt,
+  )
+}
+
+async function pullSearch(query, limit) {
+  const url = `https://www.amazon.com/s?k=${encodeURIComponent(query)}`
+  console.log(`  SEARCH ${query}`)
+  try {
+    const html = await fetchText(url)
+    const asins = parseSearchAsins(html, limit)
+    console.log(`    → ${asins.length} asins`)
+    return asins.map((asin, i) => ({ rank: i + 1, asin, source: 'search' }))
+  } catch (e) {
+    console.warn(`    fail: ${e.message}`)
+    return []
+  }
+}
+
+function toProduct(enriched, meta, weekOf, expiresAt) {
+  const name = enriched.title
+    .replace(/\s*[|\-–—].{0,40}$/, '')
+    .slice(0, 90)
+    .trim()
+  const leafBsr =
+    enriched.bsrLines?.find((b) =>
+      /cutting board|utensil|organizer|toothbrush|sheet|towel|monitor|shelf|chime|plate/i.test(
+        b.category,
+      ),
+    ) || enriched.bsrLines?.[0]
+
+  const badge =
+    meta.source === 'bsr' && meta.rank <= 10
+      ? `#${meta.rank} Best Seller`
+      : meta.source === 'bsr' && meta.rank <= 100
+        ? 'Amazon BSR'
+        : 'Limited drop'
+
+  const tagline = leafBsr
+    ? `#${leafBsr.rank} in ${leafBsr.category} · This week's list`
+    : meta.source === 'bsr'
+      ? `#${meta.rank} on Amazon Best Sellers · Limited-time listing`
+      : 'This week’s Amazon bamboo picks · Limited-time options'
+
+  const specs = [...(enriched.specs || [])]
+  if (leafBsr) {
+    specs.unshift({
+      label: 'Amazon Best Sellers Rank',
+      value: `#${leafBsr.rank} in ${leafBsr.category}`,
+    })
+  }
+  if (meta.source === 'bsr') {
+    specs.unshift({
+      label: 'List position (this week)',
+      value: `#${meta.rank} in ${meta.bsrLabel}`,
+    })
+  }
+
+  const family = materialFamily(enriched.title, enriched.material)
+  const hueBase = {
+    kitchen: 85,
+    'cutting-boards': 40,
+    dining: 25,
+    bath: 170,
+    organization: 95,
+    desk: 55,
+    outdoor: 120,
+    baby: 200,
+  }
+
+  return {
+    id: `bsr-${enriched.asin}`,
+    slug: slugify(`${name}-${enriched.asin.slice(-6)}`),
+    name: name || enriched.title.slice(0, 80),
+    tagline,
+    description: `${name} — selected from Amazon Best Sellers for iBamboo’s weekly house edit. ${tagline}. Options rotate and are only available for a limited time; complete your purchase on Amazon.`,
+    category: meta.ibambooCategory,
+    collection: meta.collection,
+    brand: enriched.brand || undefined,
+    material: enriched.material || 'Bamboo (see Amazon listing)',
+    features:
+      enriched.features?.length > 0
+        ? enriched.features
+        : [
+            'Listed on Amazon Best Sellers / popular bamboo search',
+            'Ships via Amazon',
+            'Limited-time placement on iBamboo',
+          ],
+    specs,
+    priceHint:
+      enriched.price != null && !Number.isNaN(enriched.price)
+        ? enriched.price
+        : 0,
+    asin: enriched.asin,
+    searchKeywords: enriched.title,
+    badge,
+    images:
+      enriched.images?.length > 0
+        ? enriched.images
+        : [`https://m.media-amazon.com/images/P/${enriched.asin}.01._SCLZZZZZZZ_SX500_.jpg`],
+    ...(enriched.rating != null ? { rating: enriched.rating } : {}),
+    ...(enriched.reviewCount != null
+      ? { reviewCount: enriched.reviewCount }
+      : {}),
+    hue: (hueBase[meta.ibambooCategory] || 80) + (meta.rank % 40),
+    // Limited-time / BSR merchandising
+    limitedTime: true,
+    weekOf,
+    expiresAt,
+    bsrRank: meta.rank,
+    bsrCategory: meta.bsrLabel,
+    bsrCategoryId: meta.bsrId,
+    materialFamily: family,
+    source: meta.source === 'bsr' ? 'amazon-bsr' : 'amazon-search',
+  }
+}
+
+async function main() {
+  const config = JSON.parse(
+    readFileSync(join(__dirname, 'categories.json'), 'utf8'),
+  )
+  const weekOf = weekOfIso()
+  const fetchedAt = new Date().toISOString()
+  const expiresAt = nextRefreshIso()
+
+  console.log(`\niBamboo BSR import · weekOf=${weekOf}`)
+  console.log(`Next refresh target: ${expiresAt}`)
+  console.log(`Associate tag: ${TAG}\n`)
+
+  const candidates = [] // { asin, rank, source, bsrLabel, bsrId, ibambooCategory, collection }
+
+  for (const cat of config.categories.filter((c) => c.enabled)) {
+    console.log(`\n== Category: ${cat.label}`)
+    const ranks = await pullBsrCategory(cat)
+    for (const r of ranks) {
+      candidates.push({
+        asin: r.asin,
+        rank: r.rank,
+        title: r.title,
+        rating: r.rating,
+        reviewCount: r.reviewCount,
+        source: 'bsr',
+        bsrLabel: cat.label,
+        bsrId: cat.id,
+        ibambooCategory: cat.ibambooCategory,
+        collection: cat.collection,
+        bambooBias: cat.bambooBias,
+      })
+    }
+  }
+
+  for (const s of config.supplementalSearches.filter((x) => x.enabled)) {
+    console.log(`\n== Supplemental: ${s.label}`)
+    const ranks = await pullSearch(s.query, s.limit || 20)
+    for (const r of ranks) {
+      candidates.push({
+        asin: r.asin,
+        rank: r.rank,
+        source: 'search',
+        bsrLabel: s.label,
+        bsrId: s.id,
+        ibambooCategory: s.ibambooCategory,
+        collection: s.collection,
+        bambooBias: 'high',
+      })
+    }
+    await sleep(800)
+  }
+
+  // Prefer best rank per ASIN
+  const best = new Map()
+  for (const c of candidates) {
+    const prev = best.get(c.asin)
+    if (!prev || c.rank < prev.rank) best.set(c.asin, c)
+  }
+  let unique = [...best.values()]
+  console.log(`\nUnique ASINs: ${unique.length}`)
+
+  // Fast path: list-page titles already containing "bamboo"
+  const listBamboo = unique.filter(
+    (c) => c.title && isBambooRelated(c.title, []),
+  )
+  console.log(`Bamboo titles on list pages: ${listBamboo.length}`)
+
+  // Enrich remaining high-bias top ranks without titles / need images
+  unique.sort((a, b) => {
+    const bias = { high: 0, medium: 1, low: 2 }
+    const aHas = a.title && isBambooRelated(a.title, []) ? 0 : 1
+    const bHas = b.title && isBambooRelated(b.title, []) ? 0 : 1
+    return (
+      aHas - bHas ||
+      (bias[a.bambooBias] ?? 2) - (bias[b.bambooBias] ?? 2) ||
+      a.rank - b.rank
+    )
+  })
+
+  const ENRICH_CAP = Number(process.env.BSR_ENRICH_CAP || 80)
+  const products = []
+  const rawEnriched = []
+  const usedAsins = new Set()
+
+  // 1) Immediate products from list titles (no detail fetch required)
+  for (const meta of listBamboo) {
+    const p = productFromListCard(
+      {
+        asin: meta.asin,
+        title: meta.title,
+        rating: meta.rating,
+        reviewCount: meta.reviewCount,
+      },
+      meta,
+      weekOf,
+      expiresAt,
+    )
+    if (!p) continue
+    products.push(p)
+    usedAsins.add(meta.asin)
+  }
+  console.log(`Products from BSR list titles: ${products.length}`)
+
+  // 2) Enrich a capped set for better images/specs (and catch bamboo not in list title)
+  const toEnrich = unique
+    .filter((c) => !usedAsins.has(c.asin))
+    .filter(
+      (c) =>
+        c.bambooBias === 'high' ||
+        c.source === 'search' ||
+        (c.title && /bamboo/i.test(c.title)),
+    )
+    .slice(0, ENRICH_CAP)
+  console.log(`Detail-enriching ${toEnrich.length} (cap ${ENRICH_CAP})\n`)
+
+  for (let i = 0; i < toEnrich.length; i++) {
+    const meta = toEnrich[i]
+    process.stdout.write(
+      `  [${i + 1}/${toEnrich.length}] ${meta.asin} (#${meta.rank} ${meta.bsrLabel})… `,
+    )
+    const enriched = await enrichAsin(meta.asin)
+    await sleep(700)
+    if (!enriched) {
+      // Fallback to list title if bamboo
+      if (meta.title && isBambooRelated(meta.title, [])) {
+        const p = productFromListCard(meta, meta, weekOf, expiresAt)
+        if (p && !usedAsins.has(meta.asin)) {
+          products.push(p)
+          usedAsins.add(meta.asin)
+          console.log(`list-fallback ${meta.title.slice(0, 45)}`)
+          continue
+        }
+      }
+      console.log('skip')
+      continue
+    }
+    const materialBamboo = /bamboo/i.test(enriched.material || '')
+    const keep =
+      isBambooRelated(enriched.title, enriched.features) ||
+      materialBamboo ||
+      (meta.source === 'search' && isBambooRelated(enriched.title, []))
+
+    if (!keep) {
+      console.log(`no-bamboo: ${enriched.title.slice(0, 50)}`)
+      continue
+    }
+
+    console.log(`OK ${enriched.title.slice(0, 55)}`)
+    rawEnriched.push({ meta, enriched })
+    if (!usedAsins.has(meta.asin)) {
+      products.push(toProduct(enriched, meta, weekOf, expiresAt))
+      usedAsins.add(meta.asin)
+    }
+  }
+
+  // 3) Optional seed from prior amazon-raw scrape
+  try {
+    const rawPath = join(ROOT, 'scripts/amazon-raw.json')
+    if (existsSync(rawPath)) {
+      const prior = JSON.parse(readFileSync(rawPath, 'utf8'))
+      let seeded = 0
+      for (const a of prior) {
+        if (!a.asin || usedAsins.has(a.asin)) continue
+        if (!a.title || !isBambooRelated(a.title, a.features || [])) continue
+        const meta = {
+          asin: a.asin,
+          rank: 50 + seeded,
+          source: 'search',
+          bsrLabel: a.collection || 'Bamboo search',
+          bsrId: 'prior-scrape',
+          ibambooCategory: a.category || 'kitchen',
+          collection: a.collection || 'Kitchen',
+        }
+        products.push(
+          toProduct(
+            {
+              asin: a.asin,
+              title: a.title,
+              images: a.images || [],
+              price: a.price,
+              rating: a.rating,
+              reviewCount: a.reviewCount,
+              brand: a.brand,
+              features: a.features || [],
+              specs: a.specs
+                ? Object.entries(a.specs).map(([label, value]) => ({
+                    label,
+                    value: String(value),
+                  }))
+                : [],
+              material:
+                a.specs?.Material || 'Bamboo (confirm on Amazon listing)',
+              bsrLines: [],
+              productUrl: `https://www.amazon.com/dp/${a.asin}?tag=${TAG}`,
+            },
+            meta,
+            weekOf,
+            expiresAt,
+          ),
+        )
+        usedAsins.add(a.asin)
+        seeded++
+      }
+      console.log(`Seeded ${seeded} from scripts/amazon-raw.json`)
+    }
+  } catch (e) {
+    console.warn('prior seed skip', e.message)
+  }
+
+  // Sort: limited BSR rank first
+  products.sort((a, b) => {
+    if (a.source === 'amazon-bsr' && b.source !== 'amazon-bsr') return -1
+    if (b.source === 'amazon-bsr' && a.source !== 'amazon-bsr') return 1
+    return (a.bsrRank || 999) - (b.bsrRank || 999)
+  })
+
+  const snapshot = {
+    weekOf,
+    fetchedAt,
+    expiresAt,
+    associateTag: TAG,
+    productCount: products.length,
+    enrichedCount: rawEnriched.length,
+    candidateCount: unique.length,
+    categories: config.categories.filter((c) => c.enabled).map((c) => c.id),
+    marketing: {
+      headline: 'OPTIONS ONLY AVAILABLE FOR A LIMITED TIME',
+      subhead:
+        'This week’s Amazon Best Sellers edit. Lists refresh weekly — placements move.',
+      refreshCadence: 'weekly',
+    },
+    products,
+  }
+
+  // Write outputs
+  const rawDir = join(ROOT, 'data/bsr/raw')
+  mkdirSync(rawDir, { recursive: true })
+  const stamp = fetchedAt.replace(/[:.]/g, '-')
+  writeFileSync(
+    join(rawDir, `snapshot-${stamp}.json`),
+    JSON.stringify({ snapshot, rawEnriched }, null, 2),
+  )
+  writeFileSync(
+    join(ROOT, 'src/data/bsr-snapshot.json'),
+    JSON.stringify(snapshot, null, 2),
+  )
+
+  const ts = `/**
+ * AUTO-GENERATED by scripts/bsr/import-bsr.mjs — do not edit by hand.
+ * Week of ${weekOf} · expires ${expiresAt}
+ * Run: npm run import:bsr
+ */
+import type { Product } from './types'
+
+export const bsrWeekOf = ${JSON.stringify(weekOf)} as const
+export const bsrFetchedAt = ${JSON.stringify(fetchedAt)} as const
+export const bsrExpiresAt = ${JSON.stringify(expiresAt)} as const
+export const bsrMarketing = ${JSON.stringify(snapshot.marketing, null, 2)} as const
+
+export const bsrProducts: Product[] = ${JSON.stringify(products, null, 2)}
+`
+
+  writeFileSync(join(ROOT, 'src/data/products.bsr.generated.ts'), ts)
+
+  console.log(`\n✓ Wrote ${products.length} limited-time BSR products`)
+  console.log(`  src/data/bsr-snapshot.json`)
+  console.log(`  src/data/products.bsr.generated.ts`)
+  console.log(`  data/bsr/raw/snapshot-${stamp}.json`)
+  console.log(`\nNext: npm run build && npm run deploy`)
+  console.log(`Weekly: npm run refresh:weekly\n`)
+}
+
+main().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

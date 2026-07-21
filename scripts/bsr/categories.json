@@ -1,0 +1,212 @@
+{
+  "description": "Amazon Best Sellers browse nodes for home-adjacent bamboo merchandising. Top 100 = pages 1–2.",
+  "refreshCadence": "weekly",
+  "associateTagEnv": "VITE_AMAZON_ASSOCIATE_TAG",
+  "categories": [
+    {
+      "id": "cutting-boards",
+      "label": "Cutting Boards",
+      "department": "kitchen",
+      "node": "289863",
+      "ibambooCategory": "cutting-boards",
+      "collection": "Boards",
+      "bambooBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "cutting-board-sets",
+      "label": "Cutting Board Sets",
+      "department": "kitchen",
+      "node": "122181570011",
+      "ibambooCategory": "cutting-boards",
+      "collection": "Boards",
+      "bambooBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "cutting-boards-mats-sets",
+      "label": "Cutting Boards, Mats & Sets",
+      "department": "kitchen",
+      "node": "23944790011",
+      "ibambooCategory": "cutting-boards",
+      "collection": "Boards",
+      "bambooBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "kitchen-utensils-gadgets",
+      "label": "Kitchen Utensils & Gadgets",
+      "department": "kitchen",
+      "node": "289754",
+      "ibambooCategory": "kitchen",
+      "collection": "Kitchen",
+      "bambooBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "cooking-utensils",
+      "label": "Cooking Utensils",
+      "department": "kitchen",
+      "node": "16439841",
+      "ibambooCategory": "kitchen",
+      "collection": "Kitchen",
+      "bambooBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "salad-utensils",
+      "label": "Salad Utensils",
+      "department": "kitchen",
+      "node": "289800",
+      "ibambooCategory": "kitchen",
+      "collection": "Kitchen",
+      "bambooBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "kitchen-storage",
+      "label": "Kitchen Storage & Organization",
+      "department": "kitchen",
+      "node": "510136",
+      "ibambooCategory": "organization",
+      "collection": "Organize",
+      "bambooBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "kitchen-dining",
+      "label": "Kitchen & Dining (department)",
+      "department": "kitchen",
+      "node": "",
+      "ibambooCategory": "kitchen",
+      "collection": "Kitchen",
+      "bambooBias": "low",
+      "enabled": false,
+      "note": "Department-level list is too broad; use leaf nodes."
+    },
+    {
+      "id": "bath-products",
+      "label": "Bath Products",
+      "department": "home-garden",
+      "node": "1063236",
+      "ibambooCategory": "bath",
+      "collection": "Bath",
+      "bambooBias": "low",
+      "enabled": true
+    },
+    {
+      "id": "computer-accessories",
+      "label": "Computer Accessories & Peripherals",
+      "department": "pc",
+      "node": "172456",
+      "ibambooCategory": "desk",
+      "collection": "Workspace",
+      "bambooBias": "low",
+      "enabled": true
+    },
+    {
+      "id": "office-products",
+      "label": "Office Products",
+      "department": "office-products",
+      "node": "",
+      "ibambooCategory": "desk",
+      "collection": "Workspace",
+      "bambooBias": "low",
+      "enabled": true
+    },
+    {
+      "id": "furniture",
+      "label": "Furniture",
+      "department": "home-garden",
+      "node": "1063306",
+      "ibambooCategory": "organization",
+      "collection": "Home",
+      "bambooBias": "low",
+      "enabled": true
+    },
+    {
+      "id": "home-storage",
+      "label": "Home Storage (via patio redirect fallback)",
+      "department": "lawn-garden",
+      "node": "3610841",
+      "ibambooCategory": "organization",
+      "collection": "Organize",
+      "bambooBias": "low",
+      "enabled": false
+    }
+  ],
+  "supplementalSearches": [
+    {
+      "id": "search-bamboo-sheets",
+      "label": "Bamboo Sheets (search)",
+      "query": "bamboo sheets queen",
+      "ibambooCategory": "bath",
+      "collection": "Bedding",
+      "limit": 30,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-towels",
+      "label": "Bamboo Towels (search)",
+      "query": "bamboo bath towels",
+      "ibambooCategory": "bath",
+      "collection": "Bath",
+      "limit": 20,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-toothbrush",
+      "label": "Bamboo Toothbrush (search)",
+      "query": "bamboo toothbrush",
+      "ibambooCategory": "bath",
+      "collection": "Bath",
+      "limit": 20,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-monitor",
+      "label": "Bamboo Monitor Stand (search)",
+      "query": "bamboo monitor stand",
+      "ibambooCategory": "desk",
+      "collection": "Workspace",
+      "limit": 20,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-drawer",
+      "label": "Bamboo Drawer Organizer (search)",
+      "query": "bamboo drawer organizer",
+      "ibambooCategory": "organization",
+      "collection": "Organize",
+      "limit": 20,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-utensils",
+      "label": "Bamboo Kitchen Utensils (search)",
+      "query": "bamboo kitchen utensils set",
+      "ibambooCategory": "kitchen",
+      "collection": "Kitchen",
+      "limit": 25,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-chimes",
+      "label": "Bamboo Wind Chimes (search)",
+      "query": "bamboo wind chime",
+      "ibambooCategory": "outdoor",
+      "collection": "Outdoor",
+      "limit": 15,
+      "enabled": true
+    },
+    {
+      "id": "search-bamboo-baby",
+      "label": "Bamboo Baby Plates (search)",
+      "query": "bamboo baby plate suction",
+      "ibambooCategory": "baby",
+      "collection": "Little Ones",
+      "limit": 15,
+      "enabled": true
+    }
+  ]
+}
