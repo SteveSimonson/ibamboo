@@ -19,9 +19,15 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  createCreatorsClient,
+  loadCreatorsEnv,
+  mapCreatorsItem,
+} from './creators-client.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '../..')
+loadCreatorsEnv(join(ROOT, '.env'))
 const TAG =
   process.env.VITE_AMAZON_ASSOCIATE_TAG ||
   process.env.AMAZON_ASSOCIATE_TAG ||
@@ -427,6 +433,11 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
       enriched.price != null && !Number.isNaN(enriched.price)
         ? enriched.price
         : 0,
+    ...(enriched.listPrice != null &&
+    !Number.isNaN(enriched.listPrice) &&
+    enriched.listPrice > enriched.price
+      ? { listPrice: enriched.listPrice }
+      : {}),
     asin: enriched.asin,
     searchKeywords: enriched.title,
     badge,
@@ -458,10 +469,14 @@ async function main() {
   const weekOf = weekOfIso()
   const fetchedAt = new Date().toISOString()
   const expiresAt = nextRefreshIso()
+  const creators = createCreatorsClient()
 
   console.log(`\niBamboo BSR import · weekOf=${weekOf}`)
   console.log(`Next refresh target: ${expiresAt}`)
   console.log(`Associate tag: ${TAG}\n`)
+  console.log(
+    `Creators API: v${creators.config.credentialVersion} · ${creators.config.marketplace}\n`,
+  )
 
   const candidates = [] // { asin, rank, source, bsrLabel, bsrId, ibambooCategory, collection }
 
@@ -564,21 +579,47 @@ async function main() {
         (c.title && /bamboo/i.test(c.title)),
     )
     .slice(0, ENRICH_CAP)
-  console.log(`Detail-enriching ${toEnrich.length} (cap ${ENRICH_CAP})\n`)
+  console.log(`Creators API-enriching ${toEnrich.length} (cap ${ENRICH_CAP})\n`)
+
+  let creatorsEligible = true
+  let creatorsItems = new Map()
+  try {
+    const creatorsResult = await creators.getItems(
+      toEnrich.map((meta) => meta.asin),
+    )
+    creatorsItems = new Map(
+      creatorsResult.items.map((item) => [item.asin, item]),
+    )
+    if (creatorsResult.errors.length) {
+      console.warn(
+        `Creators API returned ${creatorsResult.errors.length} item errors`,
+      )
+    }
+  } catch (error) {
+    if (error.body?.reason !== 'AssociateNotEligible') throw error
+    creatorsEligible = false
+    console.warn(
+      'Creators API access is not eligible yet; temporarily using product-page enrichment.',
+    )
+  }
 
   for (let i = 0; i < toEnrich.length; i++) {
     const meta = toEnrich[i]
     process.stdout.write(
       `  [${i + 1}/${toEnrich.length}] ${meta.asin} (#${meta.rank} ${meta.bsrLabel})… `,
     )
-    const enriched = await enrichAsin(meta.asin)
-    await sleep(700)
-    if (!enriched) {
-      // Fallback to list title if bamboo
+    const apiItem = creatorsItems.get(meta.asin)
+    const enriched = apiItem
+      ? mapCreatorsItem(apiItem, meta)
+      : creatorsEligible
+        ? null
+        : await enrichAsin(meta.asin)
+    if (!creatorsEligible) await sleep(700)
+    if (!enriched?.title) {
       if (meta.title && isBambooRelated(meta.title, [])) {
-        const p = productFromListCard(meta, meta, weekOf, expiresAt)
-        if (p && !usedAsins.has(meta.asin)) {
-          products.push(p)
+        const product = productFromListCard(meta, meta, weekOf, expiresAt)
+        if (product && !usedAsins.has(meta.asin)) {
+          products.push(product)
           usedAsins.add(meta.asin)
           console.log(`list-fallback ${meta.title.slice(0, 45)}`)
           continue
@@ -587,6 +628,7 @@ async function main() {
       console.log('skip')
       continue
     }
+
     const materialBamboo = /bamboo/i.test(enriched.material || '')
     const keep =
       isBambooRelated(enriched.title, enriched.features) ||
