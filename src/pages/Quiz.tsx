@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -32,12 +32,23 @@ export function Quiz() {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
+  /** Prevent double-taps while the selection flash auto-advances */
+  const [advancing, setAdvancing] = useState(false)
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current)
+    }
+  }, [])
 
   function retake() {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current)
     setPhase('intro')
     setStep(0)
     setAnswers({})
     setSelected(null)
+    setAdvancing(false)
     setFirstName('')
     setEmail('')
     setOptIn(true)
@@ -50,7 +61,7 @@ export function Quiz() {
   const q = QUIZ_QUESTIONS[step]
   const progress =
     phase === 'questions'
-      ? ((step + (selected ? 0.5 : 0)) / QUIZ_QUESTIONS.length) * 100
+      ? ((step + (selected ? 0.55 : 0)) / QUIZ_QUESTIONS.length) * 100
       : phase === 'capture'
         ? 92
         : phase === 'result'
@@ -70,18 +81,35 @@ export function Quiz() {
   }, [scored])
 
   function pickOption(optionId: string) {
+    if (!q || advancing) return
     setSelected(optionId)
+    setAdvancing(true)
+    if (advanceTimer.current) clearTimeout(advanceTimer.current)
+    // Brief highlight so the selection registers, then auto-advance
+    advanceTimer.current = setTimeout(() => {
+      const nextAnswers = { ...answers, [q.id]: optionId }
+      setAnswers(nextAnswers)
+      setSelected(null)
+      setAdvancing(false)
+      if (step + 1 < QUIZ_QUESTIONS.length) {
+        setStep((s) => s + 1)
+      } else {
+        setPhase('capture')
+      }
+    }, 340)
   }
 
-  function advanceFromQuestion() {
-    if (!q || !selected) return
-    const nextAnswers = { ...answers, [q.id]: selected }
-    setAnswers(nextAnswers)
+  function goBackQuestion() {
+    if (advancing) return
+    if (advanceTimer.current) clearTimeout(advanceTimer.current)
     setSelected(null)
-    if (step + 1 < QUIZ_QUESTIONS.length) {
-      setStep((s) => s + 1)
+    setAdvancing(false)
+    if (step === 0) {
+      setPhase('intro')
     } else {
-      setPhase('capture')
+      setStep((s) => s - 1)
+      const prev = QUIZ_QUESTIONS[step - 1]
+      setSelected(answers[prev.id] || null)
     }
   }
 
@@ -169,18 +197,9 @@ export function Quiz() {
           <QuestionStep
             question={q}
             selected={selected}
+            advancing={advancing}
             onSelect={pickOption}
-            onNext={advanceFromQuestion}
-            onBack={() => {
-              if (step === 0) {
-                setPhase('intro')
-                setSelected(null)
-              } else {
-                setStep((s) => s - 1)
-                const prev = QUIZ_QUESTIONS[step - 1]
-                setSelected(answers[prev.id] || null)
-              }
-            }}
+            onBack={goBackQuestion}
           />
         )}
 
@@ -240,14 +259,14 @@ function Intro({ onStart }: { onStart: () => void }) {
 function QuestionStep({
   question,
   selected,
+  advancing,
   onSelect,
-  onNext,
   onBack,
 }: {
   question: (typeof QUIZ_QUESTIONS)[0]
   selected: string | null
+  advancing: boolean
   onSelect: (id: string) => void
-  onNext: () => void
   onBack: () => void
 }) {
   return (
@@ -266,12 +285,13 @@ function QuestionStep({
             <button
               key={opt.id}
               type="button"
+              disabled={advancing}
               onClick={() => onSelect(opt.id)}
               className={`text-left rounded-2xl border p-4 sm:p-5 transition duration-200 ${
                 active
                   ? 'border-bamboo bg-bamboo/10 shadow-[0_12px_30px_-16px_rgba(63,107,53,0.45)] scale-[1.02]'
                   : 'border-line bg-card hover:border-bamboo/40 hover:bg-paper-2'
-              }`}
+              } ${advancing && !active ? 'opacity-50' : ''} ${advancing ? 'pointer-events-none' : ''}`}
             >
               <div className="flex items-start gap-3">
                 <span className="text-3xl leading-none" aria-hidden>
@@ -300,18 +320,14 @@ function QuestionStep({
         <button
           type="button"
           onClick={onBack}
-          className="text-sm font-semibold text-ink-soft hover:text-bamboo"
+          disabled={advancing}
+          className="text-sm font-semibold text-ink-soft hover:text-bamboo disabled:opacity-40"
         >
           Back
         </button>
-        <button
-          type="button"
-          disabled={!selected}
-          onClick={onNext}
-          className="btn-primary disabled:opacity-40 disabled:pointer-events-none"
-        >
-          Continue <ArrowRight className="size-4" />
-        </button>
+        <p className="text-xs text-muted font-medium">
+          {advancing ? 'Next…' : 'Tap a card to continue'}
+        </p>
       </div>
     </div>
   )
