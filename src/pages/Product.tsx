@@ -278,7 +278,7 @@ export function ProductPage() {
                 <tbody>
                   {product.specs.map((s, i) => (
                     <tr
-                      key={s.label}
+                      key={`${s.label}-${i}`}
                       className={i % 2 === 0 ? 'bg-paper/60' : 'bg-card'}
                     >
                       <th className="text-left font-semibold text-ink-soft px-5 py-3.5 w-[40%] border-b border-line/60">

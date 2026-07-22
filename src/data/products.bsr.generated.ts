@@ -39,10 +39,6 @@ export const bsrProducts: Product[] = [
         "value": "#1 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#1 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -85,10 +81,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#1 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#1 in Cutting Board Sets"
       },
       {
@@ -145,10 +137,6 @@ export const bsrProducts: Product[] = [
         "value": "#1 in Furniture"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#1 in Furniture"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -191,10 +179,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#2 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#2 in Cutting Board Sets"
       },
       {
@@ -251,10 +235,6 @@ export const bsrProducts: Product[] = [
         "value": "#2 in Furniture"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#2 in Furniture"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -297,10 +277,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#4 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#4 in Cutting Board Sets"
       },
       {
@@ -357,10 +333,6 @@ export const bsrProducts: Product[] = [
         "value": "#4 in Cooking Utensils"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#4 in Cooking Utensils"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -403,10 +375,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#5 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#5 in Cutting Board Sets"
       },
       {
@@ -466,10 +434,6 @@ export const bsrProducts: Product[] = [
         "value": "#7 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#7 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -512,10 +476,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#9 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#9 in Cutting Board Sets"
       },
       {
@@ -572,10 +532,6 @@ export const bsrProducts: Product[] = [
         "value": "#10 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#10 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -618,10 +574,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#11 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#11 in Cutting Boards"
       },
       {
@@ -678,10 +630,6 @@ export const bsrProducts: Product[] = [
         "value": "#12 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#12 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -724,10 +672,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#12 in Salad Utensils"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#12 in Salad Utensils"
       },
       {
@@ -784,10 +728,6 @@ export const bsrProducts: Product[] = [
         "value": "#13 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#13 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -830,10 +770,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#13 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#13 in Cutting Board Sets"
       },
       {
@@ -890,10 +826,6 @@ export const bsrProducts: Product[] = [
         "value": "#15 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#15 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -936,10 +868,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#17 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#17 in Cutting Board Sets"
       },
       {
@@ -996,10 +924,6 @@ export const bsrProducts: Product[] = [
         "value": "#19 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#19 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1042,10 +966,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#20 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#20 in Cutting Boards"
       },
       {
@@ -1102,10 +1022,6 @@ export const bsrProducts: Product[] = [
         "value": "#21 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#21 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1148,10 +1064,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#22 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#22 in Cutting Boards"
       },
       {
@@ -1208,10 +1120,6 @@ export const bsrProducts: Product[] = [
         "value": "#23 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#23 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1254,10 +1162,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#24 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#24 in Cutting Boards"
       },
       {
@@ -1314,10 +1218,6 @@ export const bsrProducts: Product[] = [
         "value": "#24 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#24 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1360,10 +1260,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#26 in Salad Utensils"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#26 in Salad Utensils"
       },
       {
@@ -1420,10 +1316,6 @@ export const bsrProducts: Product[] = [
         "value": "#27 in Cutting Board Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#27 in Cutting Board Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1466,10 +1358,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#30 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#30 in Cutting Boards"
       },
       {
@@ -1529,10 +1417,6 @@ export const bsrProducts: Product[] = [
         "value": "#51 in Cutting Boards, Mats & Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#51 in Cutting Boards, Mats & Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1575,10 +1459,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#58 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#58 in Cutting Board Sets"
       },
       {
@@ -1635,10 +1515,6 @@ export const bsrProducts: Product[] = [
         "value": "#58 in Cutting Boards, Mats & Sets"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#58 in Cutting Boards, Mats & Sets"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1681,10 +1557,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#58 in Furniture"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#58 in Furniture"
       },
       {
@@ -1741,10 +1613,6 @@ export const bsrProducts: Product[] = [
         "value": "#60 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#60 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1787,10 +1655,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#62 in Cutting Boards, Mats & Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#62 in Cutting Boards, Mats & Sets"
       },
       {
@@ -1847,10 +1711,6 @@ export const bsrProducts: Product[] = [
         "value": "#64 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#64 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1893,10 +1753,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#65 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#65 in Cutting Board Sets"
       },
       {
@@ -1953,10 +1809,6 @@ export const bsrProducts: Product[] = [
         "value": "#65 in Cooking Utensils"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#65 in Cooking Utensils"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -1999,10 +1851,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#66 in Bath Products"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#66 in Bath Products"
       },
       {
@@ -2059,10 +1907,6 @@ export const bsrProducts: Product[] = [
         "value": "#70 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#70 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -2105,10 +1949,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#74 in Kitchen Storage & Organization"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#74 in Kitchen Storage & Organization"
       },
       {
@@ -2165,10 +2005,6 @@ export const bsrProducts: Product[] = [
         "value": "#77 in Cutting Boards"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#77 in Cutting Boards"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -2211,10 +2047,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#78 in Cutting Boards"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#78 in Cutting Boards"
       },
       {
@@ -2271,10 +2103,6 @@ export const bsrProducts: Product[] = [
         "value": "#79 in Cooking Utensils"
       },
       {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#79 in Cooking Utensils"
-      },
-      {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
       }
@@ -2317,10 +2145,6 @@ export const bsrProducts: Product[] = [
     "specs": [
       {
         "label": "List position (this week)",
-        "value": "#80 in Cutting Board Sets"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
         "value": "#80 in Cutting Board Sets"
       },
       {

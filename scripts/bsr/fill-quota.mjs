@@ -240,6 +240,20 @@ function sanitizeSearchProduct(p) {
   return next
 }
 
+/** De-dupe specs by label (list-path BSR used to double-add rank rows). */
+function dedupeSpecs(p) {
+  if (!Array.isArray(p.specs)) return p
+  const seen = new Set()
+  const specs = []
+  for (const s of p.specs) {
+    const label = s?.label || ''
+    if (seen.has(label)) continue
+    seen.add(label)
+    specs.push(s)
+  }
+  return { ...p, specs }
+}
+
 /**
  * Prefer the snapshot the importer just wrote (src/data/bsr-snapshot.json),
  * then the newest raw snapshot by filename timestamp — never "largest wins"
@@ -284,6 +298,7 @@ const snap = loadBestSnapshot()
 const products = structuredClone(snap.products)
   .filter((p) => p.source !== 'curated' || p.asin)
   .map((p) => sanitizeSearchProduct(p))
+  .map((p) => dedupeSpecs(p))
   .map((p) => ({
     ...p,
     images: normalizeProductImages(p.images),

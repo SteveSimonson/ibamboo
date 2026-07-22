@@ -477,15 +477,8 @@ function productFromListCard(card, meta, weekOf, expiresAt) {
             'Limited-time placement on iBamboo this week',
             'Buy on Amazon — price and stock set by Amazon',
           ],
-      specs: isBsr
-        ? [
-            {
-              label: 'Amazon Best Sellers Rank',
-              value: `#${meta.rank} in ${meta.bsrLabel}`,
-            },
-            { label: 'Material', value: 'Bamboo (confirm on Amazon listing)' },
-          ]
-        : [{ label: 'Material', value: 'Bamboo (confirm on Amazon listing)' }],
+      // Rank rows are owned by toProduct — only pass material here to avoid duplicate specs
+      specs: [{ label: 'Material', value: 'Bamboo (confirm on Amazon listing)' }],
       material: 'Bamboo (confirm on Amazon listing)',
       // Only real BSR ranks belong in bsrLines (search ranks are list-local)
       bsrLines: isBsr ? [{ rank: meta.rank, category: meta.bsrLabel }] : [],
@@ -560,23 +553,32 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
         ? `#${meta.rank} on Amazon Best Sellers · Limited-time listing`
         : 'This week’s Amazon bamboo picks · Limited-time options'
 
-  const specs = [...(enriched.specs || [])].filter(
-    (s) =>
-      // Drop Best Seller rank specs when this is not a BSR-sourced item
-      meta.source === 'bsr' ||
-      !/best sellers rank|list position/i.test(s.label || ''),
-  )
-  if (meta.source === 'bsr' && leafBsr) {
-    specs.unshift({
-      label: 'Amazon Best Sellers Rank',
-      value: `#${leafBsr.rank} in ${leafBsr.category}`,
-    })
+  // De-dupe by label; drop rank rows for non-BSR; toProduct is the single owner of rank specs
+  const specs = []
+  const seenSpecLabels = new Set()
+  for (const s of enriched.specs || []) {
+    if (!s?.label || seenSpecLabels.has(s.label)) continue
+    if (
+      meta.source !== 'bsr' &&
+      /best sellers rank|list position/i.test(s.label)
+    ) {
+      continue
+    }
+    if (/best sellers rank|list position/i.test(s.label)) continue // re-add below once
+    seenSpecLabels.add(s.label)
+    specs.push(s)
   }
   if (meta.source === 'bsr') {
     specs.unshift({
       label: 'List position (this week)',
       value: `#${meta.rank} in ${meta.bsrLabel}`,
     })
+    if (leafBsr && leafBsr.category !== meta.bsrLabel) {
+      specs.unshift({
+        label: 'Amazon Best Sellers Rank',
+        value: `#${leafBsr.rank} in ${leafBsr.category}`,
+      })
+    }
   }
 
   const family = materialFamily(enriched.title, enriched.material)
@@ -722,14 +724,27 @@ async function main() {
     await sleep(500)
   }
 
-  // Prefer best rank per ASIN (merge images from all sightings)
+  // Prefer BSR over search for the same ASIN; within a source keep best (lowest) rank.
+  // Merge list images/titles from other sightings so we do not lose search thumbs.
   const best = new Map()
   for (const c of candidates) {
     const prev = best.get(c.asin)
-    if (!prev || c.rank < prev.rank) {
+    if (!prev) {
+      best.set(c.asin, { ...c, images: [...(c.images || [])] })
+      continue
+    }
+    const preferNew =
+      (c.source === 'bsr' && prev.source !== 'bsr') ||
+      (c.source === prev.source && c.rank < prev.rank)
+    if (preferNew) {
+      const images = [...(c.images || [])]
+      for (const img of prev.images || []) {
+        if (!images.includes(img)) images.push(img)
+      }
       best.set(c.asin, {
         ...c,
-        images: [...(c.images || [])],
+        images,
+        title: c.title || prev.title,
       })
     } else if (c.images?.length) {
       for (const img of c.images) {
