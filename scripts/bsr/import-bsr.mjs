@@ -442,10 +442,16 @@ async function pullBsrCategory(cat) {
 
 /** Build product from list-page data when detail enrich fails. */
 function productFromListCard(card, meta, weekOf, expiresAt) {
-  const title = card.title || meta.title || `Amazon Best Seller ${card.asin || meta.asin}`
+  const title =
+    card.title ||
+    meta.title ||
+    (meta.source === 'bsr'
+      ? `Amazon Best Seller ${card.asin || meta.asin}`
+      : `Bamboo pick ${card.asin || meta.asin}`)
   if (!isBambooRelated(title, [])) return null
   const asin = card.asin || meta.asin
   const listImages = card.images || meta.images || []
+  const isBsr = meta.source === 'bsr'
   return toProduct(
     {
       asin,
@@ -460,20 +466,29 @@ function productFromListCard(card, meta, weekOf, expiresAt) {
       rating: card.rating ?? meta.rating,
       reviewCount: card.reviewCount ?? meta.reviewCount,
       brand: undefined,
-      features: [
-        `Amazon Best Sellers · #${meta.rank} in ${meta.bsrLabel}`,
-        'Limited-time placement on iBamboo this week',
-        'Buy on Amazon — price and stock set by Amazon',
-      ],
-      specs: [
-        {
-          label: 'Amazon Best Sellers Rank',
-          value: `#${meta.rank} in ${meta.bsrLabel}`,
-        },
-        { label: 'Material', value: 'Bamboo (confirm on Amazon listing)' },
-      ],
+      features: isBsr
+        ? [
+            `Amazon Best Sellers · #${meta.rank} in ${meta.bsrLabel}`,
+            'Limited-time placement on iBamboo this week',
+            'Buy on Amazon — price and stock set by Amazon',
+          ]
+        : [
+            `Amazon bamboo search · ${meta.bsrLabel || meta.ibambooCategory}`,
+            'Limited-time placement on iBamboo this week',
+            'Buy on Amazon — price and stock set by Amazon',
+          ],
+      specs: isBsr
+        ? [
+            {
+              label: 'Amazon Best Sellers Rank',
+              value: `#${meta.rank} in ${meta.bsrLabel}`,
+            },
+            { label: 'Material', value: 'Bamboo (confirm on Amazon listing)' },
+          ]
+        : [{ label: 'Material', value: 'Bamboo (confirm on Amazon listing)' }],
       material: 'Bamboo (confirm on Amazon listing)',
-      bsrLines: [{ rank: meta.rank, category: meta.bsrLabel }],
+      // Only real BSR ranks belong in bsrLines (search ranks are list-local)
+      bsrLines: isBsr ? [{ rank: meta.rank, category: meta.bsrLabel }] : [],
       productUrl: `https://www.amazon.com/dp/${asin}?tag=${TAG}`,
     },
     meta,
@@ -538,14 +553,20 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
         ? 'Amazon BSR'
         : 'Limited drop'
 
-  const tagline = leafBsr
-    ? `#${leafBsr.rank} in ${leafBsr.category} · This week's list`
-    : meta.source === 'bsr'
-      ? `#${meta.rank} on Amazon Best Sellers · Limited-time listing`
-      : 'This week’s Amazon bamboo picks · Limited-time options'
+  const tagline =
+    meta.source === 'bsr' && leafBsr
+      ? `#${leafBsr.rank} in ${leafBsr.category} · This week's list`
+      : meta.source === 'bsr'
+        ? `#${meta.rank} on Amazon Best Sellers · Limited-time listing`
+        : 'This week’s Amazon bamboo picks · Limited-time options'
 
-  const specs = [...(enriched.specs || [])]
-  if (leafBsr) {
+  const specs = [...(enriched.specs || [])].filter(
+    (s) =>
+      // Drop Best Seller rank specs when this is not a BSR-sourced item
+      meta.source === 'bsr' ||
+      !/best sellers rank|list position/i.test(s.label || ''),
+  )
+  if (meta.source === 'bsr' && leafBsr) {
     specs.unshift({
       label: 'Amazon Best Sellers Rank',
       value: `#${leafBsr.rank} in ${leafBsr.category}`,
@@ -575,7 +596,10 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
     slug: slugify(`${name}-${enriched.asin.slice(-6)}`),
     name: name || enriched.title.slice(0, 80),
     tagline,
-    description: `${name} — selected from Amazon Best Sellers for iBamboo’s weekly house edit. ${tagline}. Options rotate and are only available for a limited time; complete your purchase on Amazon.`,
+    description:
+      meta.source === 'bsr'
+        ? `${name} — selected from Amazon Best Sellers for iBamboo’s weekly house edit. ${tagline}. Options rotate and are only available for a limited time; complete your purchase on Amazon.`
+        : `${name} — selected from Amazon bamboo search for iBamboo’s weekly house edit. ${tagline}. Options rotate and are only available for a limited time; complete your purchase on Amazon.`,
     category: meta.ibambooCategory,
     collection: meta.collection,
     brand: enriched.brand || undefined,
@@ -583,11 +607,17 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
     features:
       enriched.features?.length > 0
         ? enriched.features
-        : [
-            'Listed on Amazon Best Sellers / popular bamboo search',
-            'Ships via Amazon',
-            'Limited-time placement on iBamboo',
-          ],
+        : meta.source === 'bsr'
+          ? [
+              'Listed on Amazon Best Sellers',
+              'Ships via Amazon',
+              'Limited-time placement on iBamboo',
+            ]
+          : [
+              'Found via Amazon bamboo search',
+              'Ships via Amazon',
+              'Limited-time placement on iBamboo',
+            ],
     specs,
     priceHint:
       enriched.price != null && !Number.isNaN(enriched.price)
@@ -612,13 +642,20 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
       ? { reviewCount: enriched.reviewCount }
       : {}),
     hue: (hueBase[meta.ibambooCategory] || 80) + (meta.rank % 40),
-    // Limited-time / BSR merchandising
+    // Limited-time merchandising — only real BSR ranks go on cards/PDP
     limitedTime: true,
     weekOf,
     expiresAt,
-    bsrRank: meta.rank,
-    bsrCategory: meta.bsrLabel,
-    bsrCategoryId: meta.bsrId,
+    ...(meta.source === 'bsr'
+      ? {
+          bsrRank: meta.rank,
+          bsrCategory: meta.bsrLabel,
+          bsrCategoryId: meta.bsrId,
+        }
+      : {
+          bsrCategory: meta.bsrLabel,
+          bsrCategoryId: meta.bsrId,
+        }),
     materialFamily: family,
     source: meta.source === 'bsr' ? 'amazon-bsr' : 'amazon-search',
   }

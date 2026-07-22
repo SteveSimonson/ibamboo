@@ -164,6 +164,78 @@ function slugify(s) {
     .slice(0, 70)
 }
 
+/** Upgrade Amazon list thumbs and de-dupe by /images/I/{id} stem. */
+function upgradeAmazonImageUrl(url) {
+  if (!url || typeof url !== 'string') return null
+  let u = url.trim().replace(/&amp;/g, '&')
+  if (u.startsWith('/')) return u
+  if (/\/images\/G\//i.test(u) || /pixel|sprite|transparent/i.test(u)) return null
+  if (
+    !/media-amazon\.com\/images\//i.test(u) &&
+    !/ssl-images-amazon\.com\/images\//i.test(u)
+  ) {
+    return null
+  }
+  u = u.replace(/^http:\/\//i, 'https://')
+  u = u
+    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UL[^.]+\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UX\d+_.*?\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UY\d+_.*?\./i, '._AC_SL1000_.')
+    .replace(/\._SX\d+_\./i, '._SL1000_.')
+    .replace(/\._SY\d+_\./i, '._SL1000_.')
+    .replace(/\._US\d+_\./i, '._SL1000_.')
+    .replace(/\._SS\d+_\./i, '._SL1000_.')
+  if (/\/images\/P\/[A-Z0-9]{10}/i.test(u)) return null
+  return u
+}
+
+function normalizeProductImages(images) {
+  const out = []
+  const seenStems = new Set()
+  for (const raw of images || []) {
+    const u = upgradeAmazonImageUrl(raw) || (String(raw).startsWith('/') ? raw : null)
+    if (!u) continue
+    const m = String(u).match(/\/images\/I\/([^./]+)/i)
+    const stem = m ? m[1].toLowerCase() : null
+    if (stem) {
+      if (seenStems.has(stem)) continue
+      seenStems.add(stem)
+    } else if (out.includes(u)) {
+      continue
+    }
+    out.push(u)
+  }
+  return out
+}
+
+/** Soften misleading BSR wording on search-sourced products already in snapshot. */
+function sanitizeSearchProduct(p) {
+  if (p.source !== 'amazon-search') return p
+  const next = { ...p }
+  delete next.bsrRank
+  if (Array.isArray(next.features)) {
+    next.features = next.features.map((f) =>
+      String(f).replace(/Amazon Best Sellers · #\d+ in /i, 'Amazon bamboo search · '),
+    )
+  }
+  if (Array.isArray(next.specs)) {
+    next.specs = next.specs.filter(
+      (s) => !/best sellers rank|list position/i.test(s.label || ''),
+    )
+  }
+  if (next.description) {
+    next.description = String(next.description).replace(
+      /selected from Amazon Best Sellers/i,
+      'selected from Amazon bamboo search',
+    )
+  }
+  if (next.tagline && /Best Sellers/i.test(next.tagline)) {
+    next.tagline = "This week's Amazon bamboo picks · Limited-time options"
+  }
+  return next
+}
+
 /**
  * Prefer the snapshot the importer just wrote (src/data/bsr-snapshot.json),
  * then the newest raw snapshot by filename timestamp — never "largest wins"
@@ -205,13 +277,24 @@ function loadBestSnapshot() {
 
 const snap = loadBestSnapshot()
 // Strip prior house-edit pads so re-runs are idempotent (import:bsr chains fill-quota)
-const products = structuredClone(snap.products).filter((p) => p.source !== 'curated' || p.asin)
+const products = structuredClone(snap.products)
+  .filter((p) => p.source !== 'curated' || p.asin)
+  .map((p) => sanitizeSearchProduct(p))
+  .map((p) => ({
+    ...p,
+    images: normalizeProductImages(p.images),
+  }))
 const weekOf = snap.weekOf
 const expiresAt = snap.expiresAt
 const fetchedAt = snap.fetchedAt || new Date().toISOString()
 const usedSlug = new Set(products.map((p) => p.slug))
 
-console.log(`Loaded ${products.length} Amazon-sourced products (prior house-edit pads removed)`)
+const multiUlLeft = products.filter(
+  (p) => (p.images || []).filter((u) => /_AC_UL/i.test(u)).length > 1,
+).length
+console.log(
+  `Loaded ${products.length} Amazon-sourced products (prior house-edit pads removed; multi-UL leftovers: ${multiUlLeft})`,
+)
 
 for (const cat of Object.keys(fillers)) {
   let n = products.filter((p) => p.category === cat).length
@@ -248,9 +331,7 @@ for (const cat of Object.keys(fillers)) {
       limitedTime: true,
       weekOf,
       expiresAt,
-      bsrRank: 200 + n,
-      bsrCategory: 'iBamboo house edit',
-      bsrCategoryId: 'house-fill',
+      // No synthetic BSR rank — PDP must not claim Best Sellers placement
       materialFamily:
         cat === 'bath' && /sheet|towel|wash/i.test(name)
           ? 'bamboo-fiber'

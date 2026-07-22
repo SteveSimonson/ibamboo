@@ -2361,24 +2361,16 @@ export const bsrProducts: Product[] = [
     "slug": "wooden-laptop-stand-vertical-laptop-for-13-18-6in-bamboo-stand-for-desk-laptop-s",
     "name": "Wooden Laptop Stand Vertical Laptop for 13-18.6in Bamboo Stand for Desk,Laptop Stand Compa",
     "tagline": "#1 in Bamboo laptop stand · This week's list",
-    "description": "Wooden Laptop Stand Vertical Laptop for 13-18.6in Bamboo Stand for Desk,Laptop Stand Compa — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #1 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Wooden Laptop Stand Vertical Laptop for 13-18.6in Bamboo Stand for Desk,Laptop Stand Compa — selected from Amazon bamboo search for iBamboo’s weekly house edit. #1 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #1 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#1 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#1 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2399,7 +2391,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 1,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2410,24 +2401,16 @@ export const bsrProducts: Product[] = [
     "slug": "nuvograin-laptop-stand-wooden-vertical-laptop-stand-for-desk-bamboo-laptop-stand",
     "name": "Nuvograin Laptop Stand, Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Stand Compati",
     "tagline": "#2 in Bamboo laptop stand · This week's list",
-    "description": "Nuvograin Laptop Stand, Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Stand Compati — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #2 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Nuvograin Laptop Stand, Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Stand Compati — selected from Amazon bamboo search for iBamboo’s weekly house edit. #2 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #2 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#2 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#2 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2448,7 +2431,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 2,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2459,24 +2441,16 @@ export const bsrProducts: Product[] = [
     "slug": "wooden-vertical-laptop-stand-for-desk-bamboo-laptop-holder-compatible-with-macbo",
     "name": "Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Holder Compatible with MacBook Air Pr",
     "tagline": "#3 in Bamboo laptop stand · This week's list",
-    "description": "Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Holder Compatible with MacBook Air Pr — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #3 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Holder Compatible with MacBook Air Pr — selected from Amazon bamboo search for iBamboo’s weekly house edit. #3 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #3 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#3 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#3 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2497,7 +2471,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 3,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2508,24 +2481,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-laptop-stand-for-desk-ergonomic-space-saving-lightweight-stand-for-laptop",
     "name": "Bamboo Laptop Stand for Desk – Ergonomic, Space-Saving, Lightweight Stand for Laptops, iPa",
     "tagline": "#6 in Bamboo laptop stand · This week's list",
-    "description": "Bamboo Laptop Stand for Desk – Ergonomic, Space-Saving, Lightweight Stand for Laptops, iPa — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #6 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Laptop Stand for Desk – Ergonomic, Space-Saving, Lightweight Stand for Laptops, iPa — selected from Amazon bamboo search for iBamboo’s weekly house edit. #6 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #6 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#6 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#6 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2546,7 +2511,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 6,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2557,24 +2521,16 @@ export const bsrProducts: Product[] = [
     "slug": "wkwker-bamboo-laptop-desk-with-folding-legs-tilting-surface-workstation-table-ad",
     "name": "WKWKER Bamboo Laptop Desk with Folding Legs Tilting Surface Workstation Table Adjustable L",
     "tagline": "#8 in Bamboo laptop stand · This week's list",
-    "description": "WKWKER Bamboo Laptop Desk with Folding Legs Tilting Surface Workstation Table Adjustable L — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #8 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "WKWKER Bamboo Laptop Desk with Folding Legs Tilting Surface Workstation Table Adjustable L — selected from Amazon bamboo search for iBamboo’s weekly house edit. #8 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #8 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#8 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#8 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2595,7 +2551,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 8,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2606,24 +2561,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-wooden-laptop-stand-portable-wood-laptop-stand-for-desk-tablet-with-carry",
     "name": "Bamboo Wooden Laptop Stand, Portable Wood Laptop Stand for Desk Tablet with Carry Pouch, C",
     "tagline": "#9 in Bamboo laptop stand · This week's list",
-    "description": "Bamboo Wooden Laptop Stand, Portable Wood Laptop Stand for Desk Tablet with Carry Pouch, C — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #9 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Wooden Laptop Stand, Portable Wood Laptop Stand for Desk Tablet with Carry Pouch, C — selected from Amazon bamboo search for iBamboo’s weekly house edit. #9 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #9 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#9 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#9 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2644,7 +2591,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 9,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "solid-bamboo",
@@ -2655,24 +2601,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-monitor-stand-riser-4-adjustable-height-easy-assembly-laptop-stand-with-a",
     "name": "Bamboo Monitor Stand Riser, 4 Adjustable Height,Easy Assembly | Laptop Stand with Airflow",
     "tagline": "#10 in Bamboo laptop stand · This week's list",
-    "description": "Bamboo Monitor Stand Riser, 4 Adjustable Height,Easy Assembly | Laptop Stand with Airflow — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #10 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Monitor Stand Riser, 4 Adjustable Height,Easy Assembly | Laptop Stand with Airflow — selected from Amazon bamboo search for iBamboo’s weekly house edit. #10 in Bamboo laptop stand · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #10 in Bamboo laptop stand",
+      "Amazon bamboo search · Bamboo laptop stand",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#10 in Bamboo laptop stand"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#10 in Bamboo laptop stand"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -2693,7 +2631,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 10,
     "bsrCategory": "Bamboo laptop stand",
     "bsrCategoryId": "w2",
     "materialFamily": "bamboo",
@@ -2704,7 +2641,7 @@ export const bsrProducts: Product[] = [
     "slug": "riveira-bamboo-cooking-spoons-6-piece-wooden-cooking-utensils-set-with-wooden-sp",
     "name": "Riveira Bamboo Cooking Spoons 6-Piece – Wooden Cooking Utensils Set with Wooden Spoons for",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Riveira Bamboo Cooking Spoons 6-Piece – Wooden Cooking Utensils Set with Wooden Spoons for — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Riveira Bamboo Cooking Spoons 6-Piece – Wooden Cooking Utensils Set with Wooden Spoons for — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2733,7 +2670,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 50,
     "bsrCategory": "Kitchen",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2744,7 +2680,7 @@ export const bsrProducts: Product[] = [
     "slug": "best-non-toxic-wooden-spatula-for-cooking-utensils-teak-wood-wok-spatulas-for-ki",
     "name": "Best Non Toxic Wooden Spatula for Cooking Utensils Teak Wood Wok Spatulas for Kitchen Spoo",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Best Non Toxic Wooden Spatula for Cooking Utensils Teak Wood Wok Spatulas for Kitchen Spoo — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Best Non Toxic Wooden Spatula for Cooking Utensils Teak Wood Wok Spatulas for Kitchen Spoo — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2773,7 +2709,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 51,
     "bsrCategory": "Kitchen",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2784,7 +2719,7 @@ export const bsrProducts: Product[] = [
     "slug": "best-non-toxic-wooden-spatula-for-cooking-utensils-set-wood-spurtle-flat-spatula",
     "name": "Best Non Toxic Wooden Spatula for Cooking Utensils Set Wood Spurtle Flat Spatulas for Kitc",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Best Non Toxic Wooden Spatula for Cooking Utensils Set Wood Spurtle Flat Spatulas for Kitc — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Best Non Toxic Wooden Spatula for Cooking Utensils Set Wood Spurtle Flat Spatulas for Kitc — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2813,7 +2748,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 52,
     "bsrCategory": "Kitchen",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2824,7 +2758,7 @@ export const bsrProducts: Product[] = [
     "slug": "royal-craft-wood-wooden-cutting-boards-for-kitchen-meal-prep-and-serving-bamboo-",
     "name": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Non To",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Non To — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Non To — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2854,7 +2788,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 53,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2865,7 +2798,7 @@ export const bsrProducts: Product[] = [
     "slug": "royal-craft-wood-wooden-cutting-boards-for-kitchen-meal-prep-and-serving-bamboo-",
     "name": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Wood S",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Wood S — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep &amp; Serving - Bamboo Wood S — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2895,7 +2828,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 54,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "solid-bamboo",
@@ -2906,7 +2838,7 @@ export const bsrProducts: Product[] = [
     "slug": "5-pcs-scalloped-cutting-board-wood-bulk-15-7-x-11-inch-mini-charcuterie-boards-b",
     "name": "5 Pcs Scalloped Cutting Board Wood Bulk 15.7 x 11 inch Mini Charcuterie Boards Bulk Bamboo",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "5 Pcs Scalloped Cutting Board Wood Bulk 15.7 x 11 inch Mini Charcuterie Boards Bulk Bamboo — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "5 Pcs Scalloped Cutting Board Wood Bulk 15.7 x 11 inch Mini Charcuterie Boards Bulk Bamboo — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2935,7 +2867,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 55,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2946,7 +2877,7 @@ export const bsrProducts: Product[] = [
     "slug": "smirly-charcuterie-large-bamboo-cheese-board-set-for-serving-house-warming-gifts",
     "name": "SMIRLY Charcuterie Large Bamboo Cheese Board Set for Serving - House Warming Gifts for New",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "SMIRLY Charcuterie Large Bamboo Cheese Board Set for Serving - House Warming Gifts for New — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "SMIRLY Charcuterie Large Bamboo Cheese Board Set for Serving - House Warming Gifts for New — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -2975,7 +2906,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 56,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -2986,7 +2916,7 @@ export const bsrProducts: Product[] = [
     "slug": "smirly-charcuterie-boards-set-large-cheese-board-set-natural-bamboo-charcuterie-",
     "name": "SMIRLY Charcuterie Boards Set, Large Cheese Board Set, Natural Bamboo Charcuterie Tray Che",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "SMIRLY Charcuterie Boards Set, Large Cheese Board Set, Natural Bamboo Charcuterie Tray Che — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "SMIRLY Charcuterie Boards Set, Large Cheese Board Set, Natural Bamboo Charcuterie Tray Che — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3015,7 +2945,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 57,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3026,7 +2955,7 @@ export const bsrProducts: Product[] = [
     "slug": "smirly-charcuterie-board-set-large-bamboo-cheese-board-for-serving-house-warming",
     "name": "Smirly Charcuterie Board Set - Large Bamboo Cheese Board for Serving - House Warming Gifts",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Smirly Charcuterie Board Set - Large Bamboo Cheese Board for Serving - House Warming Gifts — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Smirly Charcuterie Board Set - Large Bamboo Cheese Board for Serving - House Warming Gifts — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3055,7 +2984,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 58,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3066,7 +2994,7 @@ export const bsrProducts: Product[] = [
     "slug": "smirly-charcuterie-boards-set-large-bamboo-cheese-board-set-house-warming-gifts-",
     "name": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3095,7 +3023,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 59,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3106,7 +3033,7 @@ export const bsrProducts: Product[] = [
     "slug": "smirly-charcuterie-boards-set-large-bamboo-cheese-board-set-house-warming-gifts-",
     "name": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "SMIRLY Charcuterie Boards Set - Large Bamboo Cheese Board Set - House Warming Gifts New Ho — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "cutting-boards",
     "collection": "Boards",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3135,7 +3062,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 60,
     "bsrCategory": "Boards",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3146,7 +3072,7 @@ export const bsrProducts: Product[] = [
     "slug": "eco-soul-6-inch-disposable-palm-leaf-bamboo-plates-50-pack-square-premium-natura",
     "name": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (50 Pack, Square) | Premium, Natural,",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (50 Pack, Square) | Premium, Natural, — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (50 Pack, Square) | Premium, Natural, — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3175,7 +3101,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 61,
     "bsrCategory": "Tabletop",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3186,7 +3111,7 @@ export const bsrProducts: Product[] = [
     "slug": "eco-soul-7and10-inch-disposable-palm-leaf-bamboo-bundle-plates-100-pack-premium-",
     "name": "ECO SOUL 7&amp;10 Inch Disposable Palm Leaf Bamboo Bundle Plates, (100 Pack) | Premium, Na",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "ECO SOUL 7&amp;10 Inch Disposable Palm Leaf Bamboo Bundle Plates, (100 Pack) | Premium, Na — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "ECO SOUL 7&amp;10 Inch Disposable Palm Leaf Bamboo Bundle Plates, (100 Pack) | Premium, Na — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3215,7 +3140,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 62,
     "bsrCategory": "Tabletop",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3226,7 +3150,7 @@ export const bsrProducts: Product[] = [
     "slug": "eco-soul-6-inch-disposable-palm-leaf-bamboo-plates-400-pack-square-premium-natur",
     "name": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (400 Pack, Square) | Premium, Natural,",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (400 Pack, Square) | Premium, Natural, — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "ECO SOUL 6 Inch Disposable Palm Leaf Bamboo Plates, (400 Pack, Square) | Premium, Natural, — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3255,7 +3179,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 63,
     "bsrCategory": "Tabletop",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3266,7 +3189,7 @@ export const bsrProducts: Product[] = [
     "slug": "vivago-bamboo-toothbrushes-10-pack-bpa-free-soft-bristles-toothbrushes-eco-72v3y",
     "name": "VIVAGO Bamboo Toothbrushes 10 Pack - BPA Free Soft Bristles Toothbrushes, Eco",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VIVAGO Bamboo Toothbrushes 10 Pack - BPA Free Soft Bristles Toothbrushes, Eco — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VIVAGO Bamboo Toothbrushes 10 Pack - BPA Free Soft Bristles Toothbrushes, Eco — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3295,7 +3218,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 64,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3306,7 +3228,7 @@ export const bsrProducts: Product[] = [
     "slug": "vivago-bamboo-toothbrushes-medium-bristles-10-pack-bpa-free-medium-bristles-toot",
     "name": "VIVAGO Bamboo Toothbrushes Medium Bristles 10 Pack - BPA Free Medium Bristles Toothbrushes",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VIVAGO Bamboo Toothbrushes Medium Bristles 10 Pack - BPA Free Medium Bristles Toothbrushes — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VIVAGO Bamboo Toothbrushes Medium Bristles 10 Pack - BPA Free Medium Bristles Toothbrushes — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3335,7 +3257,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 65,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3346,7 +3267,7 @@ export const bsrProducts: Product[] = [
     "slug": "vivago-bamboo-toothbrushes-10-pack-natural-toothbrushes-plant-based-soft-bristle",
     "name": "VIVAGO Bamboo Toothbrushes 10 Pack – Natural Toothbrushes, Plant-Based Soft Bristles",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VIVAGO Bamboo Toothbrushes 10 Pack – Natural Toothbrushes, Plant-Based Soft Bristles — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VIVAGO Bamboo Toothbrushes 10 Pack – Natural Toothbrushes, Plant-Based Soft Bristles — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3375,7 +3296,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 66,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3386,7 +3306,7 @@ export const bsrProducts: Product[] = [
     "slug": "navona-30-pcs-bamboo-toothbrushes-pack-bpa-free-medium-soft-bristles-toothbrushe",
     "name": "Navona 30 PCS Bamboo Toothbrushes Pack, BPA Free Medium Soft Bristles Toothbrushes for Adu",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Navona 30 PCS Bamboo Toothbrushes Pack, BPA Free Medium Soft Bristles Toothbrushes for Adu — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Navona 30 PCS Bamboo Toothbrushes Pack, BPA Free Medium Soft Bristles Toothbrushes for Adu — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3415,7 +3335,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 67,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3426,7 +3345,7 @@ export const bsrProducts: Product[] = [
     "slug": "genkent-bamboo-toothbrushes-12-pack-natural-toothbrushes-bpa-free-soft-bristles-",
     "name": "GENKENT Bamboo Toothbrushes 12 Pack Natural Toothbrushes BPA Free Soft Bristles Toothbrush",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "GENKENT Bamboo Toothbrushes 12 Pack Natural Toothbrushes BPA Free Soft Bristles Toothbrush — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "GENKENT Bamboo Toothbrushes 12 Pack Natural Toothbrushes BPA Free Soft Bristles Toothbrush — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3455,7 +3374,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 68,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3466,7 +3384,7 @@ export const bsrProducts: Product[] = [
     "slug": "amazerbath-soap-holder-soap-dish-bamboo-soap-dish-2-pack-wood-bar-soap-holder-fo",
     "name": "AmazerBath Soap Holder Soap Dish, Bamboo Soap Dish, 2 Pack Wood Bar Soap Holder for Shower",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "AmazerBath Soap Holder Soap Dish, Bamboo Soap Dish, 2 Pack Wood Bar Soap Holder for Shower — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "AmazerBath Soap Holder Soap Dish, Bamboo Soap Dish, 2 Pack Wood Bar Soap Holder for Shower — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3495,7 +3413,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 69,
     "bsrCategory": "Bath",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3506,7 +3423,7 @@ export const bsrProducts: Product[] = [
     "slug": "vaefae-6-pack-adjustable-bamboo-drawer-dividers-expandable-drawer-organizer-for-",
     "name": "VaeFae 6-Pack Adjustable Bamboo Drawer Dividers, Expandable Drawer Organizer for Kitchen U",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VaeFae 6-Pack Adjustable Bamboo Drawer Dividers, Expandable Drawer Organizer for Kitchen U — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VaeFae 6-Pack Adjustable Bamboo Drawer Dividers, Expandable Drawer Organizer for Kitchen U — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3536,7 +3453,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 70,
     "bsrCategory": "Organize",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3547,7 +3463,7 @@ export const bsrProducts: Product[] = [
     "slug": "vaefae-premium-bamboo-drawer-organizer-expandable-silverware-drawer-organizer-cu",
     "name": "VaeFae Premium Bamboo Drawer Organizer, Expandable Silverware Drawer Organizer, Cutlery Tr",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VaeFae Premium Bamboo Drawer Organizer, Expandable Silverware Drawer Organizer, Cutlery Tr — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VaeFae Premium Bamboo Drawer Organizer, Expandable Silverware Drawer Organizer, Cutlery Tr — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3577,7 +3493,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 71,
     "bsrCategory": "Organize",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3588,7 +3503,7 @@ export const bsrProducts: Product[] = [
     "slug": "vaefae-in-drawer-knife-block-bamboo-knife-drawer-organizer-insert-kitchen-knife-",
     "name": "VaeFae In-Drawer Knife Block,Bamboo Knife Drawer Organizer Insert, Kitchen Knife Drawer St",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VaeFae In-Drawer Knife Block,Bamboo Knife Drawer Organizer Insert, Kitchen Knife Drawer St — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VaeFae In-Drawer Knife Block,Bamboo Knife Drawer Organizer Insert, Kitchen Knife Drawer St — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3617,7 +3532,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 72,
     "bsrCategory": "Organize",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3628,7 +3542,7 @@ export const bsrProducts: Product[] = [
     "slug": "maplegrace-bamboo-drawer-organizer-set-individual-wood-storage-organizers-5-pcs-",
     "name": "MapleGrace Bamboo Drawer Organizer Set, Individual Wood Storage Organizers | 5 PCS Multi-U",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "MapleGrace Bamboo Drawer Organizer Set, Individual Wood Storage Organizers | 5 PCS Multi-U — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "MapleGrace Bamboo Drawer Organizer Set, Individual Wood Storage Organizers | 5 PCS Multi-U — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3657,7 +3571,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 73,
     "bsrCategory": "Organize",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3668,7 +3581,7 @@ export const bsrProducts: Product[] = [
     "slug": "pipishell-bamboo-expandable-silverware-drawer-organizer-adjustable-kitchen-utens",
     "name": "Pipishell Bamboo Expandable Silverware Drawer Organizer, Adjustable Kitchen Utensil Tray f",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Pipishell Bamboo Expandable Silverware Drawer Organizer, Adjustable Kitchen Utensil Tray f — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Pipishell Bamboo Expandable Silverware Drawer Organizer, Adjustable Kitchen Utensil Tray f — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3697,7 +3610,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 74,
     "bsrCategory": "Organize",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3708,7 +3620,7 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-dual-monitor-stand-riser-natural-2-tier-desk-monitor-riser-for-2-monitors",
     "name": "Bamboo Dual Monitor Stand Riser Natural, 2-Tier Desk Monitor Riser for 2 Monitors, Support",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Bamboo Dual Monitor Stand Riser Natural, 2-Tier Desk Monitor Riser for 2 Monitors, Support — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Dual Monitor Stand Riser Natural, 2-Tier Desk Monitor Riser for 2 Monitors, Support — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3738,7 +3650,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 75,
     "bsrCategory": "Workspace",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3749,7 +3660,7 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-monitor-stand-riser-with-drawer-ergonomic-computer-riser-for-desk-with-ca",
     "name": "Bamboo Monitor Stand Riser with Drawer, Ergonomic Computer Riser for Desk with Cable Manag",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Bamboo Monitor Stand Riser with Drawer, Ergonomic Computer Riser for Desk with Cable Manag — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Monitor Stand Riser with Drawer, Ergonomic Computer Riser for Desk with Cable Manag — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3779,7 +3690,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 76,
     "bsrCategory": "Workspace",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3790,7 +3700,7 @@ export const bsrProducts: Product[] = [
     "slug": "dual-monitor-stand-riser-with-drawer-for-desk-laptop-desk-shelf-with-adjustable-",
     "name": "Dual Monitor Stand Riser with Drawer for Desk Laptop Desk Shelf with Adjustable Length and",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Dual Monitor Stand Riser with Drawer for Desk Laptop Desk Shelf with Adjustable Length and — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Dual Monitor Stand Riser with Drawer for Desk Laptop Desk Shelf with Adjustable Length and — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3820,7 +3730,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 77,
     "bsrCategory": "Workspace",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3831,7 +3740,7 @@ export const bsrProducts: Product[] = [
     "slug": "flexispot-solid-bamboo-standing-desk-55-34-x-28-34-real-bamboo-desktop-with-natu",
     "name": "FLEXISPOT Solid Bamboo Standing Desk, 55&#34; x 28&#34; Real Bamboo Desktop with Natural G",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "FLEXISPOT Solid Bamboo Standing Desk, 55&#34; x 28&#34; Real Bamboo Desktop with Natural G — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "FLEXISPOT Solid Bamboo Standing Desk, 55&#34; x 28&#34; Real Bamboo Desktop with Natural G — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3860,7 +3769,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 78,
     "bsrCategory": "Workspace",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "solid-bamboo",
@@ -3871,7 +3779,7 @@ export const bsrProducts: Product[] = [
     "slug": "flexispot-e6-bamboo-3-stage-dual-motor-electric-standing-desk-55-x-28-sit-stand-",
     "name": "FlexiSpot E6 Bamboo 3-Stage Dual Motor Electric Standing Desk 55 x 28 Sit Stand Up Desk, H",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "FlexiSpot E6 Bamboo 3-Stage Dual Motor Electric Standing Desk 55 x 28 Sit Stand Up Desk, H — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "FlexiSpot E6 Bamboo 3-Stage Dual Motor Electric Standing Desk 55 x 28 Sit Stand Up Desk, H — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3900,7 +3808,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 79,
     "bsrCategory": "Workspace",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "solid-bamboo",
@@ -3911,7 +3818,7 @@ export const bsrProducts: Product[] = [
     "slug": "mumtop-bamboo-wind-chimes-deep-tone-wooden-wind-chime-outdoor-garden-decor-natur",
     "name": "MUMTOP Bamboo Wind Chimes, Deep Tone Wooden Wind Chime Outdoor Garden Decor | Natural wood",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "MUMTOP Bamboo Wind Chimes, Deep Tone Wooden Wind Chime Outdoor Garden Decor | Natural wood — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "MUMTOP Bamboo Wind Chimes, Deep Tone Wooden Wind Chime Outdoor Garden Decor | Natural wood — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3940,7 +3847,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 80,
     "bsrCategory": "Outdoor",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3951,7 +3857,7 @@ export const bsrProducts: Product[] = [
     "slug": "virekm-bamboo-wind-chimes-memorial-sympathy-wood-wind-chimes-wooden-windchimes-f",
     "name": "VIREKM Bamboo Wind Chimes, Memorial Sympathy Wood Wind Chimes Wooden Windchimes for Outdoo",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "VIREKM Bamboo Wind Chimes, Memorial Sympathy Wood Wind Chimes Wooden Windchimes for Outdoo — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "VIREKM Bamboo Wind Chimes, Memorial Sympathy Wood Wind Chimes Wooden Windchimes for Outdoo — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -3980,7 +3886,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 81,
     "bsrCategory": "Outdoor",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -3991,7 +3896,7 @@ export const bsrProducts: Product[] = [
     "slug": "suction-plates-bowls-set-for-baby-toddler-non-toxic-bamboo-feeding-set-with-sili",
     "name": "Suction Plates Bowls Set for Baby Toddler Non-Toxic Bamboo Feeding Set with Silicone Fork",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "Suction Plates Bowls Set for Baby Toddler Non-Toxic Bamboo Feeding Set with Silicone Fork — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Suction Plates Bowls Set for Baby Toddler Non-Toxic Bamboo Feeding Set with Silicone Fork — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -4020,7 +3925,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 82,
     "bsrCategory": "Little Ones",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -4031,7 +3935,7 @@ export const bsrProducts: Product[] = [
     "slug": "let-39-s-make-bamboo-suction-plates-bowls-set-for-baby-toddler-divided-platter-f",
     "name": "let&#39;s make Bamboo Suction Plates Bowls Set for Baby Toddler Divided Platter Food bowl",
     "tagline": "This week’s Amazon bamboo picks · Limited-time options",
-    "description": "let&#39;s make Bamboo Suction Plates Bowls Set for Baby Toddler Divided Platter Food bowl — selected from Amazon Best Sellers for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "let&#39;s make Bamboo Suction Plates Bowls Set for Baby Toddler Divided Platter Food bowl — selected from Amazon bamboo search for iBamboo’s weekly house edit. This week’s Amazon bamboo picks · Limited-time options. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
     "material": "Bamboo (confirm on Amazon listing)",
@@ -4060,7 +3964,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 83,
     "bsrCategory": "Little Ones",
     "bsrCategoryId": "prior-scrape",
     "materialFamily": "bamboo",
@@ -4071,24 +3974,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-bath-mat-foldable-wooden-bathmat-24-x-16-inches-accessories-for-bathroom-",
     "name": "Bamboo Bath Mat - Foldable Wooden Bathmat, 24 x 16 Inches | Accessories for Bathroom Sauna",
     "tagline": "#107 in Bamboo search · bath · This week's list",
-    "description": "Bamboo Bath Mat - Foldable Wooden Bathmat, 24 x 16 Inches | Accessories for Bathroom Sauna — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #107 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Bath Mat - Foldable Wooden Bathmat, 24 x 16 Inches | Accessories for Bathroom Sauna — selected from Amazon bamboo search for iBamboo’s weekly house edit. #107 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #107 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#107 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#107 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4099,10 +3994,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Bath Mat - Foldable Wooden Bathmat, 24 x 16 Inches | Accessories for Bathroom Sauna Spa Tub Step and Floor - 24 x 16 x 0.4 Inches [LxWxH] - Modern Farmhouse Decor Design",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4112,7 +4004,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 107,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4123,24 +4014,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-bath-mat-foldable-wood-bathmat-34-x-18-inches-modern-farmhouse-decor-and-",
     "name": "Bamboo Bath Mat - Foldable Wood Bathmat, 34 x 18 Inches | Modern Farmhouse Decor and Acces",
     "tagline": "#108 in Bamboo search · bath · This week's list",
-    "description": "Bamboo Bath Mat - Foldable Wood Bathmat, 34 x 18 Inches | Modern Farmhouse Decor and Acces — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #108 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Bath Mat - Foldable Wood Bathmat, 34 x 18 Inches | Modern Farmhouse Decor and Acces — selected from Amazon bamboo search for iBamboo’s weekly house edit. #108 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #108 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#108 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#108 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4151,10 +4034,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Bath Mat - Foldable Wood Bathmat, 34 x 18 Inches | Modern Farmhouse Decor and Accessory for Bathroom Sauna Spa Door Kitchen Floor and Countertop",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4164,7 +4044,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 108,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4175,24 +4054,16 @@ export const bsrProducts: Product[] = [
     "slug": "mind-reader-bath-mat-shower-mat-bathtub-mat-bathroom-accessory-wood-rayon-from-b",
     "name": "Mind Reader Bath Mat, Shower Mat, Bathtub Mat, Bathroom Accessory, Wood, Rayon from Bamboo",
     "tagline": "#109 in Bamboo search · bath · This week's list",
-    "description": "Mind Reader Bath Mat, Shower Mat, Bathtub Mat, Bathroom Accessory, Wood, Rayon from Bamboo — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #109 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Mind Reader Bath Mat, Shower Mat, Bathtub Mat, Bathroom Accessory, Wood, Rayon from Bamboo — selected from Amazon bamboo search for iBamboo’s weekly house edit. #109 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #109 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#109 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#109 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4203,10 +4074,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Mind Reader Bath Mat, Shower Mat, Bathtub Mat, Bathroom Accessory, Wood, Rayon from Bamboo, 23.5\"L x 16.5\"W x 0.4\"H, Brown",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4216,7 +4084,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 109,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo-fiber",
@@ -4227,24 +4094,16 @@ export const bsrProducts: Product[] = [
     "slug": "qtlcohd-2-pcs-bamboo-bath-mat-wood-shower-bathroom-mat-16-x-24-inch-non-slip-bat",
     "name": "QTLCOHD 2 Pcs Bamboo Bath Mat, Wood Shower Bathroom Mat, 16 x 24 Inch | Non Slip Bathtub M",
     "tagline": "#110 in Bamboo search · bath · This week's list",
-    "description": "QTLCOHD 2 Pcs Bamboo Bath Mat, Wood Shower Bathroom Mat, 16 x 24 Inch | Non Slip Bathtub M — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #110 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "QTLCOHD 2 Pcs Bamboo Bath Mat, Wood Shower Bathroom Mat, 16 x 24 Inch | Non Slip Bathtub M — selected from Amazon bamboo search for iBamboo’s weekly house edit. #110 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #110 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#110 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#110 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4255,10 +4114,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "QTLCOHD 2 Pcs Bamboo Bath Mat, Wood Shower Bathroom Mat, 16 x 24 Inch | Non Slip Bathtub Mat, Foldable Waterproof Non Slip Accessories for Floor, Sauna, Spa, Hot Tub",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4268,7 +4124,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 110,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4279,24 +4134,16 @@ export const bsrProducts: Product[] = [
     "slug": "cariloha-bamboo-viscose-bath-towels-plush-quick-dry-towel-turkish-cotton-bamboo-",
     "name": "Cariloha Bamboo Viscose Bath Towels – Plush, Quick Dry Towel – Turkish Cotton & Bamboo Vis",
     "tagline": "#111 in Bamboo search · bath · This week's list",
-    "description": "Cariloha Bamboo Viscose Bath Towels – Plush, Quick Dry Towel – Turkish Cotton & Bamboo Vis — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #111 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Cariloha Bamboo Viscose Bath Towels – Plush, Quick Dry Towel – Turkish Cotton & Bamboo Vis — selected from Amazon bamboo search for iBamboo’s weekly house edit. #111 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #111 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#111 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#111 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4307,10 +4154,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Cariloha Bamboo Viscose Bath Towels – Plush, Quick Dry Towel – Turkish Cotton & Bamboo Viscose Blend – Large Bathroom Towels 30x56 – Luxury Hotel Bath Towel – Odor Resistant – Laguna Blue",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4320,7 +4164,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 111,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo-fiber",
@@ -4331,24 +4174,16 @@ export const bsrProducts: Product[] = [
     "slug": "bathtub-tray-caddy-bath-tray-bath-tub-tray-caddy-bamboo-bath-table-tray-for-tub-",
     "name": "Bathtub Tray Caddy - Bath Tray - Bath Tub Tray Caddy - Bamboo Bath Table Tray for Tub",
     "tagline": "#112 in Bamboo search · bath · This week's list",
-    "description": "Bathtub Tray Caddy - Bath Tray - Bath Tub Tray Caddy - Bamboo Bath Table Tray for Tub — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #112 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bathtub Tray Caddy - Bath Tray - Bath Tub Tray Caddy - Bamboo Bath Table Tray for Tub — selected from Amazon bamboo search for iBamboo’s weekly house edit. #112 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #112 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#112 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#112 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4359,10 +4194,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bathtub Tray Caddy - Bath Tray - Bath Tub Tray Caddy - Bamboo Bath Table Tray for Tub - Expandable Size, Fits Most Tubs",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4372,7 +4204,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 112,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4383,24 +4214,16 @@ export const bsrProducts: Product[] = [
     "slug": "sen-yi-bao-luxury-bamboo-bathtub-tray-wooden-expandable-caddy-with-book-tablet-w",
     "name": "Sen Yi Bao Luxury Bamboo Bathtub Tray - Wooden Expandable Caddy with Book, Tablet, Wine Ho",
     "tagline": "#113 in Bamboo search · bath · This week's list",
-    "description": "Sen Yi Bao Luxury Bamboo Bathtub Tray - Wooden Expandable Caddy with Book, Tablet, Wine Ho — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #113 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Sen Yi Bao Luxury Bamboo Bathtub Tray - Wooden Expandable Caddy with Book, Tablet, Wine Ho — selected from Amazon bamboo search for iBamboo’s weekly house edit. #113 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #113 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#113 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#113 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4411,10 +4234,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Sen Yi Bao Luxury Bamboo Bathtub Tray - Wooden Expandable Caddy with Book, Tablet, Wine Holder - Gift Idea",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4424,7 +4244,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 113,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4435,24 +4254,16 @@ export const bsrProducts: Product[] = [
     "slug": "bathtub-tray-caddy-bath-tray-bath-tub-table-tray-caddy-3mdgq2",
     "name": "Bathtub Tray Caddy - Bath Tray - Bath Tub Table Tray Caddy",
     "tagline": "#114 in Bamboo search · bath · This week's list",
-    "description": "Bathtub Tray Caddy - Bath Tray - Bath Tub Table Tray Caddy — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #114 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bathtub Tray Caddy - Bath Tray - Bath Tub Table Tray Caddy — selected from Amazon bamboo search for iBamboo’s weekly house edit. #114 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #114 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#114 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#114 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4463,10 +4274,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bathtub Tray Caddy - Bath Tray - Bath Tub Table Tray Caddy - Bamboo Bath Tray for Tub",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4476,7 +4284,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 114,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4487,24 +4294,16 @@ export const bsrProducts: Product[] = [
     "slug": "unibambou-bamboo-shower-bench-inside-shower-stool-with-storage-shelf-spa-bath-ch",
     "name": "Unibambou Bamboo Shower Bench Inside Shower Stool with Storage Shelf, Spa Bath Chair for B",
     "tagline": "#115 in Bamboo search · bath · This week's list",
-    "description": "Unibambou Bamboo Shower Bench Inside Shower Stool with Storage Shelf, Spa Bath Chair for B — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #115 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Unibambou Bamboo Shower Bench Inside Shower Stool with Storage Shelf, Spa Bath Chair for B — selected from Amazon bamboo search for iBamboo’s weekly house edit. #115 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #115 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#115 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#115 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4515,10 +4314,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Unibambou Bamboo Shower Bench Inside Shower Stool with Storage Shelf, Spa Bath Chair for Bathroom, Seat or Organizer for Living Room, Bedroom and Garden - Great for All Ages Elderly (Small, Natural)",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4528,7 +4324,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 115,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4539,24 +4334,16 @@ export const bsrProducts: Product[] = [
     "slug": "serenelife-bamboo-bath-and-shower-mat-non-slip-floor-mat-with-extra-grips-slatte",
     "name": "SereneLife Bamboo Bath and Shower Mat, Non-Slip Floor Mat with Extra Grips, Slatted Design",
     "tagline": "#116 in Bamboo search · bath · This week's list",
-    "description": "SereneLife Bamboo Bath and Shower Mat, Non-Slip Floor Mat with Extra Grips, Slatted Design — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #116 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "SereneLife Bamboo Bath and Shower Mat, Non-Slip Floor Mat with Extra Grips, Slatted Design — selected from Amazon bamboo search for iBamboo’s weekly house edit. #116 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #116 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#116 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#116 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4567,10 +4354,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "SereneLife Bamboo Bath and Shower Mat, Non-Slip Floor Mat with Extra Grips, Slatted Design, Natural Finish for Bathroom, Spa, Sauna - Rollable and Easy to Clean",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4580,7 +4364,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 116,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4591,24 +4374,16 @@ export const bsrProducts: Product[] = [
     "slug": "back-scrubber-for-shower-17in-bamboo-with-curved-long-handle-stiff-natural-boar-",
     "name": "Back Scrubber for Shower，17in Bamboo with Curved Long Handle - Stiff Natural Boar Bristles",
     "tagline": "#117 in Bamboo search · bath · This week's list",
-    "description": "Back Scrubber for Shower，17in Bamboo with Curved Long Handle - Stiff Natural Boar Bristles — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #117 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Back Scrubber for Shower，17in Bamboo with Curved Long Handle - Stiff Natural Boar Bristles — selected from Amazon bamboo search for iBamboo’s weekly house edit. #117 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #117 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#117 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#117 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4619,10 +4394,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Back Scrubber for Shower，17in Bamboo with Curved Long Handle - Stiff Natural Boar Bristles for Men and Women, Deep Cleansing and Exfoliating, Anti-Slip Grip for Wet or Dry Brushing",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4632,7 +4404,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 117,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4643,24 +4414,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-shower-bench-for-inside-shower-to-sit-on-waterproof-shower-stool-for-shav",
     "name": "Bamboo Shower Bench for Inside Shower to Sit on,Waterproof Shower Stool for Shaving Legs,S",
     "tagline": "#118 in Bamboo search · bath · This week's list",
-    "description": "Bamboo Shower Bench for Inside Shower to Sit on,Waterproof Shower Stool for Shaving Legs,S — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #118 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Shower Bench for Inside Shower to Sit on,Waterproof Shower Stool for Shaving Legs,S — selected from Amazon bamboo search for iBamboo’s weekly house edit. #118 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #118 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#118 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#118 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4671,10 +4434,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Shower Bench for Inside Shower to Sit on,Waterproof Shower Stool for Shaving Legs,Spa Bathroom Shower Chair with Storage Shelf, Bathroom Bench Seat-Natural Bamboo",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4684,7 +4444,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 118,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4695,24 +4454,16 @@ export const bsrProducts: Product[] = [
     "slug": "bamboo-corner-shower-stool-2-tier-waterproof-shower-stool-for-inside-shower-shav",
     "name": "Bamboo Corner Shower Stool,2-Tier Waterproof Shower Stool for Inside Shower Shaving Leg,Sm",
     "tagline": "#119 in Bamboo search · bath · This week's list",
-    "description": "Bamboo Corner Shower Stool,2-Tier Waterproof Shower Stool for Inside Shower Shaving Leg,Sm — selected from Amazon Best Sellers for iBamboo’s weekly house edit. #119 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
+    "description": "Bamboo Corner Shower Stool,2-Tier Waterproof Shower Stool for Inside Shower Shaving Leg,Sm — selected from Amazon bamboo search for iBamboo’s weekly house edit. #119 in Bamboo search · bath · This week's list. Options rotate and are only available for a limited time; complete your purchase on Amazon.",
     "category": "bath",
     "collection": "Bath",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
-      "Amazon Best Sellers · #119 in Bamboo search · bath",
+      "Amazon bamboo search · Bamboo search · bath",
       "Limited-time placement on iBamboo this week",
       "Buy on Amazon — price and stock set by Amazon"
     ],
     "specs": [
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#119 in Bamboo search · bath"
-      },
-      {
-        "label": "Amazon Best Sellers Rank",
-        "value": "#119 in Bamboo search · bath"
-      },
       {
         "label": "Material",
         "value": "Bamboo (confirm on Amazon listing)"
@@ -4723,10 +4474,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Corner Shower Stool,2-Tier Waterproof Shower Stool for Inside Shower Shaving Leg,Small Spaces,Shower Foot Rest with Storage Shelf,Shower Bench,Bath Seat,Corner Nightstand gift for women mom",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_UL320_.jpg",
-      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_UL480_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_UL640_QL65_.jpg",
-      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_UL800_QL65_.jpg",
+      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_SL1000_.jpg",
       "/brand/landing-forest.png",
       "/brand/products-flatlay.png"
     ],
@@ -4736,7 +4484,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 119,
     "bsrCategory": "Bamboo search · bath",
     "bsrCategoryId": "quota-bath",
     "materialFamily": "bamboo",
@@ -4777,9 +4524,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 208,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -4818,9 +4562,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 209,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -4859,9 +4600,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 210,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -4900,9 +4638,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 211,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -4941,9 +4676,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -4982,9 +4714,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5023,9 +4752,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5064,9 +4790,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5105,9 +4828,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5146,9 +4866,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5187,9 +4904,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5228,9 +4942,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5269,9 +4980,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 203,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5310,9 +5018,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 204,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5351,9 +5056,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 205,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5392,9 +5094,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 206,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5433,9 +5132,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 207,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5474,9 +5170,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 208,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5515,9 +5208,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 209,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5556,9 +5246,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 210,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5597,9 +5284,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 211,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5638,9 +5322,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5679,9 +5360,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5720,9 +5398,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5761,9 +5436,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5802,9 +5474,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5843,9 +5512,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5884,9 +5550,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5925,9 +5588,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -5966,9 +5626,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 209,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6007,9 +5664,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 210,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6048,9 +5702,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 211,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6089,9 +5740,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6130,9 +5778,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6171,9 +5816,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6212,9 +5854,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6253,9 +5892,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6294,9 +5930,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6335,9 +5968,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6376,9 +6006,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6417,9 +6044,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6458,9 +6082,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6499,9 +6120,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6540,9 +6158,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6581,9 +6196,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6622,9 +6234,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6663,9 +6272,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6704,9 +6310,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6745,9 +6348,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 202,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6786,9 +6386,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 203,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6827,9 +6424,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 204,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6868,9 +6462,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 205,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6909,9 +6500,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 206,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6950,9 +6538,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 207,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -6991,9 +6576,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 208,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7032,9 +6614,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 209,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7073,9 +6652,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 210,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7114,9 +6690,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 211,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7155,9 +6728,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7196,9 +6766,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7237,9 +6804,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7278,9 +6842,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7319,9 +6880,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7360,9 +6918,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7401,9 +6956,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7442,9 +6994,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7483,9 +7032,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 202,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7524,9 +7070,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 203,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7565,9 +7108,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 204,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7606,9 +7146,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 205,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7647,9 +7184,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 206,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7688,9 +7222,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 207,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7729,9 +7260,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 208,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7770,9 +7298,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 209,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7811,9 +7336,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 210,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7852,9 +7374,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 211,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7893,9 +7412,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 212,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7934,9 +7450,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 213,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -7975,9 +7488,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 214,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -8016,9 +7526,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 215,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -8057,9 +7564,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 216,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -8098,9 +7602,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 217,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -8139,9 +7640,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 218,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   },
@@ -8180,9 +7678,6 @@ export const bsrProducts: Product[] = [
     "limitedTime": true,
     "weekOf": "2026-07-20",
     "expiresAt": "2026-07-27T14:00:00.000Z",
-    "bsrRank": 219,
-    "bsrCategory": "iBamboo house edit",
-    "bsrCategoryId": "house-fill",
     "materialFamily": "bamboo",
     "source": "curated"
   }
