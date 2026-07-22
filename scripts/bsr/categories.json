@@ -1,6 +1,7 @@
 {
-  "description": "Amazon Best Sellers browse nodes for home-adjacent bamboo merchandising. Top 100 = pages 1–2.",
+  "description": "Amazon BSR nodes + bamboo keyword searches. Target: ≥20 bamboo products per iBamboo category (search fills gaps when BSR Top 100 is sparse).",
   "refreshCadence": "weekly",
+  "perCategoryQuota": 20,
   "associateTagEnv": "VITE_AMAZON_ASSOCIATE_TAG",
   "categories": [
     {
@@ -74,17 +75,6 @@
       "enabled": true
     },
     {
-      "id": "kitchen-dining",
-      "label": "Kitchen & Dining (department)",
-      "department": "kitchen",
-      "node": "",
-      "ibambooCategory": "kitchen",
-      "collection": "Kitchen",
-      "bambooBias": "low",
-      "enabled": false,
-      "note": "Department-level list is too broad; use leaf nodes."
-    },
-    {
       "id": "bath-products",
       "label": "Bath Products",
       "department": "home-garden",
@@ -123,90 +113,59 @@
       "collection": "Home",
       "bambooBias": "low",
       "enabled": true
-    },
-    {
-      "id": "home-storage",
-      "label": "Home Storage (via patio redirect fallback)",
-      "department": "lawn-garden",
-      "node": "3610841",
-      "ibambooCategory": "organization",
-      "collection": "Organize",
-      "bambooBias": "low",
-      "enabled": false
     }
   ],
   "supplementalSearches": [
-    {
-      "id": "search-bamboo-sheets",
-      "label": "Bamboo Sheets (search)",
-      "query": "bamboo sheets queen",
-      "ibambooCategory": "bath",
-      "collection": "Bedding",
-      "limit": 30,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-towels",
-      "label": "Bamboo Towels (search)",
-      "query": "bamboo bath towels",
-      "ibambooCategory": "bath",
-      "collection": "Bath",
-      "limit": 20,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-toothbrush",
-      "label": "Bamboo Toothbrush (search)",
-      "query": "bamboo toothbrush",
-      "ibambooCategory": "bath",
-      "collection": "Bath",
-      "limit": 20,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-monitor",
-      "label": "Bamboo Monitor Stand (search)",
-      "query": "bamboo monitor stand",
-      "ibambooCategory": "desk",
-      "collection": "Workspace",
-      "limit": 20,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-drawer",
-      "label": "Bamboo Drawer Organizer (search)",
-      "query": "bamboo drawer organizer",
-      "ibambooCategory": "organization",
-      "collection": "Organize",
-      "limit": 20,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-utensils",
-      "label": "Bamboo Kitchen Utensils (search)",
-      "query": "bamboo kitchen utensils set",
-      "ibambooCategory": "kitchen",
-      "collection": "Kitchen",
-      "limit": 25,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-chimes",
-      "label": "Bamboo Wind Chimes (search)",
-      "query": "bamboo wind chime",
-      "ibambooCategory": "outdoor",
-      "collection": "Outdoor",
-      "limit": 15,
-      "enabled": true
-    },
-    {
-      "id": "search-bamboo-baby",
-      "label": "Bamboo Baby Plates (search)",
-      "query": "bamboo baby plate suction",
-      "ibambooCategory": "baby",
-      "collection": "Little Ones",
-      "limit": 15,
-      "enabled": true
-    }
-  ]
+    { "id": "k1", "label": "Bamboo utensils set", "query": "bamboo kitchen utensils set", "ibambooCategory": "kitchen", "collection": "Kitchen", "limit": 40, "enabled": true },
+    { "id": "k2", "label": "Bamboo cooking spoons", "query": "bamboo cooking spoons spatula", "ibambooCategory": "kitchen", "collection": "Kitchen", "limit": 30, "enabled": true },
+    { "id": "k3", "label": "Bamboo chopsticks tongs", "query": "bamboo chopsticks tongs ladle", "ibambooCategory": "kitchen", "collection": "Kitchen", "limit": 25, "enabled": true },
+    { "id": "k4", "label": "100% bamboo utensils", "query": "100% bamboo wooden utensils kitchen", "ibambooCategory": "kitchen", "collection": "Kitchen", "limit": 25, "enabled": true },
+
+    { "id": "b1", "label": "Bamboo cutting board", "query": "bamboo cutting board", "ibambooCategory": "cutting-boards", "collection": "Boards", "limit": 40, "enabled": true },
+    { "id": "b2", "label": "Bamboo cutting board set", "query": "bamboo cutting board set of 3", "ibambooCategory": "cutting-boards", "collection": "Boards", "limit": 30, "enabled": true },
+    { "id": "b3", "label": "Bamboo cheese board", "query": "bamboo cheese board charcuterie", "ibambooCategory": "cutting-boards", "collection": "Entertaining", "limit": 25, "enabled": true },
+    { "id": "b4", "label": "Bamboo serving tray", "query": "bamboo serving tray with handles", "ibambooCategory": "cutting-boards", "collection": "Entertaining", "limit": 25, "enabled": true },
+
+    { "id": "d1", "label": "Bamboo dinnerware", "query": "bamboo dinnerware plates bowls set", "ibambooCategory": "dining", "collection": "Tabletop", "limit": 35, "enabled": true },
+    { "id": "d2", "label": "Bamboo plates", "query": "bamboo plates set of 4", "ibambooCategory": "dining", "collection": "Tabletop", "limit": 30, "enabled": true },
+    { "id": "d3", "label": "Bamboo bowls cups", "query": "bamboo bowls cups coasters placemats", "ibambooCategory": "dining", "collection": "Tabletop", "limit": 30, "enabled": true },
+    { "id": "d4", "label": "Bamboo salad bowl", "query": "bamboo salad bowl large serving", "ibambooCategory": "dining", "collection": "Tabletop", "limit": 25, "enabled": true },
+
+    { "id": "ba1", "label": "Bamboo toothbrush", "query": "bamboo toothbrush soft bristles pack", "ibambooCategory": "bath", "collection": "Bath", "limit": 35, "enabled": true },
+    { "id": "ba2", "label": "Bamboo soap dish", "query": "bamboo soap dish bathroom", "ibambooCategory": "bath", "collection": "Bath", "limit": 30, "enabled": true },
+    { "id": "ba3", "label": "Bamboo bath towels", "query": "bamboo bath towels set", "ibambooCategory": "bath", "collection": "Bath", "limit": 30, "enabled": true },
+    { "id": "ba4", "label": "Bamboo sheets", "query": "bamboo sheets queen set", "ibambooCategory": "bath", "collection": "Bedding", "limit": 30, "enabled": true },
+    { "id": "ba5", "label": "Bamboo cotton swabs tray", "query": "bamboo cotton swabs toothbrush holder tray", "ibambooCategory": "bath", "collection": "Bath", "limit": 25, "enabled": true },
+
+    { "id": "o1", "label": "Bamboo drawer organizer", "query": "bamboo drawer organizer kitchen", "ibambooCategory": "organization", "collection": "Organize", "limit": 35, "enabled": true },
+    { "id": "o2", "label": "Bamboo utensil organizer", "query": "bamboo utensil drawer organizer expandable", "ibambooCategory": "organization", "collection": "Organize", "limit": 30, "enabled": true },
+    { "id": "o3", "label": "Bamboo storage boxes", "query": "bamboo storage boxes with lids", "ibambooCategory": "organization", "collection": "Organize", "limit": 25, "enabled": true },
+    { "id": "o4", "label": "Bamboo spice rack shelf", "query": "bamboo spice rack shelf organizer", "ibambooCategory": "organization", "collection": "Organize", "limit": 25, "enabled": true },
+
+    { "id": "w1", "label": "Bamboo monitor stand", "query": "bamboo monitor stand riser", "ibambooCategory": "desk", "collection": "Workspace", "limit": 35, "enabled": true },
+    { "id": "w2", "label": "Bamboo laptop stand", "query": "bamboo laptop stand desk", "ibambooCategory": "desk", "collection": "Workspace", "limit": 30, "enabled": true },
+    { "id": "w3", "label": "Bamboo desk organizer", "query": "bamboo desk organizer pen holder", "ibambooCategory": "desk", "collection": "Workspace", "limit": 30, "enabled": true },
+    { "id": "w4", "label": "Bamboo headphone phone stand", "query": "bamboo headphone stand phone dock", "ibambooCategory": "desk", "collection": "Workspace", "limit": 25, "enabled": true },
+
+    { "id": "out1", "label": "Bamboo wind chime", "query": "bamboo wind chime outdoor", "ibambooCategory": "outdoor", "collection": "Outdoor", "limit": 30, "enabled": true },
+    { "id": "out2", "label": "Bamboo plant labels", "query": "bamboo plant labels garden stakes", "ibambooCategory": "outdoor", "collection": "Garden", "limit": 25, "enabled": true },
+    { "id": "out3", "label": "Bamboo picnic utensils", "query": "bamboo picnic utensils cutlery set", "ibambooCategory": "outdoor", "collection": "Outdoor", "limit": 25, "enabled": true },
+    { "id": "out4", "label": "Bamboo outdoor tray torch", "query": "bamboo outdoor serving tray garden", "ibambooCategory": "outdoor", "collection": "Outdoor", "limit": 25, "enabled": true },
+    { "id": "out5", "label": "Bamboo bird feeder planter", "query": "bamboo bird feeder plant stand outdoor", "ibambooCategory": "outdoor", "collection": "Garden", "limit": 25, "enabled": true },
+
+    { "id": "bb1", "label": "Bamboo baby plate", "query": "bamboo baby plate suction", "ibambooCategory": "baby", "collection": "Little Ones", "limit": 30, "enabled": true },
+    { "id": "bb2", "label": "Bamboo baby spoon", "query": "bamboo baby spoons feeding set", "ibambooCategory": "baby", "collection": "Little Ones", "limit": 30, "enabled": true },
+    { "id": "bb3", "label": "Bamboo kids dinnerware", "query": "bamboo kids dinnerware toddler", "ibambooCategory": "baby", "collection": "Little Ones", "limit": 30, "enabled": true },
+    { "id": "bb4", "label": "Bamboo baby bowl", "query": "bamboo baby bowl suction cup", "ibambooCategory": "baby", "collection": "Little Ones", "limit": 25, "enabled": true }
+  ],
+  "quotaFillSearches": {
+    "kitchen": ["bamboo kitchen tools set", "bamboo rice paddle honey dipper", "bamboo mortar pestle kitchen"],
+    "cutting-boards": ["bamboo butcher block board", "bamboo sushi mat board", "large bamboo cutting board juice groove"],
+    "dining": ["bamboo flatware set handles", "bamboo cup mug set", "bamboo placemat set"],
+    "bath": ["bamboo bath caddy tray", "bamboo hairbrush paddle", "bamboo bath mat", "viscose bamboo washcloth"],
+    "organization": ["bamboo bread box", "bamboo cable management box", "bamboo closet shelf dividers"],
+    "desk": ["bamboo keyboard wrist rest", "bamboo tablet stand", "bamboo desk shelf"],
+    "outdoor": ["bamboo torch stakes outdoor", "bamboo folding table patio", "bamboo garden trellis"],
+    "baby": ["bamboo baby bib set", "bamboo teething rattle", "bamboo kids toothbrush"]
+  }
 }

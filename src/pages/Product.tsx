@@ -93,6 +93,25 @@ export function ProductPage() {
                   alt={product.name}
                   className="absolute inset-0 w-full h-full object-contain p-6 sm:p-10"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const el = e.currentTarget
+                    const fallbacks = [
+                      ...images,
+                      '/brand/products-flatlay.png',
+                    ]
+                    const idx = Number(el.dataset.fbIdx || String(activeImg)) + 1
+                    el.dataset.fbIdx = String(idx)
+                    const next = fallbacks[idx]
+                    if (next) {
+                      el.src = next
+                      if (next.startsWith('/brand/')) {
+                        el.classList.remove('object-contain', 'p-6', 'sm:p-10')
+                        el.classList.add('object-cover')
+                      }
+                    } else {
+                      el.style.display = 'none'
+                    }
+                  }}
                 />
               ) : null}
               {product.badge && (
@@ -117,7 +136,11 @@ export function ProductPage() {
                     <img
                       src={src}
                       alt=""
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className={`absolute inset-0 w-full h-full ${
+                        src.startsWith('/brand/')
+                          ? 'object-cover'
+                          : 'object-contain p-1'
+                      }`}
                       referrerPolicy="no-referrer"
                     />
                   </button>
@@ -136,12 +159,20 @@ export function ProductPage() {
                     Options only available for a limited time
                   </p>
                   <p className="text-sm text-[#9a3412]/90 mt-0.5">
-                    Part of this week’s Amazon Best Sellers edit
-                    {product.bsrRank != null && product.bsrCategory
+                    {product.source === 'amazon-bsr'
+                      ? 'Part of this week’s Amazon Best Sellers edit'
+                      : product.source === 'curated'
+                        ? 'Part of this week’s iBamboo house edit'
+                        : 'Part of this week’s limited-time bamboo edit'}
+                    {product.source === 'amazon-bsr' &&
+                    product.bsrRank != null &&
+                    product.bsrCategory
                       ? ` · #${product.bsrRank} in ${product.bsrCategory}`
                       : ''}
-                    {until ? ` · Rotates ${until}` : ''}. Rankings move—shop while
-                    it’s on the list.
+                    {until ? ` · Rotates ${until}` : ''}.
+                    {product.source === 'amazon-bsr'
+                      ? ' Rankings move—shop while it’s on the list.'
+                      : ' Options rotate weekly—shop while this placement is live.'}
                   </p>
                 </div>
               </div>
@@ -247,7 +278,7 @@ export function ProductPage() {
                 <tbody>
                   {product.specs.map((s, i) => (
                     <tr
-                      key={s.label}
+                      key={`${s.label}-${i}`}
                       className={i % 2 === 0 ? 'bg-paper/60' : 'bg-card'}
                     >
                       <th className="text-left font-semibold text-ink-soft px-5 py-3.5 w-[40%] border-b border-line/60">

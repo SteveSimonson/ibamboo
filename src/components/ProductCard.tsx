@@ -31,11 +31,33 @@ export function ProductCard({
             <img
               src={img}
               alt={product.name}
-              className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-[1.04]"
+              className={`absolute inset-0 w-full h-full transition duration-700 group-hover:scale-[1.04] ${
+                img.startsWith('/brand/')
+                  ? 'object-cover'
+                  : 'object-contain bg-cream p-4 sm:p-6'
+              }`}
               loading="lazy"
               referrerPolicy="no-referrer"
               onError={(e) => {
-                e.currentTarget.style.display = 'none'
+                const el = e.currentTarget
+                // Advance monotonically through product images then brand art.
+                // el.src is absolute; candidates may be root-relative — use an index cursor.
+                const fallbacks = [
+                  ...(product.images || []),
+                  '/brand/products-flatlay.png',
+                ]
+                const idx = Number(el.dataset.fbIdx || '0') + 1
+                el.dataset.fbIdx = String(idx)
+                const next = fallbacks[idx]
+                if (next) {
+                  el.src = next
+                  if (next.startsWith('/brand/')) {
+                    el.classList.remove('object-contain', 'p-4', 'sm:p-6')
+                    el.classList.add('object-cover')
+                  }
+                } else {
+                  el.style.display = 'none'
+                }
               }}
             />
           ) : (
