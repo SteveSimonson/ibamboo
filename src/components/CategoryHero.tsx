@@ -10,34 +10,19 @@ export function CategoryHero({
   limited?: boolean
   productCount?: number
 }) {
-  const hasImage = Boolean(content.image)
-
   return (
     <section
-      className={`relative w-full overflow-hidden ${
-        hasImage ? 'bg-charcoal' : 'bg-moss'
-      }`}
+      className="relative w-full overflow-hidden bg-charcoal"
       aria-labelledby="category-hero-title"
     >
-      {hasImage ? (
-        <img
-          src={content.image}
-          alt={content.alt}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: content.objectPosition || 'center center' }}
-          decoding="async"
-          fetchPriority="high"
-        />
-      ) : (
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            background:
-              'radial-gradient(ellipse at 30% 40%, rgba(122,158,90,0.45), transparent 55%), radial-gradient(ellipse at 80% 70%, rgba(196,163,90,0.2), transparent 50%)',
-          }}
-          aria-hidden
-        />
-      )}
+      <img
+        src={content.image}
+        alt={content.alt}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: content.objectPosition || 'center center' }}
+        decoding="async"
+        fetchPriority="high"
+      />
 
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/40 to-charcoal/15" />
       <div className="absolute inset-0 bg-gradient-to-r from-charcoal/50 via-transparent to-transparent" />
