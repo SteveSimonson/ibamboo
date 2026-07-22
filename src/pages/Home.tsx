@@ -27,53 +27,55 @@ export function Home() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-[88vh] flex items-end overflow-hidden">
+      {/* Hero — photoreal lifestyle, not illustration */}
+      <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
         <img
-          src="/brand/hero.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover scale-105"
+          src="/brand/hero.jpg"
+          alt="Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden"
+          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+          fetchPriority="high"
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/20" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-16 sm:pb-24 pt-32">
-          <p className="inline-flex items-center gap-2 rounded-full bg-[#b45309]/95 text-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] mb-5">
-            <Clock3 className="size-3.5" />
-            Options only available for a limited time
-          </p>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.05] max-w-3xl text-balance">
-            Living designed in bamboo.
-          </h1>
-          <p className="mt-5 text-lg sm:text-xl text-white/80 max-w-xl leading-relaxed font-light">
-            Weekly Amazon Best Sellers edit for the house—kitchen, boards, bath,
-            workspace, and more. Placements move. When the list refreshes, this
-            week’s options may be gone.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              to="/shop?limited=1"
-              className="btn-primary !bg-white !text-moss hover:!bg-cream"
-            >
-              Shop this week’s drop <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              to="/quiz"
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/20 transition"
-            >
-              Take the vibe check
-            </Link>
-            <Link
-              to="/shop"
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition"
-            >
-              Full collection
-            </Link>
-          </div>
-          {until && (
-            <p className="mt-5 text-sm text-white/65">
-              This edit refreshes {until}
-              {limited.count > 0 ? ` · ${limited.count} limited options live` : ''}
+        {/* Soft editorial wash: readable type without crushing the photo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/35 to-charcoal/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/55 via-transparent to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 sm:pb-20 pt-28 sm:pt-36">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
+              <Clock3 className="size-3.5 text-gold" />
+              Limited-time house edit
             </p>
-          )}
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
+              Living designed in bamboo.
+            </h1>
+            <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
+              A calmer kitchen, table, bath, and workspace—curated weekly from
+              Amazon Best Sellers. Discover here. Buy on Amazon.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
+                to="/shop?limited=1"
+                className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)]"
+              >
+                Shop this week’s drop <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                to="/quiz"
+                className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/18 transition"
+              >
+                Take the vibe check
+              </Link>
+            </div>
+            {until && (
+              <p className="mt-6 text-sm text-white/60">
+                Edit refreshes {until}
+                {limited.count > 0
+                  ? ` · ${limited.count} limited options live`
+                  : ''}
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
