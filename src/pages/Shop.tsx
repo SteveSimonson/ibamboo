@@ -11,8 +11,13 @@ import {
   type Category,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
+import {
+  categoryDisplayName,
+  getCollectionHero,
+} from '../data/collectionHeroes'
 import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
+import { CollectionContextRail } from '../components/CollectionContextRail'
 
 export function Shop() {
   const [params, setParams] = useSearchParams()
@@ -29,7 +34,14 @@ export function Shop() {
   const drop = limitedTimeCopy()
   const until = formatExpiry(drop.expiresAt ?? undefined)
   const categoryHero = getCategoryHero(cat || null)
+  const collectionHero = getCollectionHero(collection || null)
   const showCategoryHero = Boolean(cat && categoryHero)
+  const showCollectionRail = Boolean(collection && collectionHero)
+  /** Text intro only when neither category nor collection owns the page title */
+  const showTextIntro = !showCategoryHero && !showCollectionRail
+  const categoryLabel = categoryDisplayName(cat || null)
+  const emptyIntersection =
+    showCollectionRail && filtered.length === 0 && Boolean(cat || limited || q)
 
   function updateParams(patch: Record<string, string | null>) {
     const next = new URLSearchParams(params)
@@ -52,12 +64,28 @@ export function Shop() {
         />
       ) : null}
 
+      {showCollectionRail && collectionHero ? (
+        <CollectionContextRail
+          content={collectionHero}
+          productCount={filtered.length}
+          limited={limited}
+          categoryLabel={categoryLabel}
+          compressed={showCategoryHero}
+          emptyIntersection={emptyIntersection}
+          onClear={() => updateParams({ collection: null })}
+          onShowCollectionEverywhere={() =>
+            updateParams({ cat: null, q: null })
+          }
+          onStayInCategory={() => updateParams({ collection: null })}
+        />
+      ) : null}
+
       <div
         className={`mx-auto max-w-7xl px-4 sm:px-6 pb-12 ${
-          showCategoryHero ? 'pt-8 sm:pt-10' : 'pt-12'
+          showCategoryHero || showCollectionRail ? 'pt-8 sm:pt-10' : 'pt-12'
         }`}
       >
-        {!showCategoryHero && (
+        {showTextIntro && (
           <>
             <p className="label-micro mb-2">Shop</p>
             <h1 className="font-display text-4xl sm:text-5xl font-semibold">
@@ -88,7 +116,7 @@ export function Shop() {
 
         <div
           className={`mb-6 flex flex-wrap gap-3 items-center ${
-            showCategoryHero ? '' : 'mt-8'
+            showTextIntro ? 'mt-8' : ''
           }`}
         >
           <label className="sr-only" htmlFor="search">
@@ -135,6 +163,7 @@ export function Shop() {
               onClick={() =>
                 updateParams({
                   cat: cat === c.id ? null : c.id,
+                  // Changing category clears merch lens (design rule)
                   collection: null,
                 })
               }
@@ -194,14 +223,38 @@ export function Shop() {
         {filtered.length === 0 ? (
           <div className="rounded-2xl border border-line bg-card p-14 text-center">
             <p className="font-display text-2xl font-semibold">No matches</p>
-            <p className="text-ink-soft mt-2">Try another category or search.</p>
-            <button
-              type="button"
-              onClick={() => setParams({}, { replace: true })}
-              className="btn-primary mt-6"
-            >
-              Show all products
-            </button>
+            <p className="text-ink-soft mt-2">
+              {showCollectionRail && categoryLabel
+                ? `No ${collectionHero?.label} pieces in ${categoryLabel}. Try clearing a filter.`
+                : 'Try another category, collection, or search.'}
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {showCollectionRail && cat && (
+                <button
+                  type="button"
+                  onClick={() => updateParams({ cat: null })}
+                  className="btn-secondary"
+                >
+                  Show {collectionHero?.label} everywhere
+                </button>
+              )}
+              {showCollectionRail && cat && (
+                <button
+                  type="button"
+                  onClick={() => updateParams({ collection: null })}
+                  className="btn-secondary"
+                >
+                  Stay in {categoryLabel}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setParams({}, { replace: true })}
+                className="btn-primary"
+              >
+                Show all products
+              </button>
+            </div>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
