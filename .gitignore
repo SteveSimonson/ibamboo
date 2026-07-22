@@ -33,3 +33,4 @@ data/bsr/raw/
 
 # OS
 .DS_Store
+tmp/
