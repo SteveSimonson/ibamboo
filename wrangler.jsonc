@@ -1,9 +1,11 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ibamboo",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-07-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "single-page-application"
   },
   // Custom domains become the origin (GHL A/CNAME records removed first).
@@ -15,4 +17,7 @@
   "observability": {
     "enabled": true
   }
+  // Secrets (set via CLI, never commit):
+  //   npx wrangler secret put GHL_PIT
+  //   npx wrangler secret put GHL_LOCATION_ID
 }

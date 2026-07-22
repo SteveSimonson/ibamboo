@@ -6,6 +6,7 @@ import { formatExpiry, limitedTimeCopy } from '../data/catalog'
 const nav = [
   { to: '/shop?limited=1', label: 'This week' },
   { to: '/shop', label: 'Shop' },
+  { to: '/quiz', label: 'Vibe check' },
   { to: '/shop?cat=kitchen', label: 'Kitchen' },
   { to: '/shop?cat=cutting-boards', label: 'Boards' },
   { to: '/shop?cat=desk', label: 'Workspace' },

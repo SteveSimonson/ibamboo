@@ -56,6 +56,12 @@ export function Home() {
               Shop this week’s drop <ArrowRight className="size-4" />
             </Link>
             <Link
+              to="/quiz"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/20 transition"
+            >
+              Take the vibe check
+            </Link>
+            <Link
               to="/shop"
               className="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition"
             >
