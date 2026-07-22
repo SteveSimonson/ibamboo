@@ -1,39 +1,86 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation, useSearchParams } from 'react-router-dom'
 import { Menu, Search, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
+import type { Category } from '../data/types'
 
-const nav = [
-  { to: '/shop?limited=1', label: 'This week' },
-  { to: '/shop', label: 'Shop' },
-  { to: '/quiz', label: 'Vibe check' },
-  { to: '/shop?cat=kitchen', label: 'Kitchen' },
-  { to: '/shop?cat=cutting-boards', label: 'Boards' },
-  { to: '/shop?cat=desk', label: 'Workspace' },
-  { to: '/shop?cat=bath', label: 'Bath' },
-  { to: '/why', label: 'Our story' },
+type NavItem =
+  | { kind: 'link'; to: string; label: string }
+  | { kind: 'shop'; mode: 'all' | 'limited' | 'cat'; cat?: Category; label: string }
+
+const nav: NavItem[] = [
+  { kind: 'shop', mode: 'limited', label: 'This week' },
+  { kind: 'shop', mode: 'all', label: 'Shop' },
+  { kind: 'link', to: '/quiz', label: 'Vibe check' },
+  { kind: 'shop', mode: 'cat', cat: 'kitchen', label: 'Kitchen' },
+  { kind: 'shop', mode: 'cat', cat: 'cutting-boards', label: 'Boards' },
+  { kind: 'shop', mode: 'cat', cat: 'desk', label: 'Workspace' },
+  { kind: 'shop', mode: 'cat', cat: 'bath', label: 'Bath' },
+  { kind: 'link', to: '/why', label: 'Our story' },
 ]
+
+function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
+  if (item.mode === 'limited') return '/shop?limited=1'
+  if (item.mode === 'cat' && item.cat) return `/shop?cat=${item.cat}`
+  return '/shop'
+}
+
+function useShopNavActive() {
+  const { pathname } = useLocation()
+  const [params] = useSearchParams()
+  const cat = params.get('cat') || ''
+  const limited = params.get('limited') === '1'
+  const onShop = pathname === '/shop' || pathname.startsWith('/shop/')
+
+  return (item: NavItem): boolean => {
+    if (item.kind === 'link') {
+      if (item.to === '/quiz') return pathname.startsWith('/quiz')
+      if (item.to === '/why') return pathname.startsWith('/why')
+      return pathname === item.to
+    }
+    if (!onShop) return false
+    // Category owns the room even if limited is also on
+    if (item.mode === 'cat') return cat === item.cat
+    if (item.mode === 'limited') return limited && !cat
+    // Shop = bare catalog browse
+    if (item.mode === 'all') return !cat && !limited
+    return false
+  }
+}
+
+function navClass(active: boolean) {
+  return `px-3.5 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
+    active
+      ? 'bg-ink text-paper'
+      : 'text-ink-soft hover:bg-paper-2 hover:text-ink'
+  }`
+}
 
 export function Layout() {
   const [open, setOpen] = useState(false)
   const limited = limitedTimeCopy()
   const until = formatExpiry(limited.expiresAt ?? undefined)
+  const isActive = useShopNavActive()
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Slim promo strip — single bar, less chrome above brand */}
       <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
-        <Link to="/shop?limited=1" className="hover:underline underline-offset-2">
+        <Link
+          to="/shop?limited=1"
+          className="hover:underline underline-offset-2"
+        >
           <span className="font-semibold text-gold">Limited-time options</span>
           {limited.count > 0 ? ` · ${limited.count} this week` : ''}
           {until ? ` · Refresh ${until}` : ''}
-          <span className="text-paper/70"> · Shop on iBamboo · Buy on Amazon</span>
+          <span className="text-paper/70">
+            {' '}
+            · Shop on iBamboo · Buy on Amazon
+          </span>
         </Link>
       </div>
 
       <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur-xl border-b border-line/70 shadow-[0_1px_0_rgba(18,26,18,0.03)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-4">
-          {/* Full graphic wordmark only — no competing text lockup */}
           <Link
             to="/"
             className="group flex items-center shrink-0 py-1"
@@ -53,21 +100,31 @@ export function Layout() {
             className="hidden lg:flex items-center gap-0.5 flex-1 justify-center"
             aria-label="Primary"
           >
-            {nav.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                className={({ isActive }) =>
-                  `px-3.5 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
-                    isActive
-                      ? 'bg-ink text-paper'
-                      : 'text-ink-soft hover:bg-paper-2 hover:text-ink'
-                  }`
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
+            {nav.map((item) => {
+              const active = isActive(item)
+              if (item.kind === 'link') {
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={() => navClass(active)}
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+              }
+              const to = shopHref(item)
+              return (
+                <Link
+                  key={to + item.label}
+                  to={to}
+                  className={navClass(active)}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </nav>
 
           <div className="flex items-center gap-2 shrink-0">
@@ -98,20 +155,23 @@ export function Layout() {
 
         {open && (
           <div className="lg:hidden border-t border-line bg-paper/98 px-4 py-3 space-y-1 shadow-lg">
-            {nav.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `block px-3 py-3 rounded-xl text-sm font-semibold transition ${
-                    isActive ? 'bg-ink text-paper' : 'hover:bg-paper-2'
-                  }`
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
+            {nav.map((item) => {
+              const active = isActive(item)
+              const to = item.kind === 'link' ? item.to : shopHref(item)
+              return (
+                <Link
+                  key={to + item.label}
+                  to={to}
+                  onClick={() => setOpen(false)}
+                  className={`block px-3 py-3 rounded-xl text-sm font-semibold transition ${
+                    active ? 'bg-ink text-paper' : 'hover:bg-paper-2'
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
             <Link
               to="/shop?limited=1"
               onClick={() => setOpen(false)}
