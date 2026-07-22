@@ -121,15 +121,17 @@ function upgradeAmazonImageUrl(url) {
   }
   // Prefer https
   u = u.replace(/^http:\/\//i, 'https://')
-  // Upgrade common thumbnail modifiers to a usable large size
+  // Upgrade common thumbnail modifiers to a usable large size.
+  // Covers _AC_UL320_SR…, bare _AC_UL320_, _AC_UL480_QL65_, UX/UY, SX/SY, etc.
   u = u
-    .replace(/\._AC_UL\d+_SR\d+,\d+_\./, '._AC_SL1000_.')
-    .replace(/\._AC_UX\d+_.*?\./, '._AC_SL1000_.')
-    .replace(/\._AC_UY\d+_.*?\./, '._AC_SL1000_.')
-    .replace(/\._SX\d+_\./, '._SL1000_.')
-    .replace(/\._SY\d+_\./, '._SL1000_.')
-    .replace(/\._US\d+_\./, '._SL1000_.')
-    .replace(/\._SS\d+_\./, '._SL1000_.')
+    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UL[^.]+\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UX\d+_.*?\./i, '._AC_SL1000_.')
+    .replace(/\._AC_UY\d+_.*?\./i, '._AC_SL1000_.')
+    .replace(/\._SX\d+_\./i, '._SL1000_.')
+    .replace(/\._SY\d+_\./i, '._SL1000_.')
+    .replace(/\._US\d+_\./i, '._SL1000_.')
+    .replace(/\._SS\d+_\./i, '._SL1000_.')
   // Avoid the unreliable images/P/{ASIN} pattern as primary
   if (/\/images\/P\/[A-Z0-9]{10}/i.test(u)) return null
   return u
@@ -154,17 +156,31 @@ function extractListImages(chunk, { max = 4 } = {}) {
   return found
 }
 
+function imageStem(url) {
+  const m = String(url).match(/\/images\/I\/([^./]+)/i)
+  return m ? m[1].toLowerCase() : null
+}
+
 function resolveProductImages({ listImages, enrichedImages, category, asin }) {
   const out = []
+  const seenStems = new Set()
   const push = (url) => {
     const u = upgradeAmazonImageUrl(url) || (url?.startsWith('/') ? url : null)
-    if (u && !out.includes(u)) out.push(u)
+    if (!u) return
+    const stem = imageStem(u)
+    if (stem) {
+      if (seenStems.has(stem)) return
+      seenStems.add(stem)
+    } else if (out.includes(u)) {
+      return
+    }
+    out.push(u)
   }
   for (const u of enrichedImages || []) push(u)
   for (const u of listImages || []) push(u)
   // Brand fallbacks last
   for (const u of CATEGORY_FALLBACK_IMAGES[category] || CATEGORY_FALLBACK_IMAGES.kitchen) {
-    if (!out.includes(u)) out.push(u)
+    push(u)
   }
   // Absolute last resort only if nothing else (often a blank gif — prefer brand art)
   if (out.length === 0 && asin) {

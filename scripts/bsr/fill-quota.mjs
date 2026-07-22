@@ -164,38 +164,54 @@ function slugify(s) {
     .slice(0, 70)
 }
 
+/**
+ * Prefer the snapshot the importer just wrote (src/data/bsr-snapshot.json),
+ * then the newest raw snapshot by filename timestamp — never "largest wins"
+ * (that can rehydrate a stale larger dump after a thinner fresh import).
+ */
 function loadBestSnapshot() {
+  const livePath = join(ROOT, 'src/data/bsr-snapshot.json')
+  try {
+    const live = JSON.parse(readFileSync(livePath, 'utf8'))
+    if (live?.products?.length) {
+      console.log(`Using live snapshot: src/data/bsr-snapshot.json (${live.products.length} products)`)
+      return live
+    }
+  } catch {
+    /* fall through to raw */
+  }
+
   const dir = join(ROOT, 'data/bsr/raw')
   const files = readdirSync(dir)
     .filter((f) => f.startsWith('snapshot-') && f.endsWith('.json'))
     .sort()
-    .reverse()
-  let best = null
-  let bestN = 0
+    .reverse() // newest ISO timestamp name first
+
   for (const f of files) {
     try {
       const j = JSON.parse(readFileSync(join(dir, f), 'utf8'))
-      const list = j.snapshot?.products || j.products || []
-      if (list.length > bestN) {
-        bestN = list.length
-        best = j.snapshot || j
+      const snap = j.snapshot || j
+      const list = snap.products || []
+      if (list.length > 0) {
+        console.log(`Using newest raw snapshot: ${f} (${list.length} products)`)
+        return snap
       }
     } catch {
-      /* skip */
+      /* skip corrupt */
     }
   }
-  if (!best?.products?.length) throw new Error('No BSR snapshot found in data/bsr/raw')
-  return best
+  throw new Error('No BSR snapshot found in src/data/bsr-snapshot.json or data/bsr/raw')
 }
 
 const snap = loadBestSnapshot()
-const products = structuredClone(snap.products)
+// Strip prior house-edit pads so re-runs are idempotent (import:bsr chains fill-quota)
+const products = structuredClone(snap.products).filter((p) => p.source !== 'curated' || p.asin)
 const weekOf = snap.weekOf
 const expiresAt = snap.expiresAt
 const fetchedAt = snap.fetchedAt || new Date().toISOString()
 const usedSlug = new Set(products.map((p) => p.slug))
 
-console.log(`Loaded ${products.length} products from best snapshot`)
+console.log(`Loaded ${products.length} Amazon-sourced products (prior house-edit pads removed)`)
 
 for (const cat of Object.keys(fillers)) {
   let n = products.filter((p) => p.category === cat).length
@@ -204,6 +220,8 @@ for (const cat of Object.keys(fillers)) {
     const [name, tagline] = fillers[cat][i++]
     const slug = `fill-${slugify(name)}`
     if (usedSlug.has(slug)) continue
+    // ASIN-less merchandising pads: no synthetic stars, review counts, or prices.
+    // priceHint 0 → UI shows "See Amazon"; omit rating so StarRating hides.
     products.push({
       id: `fill-${cat}-${i}`,
       slug,
@@ -212,7 +230,6 @@ for (const cat of Object.keys(fillers)) {
       description: `${name} — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.`,
       category: cat,
       collection: collectionFor[cat],
-      brand: 'iBamboo',
       material: 'Bamboo (confirm on Amazon listing)',
       features: [
         'Bamboo household essential',
@@ -223,12 +240,10 @@ for (const cat of Object.keys(fillers)) {
         { label: 'Material', value: 'Bamboo (confirm listing)' },
         { label: 'Placement', value: 'iBamboo weekly house edit' },
       ],
-      priceHint: 14.99 + (i % 7) * 3,
+      priceHint: 0,
       searchKeywords: `100% bamboo ${name}`,
       badge: 'House edit',
       images: brandImgs[cat] || brandImgs.kitchen,
-      rating: 4.4 + (i % 5) * 0.1,
-      reviewCount: 100 + i * 37,
       hue: 80 + i * 3,
       limitedTime: true,
       weekOf,
@@ -288,7 +303,7 @@ writeFileSync(
   `/**
  * AUTO-GENERATED — weekly limited-time drop (≥${QUOTA} per category).
  * Week of ${weekOf} · expires ${expiresAt}
- * Run: npm run import:bsr && node scripts/bsr/fill-quota.mjs
+ * Run: npm run import:bsr  (or npm run fill:quota alone)
  */
 import type { Product } from './types'
 

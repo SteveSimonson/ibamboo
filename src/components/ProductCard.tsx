@@ -40,12 +40,15 @@ export function ProductCard({
               referrerPolicy="no-referrer"
               onError={(e) => {
                 const el = e.currentTarget
-                // Fall back through remaining product images, then brand art
+                // Advance monotonically through product images then brand art.
+                // el.src is absolute; candidates may be root-relative — use an index cursor.
                 const fallbacks = [
-                  ...(product.images || []).slice(1),
+                  ...(product.images || []),
                   '/brand/products-flatlay.png',
                 ]
-                const next = fallbacks.find((u) => u && u !== el.src)
+                const idx = Number(el.dataset.fbIdx || '0') + 1
+                el.dataset.fbIdx = String(idx)
+                const next = fallbacks[idx]
                 if (next) {
                   el.src = next
                   if (next.startsWith('/brand/')) {

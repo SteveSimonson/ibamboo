@@ -1,7 +1,7 @@
 /**
  * AUTO-GENERATED — weekly limited-time drop (≥20 per category).
  * Week of 2026-07-20 · expires 2026-07-27T14:00:00.000Z
- * Run: npm run import:bsr && node scripts/bsr/fill-quota.mjs
+ * Run: npm run import:bsr  (or npm run fill:quota alone)
  */
 import type { Product } from './types'
 
@@ -4750,7 +4750,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Spoon Rest — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4767,15 +4766,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spoon Rest",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4794,7 +4791,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Rolling Pin — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4811,15 +4807,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Rolling Pin",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4838,7 +4832,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Knife Block Insert — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4855,15 +4848,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Knife Block Insert",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4882,7 +4873,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Tea Scoop Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4899,15 +4889,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tea Scoop Set",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4926,7 +4914,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Honey Dipper Pair — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4943,15 +4930,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Honey Dipper Pair",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4970,7 +4955,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Pasta Server — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -4987,15 +4971,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Pasta Server",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5014,7 +4996,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Salad Servers — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5031,15 +5012,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Salad Servers",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5058,7 +5037,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Skewer Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5075,15 +5053,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Skewer Set",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5102,7 +5078,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Spreader Knives — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5119,15 +5094,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spreader Knives",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 433,
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5146,7 +5119,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Mortar Mini — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5163,15 +5135,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Mortar Mini",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 470,
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5190,7 +5160,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Ladle — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5207,15 +5176,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Ladle",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 507,
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5234,7 +5201,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Tongs — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "kitchen",
     "collection": "Kitchen",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5251,15 +5217,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tongs",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 544,
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5278,7 +5242,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Dinner Plate Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5295,15 +5258,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dinner Plate Set",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5322,7 +5283,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Bowl Quartet — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5339,15 +5299,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bowl Quartet",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5366,7 +5324,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Cup Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5383,15 +5340,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Cup Set",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5410,7 +5365,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Coaster Caddy — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5427,15 +5381,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Coaster Caddy",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5454,7 +5406,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Placemat Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5471,15 +5422,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Placemat Set",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5498,7 +5447,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Napkin Rings — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5515,15 +5463,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Napkin Rings",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5542,7 +5488,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Condiment Dishes — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5559,15 +5504,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Condiment Dishes",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5586,7 +5529,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Serving Fork Spoon — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5603,15 +5545,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Serving Fork Spoon",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5630,7 +5570,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Salad Bowl XL — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5647,15 +5586,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Salad Bowl XL",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 433,
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5674,7 +5611,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Butter Dish — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5691,15 +5627,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Butter Dish",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 470,
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5718,7 +5652,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Egg Cups — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5735,15 +5668,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Egg Cups",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 507,
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5762,7 +5693,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Trivet Pair — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5779,15 +5709,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Trivet Pair",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 544,
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5806,7 +5734,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Flatware Handles — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5823,15 +5750,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Flatware Handles",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 581,
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5850,7 +5775,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Ramen Bowl Kit — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5867,15 +5791,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Ramen Bowl Kit",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 618,
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5894,7 +5816,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Picnic Plates — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5911,15 +5832,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Picnic Plates",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 655,
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5938,7 +5857,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Dinner Plate Duo — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5955,15 +5873,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dinner Plate Duo",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 692,
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5982,7 +5898,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Dessert Plate Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "dining",
     "collection": "Tabletop",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -5999,15 +5914,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dessert Plate Set",
     "badge": "House edit",
     "images": [
       "/brand/soho-collection.png",
       "/brand/products-hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 729,
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6026,7 +5939,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Expandable Drawer Tray — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6043,15 +5955,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Expandable Drawer Tray",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6070,7 +5980,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Desk Drawer Dividers — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6087,15 +5996,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Desk Drawer Dividers",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6114,7 +6021,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Lidded Storage Boxes — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6131,15 +6037,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Lidded Storage Boxes",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6158,7 +6062,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Bread Box Rolltop — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6175,15 +6078,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bread Box Rolltop",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6202,7 +6103,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Spice Ladder — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6219,15 +6119,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spice Ladder",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6246,7 +6144,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Paper Towel Stand — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6263,15 +6160,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Paper Towel Stand",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6290,7 +6185,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Cable Box — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6307,15 +6201,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Cable Box",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6334,7 +6226,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Key Tray — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6351,15 +6242,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Key Tray",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6378,7 +6267,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Remote Caddy — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6395,15 +6283,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Remote Caddy",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 433,
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6422,7 +6308,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Jewelry Box — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6439,15 +6324,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Jewelry Box",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 470,
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6466,7 +6349,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Closet Dividers — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "organization",
     "collection": "Organize",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6483,15 +6365,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Closet Dividers",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 507,
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6510,7 +6390,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Monitor Riser — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6527,15 +6406,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Monitor Riser",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6554,7 +6431,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Laptop Stand — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6571,15 +6447,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Laptop Stand",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6598,7 +6472,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Desk Caddy — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6615,15 +6488,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Desk Caddy",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6642,7 +6513,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Phone Dock — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6659,15 +6529,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Phone Dock",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6686,7 +6554,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Tablet Stand — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6703,15 +6570,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tablet Stand",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6730,7 +6595,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Headphone Stand — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6747,15 +6611,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Headphone Stand",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6774,7 +6636,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Wrist Rest — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6791,15 +6652,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Wrist Rest",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6818,7 +6677,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Pen Cup — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "desk",
     "collection": "Workspace",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6835,15 +6693,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Pen Cup",
     "badge": "House edit",
     "images": [
       "/brand/products-hero.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6862,7 +6718,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Wind Chime Classic — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6879,15 +6734,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Wind Chime Classic",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6906,7 +6759,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Plant Labels Pack — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6923,15 +6775,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Plant Labels Pack",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6950,7 +6800,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Picnic Cutlery Roll — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -6967,15 +6816,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Picnic Cutlery Roll",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6994,7 +6841,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Garden Torch Stakes — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7011,15 +6857,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Torch Stakes",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7038,7 +6882,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Bird Feeder — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7055,15 +6898,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bird Feeder",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7082,7 +6923,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Outdoor Tray — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7099,15 +6939,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Tray",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7126,7 +6964,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Folding Side Table — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7143,15 +6980,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Folding Side Table",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7170,7 +7005,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Garden Trellis — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7187,15 +7021,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Trellis",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7214,7 +7046,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Planter Box — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7231,15 +7062,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Planter Box",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 433,
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7258,7 +7087,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Outdoor Salad Servers — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7275,15 +7103,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Salad Servers",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 470,
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7302,7 +7128,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Stake Bundle — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7319,15 +7144,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Stake Bundle",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 507,
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7346,7 +7169,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Lantern Frame — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7363,15 +7185,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Lantern Frame",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 544,
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7390,7 +7210,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Hose Guide — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7407,15 +7226,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Hose Guide",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 581,
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7434,7 +7251,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Compost Scoop — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7451,15 +7267,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Compost Scoop",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 618,
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7478,7 +7292,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Patio Coaster Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7495,15 +7308,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Patio Coaster Set",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 655,
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7522,7 +7333,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Skewer Grill Pack — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7539,15 +7349,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Skewer Grill Pack",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 692,
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7566,7 +7374,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Garden Dibber — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7583,15 +7390,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Dibber",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 729,
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7610,7 +7415,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Outdoor Utensil Crock — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "outdoor",
     "collection": "Outdoor",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7627,15 +7431,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Utensil Crock",
     "badge": "House edit",
     "images": [
       "/brand/landing-forest.png",
       "/brand/hero.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 766,
     "hue": 134,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7654,7 +7456,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Suction Plate — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7671,15 +7472,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Suction Plate",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 137,
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7698,7 +7497,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Spoon Trio — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7715,15 +7513,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Spoon Trio",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 174,
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7742,7 +7538,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Toddler Bowl — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7759,15 +7554,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Toddler Bowl",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 211,
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7786,7 +7579,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Kids Dinnerware — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7803,15 +7595,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Dinnerware",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 248,
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7830,7 +7620,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Hairbrush — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7847,15 +7636,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Hairbrush",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 285,
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7874,7 +7661,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Teething Ring — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7891,15 +7677,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Teething Ring",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 322,
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7918,7 +7702,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Kids Toothbrush — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7935,15 +7718,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Toothbrush",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 359,
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7962,7 +7743,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Snack Bowls — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -7979,15 +7759,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Snack Bowls",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 396,
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8006,7 +7784,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Bib Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8023,15 +7800,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Bib Set",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 433,
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8050,7 +7825,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Sippy Training Cup — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8067,15 +7841,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Sippy Training Cup",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 470,
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8094,7 +7866,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Divided Plate — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8111,15 +7882,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Divided Plate",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 507,
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8138,7 +7907,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Fork Spoon Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8155,15 +7923,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 29.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Fork Spoon Set",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 544,
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8182,7 +7948,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Kids Placemat — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8199,15 +7964,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 32.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Placemat",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 581,
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8226,7 +7989,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Toddler Cup Set — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8243,15 +8005,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 14.99,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Toddler Cup Set",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.800000000000001,
-    "reviewCount": 618,
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8270,7 +8030,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Kids Snack Tray — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8287,15 +8046,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 17.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Snack Tray",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.4,
-    "reviewCount": 655,
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8314,7 +8071,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Food Scoop — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8331,15 +8087,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 20.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Food Scoop",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.5,
-    "reviewCount": 692,
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8358,7 +8112,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Divided Toddler Plate — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8375,15 +8128,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 23.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Divided Toddler Plate",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.6000000000000005,
-    "reviewCount": 729,
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -8402,7 +8153,6 @@ export const bsrProducts: Product[] = [
     "description": "Bamboo Baby Training Cup — bamboo for the house. Limited-time iBamboo edit; complete purchase on Amazon.",
     "category": "baby",
     "collection": "Little Ones",
-    "brand": "iBamboo",
     "material": "Bamboo (confirm on Amazon listing)",
     "features": [
       "Bamboo household essential",
@@ -8419,15 +8169,13 @@ export const bsrProducts: Product[] = [
         "value": "iBamboo weekly house edit"
       }
     ],
-    "priceHint": 26.990000000000002,
+    "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Training Cup",
     "badge": "House edit",
     "images": [
       "/brand/products-flatlay.png",
       "/brand/soho-collection.png"
     ],
-    "rating": 4.7,
-    "reviewCount": 766,
     "hue": 134,
     "limitedTime": true,
     "weekOf": "2026-07-20",
