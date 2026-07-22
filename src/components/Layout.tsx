@@ -33,22 +33,38 @@ export function Layout() {
       </div>
 
       <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur-xl border-b border-line/80">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 h-[4.25rem] flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-            <img
-              src="/brand/logo-color.svg"
-              alt="iBamboo"
-              className="h-9 w-auto transition group-hover:opacity-90"
-            />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 h-[4.75rem] sm:h-[5.5rem] flex items-center justify-between gap-3 sm:gap-4">
+          {/* Logo asset is a padded square — crop + scale + wordmark so brand reads clearly */}
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-w-0"
+            aria-label="iBamboo home"
+          >
+            <span className="relative block h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-2xl bg-white ring-1 ring-line/70 shadow-sm">
+              <img
+                src="/brand/logo-color.svg"
+                alt=""
+                aria-hidden
+                className="absolute left-1/2 top-1/2 h-[210%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover transition duration-200 group-hover:scale-105"
+              />
+            </span>
+            <span className="flex flex-col min-w-0 leading-none">
+              <span className="font-display text-[1.65rem] sm:text-[2rem] font-semibold text-moss tracking-tight group-hover:text-bamboo-deep transition">
+                iBamboo
+              </span>
+              <span className="mt-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                Bamboo living
+              </span>
+            </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center min-w-0">
             {nav.map((n) => (
               <NavLink
                 key={n.to}
                 to={n.to}
                 className={({ isActive }) =>
-                  `px-3.5 py-2 rounded-full text-[13px] font-semibold transition ${
+                  `px-3 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
                     isActive
                       ? 'bg-ink text-paper'
                       : 'text-ink-soft hover:bg-paper-2 hover:text-ink'
@@ -60,7 +76,7 @@ export function Layout() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Link
               to="/shop"
               className="hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-soft hover:text-bamboo px-2"
@@ -76,7 +92,7 @@ export function Layout() {
             </Link>
             <button
               type="button"
-              className="lg:hidden p-2 rounded-xl border border-line"
+              className="lg:hidden p-2.5 rounded-xl border border-line"
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >
@@ -106,12 +122,20 @@ export function Layout() {
 
       <footer className="mt-auto bg-charcoal text-paper">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-5 space-y-4">
-            <img
-              src="/brand/logo-white.svg"
-              alt="iBamboo"
-              className="h-8 w-auto"
-            />
+          <div className="md:col-span-5 space-y-5">
+            <Link to="/" className="inline-flex items-center gap-3 group">
+              <span className="relative block h-12 w-12 overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/15">
+                <img
+                  src="/brand/logo-white.svg"
+                  alt=""
+                  aria-hidden
+                  className="absolute left-1/2 top-1/2 h-[210%] w-[210%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover"
+                />
+              </span>
+              <span className="font-display text-3xl font-semibold text-paper tracking-tight group-hover:text-leaf transition">
+                iBamboo
+              </span>
+            </Link>
             <p className="text-sm text-paper/65 leading-relaxed max-w-sm font-light">
               iBamboo is a destination for bamboo living—kitchen, table, bath,
               workspace, and home. Discover the collection here; complete your
