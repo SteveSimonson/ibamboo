@@ -6,6 +6,7 @@ import {
   Clock3,
   ExternalLink,
   Package,
+  Play,
   Shield,
   Truck,
 } from 'lucide-react'
@@ -145,6 +146,33 @@ export function ProductPage() {
                     />
                   </button>
                 ))}
+              </div>
+            )}
+
+            {product.featureVideo && (
+              <div className="mt-2 rounded-2xl overflow-hidden border border-line bg-ink shadow-sm">
+                <div className="relative aspect-square sm:aspect-[4/3] bg-ink">
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={product.featureVideo}
+                    poster={product.featureVideoPoster}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    controls
+                    aria-label={`Feature film: ${product.name}`}
+                  />
+                  <div className="pointer-events-none absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow">
+                    <Play className="size-3 fill-ink" /> Feature film
+                  </div>
+                </div>
+                {product.featureVideoCaption && (
+                  <p className="px-4 py-3 text-sm text-paper/90 leading-relaxed border-t border-white/10">
+                    {product.featureVideoCaption}
+                  </p>
+                )}
               </div>
             )}
           </div>
