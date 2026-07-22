@@ -67,4 +67,10 @@ export interface Product {
   bsrCategoryId?: string
   materialFamily?: MaterialFamily
   source?: ProductSource
+  /** Optional lifestyle feature video (public path, e.g. /videos/foo.mp4) */
+  featureVideo?: string
+  /** Poster frame for the feature video */
+  featureVideoPoster?: string
+  /** Short line under the video */
+  featureVideoCaption?: string
 }

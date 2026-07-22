@@ -18,6 +18,7 @@ import {
   bsrExpiresAt,
   bsrMarketing,
 } from './products.bsr.generated'
+import { withProductMedia } from './productMedia'
 import type { Category, Product } from './types'
 
 /** Merged storefront catalog: limited BSR drop first, then curated (deduped by ASIN). */
@@ -36,7 +37,8 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
     let slug = p.slug
     if (seenSlug.has(slug)) slug = `${slug}-${p.id}`
     seenSlug.add(slug)
-    out.push(slug === p.slug ? p : { ...p, slug })
+    const merged = slug === p.slug ? p : { ...p, slug }
+    out.push(withProductMedia(merged))
   }
   return out
 }
