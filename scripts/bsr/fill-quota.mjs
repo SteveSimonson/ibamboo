@@ -224,14 +224,18 @@ function sanitizeSearchProduct(p) {
       (s) => !/best sellers rank|list position/i.test(s.label || ''),
     )
   }
+  // Always rewrite search taglines — residual "#N in … · This week's list" is not a real BSR rank
+  next.tagline = "This week's Amazon bamboo picks · Limited-time options"
   if (next.description) {
-    next.description = String(next.description).replace(
-      /selected from Amazon Best Sellers/i,
-      'selected from Amazon bamboo search',
-    )
-  }
-  if (next.tagline && /Best Sellers/i.test(next.tagline)) {
-    next.tagline = "This week's Amazon bamboo picks · Limited-time options"
+    next.description = String(next.description)
+      .replace(
+        /selected from Amazon Best Sellers/i,
+        'selected from Amazon bamboo search',
+      )
+      .replace(
+        /#\d+\s+in\s+[^·.]+(?:\s*·\s*This week's list)?/gi,
+        'Limited-time options',
+      )
   }
   return next
 }
