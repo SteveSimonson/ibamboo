@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Clock3 } from 'lucide-react'
 import {
   bsrLeaders,
-  collections,
+  CATEGORY_OPTIONS,
   formatExpiry,
   limitedProducts,
   limitedTimeCopy,
   products,
 } from '../data/catalog'
+import { HEROES } from '../data/categoryHeroes'
 import { ProductCard } from '../components/ProductCard'
 
 const featured = [
@@ -115,19 +116,10 @@ export function Home() {
       {/* Category strip */}
       <section className="border-b border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 flex gap-2 overflow-x-auto">
-          {[
-            { to: '/shop?cat=kitchen', label: 'Kitchen' },
-            { to: '/shop?cat=cutting-boards', label: 'Boards & serving' },
-            { to: '/shop?cat=dining', label: 'Tabletop' },
-            { to: '/shop?cat=bath', label: 'Bath' },
-            { to: '/shop?cat=organization', label: 'Organization' },
-            { to: '/shop?cat=desk', label: 'Workspace' },
-            { to: '/shop?cat=outdoor', label: 'Outdoor' },
-            { to: '/shop?cat=baby', label: 'Little ones' },
-          ].map((c) => (
+          {CATEGORY_OPTIONS.map((c) => (
             <Link
-              key={c.to}
-              to={c.to}
+              key={c.id}
+              to={`/shop?cat=${c.id}`}
               className="shrink-0 rounded-full border border-line px-4 py-2 text-xs font-semibold text-ink-soft hover:border-bamboo hover:text-bamboo transition"
             >
               {c.label}
@@ -206,34 +198,38 @@ export function Home() {
         </div>
       </section>
 
-      {/* Collections */}
+      {/* Rooms */}
       <section className="border-t border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
-          <p className="label-micro mb-2">Collections</p>
+          <p className="label-micro mb-2">Rooms</p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-10">
             Shop by room
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {collections.slice(0, 6).map((c) => (
-              <Link
-                key={c.id}
-                to={`/shop?collection=${c.id}`}
-                className="group rounded-2xl border border-line p-7 hover:border-bamboo/40 hover:shadow-lg transition bg-paper"
-              >
-                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
-                  {c.count} pieces
-                </p>
-                <h3 className="font-display text-2xl font-semibold mt-2 group-hover:text-bamboo transition">
-                  {c.label}
-                </h3>
-                <p className="text-sm text-ink-soft mt-2 leading-relaxed">
-                  {c.blurb}
-                </p>
-                <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-bamboo">
-                  Browse <ArrowRight className="size-3.5" />
-                </span>
-              </Link>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CATEGORY_OPTIONS.map((c) => {
+              const hero = HEROES[c.id]
+              const count = products.filter((p) => p.category === c.id).length
+              return (
+                <Link
+                  key={c.id}
+                  to={`/shop?cat=${c.id}`}
+                  className="group rounded-2xl border border-line p-7 hover:border-bamboo/40 hover:shadow-lg transition bg-paper"
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
+                    {count} pieces
+                  </p>
+                  <h3 className="font-display text-2xl font-semibold mt-2 group-hover:text-bamboo transition">
+                    {c.label}
+                  </h3>
+                  <p className="text-sm text-ink-soft mt-2 leading-relaxed">
+                    {hero?.blurb ?? 'Bamboo for the house.'}
+                  </p>
+                  <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-bamboo">
+                    Browse <ArrowRight className="size-3.5" />
+                  </span>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

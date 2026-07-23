@@ -8,14 +8,16 @@ type NavItem =
   | { kind: 'link'; to: string; label: string }
   | { kind: 'shop'; mode: 'all' | 'limited' | 'cat'; cat?: Category; label: string }
 
+/** Short labels that map 1:1 to room categories (same grammar as Shop pills). */
 const nav: NavItem[] = [
   { kind: 'shop', mode: 'limited', label: 'This week' },
   { kind: 'shop', mode: 'all', label: 'Shop' },
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
   { kind: 'shop', mode: 'cat', cat: 'kitchen', label: 'Kitchen' },
   { kind: 'shop', mode: 'cat', cat: 'cutting-boards', label: 'Boards' },
-  { kind: 'shop', mode: 'cat', cat: 'desk', label: 'Workspace' },
+  { kind: 'shop', mode: 'cat', cat: 'dining', label: 'Table' },
   { kind: 'shop', mode: 'cat', cat: 'bath', label: 'Bath' },
+  { kind: 'shop', mode: 'cat', cat: 'desk', label: 'Desk' },
   { kind: 'link', to: '/why', label: 'Our story' },
 ]
 
