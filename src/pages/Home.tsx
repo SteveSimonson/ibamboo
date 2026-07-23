@@ -261,15 +261,27 @@ export function Home() {
               <Link
                 key={v.id}
                 to={vibePath(v.id)}
-                className="group rounded-2xl border border-line bg-card p-4 hover:border-bamboo/40 hover:shadow-md transition"
+                className="group overflow-hidden rounded-2xl border border-line bg-card hover:border-bamboo/40 hover:shadow-md transition"
               >
-                <span className="text-2xl" aria-hidden>
-                  {v.emoji}
-                </span>
-                <p className="mt-2 font-display text-lg font-semibold leading-snug group-hover:text-bamboo transition">
-                  {v.title}
-                </p>
-                <p className="mt-1 text-xs text-muted line-clamp-2">{v.tagline}</p>
+                <div className="aspect-[4/3] overflow-hidden bg-paper-2">
+                  <img
+                    src={v.avatar.image}
+                    alt=""
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-3.5">
+                  <p className="font-display text-lg font-semibold leading-snug group-hover:text-bamboo transition">
+                    {v.title}
+                  </p>
+                  <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-muted">
+                    {v.avatar.name}
+                  </p>
+                  <p className="mt-1 text-xs text-muted line-clamp-2">
+                    {v.tagline}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
