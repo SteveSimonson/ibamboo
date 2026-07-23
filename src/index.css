@@ -4,19 +4,25 @@
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
 
-  /* Premium forest palette */
+  /*
+   * Surface system (product photography first):
+   * Cool near-white page + pure white wells for Amazon studio shots.
+   * Warm cream reserved for non-photo moments only — never under product images.
+   */
   --color-ink: #121a12;
-  --color-ink-soft: #3d4a3c;
-  --color-muted: #6b7768;
-  --color-paper: #f6f3eb;
-  --color-paper-2: #ebe6d9;
+  --color-ink-soft: #3a423c;
+  --color-muted: #6a736c;
+  --color-paper: #f4f5f3;
+  --color-paper-2: #eceeea;
   --color-card: #ffffff;
-  --color-line: #ddd6c6;
+  --color-well: #ffffff;
+  --color-line: #e2e5e0;
   --color-bamboo: #3f6b35;
   --color-bamboo-deep: #2c4f25;
   --color-leaf: #7a9e5a;
   --color-moss: #1e3320;
-  --color-cream: #f3eee3;
+  /* Warm accent only — do not use under product photography */
+  --color-cream: #f0eeea;
   --color-wood: #b8956a;
   --color-gold: #c4a35a;
   --color-sunset: #c4784a;
@@ -43,20 +49,25 @@
     @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-bamboo;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-moss text-paper px-7 py-3.5 text-sm font-semibold tracking-wide shadow-[0_10px_30px_-10px_rgba(30,51,32,0.55)] transition hover:bg-bamboo-deep;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-moss text-white px-7 py-3.5 text-sm font-semibold tracking-wide shadow-[0_10px_30px_-12px_rgba(30,51,32,0.45)] transition hover:bg-bamboo-deep;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-card px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-bamboo/40 hover:bg-paper-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-bamboo/35 hover:bg-paper-2;
   }
   .btn-amazon {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#FF9900] text-ink px-7 py-3.5 text-sm font-bold tracking-tight shadow-[0_8px_24px_-8px_rgba(255,153,0,0.4)] transition hover:bg-[#e88b00];
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#FF9900] text-ink px-7 py-3.5 text-sm font-bold tracking-tight shadow-[0_8px_24px_-8px_rgba(255,153,0,0.35)] transition hover:bg-[#e88b00];
   }
+  /* Quiet card: hairline edge, soft cool shadow — product does the talking */
   .card-soft {
-    @apply rounded-2xl border border-line/80 bg-card shadow-[0_2px_20px_-12px_rgba(18,26,18,0.14)] transition duration-300;
+    @apply rounded-2xl border border-line bg-card shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)] transition duration-300;
   }
   .card-soft:hover {
-    @apply shadow-[0_18px_40px_-18px_rgba(18,26,18,0.2)] border-bamboo/25;
+    @apply shadow-[0_16px_36px_-18px_rgba(18,26,18,0.16)] border-bamboo/20;
     transform: translateY(-2px);
+  }
+  /* Pure field for Amazon studio photography */
+  .product-well {
+    @apply bg-well;
   }
   .price {
     @apply font-semibold tabular-nums tracking-tight;

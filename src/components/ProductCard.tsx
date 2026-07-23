@@ -45,15 +45,16 @@ export function ProductCard({
           })
         }
       >
-        <div className="relative aspect-[4/5] bg-cream overflow-hidden">
+        {/* Pure white well — Amazon studio white must not sit on warm cream */}
+        <div className="relative aspect-[4/5] product-well overflow-hidden border-b border-line/70">
           {img ? (
             <img
               src={img}
               alt={product.name}
-              className={`absolute inset-0 w-full h-full transition duration-700 group-hover:scale-[1.04] ${
+              className={`absolute inset-0 w-full h-full transition duration-700 ease-out group-hover:scale-[1.03] ${
                 isQuietPlaceholder(img) || img.startsWith('/brand/')
                   ? 'object-cover'
-                  : 'object-contain bg-cream p-4 sm:p-6'
+                  : 'object-contain product-well p-5 sm:p-7'
               }`}
               loading="lazy"
               referrerPolicy="no-referrer"
@@ -66,10 +67,20 @@ export function ProductCard({
                 if (next) {
                   el.src = next
                   if (isQuietPlaceholder(next) || next.startsWith('/brand/')) {
-                    el.classList.remove('object-contain', 'p-4', 'sm:p-6')
+                    el.classList.remove(
+                      'object-contain',
+                      'product-well',
+                      'p-5',
+                      'sm:p-7',
+                    )
                     el.classList.add('object-cover')
                   } else {
-                    el.classList.add('object-contain', 'p-4', 'sm:p-6')
+                    el.classList.add(
+                      'object-contain',
+                      'product-well',
+                      'p-5',
+                      'sm:p-7',
+                    )
                     el.classList.remove('object-cover')
                   }
                 } else {
@@ -78,22 +89,22 @@ export function ProductCard({
               }}
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-paper-2 to-line" />
+            <div className="absolute inset-0 bg-paper-2" />
           )}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
             {product.limitedTime && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#b45309] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#b45309] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm">
                 <Clock3 className="size-3" /> Limited time
               </span>
             )}
             {product.badge && (
-              <span className="rounded-full bg-moss text-paper text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1">
+              <span className="rounded-full bg-moss text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1">
                 {product.badge}
               </span>
             )}
           </div>
           {product.bsrRank != null && product.bsrRank <= 100 && (
-            <span className="absolute bottom-3 left-3 rounded-full bg-white/95 text-ink text-[10px] font-bold px-2.5 py-1 shadow-sm">
+            <span className="absolute bottom-3 left-3 rounded-full bg-white/95 text-ink text-[10px] font-bold px-2.5 py-1 shadow-sm border border-line/80">
               #{product.bsrRank}
               {product.bsrCategory ? ` · ${product.bsrCategory}` : ''}
             </span>
