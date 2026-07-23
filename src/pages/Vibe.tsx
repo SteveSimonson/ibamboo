@@ -17,7 +17,7 @@ import {
   vibePath,
   type VibeProfile,
 } from '../data/vibes'
-import { CATEGORY_LABELS, products } from '../data/catalog'
+import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
@@ -40,7 +40,7 @@ export function VibePage() {
 
   const picks = useMemo(() => {
     if (!vibe) return []
-    const pool = products.filter(
+    const pool = shopProducts.filter(
       (p) => vibe.categories.includes(p.category) && p.images?.length,
     )
     const limited = pool.filter((p) => p.limitedTime)

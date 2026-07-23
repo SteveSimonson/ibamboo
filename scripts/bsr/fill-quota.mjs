@@ -8,7 +8,11 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
-const QUOTA = Number(process.env.CATEGORY_QUOTA || 20)
+/**
+ * Default 0: do not invent ASIN-less “house edit” pads that create ugly
+ * identical-card category pages. Set CATEGORY_QUOTA>0 only for experiments.
+ */
+const QUOTA = Number(process.env.CATEGORY_QUOTA || 0)
 
 /**
  * ASIN-less house-edit pads: do not reuse busy brand flatlays.
@@ -328,10 +332,14 @@ console.log(
   `Loaded ${products.length} Amazon-sourced products (prior house-edit pads removed; multi-UL leftovers: ${multiUlLeft})`,
 )
 
+if (QUOTA <= 0) {
+  console.log('CATEGORY_QUOTA=0 — skipping house-edit pads (shop shows real Amazon listings only)')
+}
+
 for (const cat of Object.keys(fillers)) {
   let n = products.filter((p) => p.category === cat).length
   let i = 0
-  while (n < QUOTA && i < fillers[cat].length) {
+  while (QUOTA > 0 && n < QUOTA && i < fillers[cat].length) {
     const [name, tagline] = fillers[cat][i++]
     const slug = `fill-${slugify(name)}`
     if (usedSlug.has(slug)) continue

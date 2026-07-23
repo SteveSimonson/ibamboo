@@ -12,6 +12,7 @@ export {
 } from './products.bsr.generated'
 
 import {
+  isAmazonCdnImage,
   primaryDisplayImage,
   resolveProductImages,
 } from '../lib/productImages'
@@ -25,8 +26,28 @@ import {
 import { withProductMedia } from './productMedia'
 import type { Category, Product } from './types'
 
+/**
+ * Storefront-ready product: real Amazon listing (ASIN required).
+ * Excludes house-edit pads (fill-*, no ASIN) that produce identical busy cards.
+ */
+export function isMerchandisableProduct(p: Product): boolean {
+  // Must map to a real Amazon product page
+  if (!p.asin || !/^[A-Z0-9]{10}$/i.test(p.asin)) return false
+  // Explicit house-edit filler ids from fill-quota (never shop-ready)
+  if (p.id.startsWith('fill-') || p.slug.startsWith('fill-')) return false
+  return true
+}
+
+/** Prefer products that already have a real Amazon CDN photo in catalog data. */
+export function hasAmazonCatalogImage(p: Product): boolean {
+  return (p.images || []).some((u) => isAmazonCdnImage(u))
+}
+
 /** Merged storefront catalog: limited BSR drop first, then curated (deduped by ASIN). */
 export const products: Product[] = mergeCatalog(bsrProducts, curated)
+
+/** Shop/home grids — merchandisable only (no ASIN-less house-edit walls). */
+export const shopProducts: Product[] = products.filter(isMerchandisableProduct)
 
 function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
   const seenAsin = new Set<string>()
@@ -34,10 +55,10 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
   const out: Product[] = []
 
   for (const p of [...bsr, ...base]) {
-    if (p.asin) {
-      if (seenAsin.has(p.asin)) continue
-      seenAsin.add(p.asin)
-    }
+    // Shop only real Amazon listings (ASIN required). Drops house-edit pads.
+    if (!isMerchandisableProduct(p)) continue
+    if (seenAsin.has(p.asin!)) continue
+    seenAsin.add(p.asin!)
     let slug = p.slug
     if (seenSlug.has(slug)) slug = `${slug}-${p.id}`
     seenSlug.add(slug)
@@ -64,7 +85,7 @@ export const CATEGORY_OPTIONS = (
 
 export const collections = Array.from(
   new Map(
-    products.map((p) => [
+    shopProducts.map((p) => [
       p.collection.toLowerCase().replace(/\s+/g, '-'),
       {
         id: p.collection.toLowerCase().replace(/\s+/g, '-'),
@@ -75,7 +96,7 @@ export const collections = Array.from(
   ).values(),
 ).map((c) => ({
   ...c,
-  count: products.filter(
+  count: shopProducts.filter(
     (p) => p.collection.toLowerCase().replace(/\s+/g, '-') === c.id,
   ).length,
   blurb: collectionBlurb(c.label),
@@ -133,8 +154,10 @@ export function filterProducts(opts: {
   q?: string
   limited?: boolean
   bsr?: boolean
+  /** Include ASIN-less pads (default false — prevents house-edit walls) */
+  includePads?: boolean
 }) {
-  let list = products.slice()
+  let list = opts.includePads ? products.slice() : shopProducts.slice()
   if (opts.cat && opts.cat in CATEGORY_LABELS) {
     list = list.filter((p) => p.category === opts.cat)
   }
@@ -167,11 +190,11 @@ export function filterProducts(opts: {
 }
 
 export function limitedProducts(): Product[] {
-  return products.filter((p) => p.limitedTime)
+  return shopProducts.filter((p) => p.limitedTime)
 }
 
 export function bsrLeaders(limit = 12): Product[] {
-  return products
+  return shopProducts
     .filter((p) => p.limitedTime && p.bsrRank != null)
     .sort((a, b) => (a.bsrRank ?? 999) - (b.bsrRank ?? 999))
     .slice(0, limit)
@@ -179,7 +202,7 @@ export function bsrLeaders(limit = 12): Product[] {
 
 /** Same category + collection first, then same category. */
 export function similarProducts(product: Product, limit = 4): Product[] {
-  const rest = products.filter((p) => p.id !== product.id)
+  const rest = shopProducts.filter((p) => p.id !== product.id)
   const sameCollection = rest.filter(
     (p) =>
       p.collection === product.collection && p.category === product.category,
@@ -208,7 +231,7 @@ export function youMayAlsoLike(product: Product, limit = 4): Product[] {
   const lo = (product.priceHint || 20) * 0.45
   const hi = (product.priceHint || 20) * 2.4
 
-  const scored = products
+  const scored = shopProducts
     .filter((p) => p.id !== product.id)
     .map((p) => {
       let score = 0

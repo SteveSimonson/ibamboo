@@ -15,7 +15,11 @@ import {
   type Persona,
 } from '../data/quiz'
 import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
-import { CATEGORY_LABELS, products } from '../data/catalog'
+import {
+  CATEGORY_LABELS,
+  shopProducts,
+  type Product,
+} from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
 import {
@@ -82,7 +86,7 @@ export function Quiz() {
     const cats = scored.topCategories.length
       ? scored.topCategories
       : scored.persona.categories
-    const pool = products.filter(
+    const pool = shopProducts.filter(
       (p) => cats.includes(p.category) && p.images?.length,
     )
     const limited = pool.filter((p) => p.limitedTime)
@@ -515,7 +519,7 @@ function ResultStep({
 }: {
   persona: Persona
   topCategories: Category[]
-  picks: typeof products
+  picks: Product[]
   saved: boolean
   firstName: string
   onRetake: () => void

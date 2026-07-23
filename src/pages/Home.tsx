@@ -6,20 +6,20 @@ import {
   formatExpiry,
   limitedProducts,
   limitedTimeCopy,
-  products,
+  shopProducts,
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 
 const featured = [
-  ...products.filter((p) => p.badge),
-  ...products,
+  ...shopProducts.filter((p) => p.badge),
+  ...shopProducts,
 ]
   .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
   .slice(0, 8)
 
-const newArrivals = products.slice().reverse().slice(0, 4)
+const newArrivals = shopProducts.slice().reverse().slice(0, 4)
 
 export function Home() {
   const limited = limitedTimeCopy()
@@ -213,7 +213,7 @@ export function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CATEGORY_OPTIONS.map((c) => {
               const hero = HEROES[c.id]
-              const count = products.filter((p) => p.category === c.id).length
+              const count = shopProducts.filter((p) => p.category === c.id).length
               return (
                 <Link
                   key={c.id}
