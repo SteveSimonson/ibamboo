@@ -8,7 +8,7 @@ import {
   filterProducts,
   formatExpiry,
   limitedTimeCopy,
-  products,
+  shopProducts,
   type Category,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
@@ -190,7 +190,7 @@ export function Shop() {
             Showing: {contextLabel}
             {' · '}
             {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
-            {!hasFilters ? ` · ${products.length} in the house` : ''}
+            {!hasFilters ? ` · ${shopProducts.length} in the house` : ''}
           </p>
           {hasFilters && (
             <button
