@@ -266,8 +266,17 @@ export function Layout() {
               </li>
               {VIBE_LIST.map((v) => (
                 <li key={v.id}>
-                  <Link to={vibePath(v.id)} className="hover:text-leaf">
-                    {v.emoji} {v.title}
+                  <Link
+                    to={vibePath(v.id)}
+                    className="hover:text-leaf inline-flex items-center gap-2"
+                  >
+                    <img
+                      src={v.avatar.image}
+                      alt=""
+                      className="size-5 rounded-full object-cover object-top"
+                      loading="lazy"
+                    />
+                    {v.title}
                   </Link>
                 </li>
               ))}

@@ -14,7 +14,7 @@ import {
   shopLinkForCategories,
   type Persona,
 } from '../data/quiz'
-import { vibePath, writeStoredVibeId } from '../data/vibes'
+import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
 import { CATEGORY_LABELS, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
@@ -465,64 +465,89 @@ function ResultStep({
 }) {
   const cats = topCategories.length ? topCategories : persona.categories
   const shopTo = shopLinkForCategories(cats)
+  const vibe = getVibe(persona.id)
 
   return (
     <div className="animate-in">
       <div
-        className="rounded-3xl border border-line bg-card p-6 sm:p-8 shadow-[0_20px_50px_-28px_rgba(18,26,18,0.35)]"
+        className="rounded-3xl border border-line bg-card overflow-hidden shadow-[0_20px_50px_-28px_rgba(18,26,18,0.35)]"
         style={{ borderColor: `${persona.accent}44` }}
       >
-        <p className="label-micro" style={{ color: persona.accent }}>
-          Your bamboo persona
-        </p>
-        <h2 className="font-display text-3xl sm:text-5xl font-semibold mt-2 leading-tight">
-          {firstName ? `${firstName}, you’re a` : 'You’re a'}{' '}
-          <span style={{ color: persona.accent }}>{persona.title}</span>
-        </h2>
-        <p className="mt-2 text-lg text-ink-soft font-medium">{persona.tagline}</p>
-        <p className="mt-4 text-ink-soft leading-relaxed max-w-2xl">
-          {persona.story}
-        </p>
+        <div className="grid sm:grid-cols-[9rem_1fr] lg:grid-cols-[11rem_1fr]">
+          {vibe && (
+            <div className="relative aspect-[3/4] sm:aspect-auto sm:min-h-[22rem] bg-paper-2">
+              <img
+                src={vibe.avatar.image}
+                alt={vibe.avatar.alt}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </div>
+          )}
+          <div className="p-6 sm:p-8">
+            <p className="label-micro" style={{ color: persona.accent }}>
+              Your bamboo persona
+              {vibe ? ` · ${vibe.avatar.name}` : ''}
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold mt-2 leading-tight">
+              {firstName ? `${firstName}, you’re a` : 'You’re a'}{' '}
+              <span style={{ color: persona.accent }}>{persona.title}</span>
+            </h2>
+            <p className="mt-2 text-lg text-ink-soft font-medium">
+              {persona.tagline}
+            </p>
+            {vibe && (
+              <p
+                className="mt-3 text-ink-soft italic leading-relaxed border-l-2 pl-3 max-w-xl"
+                style={{ borderColor: `${persona.accent}66` }}
+              >
+                “{vibe.avatar.quote}”
+              </p>
+            )}
+            <p className="mt-4 text-ink-soft leading-relaxed max-w-2xl">
+              {persona.story}
+            </p>
 
-        <div className="mt-5 flex flex-wrap gap-2">
-          {cats.map((c) => (
-            <Link
-              key={c}
-              to={`/shop?cat=${c}`}
-              className="rounded-full bg-paper-2 border border-line px-3 py-1.5 text-xs font-semibold text-ink-soft hover:border-bamboo/40 hover:text-bamboo transition"
-            >
-              {CATEGORY_LABELS[c]}
-            </Link>
-          ))}
-        </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {cats.map((c) => (
+                <Link
+                  key={c}
+                  to={`/shop?cat=${c}`}
+                  className="rounded-full bg-paper-2 border border-line px-3 py-1.5 text-xs font-semibold text-ink-soft hover:border-bamboo/40 hover:text-bamboo transition"
+                >
+                  {CATEGORY_LABELS[c]}
+                </Link>
+              ))}
+            </div>
 
-        {saved && (
-          <p className="mt-5 text-sm text-bamboo font-semibold flex items-center gap-1.5">
-            <Check className="size-4" /> Interests saved — watch your inbox for a
-            welcome note.
-          </p>
-        )}
+            {saved && (
+              <p className="mt-5 text-sm text-bamboo font-semibold flex items-center gap-1.5">
+                <Check className="size-4" /> Interests saved — watch your inbox
+                for a welcome note.
+              </p>
+            )}
 
-        <div className="mt-7 flex flex-wrap gap-3">
-          <Link to={vibePath(persona.id)} className="btn-primary">
-            Explore your vibe card <ArrowRight className="size-4" />
-          </Link>
-          <Link to={shopTo} className="btn-secondary">
-            Shop this edit
-          </Link>
-          <Link
-            to="/shop?limited=1"
-            className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
-          >
-            This week’s limited drop
-          </Link>
-          <button
-            type="button"
-            onClick={onRetake}
-            className="text-sm font-semibold text-muted hover:text-bamboo px-2"
-          >
-            Retake quiz
-          </button>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link to={vibePath(persona.id)} className="btn-primary">
+                Explore your vibe card <ArrowRight className="size-4" />
+              </Link>
+              <Link to={shopTo} className="btn-secondary">
+                Shop this edit
+              </Link>
+              <Link
+                to="/shop?limited=1"
+                className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
+              >
+                This week’s limited drop
+              </Link>
+              <button
+                type="button"
+                onClick={onRetake}
+                className="text-sm font-semibold text-muted hover:text-bamboo px-2"
+              >
+                Retake quiz
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
