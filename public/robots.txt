@@ -1,0 +1,9 @@
+# iBamboo — https://ibamboo.com
+User-agent: *
+Allow: /
+
+# Prefer apex host in sitemap
+Sitemap: https://ibamboo.com/sitemap.xml
+
+# Disallow non-content noise if added later
+Disallow: /api/
