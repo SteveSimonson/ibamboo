@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Clock3 } from 'lucide-react'
+import { trackShopFilter } from '../lib/analytics'
 import {
   CATEGORY_LABELS,
   CATEGORY_OPTIONS,
@@ -33,6 +34,23 @@ export function Shop() {
   const cat = (params.get('cat') as Category | '') || ''
   const q = params.get('q') || ''
   const limited = params.get('limited') === '1'
+
+  // Track filter/search changes (debounced for typing)
+  const filterKey = `${cat}|${limited ? 1 : 0}|${q}`
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => {
+    if (searchTimer.current) clearTimeout(searchTimer.current)
+    searchTimer.current = setTimeout(() => {
+      trackShopFilter({
+        category: cat || undefined,
+        limited,
+        query: q || undefined,
+      })
+    }, q ? 450 : 0)
+    return () => {
+      if (searchTimer.current) clearTimeout(searchTimer.current)
+    }
+  }, [filterKey, cat, limited, q])
 
   const filtered = useMemo(
     () => filterProducts({ cat, q, limited }),
@@ -207,7 +225,17 @@ export function Shop() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filtered.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard
+                key={p.id}
+                product={p}
+                listName={
+                  cat
+                    ? `shop_${cat}`
+                    : limited
+                      ? 'shop_limited'
+                      : 'shop_all'
+                }
+              />
             ))}
           </div>
         )}

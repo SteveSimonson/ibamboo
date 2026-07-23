@@ -20,15 +20,23 @@ import {
 import { CATEGORY_LABELS, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
+import { trackVibeView } from '../lib/analytics'
 
 export function VibePage() {
   const { vibeId } = useParams()
   const vibe = getVibe(vibeId)
   const [stored, setStored] = useState<string | null>(null)
+  const vibeKey = vibe?.id
+  const vibeTitle = vibe?.title
 
   useEffect(() => {
     setStored(readStoredVibeId())
   }, [vibeId])
+
+  useEffect(() => {
+    if (!vibeKey || !vibeTitle) return
+    trackVibeView({ vibeId: vibeKey, vibeTitle })
+  }, [vibeKey, vibeTitle])
 
   const picks = useMemo(() => {
     if (!vibe) return []
@@ -436,7 +444,12 @@ export function VibePage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {picks.map((p) => (
-              <ProductCard key={p.id} product={p} compact />
+              <ProductCard
+                key={p.id}
+                product={p}
+                compact
+                listName={`vibe_loadout_${vibe.id}`}
+              />
             ))}
           </div>
         </section>
