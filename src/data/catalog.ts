@@ -12,6 +12,7 @@ export {
 } from './products.bsr.generated'
 
 import {
+  galleryThumbImages,
   isAmazonCdnImage,
   primaryDisplayImage,
   resolveProductImages,
@@ -130,9 +131,14 @@ export function primaryImage(p: Product): string | undefined {
   return primaryDisplayImage(p)
 }
 
-/** Full gallery chain for PDP / onError fallbacks (no busy brand flatlays). */
+/** Full gallery chain for PDP main viewer / onError fallbacks. */
 export function productImageChain(p: Product): string[] {
   return resolveProductImages(p)
+}
+
+/** Thumbnail strip only — reliable Amazon listing photos (hide if ≤1). */
+export function productGalleryThumbs(p: Product): string[] {
+  return galleryThumbImages(p)
 }
 
 export function formatMoney(n: number) {
