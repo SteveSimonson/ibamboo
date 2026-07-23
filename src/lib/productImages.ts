@@ -17,16 +17,16 @@ const BUSY_BRAND_PATHS = [
   '/brand/social.png',
 ]
 
-/** Soft category hues for quiet monogram placeholders (HSL). */
+/** Cool, low-saturation hues for monogram placeholders (match new surface system). */
 const CATEGORY_HUE: Record<string, number> = {
-  kitchen: 95,
-  'cutting-boards': 38,
-  dining: 28,
-  bath: 175,
-  organization: 210,
-  desk: 220,
-  outdoor: 130,
-  baby: 85,
+  kitchen: 110,
+  'cutting-boards': 95,
+  dining: 85,
+  bath: 165,
+  organization: 140,
+  desk: 150,
+  outdoor: 125,
+  baby: 100,
 }
 
 export function isAmazonCdnImage(url: string | undefined | null): boolean {
@@ -68,13 +68,14 @@ export function quietPlaceholderUrl(product: {
   asin?: string
 }): string {
   const seed = hashSeed(product.asin || product.id || product.name)
-  const baseHue = CATEGORY_HUE[product.category || ''] ?? 100
-  const hue = (baseHue + (seed % 24) - 12 + 360) % 360
-  const sat = 18 + (seed % 12)
-  const light = 86 + (seed % 8)
-  const accent = `hsl(${hue}, ${sat + 20}%, ${Math.max(28, light - 48)}%)`
+  const baseHue = CATEGORY_HUE[product.category || ''] ?? 110
+  const hue = (baseHue + (seed % 16) - 8 + 360) % 360
+  // Near-white cool fields — never warm tan
+  const sat = 8 + (seed % 6)
+  const light = 94 + (seed % 4)
+  const accent = `hsl(${hue}, ${sat + 18}%, 38%)`
   const bg = `hsl(${hue}, ${sat}%, ${light}%)`
-  const bg2 = `hsl(${(hue + 18) % 360}, ${sat - 4}%, ${light - 6}%)`
+  const bg2 = `hsl(${(hue + 12) % 360}, ${Math.max(4, sat - 2)}%, ${light - 3}%)`
   const initial = (product.name.trim().charAt(0) || 'B').toUpperCase()
   const label = product.asin
     ? 'Photo unavailable'

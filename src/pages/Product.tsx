@@ -177,7 +177,7 @@ export function ProductPage() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
           {/* Gallery */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="relative rounded-2xl overflow-hidden aspect-square bg-cream border border-line shadow-sm">
+            <div className="relative rounded-2xl overflow-hidden aspect-square product-well border border-line shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)]">
               {main ? (
                 <img
                   key={main}
@@ -186,7 +186,7 @@ export function ProductPage() {
                   className={`absolute inset-0 w-full h-full ${
                     isQuietPlaceholder(main)
                       ? 'object-cover'
-                      : 'object-contain p-6 sm:p-10'
+                      : 'object-contain product-well p-6 sm:p-10'
                   }`}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
@@ -199,7 +199,12 @@ export function ProductPage() {
                       setActiveImg(idx)
                       el.src = next
                       if (isQuietPlaceholder(next)) {
-                        el.classList.remove('object-contain', 'p-6', 'sm:p-10')
+                        el.classList.remove(
+                          'object-contain',
+                          'product-well',
+                          'p-6',
+                          'sm:p-10',
+                        )
                         el.classList.add('object-cover')
                       }
                     } else {
@@ -224,10 +229,10 @@ export function ProductPage() {
                     key={src + i}
                     type="button"
                     onClick={() => setActiveImg(i)}
-                    className={`relative shrink-0 size-20 sm:size-24 rounded-xl overflow-hidden border-2 transition bg-cream ${
+                    className={`relative shrink-0 size-20 sm:size-24 rounded-xl overflow-hidden border-2 transition product-well ${
                       i === activeImg
                         ? 'border-bamboo'
-                        : 'border-transparent hover:border-line'
+                        : 'border-line hover:border-bamboo/30'
                     }`}
                   >
                     <img
@@ -236,7 +241,7 @@ export function ProductPage() {
                       className={`absolute inset-0 w-full h-full ${
                         src.startsWith('/brand/')
                           ? 'object-cover'
-                          : 'object-contain p-1'
+                          : 'object-contain product-well p-1.5'
                       }`}
                       referrerPolicy="no-referrer"
                     />
