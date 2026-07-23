@@ -6,7 +6,8 @@ import { VIBE_LIST, vibePath } from '../data/vibes'
 import type { Category } from '../data/types'
 
 type NavItem =
-  | { kind: 'link'; to: string; label: string }
+  | { kind: 'link'; to: string; label: string; /** plain text — not a filled pill when active */
+      plain?: boolean }
   | { kind: 'shop'; mode: 'all' | 'cat'; cat?: Category; label: string }
 
 /** Short labels that map 1:1 to room categories (same grammar as Shop pills). */
@@ -18,7 +19,8 @@ const nav: NavItem[] = [
   { kind: 'shop', mode: 'cat', cat: 'dining', label: 'Table' },
   { kind: 'shop', mode: 'cat', cat: 'bath', label: 'Bath' },
   { kind: 'shop', mode: 'cat', cat: 'desk', label: 'Desk' },
-  { kind: 'link', to: '/why', label: 'Our story' },
+  // Text link only — single solid CTA in header is "Shop this week"
+  { kind: 'link', to: '/why', label: 'Our story', plain: true },
 ]
 
 function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
@@ -48,7 +50,12 @@ function useShopNavActive() {
   }
 }
 
-function navClass(active: boolean) {
+function navClass(active: boolean, plain = false) {
+  if (plain) {
+    return `px-2.5 py-2 text-[13px] font-semibold transition whitespace-nowrap ${
+      active ? 'text-bamboo' : 'text-ink-soft hover:text-ink'
+    }`
+  }
   return `px-3.5 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
     active
       ? 'bg-ink text-paper'
@@ -107,7 +114,7 @@ export function Layout() {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className={() => navClass(active)}
+                    className={() => navClass(active, item.plain)}
                   >
                     {item.label}
                   </NavLink>
@@ -158,14 +165,21 @@ export function Layout() {
             {nav.map((item) => {
               const active = isActive(item)
               const to = item.kind === 'link' ? item.to : shopHref(item)
+              const plain = item.kind === 'link' && item.plain
               return (
                 <Link
                   key={to + item.label}
                   to={to}
                   onClick={() => setOpen(false)}
-                  className={`block px-3 py-3 rounded-xl text-sm font-semibold transition ${
-                    active ? 'bg-ink text-paper' : 'hover:bg-paper-2'
-                  }`}
+                  className={
+                    plain
+                      ? `block px-3 py-3 text-sm font-semibold transition ${
+                          active ? 'text-bamboo' : 'text-ink-soft hover:text-ink'
+                        }`
+                      : `block px-3 py-3 rounded-xl text-sm font-semibold transition ${
+                          active ? 'bg-ink text-paper' : 'hover:bg-paper-2'
+                        }`
+                  }
                   aria-current={active ? 'page' : undefined}
                 >
                   {item.label}
