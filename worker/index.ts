@@ -3,6 +3,8 @@
  * Secrets: GHL_PIT, GHL_LOCATION_ID (wrangler secret put)
  */
 
+import { buildWelcomeEmail } from './welcomeEmail'
+
 export interface Env {
   ASSETS: Fetcher
   GHL_PIT: string
@@ -111,38 +113,28 @@ async function ghlUpsertContact(
   return { contactId: data.contact.id, isNew: Boolean(data.new) }
 }
 
-/** Best-effort welcome email; fails soft if location email is not configured. */
+/**
+ * Best-effort welcome email via GHL Conversations API.
+ * Soft-fails if location email is not configured.
+ *
+ * Deliverability notes:
+ * - Send only when marketingOptIn !== false (caller enforces)
+ * - Moderate content richness; 2 content links; no Amazon URLs
+ * - Confirm GHL location injects physical address + List-Unsubscribe
+ */
 async function ghlWelcomeEmail(
   env: Env,
   contactId: string,
-  personaLabel: string,
-  interests: string[],
+  body: QuizPayload,
 ) {
-  const interestLine =
-    interests.length > 0
-      ? interests.map((i) => i.replace(/^interest:/, '')).join(', ')
-      : 'bamboo living'
-  const subject = `Your iBamboo vibe: ${personaLabel || 'Bamboo explorer'}`
-  const html = `
-    <div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;color:#121a12">
-      <p style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#3f6b35">iBamboo</p>
-      <h1 style="font-size:28px;line-height:1.2">You're a ${escapeHtml(personaLabel || 'bamboo explorer')}.</h1>
-      <p style="font-size:16px;line-height:1.6;color:#3d4a3c">
-        Thanks for taking the Bamboo Vibe Check. Based on your answers, lean into:
-        <strong>${escapeHtml(interestLine)}</strong>.
-      </p>
-      <p style="margin:28px 0">
-        <a href="https://ibamboo.com/shop?limited=1"
-           style="display:inline-block;background:#1e3320;color:#f6f3eb;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:600">
-          Shop this week’s drop
-        </a>
-      </p>
-      <p style="font-size:14px;color:#6b7768">
-        Discover on iBamboo · Buy on Amazon · Lists refresh weekly.
-      </p>
-    </div>
-  `
+  const parts = buildWelcomeEmail({
+    firstName: body.firstName,
+    personaId: body.personaId,
+    personaLabel: body.personaLabel,
+    interests: body.interests,
+  })
 
+  // GHL Conversations Email: html is primary; message used as plain-text fallback by some clients
   const res = await fetch(
     'https://services.leadconnectorhq.com/conversations/messages',
     {
@@ -156,22 +148,20 @@ async function ghlWelcomeEmail(
       body: JSON.stringify({
         type: 'Email',
         contactId,
-        subject,
-        html,
+        subject: parts.subject,
+        html: parts.html,
+        // Plain-text companion when the API accepts it (ignored if unsupported)
+        message: parts.text,
         emailFrom: undefined,
       }),
     },
   )
 
-  return { ok: res.ok, status: res.status }
-}
-
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+  return {
+    ok: res.ok,
+    status: res.status,
+    personaId: parts.profile.id,
+  }
 }
 
 async function handleQuiz(request: Request, env: Env) {
@@ -191,15 +181,10 @@ async function handleQuiz(request: Request, env: Env) {
 
   try {
     const { contactId, isNew } = await ghlUpsertContact(env, body)
-    let email: { ok: boolean; status: number } | null = null
+    let email: { ok: boolean; status: number; personaId?: string } | null = null
     if (body.marketingOptIn !== false) {
       try {
-        email = await ghlWelcomeEmail(
-          env,
-          contactId,
-          String(body.personaLabel || ''),
-          Array.isArray(body.interests) ? body.interests : [],
-        )
+        email = await ghlWelcomeEmail(env, contactId, body)
       } catch {
         email = { ok: false, status: 0 }
       }
@@ -209,6 +194,7 @@ async function handleQuiz(request: Request, env: Env) {
       contactId,
       isNew,
       emailSent: Boolean(email?.ok),
+      vibeId: email?.personaId || body.personaId || null,
     })
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Submit failed'
