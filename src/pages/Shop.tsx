@@ -14,6 +14,7 @@ import { getCategoryHero } from '../data/categoryHeroes'
 import { resolveCollectionToCategory } from '../data/collectionRedirect'
 import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
+import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 
 export function Shop() {
   const [params, setParams] = useSearchParams()
@@ -184,6 +185,11 @@ export function Shop() {
           )}
         </div>
 
+        {/* Room → vibe engagement (quiz / registration funnel) */}
+        {cat ? (
+          <CategoryVibeCheck category={cat as Category} placement="mid" />
+        ) : null}
+
         {filtered.length === 0 ? (
           <div className="rounded-2xl border border-line bg-card p-14 text-center">
             <p className="font-display text-2xl font-semibold">No matches</p>
@@ -205,6 +211,11 @@ export function Shop() {
             ))}
           </div>
         )}
+
+        {/* Second touch after browsing — stronger CTA */}
+        {cat ? (
+          <CategoryVibeCheck category={cat as Category} placement="end" />
+        ) : null}
       </div>
     </div>
   )
