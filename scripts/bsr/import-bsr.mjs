@@ -86,22 +86,18 @@ async function fetchText(url) {
   return res.text()
 }
 
-/** Brand / lifestyle fallbacks when Amazon list images are missing. */
-const CATEGORY_FALLBACK_IMAGES = {
-  kitchen: [
-    '/brand/products-flatlay.png',
-    '/brand/products-hero.png',
-  ],
-  'cutting-boards': [
-    '/brand/products-flatlay.png',
-    '/brand/soho-collection.png',
-  ],
-  dining: ['/brand/soho-collection.png', '/brand/products-hero.png'],
-  bath: ['/brand/landing-forest.png', '/brand/products-flatlay.png'],
-  organization: ['/brand/products-hero.png', '/brand/soho-collection.png'],
-  desk: ['/brand/products-hero.png', '/brand/soho-collection.png'],
-  outdoor: ['/brand/landing-forest.png', '/brand/hero.png'],
-  baby: ['/brand/products-flatlay.png', '/brand/soho-collection.png'],
+/**
+ * Last-resort Amazon CDN attempts for an ASIN (no Creators API).
+ * Prefer scraped /images/I/ URLs; these P/ patterns only when list enrich fails.
+ */
+function amazonAsinImageAttempts(asin) {
+  if (!asin) return []
+  const a = String(asin).toUpperCase()
+  return [
+    `https://m.media-amazon.com/images/P/${a}.01._SCLZZZZZZZ_SX500_.jpg`,
+    `https://images-na.ssl-images-amazon.com/images/P/${a}.01.LZZZZZZZ.jpg`,
+    `https://m.media-amazon.com/images/P/${a}.01.LZZZZZZZ.jpg`,
+  ]
 }
 
 /**
@@ -132,8 +128,7 @@ function upgradeAmazonImageUrl(url) {
     .replace(/\._SY\d+_\./i, '._SL1000_.')
     .replace(/\._US\d+_\./i, '._SL1000_.')
     .replace(/\._SS\d+_\./i, '._SL1000_.')
-  // Avoid the unreliable images/P/{ASIN} pattern as primary
-  if (/\/images\/P\/[A-Z0-9]{10}/i.test(u)) return null
+  // P/{ASIN} pattern is less reliable than /images/I/ but keep as last-resort candidate
   return u
 }
 
@@ -164,28 +159,28 @@ function imageStem(url) {
 function resolveProductImages({ listImages, enrichedImages, category, asin }) {
   const out = []
   const seenStems = new Set()
-  const push = (url) => {
-    const u = upgradeAmazonImageUrl(url) || (url?.startsWith('/') ? url : null)
-    if (!u) return
-    const stem = imageStem(u)
-    if (stem) {
-      if (seenStems.has(stem)) return
-      seenStems.add(stem)
-    } else if (out.includes(u)) {
-      return
+  const push = (url, { allowP = false } = {}) => {
+    // Prefer Amazon CDN; do not embed busy brand flatlays in the catalog
+    // (runtime uses unique quiet monograms when Amazon photos fail).
+    let u = upgradeAmazonImageUrl(url)
+    if (!u && allowP && url && /media-amazon|ssl-images-amazon/i.test(url)) {
+      u = String(url).replace(/^http:\/\//i, 'https://')
     }
+    if (!u) return
+    // Prefer /images/I/ first; only allow P/ASIN when allowP
+    if (!allowP && /\/images\/P\/[A-Z0-9]{10}/i.test(u)) return
+    const stem = imageStem(u) || u
+    if (seenStems.has(stem)) return
+    seenStems.add(stem)
     out.push(u)
   }
   for (const u of enrichedImages || []) push(u)
   for (const u of listImages || []) push(u)
-  // Brand fallbacks last
-  for (const u of CATEGORY_FALLBACK_IMAGES[category] || CATEGORY_FALLBACK_IMAGES.kitchen) {
-    push(u)
+  // ASIN-based Amazon attempts after scrape paths (client onError can walk these)
+  if (asin) {
+    for (const u of amazonAsinImageAttempts(asin)) push(u, { allowP: true })
   }
-  // Absolute last resort only if nothing else (often a blank gif — prefer brand art)
-  if (out.length === 0 && asin) {
-    // skip broken P/ pattern — leave brand only
-  }
+  // No busy brand fillers here — storefront resolves quiet monograms at runtime
   return out.slice(0, 6)
 }
 

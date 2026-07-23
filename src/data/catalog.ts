@@ -11,6 +11,10 @@ export {
   bsrMarketing,
 } from './products.bsr.generated'
 
+import {
+  primaryDisplayImage,
+  resolveProductImages,
+} from '../lib/productImages'
 import { products as curated } from './products'
 import {
   bsrProducts,
@@ -100,8 +104,14 @@ export function getProduct(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug)
 }
 
+/** Best display image: Amazon CDN first, then ASIN attempts, then quiet monogram. */
 export function primaryImage(p: Product): string | undefined {
-  return p.images[0]
+  return primaryDisplayImage(p)
+}
+
+/** Full gallery chain for PDP / onError fallbacks (no busy brand flatlays). */
+export function productImageChain(p: Product): string[] {
+  return resolveProductImages(p)
 }
 
 export function formatMoney(n: number) {

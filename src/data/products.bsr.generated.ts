@@ -48,9 +48,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Astercook Deep-Carbonized Bamboo Cutting Boards for Kitchen with Wood Storage Stand, Reversible Charcuterie & Chopping Boards with Juice Grooves and Easy-Grip Handles, Fathers Day Gift for Men",
     "badge": "#1 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/91xky+JYmZL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/91xky+JYmZL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 2294,
@@ -97,9 +95,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "ROYAL CRAFT WOOD Wooden Cutting Boards for Kitchen Meal Prep & Serving - Non Toxic Bamboo Wood Cutting Board Set with Deep Juice Groove Side Handles - Charcuterie & Chopping Butcher Block for Meat",
     "badge": "#1 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/818Koibt7DL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/818Koibt7DL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 53975,
@@ -146,9 +142,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Niagara Sleep Solution Ultra Soft Queen Size Mattress Topper - Rayon Derived from Bamboo Pillow Top Mattress Pad for Back Pain Relief - Naturally Cooling for Hot Sleepers, Green",
     "badge": "#1 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81YYCJW3PTL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81YYCJW3PTL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 53677,
@@ -195,9 +189,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Keechee Bamboo Cutting Board, Durable Wood Cutting Boards for Kitchen with Deep Juice Grooves & Built-in Handles, Ideal Charcuterie & Chopping for Meat, Vegetables and Fruits Ideal Kitchen Gifts",
     "badge": "#2 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81CbxCEH0mL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81CbxCEH0mL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 3544,
@@ -244,9 +236,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "BEDLORE Queen Mattress Topper Viscose Derived from Bamboo, Thick Pillow Top Mattress Pad with Stretchable Pockets for 6-18 inches Mattress, Soft Mattress Topper for Back Pain Relief(Dark Gray)",
     "badge": "#2 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81fEHxFn38L._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81fEHxFn38L._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 12410,
@@ -293,9 +283,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Zeawec 3-Piece Set Deep-Carbonized Bamboo Cutting Board for Kitchen - Crack-Resistant Wood Chopping Boards with Deep Juice Grooves, Pre-Oiled Butcher Block for Meat, Vegetables & Cheese, Carbonized",
     "badge": "#4 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71ZhFvtan6L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71ZhFvtan6L._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 858,
@@ -342,9 +330,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Riveira Dark Bamboo Wooden Spoons for Cooking 6-Piece, Apartment Essentials Wood Spatula Spoon Nonstick Kitchen Utensil Set Premium Quality Housewarming Gifts for Everyday Use",
     "badge": "#4 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/815OUvVHFEL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
+      "https://images-na.ssl-images-amazon.com/images/I/815OUvVHFEL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 15166,
@@ -394,9 +380,7 @@ export const bsrProducts: Product[] = [
       "https://images-na.ssl-images-amazon.com/images/I/71gOx7w+EML._AC_SL1000_.jpg",
       "https://m.media-amazon.com/images/I/51Y3x-ti5CL.jpg",
       "https://m.media-amazon.com/images/I/51d5+0yzlWL.jpg",
-      "https://m.media-amazon.com/images/I/51H51n8478L.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/51H51n8478L.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 3594,
@@ -443,9 +427,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Greener Chef Luxury Bamboo Cutting Board Set of 3 with Glue-Free Surface Technology - Extra Spacious Wood Cutting Boards for Kitchen and XL Chopping Board Set - Replacements for Life",
     "badge": "#7 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71mmnod-a1L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71mmnod-a1L._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 652,
@@ -492,9 +474,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "3 Packs Bamboo Cutting Board Set with Non Slip Feet and Over Sink Nice Solid Thick Wood Juice Groove Chopping Board Extra Large Big Small Best Hardwood Kitchen Counter Organic Vegetable",
     "badge": "#9 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81pNnQ1VxeL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81pNnQ1VxeL._AC_SL1000_.jpg"
     ],
     "rating": 4.3,
     "reviewCount": 1100,
@@ -541,9 +521,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Freshware Bamboo Cutting Board Set of 3, Wooden Cutting Boards for Kitchen, Knife Friendly Food Grade Chopping Board, Lightweight with Hanging Hole for Easy Storage",
     "badge": "#10 Best Seller",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81gLwPfpWbL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81gLwPfpWbL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 12758,
@@ -590,9 +568,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Kitsure Bamboo Cutting Board for Chopping & Serving, Large, Natural | Multi-Sizes Wooden Cutting Boards for Kitchen, Convenient Kitchen Essentials with Deep Juice Grooves",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71BcxNQ5r2L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71BcxNQ5r2L._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 1378,
@@ -639,9 +615,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Fibogollo Bamboo Cutting Boards for Kitchen(Set of 3),Chopping Boards with Juice Groove,End Grain Serving Board with Holder,Bamboo Butcher Block for Meat,Vegetables,Fruit",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81LLOwuZfCL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81LLOwuZfCL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 159,
@@ -688,9 +662,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Chef Studio Bamboo Salad Hands Wooden Salad Serving Utensils – Natural Wood Salad Servers and Tongs Set, Ergonomic Salad Tossing Utensils, Wooden Salad Spoons for Mixing and Serving, Kitchen Gift Idea",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81dOE2bTBpL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81dOE2bTBpL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 38,
@@ -737,9 +709,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Kikcoin 17\"×11\" Bamboo Cutting Boards for Kitchen, Knife-Friendly Food Grade Wooden Cutting Boards for Kitchen, Charcuterie, Extra Large Chopping Boards with Deep Juice Groove, Reversible, Natural",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/819GDbFB7ZL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/819GDbFB7ZL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 3292,
@@ -786,9 +756,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "EDELHAUS Carbonized Bamboo Cutting Boards – Cutting Board Set of 3 Heat Treated for Rich Color & Lower Moisture Absorption, Chopping Boards with Juice Groove, Non-Toxic, FSC Certified incl. Stand",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/91fo7ihanHL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/91fo7ihanHL._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 57,
@@ -835,9 +803,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Cutting Board Set of 3 with Stand, Carbonized Bamboo, Juice Groove | Carbonized Bamboo, 3 Kitchen Cutting Boards, Storage Stand, Deep Juice Groove, Food Prep Boards, Meat Vegetable Cheese Prep",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81DThJz017L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81DThJz017L._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 44,
@@ -884,9 +850,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Greener Chef Luxury Wood Cutting Board 3-Piece Set with Vertical Grain Strength Technology - Extra Large Bamboo Cutting Boards for Kitchen with Deep Juice Grooves for Chopping - Lifetime Replacements",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71p27kM-yzL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71p27kM-yzL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 423,
@@ -933,9 +897,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Zarler Bamboo Cutting Boards for Kitchen, Wood Cutting Board with Juice Grooves and Handles, Wooden Chopping Board Set for Meal Prep, 500℉ Carbonized Bamboo, XL Size, Ideal Kitchen Gift",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71WfEph0lTL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71WfEph0lTL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 123,
@@ -982,9 +944,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Farberware Bamboo Cutting Board with Clear Locking Lid, 11x14 Inch Charcuterie Board with Handles - Reversible Serving Board for Cheese, Meats, Snacks and More",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/6141LdSyqxL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/6141LdSyqxL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 1795,
@@ -1031,9 +991,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Cutting Board for Kitchen, 3-Piece Set with Juice Grooves, Side Handles & Non-Slip Mats – Durable Bamboo Chopping Board for Meat, Vegetables and Fruits",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81BJf71smLL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81BJf71smLL._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 272,
@@ -1080,9 +1038,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Hiware Extra Large 18\" x 12\" Bamboo Cutting Board for Kitchen, Heavy Duty Wood Cutting Board with Juice Groove, 100% Organic Bamboo, Pre Oiled",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71Z6yX-uMcL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71Z6yX-uMcL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 10781,
@@ -1129,9 +1085,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Cutting Board Set with Stand, 3PCS Double-Sided Chopping Boards for Kitchen Meal Prep & Serving, Charcuterie, Juice Grooves & Side Handle, Ideal for Meat, Vegetables, Kitchen Essentials, Brown",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/8111yj5AMsL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/8111yj5AMsL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 289,
@@ -1178,9 +1132,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Keechee Dishwasher Safe Bamboo Cutting Board, Lightweight & Durable Wood Cutting Board, Reversible with Juice Groove, Easy to Store & Clean, Ideal Kitchen Gift for Home Cooks",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71KaosuaJLL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71KaosuaJLL._AC_SL1000_.jpg"
     ],
     "rating": 4.3,
     "reviewCount": 966,
@@ -1227,9 +1179,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Cooler Kitchen Bamboo Wood Cutting Board Set with 6 Color Coded Flexible Plastic Chopping Mats with Food Icons, Wooden Cutting Boards for Kitchen, Wooden Chopping Board Non Toxic Dishwasher Safe",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/711nQaYgacL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/711nQaYgacL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 4039,
@@ -1276,9 +1226,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Salad Tossers Set of 2, Natural Wooden Salad Servers with Thumb Hook, Ergonomic Serving Utensils for Mixing and Serving, Ideal Kitchen Gift Idea",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71JqFdI+-oL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71JqFdI+-oL._AC_SL1000_.jpg"
     ],
     "rating": 5,
     "reviewCount": 2,
@@ -1325,9 +1273,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "3-PCS Wood Cutting Board Set with Innovative Stand - Durable Double Sided Bamboo Cutting Board with Juice Groove & Handle for Meal Prep, Meat Charcuterie Serving, Eco-Friendly Healthy Kitchen Gift",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81W+t+9MtwL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81W+t+9MtwL._AC_SL1000_.jpg"
     ],
     "rating": 4.2,
     "reviewCount": 33,
@@ -1377,9 +1323,7 @@ export const bsrProducts: Product[] = [
       "https://images-na.ssl-images-amazon.com/images/I/81FoZNCStHL._AC_SL1000_.jpg",
       "https://m.media-amazon.com/images/I/51d5+0yzlWL.jpg",
       "https://m.media-amazon.com/images/I/51H51n8478L.jpg",
-      "https://m.media-amazon.com/images/I/51RFyWIoSmL.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/51RFyWIoSmL.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 15115,
@@ -1426,9 +1370,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "3 Pack Heavy Duty Bamboo Cutting Board Set Non Toxic Wooden Cutting Board for Kitchen Non Slip Solid End Grain Thick Wood Juice Groove Chopping Board Extra Large Butcher Block Best House Warming Gift",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81NxzUZ2ZzL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81NxzUZ2ZzL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 746,
@@ -1475,9 +1417,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "3 Piece Bamboo Cutting Board Set, Cutting Boards For Kitchen, Hampton Distribution",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81Mn5bm3hjL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81Mn5bm3hjL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 20,
@@ -1524,9 +1464,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Cutting Board for Kitchen, 3-Piece Wooden Cutting Board Set with Juice Grooves, Side Handles, Non-Slip Mats, Reversible Boards for Meat, Vegetables, Fruit, Kitchen Gift",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81s4QY2TieL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81s4QY2TieL._AC_SL1000_.jpg"
     ],
     "rating": 4.8,
     "reviewCount": 46,
@@ -1573,9 +1511,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "ROMGUAR CRAFT 3 Tier Bamboo Shoe Rack for Closet Free Standing Wood Shoe Shelf Storage Organizer for Entryway Small Space Stackable 27\"x11\"x20\" (Natural)",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71PRmWFewIL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71PRmWFewIL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 6915,
@@ -1622,9 +1558,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Cutting Board for Kitchen, 18\" Large Wood Charcuterie Cheese Board, Wooden Chopping Block with Side Handles and Juice Grooves",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71r-bxJPNqL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71r-bxJPNqL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 5374,
@@ -1671,9 +1605,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "AceThrills Dad Birthday Gift for Dad Gifts from Daughter Son, Gifts for Dads Who Wants Nothing - Engraved Bamboo Cutting Board 12.3\"L x 8.7\"W x 0.4\"Th",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71sssskEtWL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71sssskEtWL._AC_SL1000_.jpg"
     ],
     "rating": 4.7,
     "reviewCount": 1824,
@@ -1720,9 +1652,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Homaxy Extra Large Organic Bamboo Cutting Boards for Kitchen, 17.5\"x12\" Wooden XL Cutting Board with Juice Groove and Handles, Charcuterie Butcher Block Wood Serving & Chopping Board - Pre Oiled",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81BU3cz9jTL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81BU3cz9jTL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 1801,
@@ -1769,9 +1699,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "3-Piece Carbonized Bamboo Cutting Boards, Groove, Handles, Stand, 15/12/9\" | Carbonized bamboo boards with elegant dark finish, reversible prep and serving surfaces, plus display stand",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/9190ecJahjL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/9190ecJahjL._AC_SL1000_.jpg"
     ],
     "rating": 5,
     "reviewCount": 9,
@@ -1818,9 +1746,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "DUJEN 2 Pieces Bamboo Toast Tongs, 10.2 Inches Long Wood Toaster Tongs with Anti-slip Design, Tongs for Cooking with Cooking Oil Coating",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/61lLIFMef8L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
+      "https://images-na.ssl-images-amazon.com/images/I/61lLIFMef8L._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 6854,
@@ -1867,9 +1793,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "GFWARE Toothbrush Holders for Bathrooms, 5 Slots Bamboo Toothbrush Holder Kids Electric Toothbrush Holder and Toothpaste Holder for Bathroom Countertop Accessories Storage, Marble Toothbrush Organizer",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/61mw+D857cL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://images-na.ssl-images-amazon.com/images/I/61mw+D857cL._AC_SL1000_.jpg"
     ],
     "rating": 4.7,
     "reviewCount": 4937,
@@ -1916,9 +1840,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Personalized Cutting Board, Custom Bamboo Engraved Charcuterie Boards - Best Present for Wedding, Bridal Shower, Engagement, Anniversary, Housewarming, Gift Idea for Couples Bride, Parent, Family",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71I10KXFk4L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71I10KXFk4L._AC_SL1000_.jpg"
     ],
     "rating": 4.8,
     "reviewCount": 2501,
@@ -1965,9 +1887,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Besilord Silverware Organizer Kitchen Drawer Organizer Utensil Organizer Bamboo Silverware Holder Cutlery Organizer in Drawer Flatware Organizer Tray(5 slots, Natural",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71HYX9Sl+vL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71HYX9Sl+vL._AC_SL1000_.jpg"
     ],
     "rating": 4.7,
     "reviewCount": 3406,
@@ -2014,9 +1934,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Farberware Bamboo Cutting Board with Clear Locking Lid, 11 x 14 Inch Build-A-Board Charcuterie Board with 6 Compartments for Food Prep, Snack Tray, and Entertaining",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/51KB0Hodb7L._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/51KB0Hodb7L._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 1742,
@@ -2063,9 +1981,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "2 Pack Small Bamboo Wood Cutting Board for Kitchen 8.6\" x 6\" Mini Wooden Charcuterie Boards Lightweight Chopping Board Non Toxic Serving Board Tiny Chef Set Camping Fruit Lemon Sandwich Cheese Board",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/71fhUqGuDNL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://images-na.ssl-images-amazon.com/images/I/71fhUqGuDNL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 252,
@@ -2112,9 +2028,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Hefild 7 PCS Small Wooden Spoons, 5.8 Inch Honey Spoons for Tea, Hardwood Wooden Honey Teaspoon for Coffee, Little Tiny Wood Spoons, Bamboo Table Spoon for stirring, Wooden Spoons for Utensils Set",
     "badge": "Amazon BSR",
     "images": [
-      "https://images-na.ssl-images-amazon.com/images/I/81O9wT3EiNL._AC_SL1000_.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
+      "https://images-na.ssl-images-amazon.com/images/I/81O9wT3EiNL._AC_SL1000_.jpg"
     ],
     "rating": 4.7,
     "reviewCount": 2407,
@@ -2164,9 +2078,7 @@ export const bsrProducts: Product[] = [
       "https://images-na.ssl-images-amazon.com/images/I/712adEG1Y4L._AC_SL1000_.jpg",
       "https://m.media-amazon.com/images/I/41oPT4lhzkL.jpg",
       "https://m.media-amazon.com/images/I/41zV9kX17NL.jpg",
-      "https://m.media-amazon.com/images/I/51-ph+WXwiL.jpg",
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/51-ph+WXwiL.jpg"
     ],
     "rating": 4.9,
     "reviewCount": 36,
@@ -2205,9 +2117,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Wooden Laptop Stand Vertical Laptop for 13-18.6in Bamboo Stand for Desk,Laptop Stand Compatible with MacBook Air Pro/Dell XPS/Surface pro/HP/Pixelbook/Lenovo,More Laptops",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71EkDZVPlwL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/71EkDZVPlwL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 267,
@@ -2245,9 +2155,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Nuvograin Laptop Stand, Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Stand Compatible with MacBook Air Pro/Dell XPS/Surface pro/HP/Pixelbook/Lenovo, More Laptops 13-17.7inch",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71q5B-KPw4L._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/71q5B-KPw4L._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 436,
@@ -2285,9 +2193,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Wooden Vertical Laptop Stand for Desk, Bamboo Laptop Holder Compatible with MacBook Air Pro/Dell XPS/Surface Pro/HP/Pixelbook/Lenovo, More 13-15.6 Inch Laptops",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/51bgUoOC5RL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/51bgUoOC5RL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 184,
@@ -2325,9 +2231,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Laptop Stand for Desk – Ergonomic, Space-Saving, Lightweight Stand for Laptops, iPads, and Tablets (Brown)",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/61rF46Sib-L._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/61rF46Sib-L._AC_SL1000_.jpg"
     ],
     "rating": 2.7,
     "reviewCount": 3,
@@ -2365,9 +2269,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "WKWKER Bamboo Laptop Desk with Folding Legs Tilting Surface Workstation Table Adjustable Laptop Stand Bed Tray for tv Sofa Study Computer Ipad Book (Natural)",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/51ZvvMlUKrL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/51ZvvMlUKrL._AC_SL1000_.jpg"
     ],
     "rating": 4.2,
     "reviewCount": 562,
@@ -2405,9 +2307,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Wooden Laptop Stand, Portable Wood Laptop Stand for Desk Tablet with Carry Pouch, Compact Travel Laptop Stand with Protective Silicone Pads, Suitable for Laptops and Tablets",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/517wEnYEZJL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/517wEnYEZJL._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 13,
@@ -2445,9 +2345,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Monitor Stand Riser, 4 Adjustable Height,Easy Assembly | Laptop Stand with Airflow Vents, Desk Organizer for Computer, PC, Printer",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/7194kNsqOLL._AC_SL1000_.jpg",
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/7194kNsqOLL._AC_SL1000_.jpg"
     ],
     "rating": 4.6,
     "reviewCount": 84,
@@ -2486,8 +2384,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/817CkUpjp2L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81ZTMkPTcaL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71jiwRne1JL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91-WT519WRL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/91-WT519WRL._AC_SL1500_.jpg"
     ],
     "rating": 4.6,
     "hue": 95,
@@ -2525,8 +2422,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81zlI0iFfbL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71ZEnb14AiL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81jNq5+1eFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71xOPVmIkdL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71xOPVmIkdL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 96,
@@ -2564,8 +2460,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71acLFCzEHL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81vIHZrBDEL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/713AgKr1xHL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91XnffN+A1L._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/91XnffN+A1L._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 97,
@@ -2604,8 +2499,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71m5xHvQQ7L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/813jV+tNRFL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/811qlpfInuL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71gcFD3NHlL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71gcFD3NHlL._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 53,
@@ -2644,8 +2538,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81okAntVrVL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/91yOu1G+AoL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81yL+3BmwZL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81OadTniRIL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/81OadTniRIL._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 54,
@@ -2683,8 +2576,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71t7+RiIx1L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81tSx0BhT5L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/714mwvhc-1L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71e2ve7P0YL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71e2ve7P0YL._AC_SL1500_.jpg"
     ],
     "rating": 5,
     "hue": 55,
@@ -2722,8 +2614,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71oUuzoCAuL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81dxy3Q8FIL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81rIdR1r1KL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/813x5+3kFnL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/813x5+3kFnL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 56,
@@ -2761,8 +2652,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/716nuMoH2hL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81wc6upQv0L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81TEoofROnL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81Dr+g5kPzL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/81Dr+g5kPzL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 57,
@@ -2800,8 +2690,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71LJgKiqA8L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81yMjUpwySL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81rvFr6uPJL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71vEPF1vsTL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71vEPF1vsTL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 58,
@@ -2839,8 +2728,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81QqAUHE9rL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81zTbIKBlCL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81YDEHVGhSL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91B+Geu4FWL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/91B+Geu4FWL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 59,
@@ -2878,8 +2766,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71tas6C1DGL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81t83CW074L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81isMsPThFL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71PEG3DtJpL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71PEG3DtJpL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 60,
@@ -2917,8 +2804,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81BBz+qMzhL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71b0wo3JJ8L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71D4o1EAXkL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71IQNmKOd9L._AC_SL1500_.jpg",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/71IQNmKOd9L._AC_SL1500_.jpg"
     ],
     "rating": 4.4,
     "hue": 46,
@@ -2956,8 +2842,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81xhL4kOptL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81PTOfVOVvL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71SXRNXuLiL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91uavxa8akL._AC_SL1500_.jpg",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/91uavxa8akL._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 47,
@@ -2995,8 +2880,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81BBz+qMzhL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71b0wo3JJ8L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71wW0Rf6FTL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/818-zbe5RHL._AC_SL1500_.jpg",
-      "/brand/soho-collection.png"
+      "https://m.media-amazon.com/images/I/818-zbe5RHL._AC_SL1500_.jpg"
     ],
     "rating": 4.3,
     "hue": 48,
@@ -3034,8 +2918,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81nbp7dLhdL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81HOJEX1QmL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71DLTM19E1L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81onYcPngRL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/81onYcPngRL._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 194,
@@ -3073,8 +2956,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81Z1pJRY8cL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/711yDT2astL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81cFWPdcRTL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71lIZXlWuLL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71lIZXlWuLL._AC_SL1500_.jpg"
     ],
     "rating": 4.6,
     "hue": 195,
@@ -3112,8 +2994,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/91VYUuaOyKL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81UawWUznhL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81GlwdxIqcL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71jDTIotpiL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71jDTIotpiL._AC_SL1500_.jpg"
     ],
     "rating": 4.6,
     "hue": 196,
@@ -3151,8 +3032,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71Q7771O15L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71tOhsLkOWL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71yZjuJMroL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71US6XiBbpL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71US6XiBbpL._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 197,
@@ -3190,8 +3070,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71UzA56mFsL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71HY2F1g+wL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71afe0vXlQL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71CuWww8-LL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71CuWww8-LL._AC_SL1500_.jpg"
     ],
     "rating": 4.4,
     "hue": 198,
@@ -3229,8 +3108,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71b+sBmE5eL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71MTHlG9BFL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71IU-E-IuyL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71AB1Rrd8hL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71AB1Rrd8hL._AC_SL1500_.jpg"
     ],
     "rating": 4.4,
     "hue": 199,
@@ -3269,8 +3147,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/716a5L4T0sL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61g0my5hvzL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61SNsZF4s6L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81zfPlAHOZL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/81zfPlAHOZL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 125,
@@ -3309,8 +3186,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81+uEV040FL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81sIvFw7yaL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71kbbiKPt2L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71h-meRvLmL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/71h-meRvLmL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 126,
@@ -3348,8 +3224,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81msJUwTfPL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81P2dUhRLNL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81J5T0BiloL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81ISVnnoblL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/81ISVnnoblL._AC_SL1500_.jpg"
     ],
     "rating": 4.8,
     "hue": 127,
@@ -3387,8 +3262,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81YUaG2Ie8L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71zpmg6DYvL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71KnyfMKG+L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/712vS6P22lL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/712vS6P22lL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 128,
@@ -3426,8 +3300,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/714k8Ztjq2L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71TOqmDFlcL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/818eGnF4zWL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81tM2GYSFeL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/81tM2GYSFeL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 129,
@@ -3466,8 +3339,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71k9t6HmvgL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71AJXYE4bhL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71c1A2EBoNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71qk0M2sh3L._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/71qk0M2sh3L._AC_SL1500_.jpg"
     ],
     "rating": 4.5,
     "hue": 90,
@@ -3506,8 +3378,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/719Quy2exZL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71eAI0SKI4L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/7167+GK-XtL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61FaHRKtsIL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/61FaHRKtsIL._AC_SL1500_.jpg"
     ],
     "rating": 4.7,
     "hue": 91,
@@ -3546,8 +3417,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/91WdKsTqeML._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/714Z27Gpu1L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/713tb5OjtoL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/51JD5CD1APL._AC_SL1201_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/51JD5CD1APL._AC_SL1201_.jpg"
     ],
     "rating": 4.4,
     "hue": 92,
@@ -3585,8 +3455,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/914v1eu8gDL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81nz95JAR5L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61eMee7-fvL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91hoDKQ2vYL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/91hoDKQ2vYL._AC_SL1500_.jpg"
     ],
     "rating": 4.1,
     "hue": 93,
@@ -3624,8 +3493,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/81pTkZzga6L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/819h4ieL2EL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81VuiirASYL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71LQVK8epKL._AC_SL1500_.jpg",
-      "/brand/products-hero.png"
+      "https://m.media-amazon.com/images/I/71LQVK8epKL._AC_SL1500_.jpg"
     ],
     "rating": 2.8,
     "hue": 94,
@@ -3663,8 +3531,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71CN5LyRDbL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/617rrPouQUL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81u1BjwYnQL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71o5x7tRdTL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/71o5x7tRdTL._AC_SL1500_.jpg"
     ],
     "rating": 4.6,
     "hue": 120,
@@ -3702,8 +3569,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/712hj8S3YGL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61qIfLuJTCL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71xJ156wNmL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/81iavWnXGAL._AC_SL1500_.jpg",
-      "/brand/landing-forest.png"
+      "https://m.media-amazon.com/images/I/81iavWnXGAL._AC_SL1500_.jpg"
     ],
     "rating": 4.4,
     "hue": 121,
@@ -3741,8 +3607,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/918kagFT9lL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81KR3ejd3zL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81qui7xH96L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/91HeJIxWeHL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/91HeJIxWeHL._AC_SL1500_.jpg"
     ],
     "rating": 4,
     "hue": 202,
@@ -3780,8 +3645,7 @@ export const bsrProducts: Product[] = [
       "https://m.media-amazon.com/images/I/71XWiskb2fL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61cl5MPahKL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/712oyrF8UKL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71ELodorcaL._AC_SL1500_.jpg",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71ELodorcaL._AC_SL1500_.jpg"
     ],
     "rating": 4.3,
     "hue": 203,
@@ -3818,9 +3682,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Bath Mat - Foldable Wooden Bathmat, 24 x 16 Inches | Accessories for Bathroom Sauna Spa Tub Step and Floor - 24 x 16 x 0.4 Inches [LxWxH] - Modern Farmhouse Decor Design",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71qXOdxCB3L._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 6819,
@@ -3858,9 +3720,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Bath Mat - Foldable Wood Bathmat, 34 x 18 Inches | Modern Farmhouse Decor and Accessory for Bathroom Sauna Spa Door Kitchen Floor and Countertop",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71s0kVOi3zL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 6819,
@@ -3898,9 +3758,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Mind Reader Bath Mat, Shower Mat, Bathtub Mat, Bathroom Accessory, Wood, Rayon from Bamboo, 23.5\"L x 16.5\"W x 0.4\"H, Brown",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/713unr9Y4JL._AC_SL1000_.jpg"
     ],
     "rating": 4.2,
     "reviewCount": 1592,
@@ -3938,9 +3796,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "QTLCOHD 2 Pcs Bamboo Bath Mat, Wood Shower Bathroom Mat, 16 x 24 Inch | Non Slip Bathtub Mat, Foldable Waterproof Non Slip Accessories for Floor, Sauna, Spa, Hot Tub",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71+vHKk2T9L._AC_SL1000_.jpg"
     ],
     "rating": 4.3,
     "reviewCount": 54,
@@ -3978,9 +3834,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Cariloha Bamboo Viscose Bath Towels – Plush, Quick Dry Towel – Turkish Cotton & Bamboo Viscose Blend – Large Bathroom Towels 30x56 – Luxury Hotel Bath Towel – Odor Resistant – Laguna Blue",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71g2h1NEM-L._AC_SL1000_.jpg"
     ],
     "rating": 4.2,
     "reviewCount": 47,
@@ -4018,9 +3872,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bathtub Tray Caddy - Bath Tray - Bath Tub Tray Caddy - Bamboo Bath Table Tray for Tub - Expandable Size, Fits Most Tubs",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/81g3BetNzIL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 523,
@@ -4058,9 +3910,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Sen Yi Bao Luxury Bamboo Bathtub Tray - Wooden Expandable Caddy with Book, Tablet, Wine Holder - Gift Idea",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/61LDqwq53WL._AC_SL1000_.jpg"
     ],
     "rating": 4.5,
     "reviewCount": 2617,
@@ -4098,9 +3948,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bathtub Tray Caddy - Bath Tray - Bath Tub Table Tray Caddy - Bamboo Bath Tray for Tub",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71uld1FzexL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 199,
@@ -4138,9 +3986,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Unibambou Bamboo Shower Bench Inside Shower Stool with Storage Shelf, Spa Bath Chair for Bathroom, Seat or Organizer for Living Room, Bedroom and Garden - Great for All Ages Elderly (Small, Natural)",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71xXF4baoHL._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 2026,
@@ -4178,9 +4024,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "SereneLife Bamboo Bath and Shower Mat, Non-Slip Floor Mat with Extra Grips, Slatted Design, Natural Finish for Bathroom, Spa, Sauna - Rollable and Easy to Clean",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/91blxvXM-hL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 36,
@@ -4218,9 +4062,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Back Scrubber for Shower，17in Bamboo with Curved Long Handle - Stiff Natural Boar Bristles for Men and Women, Deep Cleansing and Exfoliating, Anti-Slip Grip for Wet or Dry Brushing",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/61lVmdmjWsL._AC_SL1000_.jpg"
     ],
     "rating": 4.4,
     "reviewCount": 292,
@@ -4258,9 +4100,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Shower Bench for Inside Shower to Sit on,Waterproof Shower Stool for Shaving Legs,Spa Bathroom Shower Chair with Storage Shelf, Bathroom Bench Seat-Natural Bamboo",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71jNj9eD6IL._AC_SL1000_.jpg"
     ],
     "rating": 4.3,
     "reviewCount": 589,
@@ -4298,9 +4138,7 @@ export const bsrProducts: Product[] = [
     "searchKeywords": "Bamboo Corner Shower Stool,2-Tier Waterproof Shower Stool for Inside Shower Shaving Leg,Small Spaces,Shower Foot Rest with Storage Shelf,Shower Bench,Bath Seat,Corner Nightstand gift for women mom",
     "badge": "Limited drop",
     "images": [
-      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_SL1000_.jpg",
-      "/brand/landing-forest.png",
-      "/brand/products-flatlay.png"
+      "https://m.media-amazon.com/images/I/71izIXn70AL._AC_SL1000_.jpg"
     ],
     "rating": 4.1,
     "reviewCount": 207,
@@ -4340,10 +4178,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spoon Rest",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4378,10 +4213,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Rolling Pin",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4416,10 +4248,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Knife Block Insert",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4454,10 +4283,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tea Scoop Set",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4492,10 +4318,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Honey Dipper Pair",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4530,10 +4353,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Pasta Server",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4568,10 +4388,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Salad Servers",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4606,10 +4423,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Skewer Set",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4644,10 +4458,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spreader Knives",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4682,10 +4493,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Mortar Mini",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4720,10 +4528,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Ladle",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4758,10 +4563,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tongs",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4796,10 +4598,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dinner Plate Set",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4834,10 +4633,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bowl Quartet",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4872,10 +4668,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Cup Set",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4910,10 +4703,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Coaster Caddy",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4948,10 +4738,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Placemat Set",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -4986,10 +4773,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Napkin Rings",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5024,10 +4808,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Condiment Dishes",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5062,10 +4843,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Serving Fork Spoon",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5100,10 +4878,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Salad Bowl XL",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5138,10 +4913,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Butter Dish",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5176,10 +4948,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Egg Cups",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5214,10 +4983,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Trivet Pair",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5252,10 +5018,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Flatware Handles",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5290,10 +5053,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Ramen Bowl Kit",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5328,10 +5088,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Picnic Plates",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5366,10 +5123,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dinner Plate Duo",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5404,10 +5158,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Dessert Plate Set",
     "badge": "House edit",
-    "images": [
-      "/brand/soho-collection.png",
-      "/brand/products-hero.png"
-    ],
+    "images": [],
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5442,10 +5193,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Expandable Drawer Tray",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5480,10 +5228,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Desk Drawer Dividers",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5518,10 +5263,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Lidded Storage Boxes",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5556,10 +5298,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bread Box Rolltop",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5594,10 +5333,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Spice Ladder",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5632,10 +5368,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Paper Towel Stand",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5670,10 +5403,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Cable Box",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5708,10 +5438,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Key Tray",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5746,10 +5473,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Remote Caddy",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5784,10 +5508,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Jewelry Box",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5822,10 +5543,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Closet Dividers",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5860,10 +5578,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Monitor Riser",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5898,10 +5613,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Laptop Stand",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5936,10 +5648,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Desk Caddy",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -5974,10 +5683,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Phone Dock",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6012,10 +5718,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Tablet Stand",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6050,10 +5753,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Headphone Stand",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6088,10 +5788,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Wrist Rest",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6126,10 +5823,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Pen Cup",
     "badge": "House edit",
-    "images": [
-      "/brand/products-hero.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6164,10 +5858,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Wind Chime Classic",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6202,10 +5893,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Plant Labels Pack",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6240,10 +5928,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Picnic Cutlery Roll",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6278,10 +5963,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Torch Stakes",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6316,10 +5998,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Bird Feeder",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6354,10 +6033,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Tray",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6392,10 +6068,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Folding Side Table",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6430,10 +6103,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Trellis",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6468,10 +6138,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Planter Box",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6506,10 +6173,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Salad Servers",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6544,10 +6208,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Stake Bundle",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6582,10 +6243,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Lantern Frame",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6620,10 +6278,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Hose Guide",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6658,10 +6313,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Compost Scoop",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6696,10 +6348,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Patio Coaster Set",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6734,10 +6383,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Skewer Grill Pack",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6772,10 +6418,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Garden Dibber",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6810,10 +6453,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Outdoor Utensil Crock",
     "badge": "House edit",
-    "images": [
-      "/brand/landing-forest.png",
-      "/brand/hero.png"
-    ],
+    "images": [],
     "hue": 134,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6848,10 +6488,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Suction Plate",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 83,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6886,10 +6523,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Spoon Trio",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 86,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6924,10 +6558,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Toddler Bowl",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 89,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -6962,10 +6593,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Dinnerware",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 92,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7000,10 +6628,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Hairbrush",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 95,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7038,10 +6663,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Teething Ring",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 98,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7076,10 +6698,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Toothbrush",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 101,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7114,10 +6733,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Snack Bowls",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 104,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7152,10 +6768,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Bib Set",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 107,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7190,10 +6803,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Sippy Training Cup",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 110,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7228,10 +6838,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Divided Plate",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 113,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7266,10 +6873,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Fork Spoon Set",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 116,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7304,10 +6908,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Placemat",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 119,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7342,10 +6943,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Toddler Cup Set",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 122,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7380,10 +6978,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Kids Snack Tray",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 125,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7418,10 +7013,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Food Scoop",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 128,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7456,10 +7048,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Divided Toddler Plate",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 131,
     "limitedTime": true,
     "weekOf": "2026-07-20",
@@ -7494,10 +7083,7 @@ export const bsrProducts: Product[] = [
     "priceHint": 0,
     "searchKeywords": "100% bamboo Bamboo Baby Training Cup",
     "badge": "House edit",
-    "images": [
-      "/brand/products-flatlay.png",
-      "/brand/soho-collection.png"
-    ],
+    "images": [],
     "hue": 134,
     "limitedTime": true,
     "weekOf": "2026-07-20",

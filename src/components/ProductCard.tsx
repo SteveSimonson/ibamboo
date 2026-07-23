@@ -5,9 +5,11 @@ import {
   categoryLabel,
   formatMoney,
   primaryImage,
+  productImageChain,
 } from '../data/catalog'
 import { affiliateUrl } from '../lib/amazon'
 import { trackAmazonClick, trackSelectItem } from '../lib/analytics'
+import { isQuietPlaceholder } from '../lib/productImages'
 import { StarRating } from './StarRating'
 
 export function ProductCard({
@@ -25,7 +27,8 @@ export function ProductCard({
     searchKeywords: product.searchKeywords,
     name: product.name,
   })
-  const img = primaryImage(product)
+  const chain = productImageChain(product)
+  const img = primaryImage(product) || chain[0]
 
   return (
     <article className="card-soft group flex flex-col overflow-hidden">
@@ -48,7 +51,7 @@ export function ProductCard({
               src={img}
               alt={product.name}
               className={`absolute inset-0 w-full h-full transition duration-700 group-hover:scale-[1.04] ${
-                img.startsWith('/brand/')
+                isQuietPlaceholder(img) || img.startsWith('/brand/')
                   ? 'object-cover'
                   : 'object-contain bg-cream p-4 sm:p-6'
               }`}
@@ -56,20 +59,18 @@ export function ProductCard({
               referrerPolicy="no-referrer"
               onError={(e) => {
                 const el = e.currentTarget
-                // Advance monotonically through product images then brand art.
-                // el.src is absolute; candidates may be root-relative — use an index cursor.
-                const fallbacks = [
-                  ...(product.images || []),
-                  '/brand/products-flatlay.png',
-                ]
+                // Advance through Amazon candidates → quiet monogram (never busy flatlay)
                 const idx = Number(el.dataset.fbIdx || '0') + 1
                 el.dataset.fbIdx = String(idx)
-                const next = fallbacks[idx]
+                const next = chain[idx]
                 if (next) {
                   el.src = next
-                  if (next.startsWith('/brand/')) {
+                  if (isQuietPlaceholder(next) || next.startsWith('/brand/')) {
                     el.classList.remove('object-contain', 'p-4', 'sm:p-6')
                     el.classList.add('object-cover')
+                  } else {
+                    el.classList.add('object-contain', 'p-4', 'sm:p-6')
+                    el.classList.remove('object-cover')
                   }
                 } else {
                   el.style.display = 'none'
