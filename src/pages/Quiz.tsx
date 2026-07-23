@@ -18,6 +18,14 @@ import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
 import { CATEGORY_LABELS, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
+import {
+  trackQuizAnswer,
+  trackQuizComplete,
+  trackQuizRetake,
+  trackQuizSkipRegistration,
+  trackQuizStart,
+  trackRegistration,
+} from '../lib/analytics'
 
 type Phase = 'intro' | 'questions' | 'capture' | 'result'
 
@@ -45,6 +53,7 @@ export function Quiz() {
 
   function retake() {
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
+    trackQuizRetake()
     setPhase('intro')
     setStep(0)
     setAnswers({})
@@ -85,6 +94,12 @@ export function Quiz() {
     if (!q || advancing) return
     setSelected(optionId)
     setAdvancing(true)
+    trackQuizAnswer({
+      questionId: q.id,
+      optionId,
+      step,
+      totalSteps: QUIZ_QUESTIONS.length,
+    })
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
     // Brief highlight so the selection registers, then auto-advance
     advanceTimer.current = setTimeout(() => {
@@ -139,11 +154,36 @@ export function Quiz() {
       }
       writeStoredVibeId(result.persona.id)
       setSaved(true)
+      trackRegistration({
+        personaId: result.persona.id,
+        personaLabel: result.persona.title,
+        marketingOptIn: optIn,
+        hasFirstName: Boolean(firstName.trim()),
+        success: true,
+      })
+      trackQuizComplete({
+        personaId: result.persona.id,
+        personaLabel: result.persona.title,
+        registered: true,
+      })
       setPhase('result')
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Submit failed')
       // Still show results offline if CRM fails
-      writeStoredVibeId(scoreQuiz(answers).persona.id)
+      const fallback = scoreQuiz(answers)
+      writeStoredVibeId(fallback.persona.id)
+      trackRegistration({
+        personaId: fallback.persona.id,
+        personaLabel: fallback.persona.title,
+        marketingOptIn: optIn,
+        hasFirstName: Boolean(firstName.trim()),
+        success: false,
+      })
+      trackQuizComplete({
+        personaId: fallback.persona.id,
+        personaLabel: fallback.persona.title,
+        registered: false,
+      })
       setPhase('result')
     } finally {
       setSubmitting(false)
@@ -151,8 +191,18 @@ export function Quiz() {
   }
 
   function skipToResult() {
-    writeStoredVibeId(scoreQuiz(answers).persona.id)
+    const result = scoreQuiz(answers)
+    writeStoredVibeId(result.persona.id)
     setSaved(false)
+    trackQuizSkipRegistration({
+      personaId: result.persona.id,
+      personaLabel: result.persona.title,
+    })
+    trackQuizComplete({
+      personaId: result.persona.id,
+      personaLabel: result.persona.title,
+      registered: false,
+    })
     setPhase('result')
   }
 
@@ -195,7 +245,14 @@ export function Quiz() {
           </div>
         )}
 
-        {phase === 'intro' && <Intro onStart={() => setPhase('questions')} />}
+        {phase === 'intro' && (
+          <Intro
+            onStart={() => {
+              trackQuizStart()
+              setPhase('questions')
+            }}
+          />
+        )}
 
         {phase === 'questions' && q && (
           <QuestionStep
@@ -561,7 +618,12 @@ function ResultStep({
           </p>
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {picks.map((p) => (
-              <ProductCard key={p.id} product={p} compact />
+              <ProductCard
+                key={p.id}
+                product={p}
+                compact
+                listName="quiz_picks"
+              />
             ))}
           </div>
         </section>

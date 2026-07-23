@@ -107,7 +107,11 @@ export function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {weekLeaders.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  listName="home_week_leaders"
+                />
               ))}
             </div>
           </div>
@@ -147,7 +151,7 @@ export function Home() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {featured.map((p) => (
-            <ProductCard key={p.id} product={p} />
+            <ProductCard key={p.id} product={p} listName="home_featured" />
           ))}
         </div>
       </section>
@@ -194,7 +198,7 @@ export function Home() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {newArrivals.map((p) => (
-            <ProductCard key={p.id} product={p} />
+            <ProductCard key={p.id} product={p} listName="home_new_arrivals" />
           ))}
         </div>
       </section>

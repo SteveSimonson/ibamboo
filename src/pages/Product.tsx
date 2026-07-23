@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -21,11 +21,38 @@ import {
 import { ProductCard } from '../components/ProductCard'
 import { StarRating } from '../components/StarRating'
 import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
+import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 
 export function ProductPage() {
   const { slug } = useParams()
   const product = slug ? getProduct(slug) : undefined
   const [activeImg, setActiveImg] = useState(0)
+
+  const productId = product?.id
+  const productName = product?.name
+  const productCategory = product?.category
+  const productPrice = product?.priceHint
+  const productAsin = product?.asin
+  const productLimited = product?.limitedTime
+
+  useEffect(() => {
+    if (!productId || !productName || !productCategory) return
+    trackViewItem({
+      id: productId,
+      name: productName,
+      category: productCategory,
+      price: productPrice,
+      asin: productAsin,
+      limitedTime: productLimited,
+    })
+  }, [
+    productId,
+    productName,
+    productCategory,
+    productPrice,
+    productAsin,
+    productLimited,
+  ])
 
   if (!product) {
     return (
@@ -38,16 +65,29 @@ export function ProductPage() {
     )
   }
 
+  // Local alias so nested handlers keep the narrowed product type
+  const p = product
   const shopUrl = affiliateUrl({
-    asin: product.asin,
-    searchKeywords: product.searchKeywords,
-    name: product.name,
+    asin: p.asin,
+    searchKeywords: p.searchKeywords,
+    name: p.name,
   })
-  const similar = similarProducts(product, 4)
-  const alsoLike = youMayAlsoLike(product, 4)
-  const images = product.images.length ? product.images : []
+  const similar = similarProducts(p, 4)
+  const alsoLike = youMayAlsoLike(p, 4)
+  const images = p.images.length ? p.images : []
   const main = images[activeImg] ?? images[0]
-  const until = formatExpiry(product.expiresAt)
+  const until = formatExpiry(p.expiresAt)
+
+  function onAmazonClick(location: string) {
+    trackAmazonClick({
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      price: p.priceHint,
+      asin: p.asin,
+      location,
+    })
+  }
 
   return (
     <div className="pb-28">
@@ -257,6 +297,7 @@ export function ProductPage() {
                 target="_blank"
                 rel="noopener noreferrer sponsored"
                 className="btn-amazon !w-full !py-4 text-base"
+                onClick={() => onAmazonClick('product_page_primary')}
               >
                 Buy on Amazon <ExternalLink className="size-4" />
               </a>
@@ -346,6 +387,7 @@ export function ProductPage() {
                 target="_blank"
                 rel="noopener noreferrer sponsored"
                 className="btn-primary !w-full"
+                onClick={() => onAmazonClick('product_page_secondary')}
               >
                 Continue to Amazon <ExternalLink className="size-4" />
               </a>
@@ -372,7 +414,12 @@ export function ProductPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {similar.map((p) => (
-                <ProductCard key={p.id} product={p} compact />
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  compact
+                  listName="product_similar"
+                />
               ))}
             </div>
           </section>
@@ -389,7 +436,12 @@ export function ProductPage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {alsoLike.map((p) => (
-                <ProductCard key={p.id} product={p} compact />
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  compact
+                  listName="product_also_like"
+                />
               ))}
             </div>
           </section>

@@ -9,6 +9,7 @@ import {
   vibeForCategory,
   vibePath,
 } from '../data/vibes'
+import { trackVibeCta } from '../lib/analytics'
 
 /**
  * Room-aware vibe check CTA for category shop pages.
@@ -115,6 +116,14 @@ export function CategoryVibeCheck({
             <>
               <Link
                 to={vibePath(yours!.id)}
+                onClick={() =>
+                  trackVibeCta({
+                    action: 'open_vibe_card',
+                    location: `category_${placement}`,
+                    vibeId: yours!.id,
+                    category,
+                  })
+                }
                 className={
                   isEnd
                     ? 'inline-flex items-center justify-center gap-2 rounded-full bg-white text-moss px-5 py-3 text-sm font-bold hover:bg-cream transition'
@@ -125,6 +134,14 @@ export function CategoryVibeCheck({
               </Link>
               <Link
                 to="/quiz"
+                onClick={() =>
+                  trackVibeCta({
+                    action: 'retake_quiz',
+                    location: `category_${placement}`,
+                    vibeId: yours!.id,
+                    category,
+                  })
+                }
                 className={
                   isEnd
                     ? 'inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition'
@@ -138,6 +155,14 @@ export function CategoryVibeCheck({
             <>
               <Link
                 to="/quiz"
+                onClick={() =>
+                  trackVibeCta({
+                    action: 'start_quiz',
+                    location: `category_${placement}`,
+                    vibeId: face.id,
+                    category,
+                  })
+                }
                 className={
                   isEnd
                     ? 'inline-flex items-center justify-center gap-2 rounded-full bg-white text-moss px-5 py-3 text-sm font-bold hover:bg-cream transition'
@@ -148,6 +173,14 @@ export function CategoryVibeCheck({
               </Link>
               <Link
                 to={vibePath(face.id)}
+                onClick={() =>
+                  trackVibeCta({
+                    action: 'meet_avatar',
+                    location: `category_${placement}`,
+                    vibeId: face.id,
+                    category,
+                  })
+                }
                 className={
                   isEnd
                     ? 'inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition'

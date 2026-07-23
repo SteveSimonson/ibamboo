@@ -7,14 +7,18 @@ import {
   primaryImage,
 } from '../data/catalog'
 import { affiliateUrl } from '../lib/amazon'
+import { trackAmazonClick, trackSelectItem } from '../lib/analytics'
 import { StarRating } from './StarRating'
 
 export function ProductCard({
   product,
   compact = false,
+  listName = 'catalog',
 }: {
   product: Product
   compact?: boolean
+  /** GA item list name (e.g. shop grid, quiz picks, vibe loadout) */
+  listName?: string
 }) {
   const shopUrl = affiliateUrl({
     asin: product.asin,
@@ -25,7 +29,19 @@ export function ProductCard({
 
   return (
     <article className="card-soft group flex flex-col overflow-hidden">
-      <Link to={`/product/${product.slug}`} className="flex flex-col flex-1 min-h-0">
+      <Link
+        to={`/product/${product.slug}`}
+        className="flex flex-col flex-1 min-h-0"
+        onClick={() =>
+          trackSelectItem({
+            id: product.id,
+            name: product.name,
+            category: product.category,
+            price: product.priceHint,
+            listName,
+          })
+        }
+      >
         <div className="relative aspect-[4/5] bg-cream overflow-hidden">
           {img ? (
             <img
@@ -126,7 +142,17 @@ export function ProductCard({
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="btn-amazon !w-full !py-2.5 !text-xs"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation()
+            trackAmazonClick({
+              id: product.id,
+              name: product.name,
+              category: product.category,
+              price: product.priceHint,
+              asin: product.asin,
+              location: `product_card:${listName}`,
+            })
+          }}
         >
           Buy on Amazon <ExternalLink className="size-3.5" />
         </a>
