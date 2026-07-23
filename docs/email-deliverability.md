@@ -18,13 +18,16 @@ Moderate-richness post-quiz email that feels personal (vibe result) without look
 | Escape dynamics | All persona fields HTML-escaped |
 | Opt-in only | Worker sends only when `marketingOptIn !== false` |
 
-## GHL / domain checklist (ops)
+## Cloudflare Email + GHL checklist (ops)
 
-1. **SPF + DKIM + DMARC** on the GHL sending domain (location email settings).
-2. **From name:** `iBamboo` (not “Deals” / “Shop now”).
-3. **Physical address** must appear in the GHL email footer (CAN-SPAM). Confirm location address is set so GHL injects it.
-4. **List-Unsubscribe** header / unsub link — confirm GHL injects automatically.
-5. After deploy, send a real opt-in test to Gmail + Outlook and check **Promotions vs Primary**.
+Primary transport is **Cloudflare Email Sending** (`hello@ibamboo.com`). GHL remains CRM; GHL mail is fallback only.
+
+1. **Domain:** `npx wrangler email sending enable ibamboo.com` (done) + DNS for `cf-bounce` (see [cloudflare-email.md](./cloudflare-email.md)).
+2. **From name:** `iBamboo` / `hello@ibamboo.com` (wrangler `vars`).
+3. **SPF + DKIM** on `cf-bounce.ibamboo.com`; **DMARC** on apex.
+4. **List-Unsubscribe** header set in Worker send (`https://ibamboo.com/quiz`).
+5. **Physical address:** add to HTML footer or your legal pages for CAN-SPAM if not already on site.
+6. After deploy, send a real opt-in test to Gmail + Outlook and check **Promotions vs Primary**.
 
 ## What we intentionally skip (rich → later nurture)
 

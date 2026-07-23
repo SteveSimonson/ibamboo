@@ -1,14 +1,17 @@
 /**
- * iBamboo Worker: static SPA assets + server-side Parsimony Automate (GHL) quiz API.
- * Secrets: GHL_PIT, GHL_LOCATION_ID (wrangler secret put)
+ * iBamboo Worker: static SPA + quiz API.
+ *
+ * - CRM: GoHighLevel contact upsert (secrets GHL_PIT, GHL_LOCATION_ID)
+ * - Email: Cloudflare Email Sending binding (`EMAIL`) from hello@ibamboo.com
+ *   Domain onboarded: `npx wrangler email sending enable ibamboo.com`
  */
 
 import { buildWelcomeEmail } from './welcomeEmail'
 
-export interface Env {
-  ASSETS: Fetcher
-  GHL_PIT: string
-  GHL_LOCATION_ID: string
+/** Secrets not always present in generated Env until re-run wrangler types after secret put */
+type WorkerEnv = Env & {
+  GHL_PIT?: string
+  GHL_LOCATION_ID?: string
 }
 
 type QuizPayload = {
@@ -48,13 +51,17 @@ function sanitizeTag(s: string) {
 }
 
 async function ghlUpsertContact(
-  env: Env,
+  env: WorkerEnv,
   body: QuizPayload,
 ): Promise<{ contactId: string; isNew: boolean }> {
   const email = String(body.email || '')
     .trim()
     .toLowerCase()
   if (!isEmail(email)) throw new Error('Valid email required')
+
+  if (!env.GHL_PIT || !env.GHL_LOCATION_ID) {
+    throw new Error('Quiz backend is not configured (missing GHL secrets).')
+  }
 
   const interests = Array.isArray(body.interests)
     ? body.interests.map(sanitizeTag).filter(Boolean).slice(0, 12)
@@ -114,17 +121,12 @@ async function ghlUpsertContact(
 }
 
 /**
- * Best-effort welcome email via GHL Conversations API.
- * Soft-fails if location email is not configured.
- *
- * Deliverability notes:
- * - Send only when marketingOptIn !== false (caller enforces)
- * - Moderate content richness; 2 content links; no Amazon URLs
- * - Confirm GHL location injects physical address + List-Unsubscribe
+ * Welcome email via Cloudflare Email Sending.
+ * Transactional only (user completed vibe check + opted in).
  */
-async function ghlWelcomeEmail(
-  env: Env,
-  contactId: string,
+async function sendWelcomeEmailCf(
+  env: WorkerEnv,
+  toEmail: string,
   body: QuizPayload,
 ) {
   const parts = buildWelcomeEmail({
@@ -134,7 +136,52 @@ async function ghlWelcomeEmail(
     interests: body.interests,
   })
 
-  // GHL Conversations Email: html is primary; message used as plain-text fallback by some clients
+  const fromEmail = env.EMAIL_FROM || 'hello@ibamboo.com'
+  const fromName = env.EMAIL_FROM_NAME || 'iBamboo'
+  const replyTo = env.EMAIL_REPLY_TO || fromEmail
+
+  const result = await env.EMAIL.send({
+    to: toEmail,
+    from: { email: fromEmail, name: fromName },
+    replyTo: { email: replyTo, name: fromName },
+    subject: parts.subject,
+    html: parts.html,
+    text: parts.text,
+    headers: {
+      // One-click unsub landing (preference / contact) — keep first-party
+      'List-Unsubscribe': '<https://ibamboo.com/quiz>',
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+    },
+  })
+
+  return {
+    ok: true,
+    provider: 'cloudflare' as const,
+    personaId: parts.profile.id,
+    result,
+  }
+}
+
+/**
+ * Fallback: GHL Conversations email if Cloudflare send fails.
+ * Soft-fails if location email is not configured.
+ */
+async function sendWelcomeEmailGhl(
+  env: WorkerEnv,
+  contactId: string,
+  body: QuizPayload,
+) {
+  if (!env.GHL_PIT) {
+    return { ok: false, provider: 'ghl' as const, status: 0, personaId: body.personaId }
+  }
+
+  const parts = buildWelcomeEmail({
+    firstName: body.firstName,
+    personaId: body.personaId,
+    personaLabel: body.personaLabel,
+    interests: body.interests,
+  })
+
   const res = await fetch(
     'https://services.leadconnectorhq.com/conversations/messages',
     {
@@ -150,7 +197,6 @@ async function ghlWelcomeEmail(
         contactId,
         subject: parts.subject,
         html: parts.html,
-        // Plain-text companion when the API accepts it (ignored if unsupported)
         message: parts.text,
         emailFrom: undefined,
       }),
@@ -159,19 +205,13 @@ async function ghlWelcomeEmail(
 
   return {
     ok: res.ok,
+    provider: 'ghl' as const,
     status: res.status,
     personaId: parts.profile.id,
   }
 }
 
-async function handleQuiz(request: Request, env: Env) {
-  if (!env.GHL_PIT || !env.GHL_LOCATION_ID) {
-    return json(
-      { ok: false, error: 'Quiz backend is not configured (missing secrets).' },
-      503,
-    )
-  }
-
+async function handleQuiz(request: Request, env: WorkerEnv) {
   let body: QuizPayload
   try {
     body = (await request.json()) as QuizPayload
@@ -179,22 +219,60 @@ async function handleQuiz(request: Request, env: Env) {
     return json({ ok: false, error: 'Invalid JSON body' }, 400)
   }
 
+  const recipient = String(body.email || '')
+    .trim()
+    .toLowerCase()
+  if (!isEmail(recipient)) {
+    return json({ ok: false, error: 'Valid email required' }, 400)
+  }
+
   try {
-    const { contactId, isNew } = await ghlUpsertContact(env, body)
-    let email: { ok: boolean; status: number; personaId?: string } | null = null
+    // CRM still lives in GHL when secrets are present
+    let contactId: string | null = null
+    let isNew = false
+    if (env.GHL_PIT && env.GHL_LOCATION_ID) {
+      const upsert = await ghlUpsertContact(env, body)
+      contactId = upsert.contactId
+      isNew = upsert.isNew
+    }
+
+    let emailSent = false
+    let emailProvider: string | null = null
+    let vibeId = body.personaId || null
+
     if (body.marketingOptIn !== false) {
       try {
-        email = await ghlWelcomeEmail(env, contactId, body)
-      } catch {
-        email = { ok: false, status: 0 }
+        const cf = await sendWelcomeEmailCf(env, recipient, body)
+        emailSent = true
+        emailProvider = 'cloudflare'
+        vibeId = cf.personaId
+      } catch (cfErr) {
+        // Fall back to GHL outbound if CF binding/send fails
+        if (contactId) {
+          try {
+            const ghl = await sendWelcomeEmailGhl(env, contactId, body)
+            emailSent = ghl.ok
+            emailProvider = ghl.ok ? 'ghl' : null
+            vibeId = ghl.personaId || vibeId
+          } catch {
+            emailSent = false
+          }
+        } else {
+          console.error(
+            'Cloudflare email send failed',
+            cfErr instanceof Error ? cfErr.message : cfErr,
+          )
+        }
       }
     }
+
     return json({
       ok: true,
       contactId,
       isNew,
-      emailSent: Boolean(email?.ok),
-      vibeId: email?.personaId || body.personaId || null,
+      emailSent,
+      emailProvider,
+      vibeId,
     })
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Submit failed'
@@ -203,7 +281,7 @@ async function handleQuiz(request: Request, env: Env) {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: WorkerEnv): Promise<Response> {
     const url = new URL(request.url)
 
     if (url.pathname === '/api/quiz') {
