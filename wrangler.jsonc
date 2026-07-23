@@ -16,6 +16,23 @@
   ],
   "observability": {
     "enabled": true
+  },
+  // Cloudflare Email Sending (domain onboarded: ibamboo.com)
+  // Enable: npx wrangler email sending enable ibamboo.com
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": [
+        "hello@ibamboo.com",
+        "vibe@ibamboo.com",
+        "noreply@ibamboo.com"
+      ]
+    }
+  ],
+  "vars": {
+    "EMAIL_FROM": "hello@ibamboo.com",
+    "EMAIL_FROM_NAME": "iBamboo",
+    "EMAIL_REPLY_TO": "hello@ibamboo.com"
   }
   // Secrets (set via CLI, never commit):
   //   npx wrangler secret put GHL_PIT
