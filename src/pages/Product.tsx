@@ -15,6 +15,7 @@ import {
   formatExpiry,
   formatMoney,
   getProduct,
+  productImageChain,
   similarProducts,
   youMayAlsoLike,
 } from '../data/catalog'
@@ -22,6 +23,7 @@ import { ProductCard } from '../components/ProductCard'
 import { StarRating } from '../components/StarRating'
 import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
+import { isQuietPlaceholder } from '../lib/productImages'
 
 export function ProductPage() {
   const { slug } = useParams()
@@ -74,7 +76,8 @@ export function ProductPage() {
   })
   const similar = similarProducts(p, 4)
   const alsoLike = youMayAlsoLike(p, 4)
-  const images = p.images.length ? p.images : []
+  // Prefer Amazon CDN → ASIN attempts → quiet monogram (never busy brand flatlay)
+  const images = productImageChain(p)
   const main = images[activeImg] ?? images[0]
   const until = formatExpiry(p.expiresAt)
 
@@ -132,20 +135,22 @@ export function ProductPage() {
                   key={main}
                   src={main}
                   alt={product.name}
-                  className="absolute inset-0 w-full h-full object-contain p-6 sm:p-10"
+                  className={`absolute inset-0 w-full h-full ${
+                    isQuietPlaceholder(main)
+                      ? 'object-cover'
+                      : 'object-contain p-6 sm:p-10'
+                  }`}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     const el = e.currentTarget
-                    const fallbacks = [
-                      ...images,
-                      '/brand/products-flatlay.png',
-                    ]
-                    const idx = Number(el.dataset.fbIdx || String(activeImg)) + 1
+                    const idx =
+                      Number(el.dataset.fbIdx || String(activeImg)) + 1
                     el.dataset.fbIdx = String(idx)
-                    const next = fallbacks[idx]
+                    const next = images[idx]
                     if (next) {
+                      setActiveImg(idx)
                       el.src = next
-                      if (next.startsWith('/brand/')) {
+                      if (isQuietPlaceholder(next)) {
                         el.classList.remove('object-contain', 'p-6', 'sm:p-10')
                         el.classList.add('object-cover')
                       }
@@ -161,9 +166,12 @@ export function ProductPage() {
                 </span>
               )}
             </div>
-            {images.length > 1 && (
+            {images.filter((src) => !isQuietPlaceholder(src)).length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
-                {images.map((src, i) => (
+                {images
+                  .map((src, i) => ({ src, i }))
+                  .filter(({ src }) => !isQuietPlaceholder(src))
+                  .map(({ src, i }) => (
                   <button
                     key={src + i}
                     type="button"

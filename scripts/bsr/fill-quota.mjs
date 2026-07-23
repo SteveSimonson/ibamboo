@@ -10,15 +10,12 @@ import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
 const QUOTA = Number(process.env.CATEGORY_QUOTA || 20)
 
-const brandImgs = {
-  kitchen: ['/brand/products-flatlay.png', '/brand/products-hero.png'],
-  'cutting-boards': ['/brand/products-flatlay.png', '/brand/soho-collection.png'],
-  dining: ['/brand/soho-collection.png', '/brand/products-hero.png'],
-  bath: ['/brand/landing-forest.png', '/brand/products-flatlay.png'],
-  organization: ['/brand/products-hero.png', '/brand/soho-collection.png'],
-  desk: ['/brand/products-hero.png', '/brand/soho-collection.png'],
-  outdoor: ['/brand/landing-forest.png', '/brand/hero.png'],
-  baby: ['/brand/products-flatlay.png', '/brand/soho-collection.png'],
+/**
+ * ASIN-less house-edit pads: do not reuse busy brand flatlays.
+ * Empty images[] → storefront shows unique quiet monogram placeholders.
+ */
+function fillerImages() {
+  return []
 }
 
 const collectionFor = {
@@ -186,7 +183,7 @@ function upgradeAmazonImageUrl(url) {
     .replace(/\._SY\d+_\./i, '._SL1000_.')
     .replace(/\._US\d+_\./i, '._SL1000_.')
     .replace(/\._SS\d+_\./i, '._SL1000_.')
-  if (/\/images\/P\/[A-Z0-9]{10}/i.test(u)) return null
+  // Keep P/{ASIN} as last-resort candidate (storefront walks onError)
   return u
 }
 
@@ -299,10 +296,26 @@ const products = structuredClone(snap.products)
   .filter((p) => p.source !== 'curated' || p.asin)
   .map((p) => sanitizeSearchProduct(p))
   .map((p) => dedupeSpecs(p))
-  .map((p) => ({
-    ...p,
-    images: normalizeProductImages(p.images),
-  }))
+  .map((p) => {
+    // Keep Amazon CDN images; strip busy brand lifestyle fallbacks from catalog data
+    const cleaned = normalizeProductImages(p.images).filter(
+      (u) =>
+        !String(u).startsWith('/brand/products-flatlay') &&
+        !String(u).startsWith('/brand/products-hero') &&
+        !String(u).startsWith('/brand/soho-collection') &&
+        !String(u).startsWith('/brand/landing-forest') &&
+        !String(u).startsWith('/brand/hero'),
+    )
+    // If no Amazon photo left but we have an ASIN, keep ASIN image attempts for the client
+    if (cleaned.length === 0 && p.asin) {
+      const a = String(p.asin).toUpperCase()
+      cleaned.push(
+        `https://m.media-amazon.com/images/P/${a}.01._SCLZZZZZZZ_SX500_.jpg`,
+        `https://images-na.ssl-images-amazon.com/images/P/${a}.01.LZZZZZZZ.jpg`,
+      )
+    }
+    return { ...p, images: cleaned }
+  })
 const weekOf = snap.weekOf
 const expiresAt = snap.expiresAt
 const fetchedAt = snap.fetchedAt || new Date().toISOString()
@@ -345,7 +358,7 @@ for (const cat of Object.keys(fillers)) {
       priceHint: 0,
       searchKeywords: `100% bamboo ${name}`,
       badge: 'House edit',
-      images: brandImgs[cat] || brandImgs.kitchen,
+      images: fillerImages(),
       hue: 80 + i * 3,
       limitedTime: true,
       weekOf,
