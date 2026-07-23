@@ -7,56 +7,43 @@ import type { Category } from '../data/types'
 import { GlobalSeo } from './Seo'
 
 type NavItem =
-  | { kind: 'link'; to: string; label: string; /** plain text — not a filled pill when active */
-      plain?: boolean }
-  | { kind: 'shop'; mode: 'all' | 'cat'; cat?: Category; label: string }
+  | { kind: 'link'; to: string; label: string }
+  | { kind: 'shop'; mode: 'cat'; cat: Category; label: string }
 
-/** Short labels that map 1:1 to room categories (same grammar as Shop pills). */
+/**
+ * Primary nav: Vibe check first, then rooms.
+ * Shop all + Our story live elsewhere (Shop this week CTA, footer).
+ */
 const nav: NavItem[] = [
-  { kind: 'shop', mode: 'all', label: 'Shop' },
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
   { kind: 'shop', mode: 'cat', cat: 'kitchen', label: 'Kitchen' },
   { kind: 'shop', mode: 'cat', cat: 'cutting-boards', label: 'Boards' },
   { kind: 'shop', mode: 'cat', cat: 'dining', label: 'Table' },
   { kind: 'shop', mode: 'cat', cat: 'bath', label: 'Bath' },
   { kind: 'shop', mode: 'cat', cat: 'desk', label: 'Desk' },
-  // Text link only — single solid CTA in header is "Shop this week"
-  { kind: 'link', to: '/why', label: 'Our story', plain: true },
 ]
 
 function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
-  if (item.mode === 'cat' && item.cat) return `/shop?cat=${item.cat}`
-  return '/shop'
+  return `/shop?cat=${item.cat}`
 }
 
 function useShopNavActive() {
   const { pathname } = useLocation()
   const [params] = useSearchParams()
   const cat = params.get('cat') || ''
-  const limited = params.get('limited') === '1'
   const onShop = pathname === '/shop' || pathname.startsWith('/shop/')
 
   return (item: NavItem): boolean => {
     if (item.kind === 'link') {
       if (item.to === '/quiz') return pathname.startsWith('/quiz')
-      if (item.to === '/why') return pathname.startsWith('/why')
       return pathname === item.to
     }
     if (!onShop) return false
-    // Category owns the room even if limited is also on
-    if (item.mode === 'cat') return cat === item.cat
-    // Shop = bare catalog browse (limited drop uses the CTA button, not this tab)
-    if (item.mode === 'all') return !cat && !limited
-    return false
+    return cat === item.cat
   }
 }
 
-function navClass(active: boolean, plain = false) {
-  if (plain) {
-    return `px-2.5 py-2 text-[13px] font-semibold transition whitespace-nowrap ${
-      active ? 'text-bamboo' : 'text-ink-soft hover:text-ink'
-    }`
-  }
+function navClass(active: boolean) {
   return `px-3.5 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
     active
       ? 'bg-ink text-paper'
@@ -116,7 +103,7 @@ export function Layout() {
                   <NavLink
                     key={item.to}
                     to={item.to}
-                    className={() => navClass(active, item.plain)}
+                    className={() => navClass(active)}
                   >
                     {item.label}
                   </NavLink>
@@ -167,21 +154,14 @@ export function Layout() {
             {nav.map((item) => {
               const active = isActive(item)
               const to = item.kind === 'link' ? item.to : shopHref(item)
-              const plain = item.kind === 'link' && item.plain
               return (
                 <Link
                   key={to + item.label}
                   to={to}
                   onClick={() => setOpen(false)}
-                  className={
-                    plain
-                      ? `block px-3 py-3 text-sm font-semibold transition ${
-                          active ? 'text-bamboo' : 'text-ink-soft hover:text-ink'
-                        }`
-                      : `block px-3 py-3 rounded-xl text-sm font-semibold transition ${
-                          active ? 'bg-ink text-paper' : 'hover:bg-paper-2'
-                        }`
-                  }
+                  className={`block px-3 py-3 rounded-xl text-sm font-semibold transition ${
+                    active ? 'bg-ink text-paper' : 'hover:bg-paper-2'
+                  }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   {item.label}
