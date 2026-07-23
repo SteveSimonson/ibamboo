@@ -76,3 +76,52 @@
     transform: translateY(0);
   }
 }
+
+@keyframes vibe-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes vibe-stat-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes vibe-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@layer utilities {
+  .vibe-foil {
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.35) 40%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 70%
+    );
+    background-size: 200% 100%;
+    animation: vibe-shimmer 4.5s linear infinite;
+  }
+  .vibe-stat-bar {
+    transform-origin: left center;
+    animation: vibe-stat-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .vibe-float {
+    animation: vibe-float 5s ease-in-out infinite;
+  }
+}

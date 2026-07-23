@@ -9,6 +9,7 @@ import {
   products,
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
+import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 
 const featured = [
@@ -230,6 +231,47 @@ export function Home() {
                 </Link>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Vibes strip — CMO: soft discovery under shop-by-room */}
+      <section className="border-t border-line bg-paper">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="label-micro mb-2">Vibes</p>
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold">
+                Find your house energy
+              </h2>
+              <p className="mt-2 text-ink-soft max-w-lg font-light">
+                Five lifestyle personas—crafted like collector cards. Not sure?
+                Take the check.
+              </p>
+            </div>
+            <Link
+              to="/quiz"
+              className="text-sm font-semibold text-bamboo inline-flex items-center gap-1 shrink-0"
+            >
+              Take the vibe check <ArrowRight className="size-4" />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            {VIBE_LIST.map((v) => (
+              <Link
+                key={v.id}
+                to={vibePath(v.id)}
+                className="group rounded-2xl border border-line bg-card p-4 hover:border-bamboo/40 hover:shadow-md transition"
+              >
+                <span className="text-2xl" aria-hidden>
+                  {v.emoji}
+                </span>
+                <p className="mt-2 font-display text-lg font-semibold leading-snug group-hover:text-bamboo transition">
+                  {v.title}
+                </p>
+                <p className="mt-1 text-xs text-muted line-clamp-2">{v.tagline}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

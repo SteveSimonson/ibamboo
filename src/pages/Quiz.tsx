@@ -14,6 +14,7 @@ import {
   shopLinkForCategories,
   type Persona,
 } from '../data/quiz'
+import { vibePath, writeStoredVibeId } from '../data/vibes'
 import { CATEGORY_LABELS, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
@@ -136,11 +137,13 @@ export function Quiz() {
       if (!res.ok || !data.ok) {
         throw new Error(data.error || 'Could not save your results')
       }
+      writeStoredVibeId(result.persona.id)
       setSaved(true)
       setPhase('result')
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Submit failed')
       // Still show results offline if CRM fails
+      writeStoredVibeId(scoreQuiz(answers).persona.id)
       setPhase('result')
     } finally {
       setSubmitting(false)
@@ -148,6 +151,7 @@ export function Quiz() {
   }
 
   function skipToResult() {
+    writeStoredVibeId(scoreQuiz(answers).persona.id)
     setSaved(false)
     setPhase('result')
   }
@@ -500,10 +504,16 @@ function ResultStep({
         )}
 
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link to={shopTo} className="btn-primary">
-            Shop your vibe <ArrowRight className="size-4" />
+          <Link to={vibePath(persona.id)} className="btn-primary">
+            Explore your vibe card <ArrowRight className="size-4" />
           </Link>
-          <Link to="/shop?limited=1" className="btn-secondary">
+          <Link to={shopTo} className="btn-secondary">
+            Shop this edit
+          </Link>
+          <Link
+            to="/shop?limited=1"
+            className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
+          >
             This week’s limited drop
           </Link>
           <button

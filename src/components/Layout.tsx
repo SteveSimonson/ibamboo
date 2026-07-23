@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useSearchParams } from 'react-route
 import { Menu, Search, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
+import { VIBE_LIST, vibePath } from '../data/vibes'
 import type { Category } from '../data/types'
 
 type NavItem =
@@ -207,6 +208,10 @@ export function Layout() {
               and home. Discover the collection here; complete your purchase on
               Amazon.
             </p>
+            <p className="text-xs text-paper/45 leading-relaxed max-w-sm">
+              Amazon Associates participant. We may earn from qualifying
+              purchases at no extra cost to you.
+            </p>
           </div>
           <div className="md:col-span-2">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold mb-4">
@@ -250,22 +255,26 @@ export function Layout() {
                   Vibe check
                 </Link>
               </li>
-              <li>
-                <Link to="/shop?cat=bath" className="hover:text-leaf">
-                  Bath
-                </Link>
-              </li>
             </ul>
           </div>
           <div className="md:col-span-3">
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold mb-4">
-              Affiliate disclosure
+              Vibes
             </p>
-            <p className="text-sm text-paper/60 leading-relaxed">
-              iBamboo is a participant in the Amazon Services LLC Associates
-              Program. We may earn from qualifying purchases at no extra cost to
-              you. Prices and availability are set by Amazon and its sellers.
-            </p>
+            <ul className="space-y-2.5 text-sm text-paper/70">
+              <li>
+                <Link to="/quiz" className="hover:text-leaf font-semibold text-paper/85">
+                  Find yours
+                </Link>
+              </li>
+              {VIBE_LIST.map((v) => (
+                <li key={v.id}>
+                  <Link to={vibePath(v.id)} className="hover:text-leaf">
+                    {v.emoji} {v.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="border-t border-white/10 py-4 text-center text-[11px] text-paper/40 tracking-wide">
