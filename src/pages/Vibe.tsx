@@ -21,6 +21,8 @@ import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
+import { Seo } from '../components/Seo'
+import { breadcrumbJsonLd, clipMeta } from '../lib/seo'
 
 export function VibePage() {
   const { vibeId } = useParams()
@@ -55,9 +57,32 @@ export function VibePage() {
   const blendVibes = vibe.blendsWith
     .map((id) => getVibe(id))
     .filter(Boolean) as VibeProfile[]
+  const vibeSeoPath = `/vibe/${vibe.id}`
 
   return (
     <div className="pb-24">
+      <Seo
+        title={`${vibe.title} — bamboo vibe card`}
+        description={clipMeta(
+          `${vibe.tagline} ${vibe.story} Meet ${vibe.avatar.name} and shop rooms that match the ${vibe.title} lifestyle on iBamboo.`,
+        )}
+        path={vibeSeoPath}
+        image={vibe.avatar.image}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: vibe.title,
+            description: vibe.tagline,
+            url: `https://ibamboo.com${vibeSeoPath}`,
+          },
+          breadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Vibe check', path: '/quiz' },
+            { name: vibe.title, path: vibeSeoPath },
+          ]),
+        ]}
+      />
       {/* Lived-in scene hero */}
       <section
         className="relative w-full overflow-hidden bg-charcoal min-h-[18rem] sm:min-h-[22rem] lg:min-h-[26rem]"

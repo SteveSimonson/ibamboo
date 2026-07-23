@@ -11,6 +11,8 @@ import {
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
+import { Seo } from '../components/Seo'
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from '../lib/seo'
 
 const featured = [
   ...shopProducts.filter((p) => p.badge),
@@ -29,6 +31,12 @@ export function Home() {
 
   return (
     <>
+      <Seo
+        title={DEFAULT_TITLE}
+        description={DEFAULT_DESCRIPTION}
+        path="/"
+        image="/brand/hero.jpg"
+      />
       {/* Hero — photoreal lifestyle, not illustration */}
       <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
         <img

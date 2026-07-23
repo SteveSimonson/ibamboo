@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import type { Category } from '../data/types'
+import { GlobalSeo } from './Seo'
 
 type NavItem =
   | { kind: 'link'; to: string; label: string; /** plain text — not a filled pill when active */
@@ -71,6 +72,7 @@ export function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <GlobalSeo />
       <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
         <Link
           to="/shop?limited=1"

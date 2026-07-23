@@ -1,13 +1,21 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { Seo } from '../components/Seo'
 
 export function Why() {
   return (
     <div>
+      <Seo
+        title="Our story — bamboo for the whole house"
+        description="iBamboo is a destination for natural bamboo living—kitchen, table, bath, and desk. We curate the collection; Amazon handles fulfillment you already trust."
+        path="/why"
+        image="/brand/landing-forest.png"
+        type="article"
+      />
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <img
           src="/brand/landing-forest.png"
-          alt=""
+          alt="Bamboo forest canopy in soft light"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent" />
