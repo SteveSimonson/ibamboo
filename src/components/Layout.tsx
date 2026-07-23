@@ -7,11 +7,10 @@ import type { Category } from '../data/types'
 
 type NavItem =
   | { kind: 'link'; to: string; label: string }
-  | { kind: 'shop'; mode: 'all' | 'limited' | 'cat'; cat?: Category; label: string }
+  | { kind: 'shop'; mode: 'all' | 'cat'; cat?: Category; label: string }
 
 /** Short labels that map 1:1 to room categories (same grammar as Shop pills). */
 const nav: NavItem[] = [
-  { kind: 'shop', mode: 'limited', label: 'This week' },
   { kind: 'shop', mode: 'all', label: 'Shop' },
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
   { kind: 'shop', mode: 'cat', cat: 'kitchen', label: 'Kitchen' },
@@ -23,7 +22,6 @@ const nav: NavItem[] = [
 ]
 
 function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
-  if (item.mode === 'limited') return '/shop?limited=1'
   if (item.mode === 'cat' && item.cat) return `/shop?cat=${item.cat}`
   return '/shop'
 }
@@ -44,8 +42,7 @@ function useShopNavActive() {
     if (!onShop) return false
     // Category owns the room even if limited is also on
     if (item.mode === 'cat') return cat === item.cat
-    if (item.mode === 'limited') return limited && !cat
-    // Shop = bare catalog browse
+    // Shop = bare catalog browse (limited drop uses the CTA button, not this tab)
     if (item.mode === 'all') return !cat && !limited
     return false
   }
