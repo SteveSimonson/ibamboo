@@ -15,6 +15,7 @@ import {
   formatExpiry,
   formatMoney,
   getProduct,
+  productGalleryThumbs,
   productImageChain,
   similarProducts,
   youMayAlsoLike,
@@ -34,7 +35,10 @@ import {
 export function ProductPage() {
   const { slug } = useParams()
   const product = slug ? getProduct(slug) : undefined
-  const [activeImg, setActiveImg] = useState(0)
+  /** Main viewer walks full fallback chain; thumbs only use known-good listing photos */
+  const [mainSrc, setMainSrc] = useState<string>('')
+  const [chainIdx, setChainIdx] = useState(0)
+  const [failedThumbs, setFailedThumbs] = useState<Set<string>>(() => new Set())
 
   const productId = product?.id
   const productName = product?.name
@@ -42,6 +46,11 @@ export function ProductPage() {
   const productPrice = product?.priceHint
   const productAsin = product?.asin
   const productLimited = product?.limitedTime
+
+  const mainChain = product ? productImageChain(product) : []
+  const thumbs = product
+    ? productGalleryThumbs(product).filter((u) => !failedThumbs.has(u))
+    : []
 
   useEffect(() => {
     if (!productId || !productName || !productCategory) return
@@ -61,6 +70,17 @@ export function ProductPage() {
     productAsin,
     productLimited,
   ])
+
+  // Reset gallery when product changes
+  useEffect(() => {
+    if (!productId) return
+    const p = getProduct(slug || '')
+    if (!p) return
+    const chain = productImageChain(p)
+    setMainSrc(chain[0] || '')
+    setChainIdx(0)
+    setFailedThumbs(new Set())
+  }, [productId, slug])
 
   if (!product) {
     return (
@@ -88,13 +108,12 @@ export function ProductPage() {
   })
   const similar = similarProducts(p, 4)
   const alsoLike = youMayAlsoLike(p, 4)
-  // Prefer Amazon CDN → ASIN attempts → quiet monogram (never busy brand flatlay)
-  const images = productImageChain(p)
-  const main = images[activeImg] ?? images[0]
+  const main = mainSrc || mainChain[0] || ''
   const until = formatExpiry(p.expiresAt)
   const productPath = `/product/${p.slug}`
   const ogImage =
-    images.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
+    thumbs[0] ||
+    mainChain.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
     '/brand/social.png'
 
   function onAmazonClick(location: string) {
@@ -123,7 +142,9 @@ export function ProductPage() {
             name: p.name,
             description: p.description || p.tagline,
             path: productPath,
-            images: images.filter((u) => !isQuietPlaceholder(u)),
+            images: (thumbs.length ? thumbs : mainChain).filter(
+              (u) => !isQuietPlaceholder(u),
+            ),
             price: p.priceHint,
             asin: p.asin,
             brand: p.brand,
@@ -189,48 +210,37 @@ export function ProductPage() {
                       : 'object-contain product-well p-6 sm:p-10'
                   }`}
                   referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const el = e.currentTarget
-                    const idx =
-                      Number(el.dataset.fbIdx || String(activeImg)) + 1
-                    el.dataset.fbIdx = String(idx)
-                    const next = images[idx]
+                  onError={() => {
+                    // Walk ASIN attempts / monogram; do not leave blank tiles
+                    const nextIdx = chainIdx + 1
+                    const next = mainChain[nextIdx]
                     if (next) {
-                      setActiveImg(idx)
-                      el.src = next
-                      if (isQuietPlaceholder(next)) {
-                        el.classList.remove(
-                          'object-contain',
-                          'product-well',
-                          'p-6',
-                          'sm:p-10',
-                        )
-                        el.classList.add('object-cover')
-                      }
-                    } else {
-                      el.style.display = 'none'
+                      setChainIdx(nextIdx)
+                      setMainSrc(next)
                     }
                   }}
                 />
               ) : null}
               {product.badge && (
-                <span className="absolute top-4 left-4 rounded-full bg-moss text-paper text-xs font-semibold uppercase tracking-wider px-3 py-1.5">
+                <span className="absolute top-4 left-4 rounded-full bg-moss text-white text-xs font-semibold uppercase tracking-wider px-3 py-1.5">
                   {product.badge}
                 </span>
               )}
             </div>
-            {images.filter((src) => !isQuietPlaceholder(src)).length > 1 && (
+            {/* Only reliable listing photos — never empty ASIN-guess boxes */}
+            {thumbs.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
-                {images
-                  .map((src, i) => ({ src, i }))
-                  .filter(({ src }) => !isQuietPlaceholder(src))
-                  .map(({ src, i }) => (
+                {thumbs.map((src) => (
                   <button
-                    key={src + i}
+                    key={src}
                     type="button"
-                    onClick={() => setActiveImg(i)}
+                    onClick={() => {
+                      setMainSrc(src)
+                      const idx = mainChain.indexOf(src)
+                      setChainIdx(idx >= 0 ? idx : 0)
+                    }}
                     className={`relative shrink-0 size-20 sm:size-24 rounded-xl overflow-hidden border-2 transition product-well ${
-                      i === activeImg
+                      main === src
                         ? 'border-bamboo'
                         : 'border-line hover:border-bamboo/30'
                     }`}
@@ -238,12 +248,11 @@ export function ProductPage() {
                     <img
                       src={src}
                       alt=""
-                      className={`absolute inset-0 w-full h-full ${
-                        src.startsWith('/brand/')
-                          ? 'object-cover'
-                          : 'object-contain product-well p-1.5'
-                      }`}
+                      className="absolute inset-0 w-full h-full object-contain product-well p-1.5"
                       referrerPolicy="no-referrer"
+                      onError={() => {
+                        setFailedThumbs((prev) => new Set(prev).add(src))
+                      }}
                     />
                   </button>
                 ))}

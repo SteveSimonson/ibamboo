@@ -37,6 +37,16 @@ export function isAmazonCdnImage(url: string | undefined | null): boolean {
   )
 }
 
+/**
+ * Reliable listing photos only (`/images/I/…`).
+ * Excludes flaky ASIN `P/{ASIN}` guesses that often 404 as blank white tiles.
+ */
+export function isReliableAmazonImage(url: string | undefined | null): boolean {
+  if (!url || !isAmazonCdnImage(url)) return false
+  if (/\/images\/P\/[A-Z0-9]{10}/i.test(url)) return false
+  return /\/images\/I\//i.test(url)
+}
+
 export function isBusyBrandFallback(url: string | undefined | null): boolean {
   if (!url) return false
   const path = url.split('?')[0]
@@ -173,6 +183,24 @@ export function resolveProductImages(product: Product): string[] {
 
 export function primaryDisplayImage(product: Product): string {
   return resolveProductImages(product)[0]
+}
+
+/**
+ * Gallery thumbnails: only known-good catalog photos (Amazon /images/I/).
+ * Never ASIN P/ guesses, never placeholders, never busy brand art.
+ * Hide the strip entirely when this returns 0–1 items.
+ */
+export function galleryThumbImages(product: Product): string[] {
+  const out: string[] = []
+  const seen = new Set<string>()
+  for (const img of product.images || []) {
+    if (!isReliableAmazonImage(img)) continue
+    const u = upgradeAmazonThumb(img.trim())
+    if (!u || seen.has(u)) continue
+    seen.add(u)
+    out.push(u)
+  }
+  return out
 }
 
 export function isQuietPlaceholder(url: string | undefined | null): boolean {
