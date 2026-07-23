@@ -499,3 +499,23 @@ export function writeStoredVibeId(id: string) {
 export function roomLinks(categories: Category[]) {
   return categories.map((c) => ({ cat: c }))
 }
+
+/** Primary vibe most associated with a shop room (for category CTAs). */
+export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
+  kitchen: 'craft',
+  'cutting-boards': 'craft',
+  dining: 'host',
+  outdoor: 'host',
+  bath: 'ritual',
+  desk: 'focus',
+  organization: 'focus',
+  baby: 'nest',
+}
+
+export function vibeForCategory(
+  cat: string | null | undefined,
+): VibeProfile | undefined {
+  if (!cat) return undefined
+  const id = CATEGORY_PRIMARY_VIBE[cat as Category]
+  return id ? getVibe(id) : undefined
+}
