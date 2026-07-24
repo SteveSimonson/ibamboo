@@ -533,7 +533,7 @@ export function VibePage() {
               Find yours <ArrowRight className="size-4" />
             </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {VIBE_LIST.map((v) => {
               const active = v.id === vibe.id
               return (

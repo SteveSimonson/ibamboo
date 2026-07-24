@@ -380,7 +380,90 @@ export const VIBES: Record<string, VibeProfile> = {
       'Outdoor-friendly plates or trays',
       'Secondary small boards for cheese corners',
     ],
-    blendsWith: ['craft', 'nest'],
+    blendsWith: ['craft', 'patio'],
+  },
+  patio: {
+    ...PERSONAS.patio,
+    typeLabel: 'Outdoor · Open Air',
+    rarity: 'Golden Hour Edition',
+    emoji: '🌿',
+    flavor:
+      'The evening starts when the tray hits the outdoor table. You don’t wait for a special occasion—you treat the patio like a room.',
+    catchphrase: 'The evening starts outside.',
+    traits: [
+      'Open-air loyalist',
+      'Golden-hour planner',
+      'Trays over TV trays',
+      'Garden-adjacent energy',
+    ],
+    powers: [
+      {
+        name: 'Deck Presence',
+        detail:
+          'Outdoor trays and servers that look intentional on teak, stone, or grass.',
+      },
+      {
+        name: 'Fresh Air Field',
+        detail:
+          'Pieces that move from kitchen to patio without looking like camping gear.',
+      },
+      {
+        name: 'Sunset Mode',
+        detail:
+          'Warm grain that photographs and feels better than plastic under string lights.',
+      },
+    ],
+    benefits: [
+      'Open-air evenings that feel designed, not improvised',
+      'Bamboo that works deck-side and table-side',
+      'Less plastic in the outdoor kit',
+      'A natural through-line from kitchen to patio',
+    ],
+    stats: [
+      { label: 'Craft', value: 55 },
+      { label: 'Calm', value: 70 },
+      { label: 'Host', value: 80 },
+      { label: 'Order', value: 40 },
+    ],
+    gradient: 'from-[#3d5c28] via-[#5a7a3a] to-[#8fad5c]',
+    cardBg: 'from-[#f3f7ec] via-[#e8f0dc] to-[#d4e5b8]',
+    shopHint: 'Outdoor trays, patio serve, and garden-side bamboo.',
+    avatar: {
+      name: 'Marcus',
+      role: 'Patio naturalist · Golden hour',
+      ageBand: 'Mid-30s',
+      hometown: 'Deck at dusk',
+      quote:
+        'If the tray is outside, the night has already started. Fresh air does half the hosting.',
+      image: '/brand/vibes/patio-avatar.jpg',
+      alt: 'Marcus on a wooden deck at golden hour with a bamboo outdoor serving tray',
+    },
+    scene: {
+      image: '/brand/vibes/patio-scene.jpg',
+      alt: 'Bamboo tray with drinks on an outdoor table at golden hour',
+      caption: '6:48 p.m. — tray out, string lights on, no one inside yet.',
+    },
+    dayInTheLife: [
+      'Coffee outside first when weather allows',
+      'Weeknight: tray + simple plates on the deck, not the couch',
+      'Weekend: open-air snacks before anyone asks what’s for dinner',
+      'Season change: same bamboo kit moves from patio to garden table',
+    ],
+    materialTruths: [
+      'Outdoor-ready bamboo still looks intentional under string lights',
+      'Trays beat armloads of kitchen plastic for deck service',
+      'Warm grain photographs better than disposable outdoorware',
+      'Pieces that work inside and outside get used twice as often',
+    ],
+    signatureSetup:
+      'Bamboo tray center stage, outdoor table wiped, plants nearby, drinks already poured.',
+    shoppingList: [
+      'Outdoor bamboo serving tray',
+      'Patio-friendly plates or servers',
+      'Garden-side tools with warm grain',
+      'Lightweight boards for open-air snacks',
+    ],
+    blendsWith: ['host', 'craft'],
   },
   nest: {
     ...PERSONAS.nest,
@@ -505,7 +588,7 @@ export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
   kitchen: 'craft',
   'cutting-boards': 'craft',
   dining: 'host',
-  outdoor: 'host',
+  outdoor: 'patio',
   bath: 'ritual',
   desk: 'focus',
   organization: 'focus',

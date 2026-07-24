@@ -118,7 +118,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
         emoji: '☀️',
         blurb: 'Patio plates, garden tools, open air.',
         scores: { outdoor: 4, dining: 1 },
-        personaBoost: 'host',
+        personaBoost: 'patio',
       },
     ],
   },
@@ -231,9 +231,17 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
         id: 'playful',
         label: 'Playful',
         emoji: '🎉',
-        blurb: 'Hosting, outdoors, easy joy.',
-        scores: { outdoor: 2, dining: 2, baby: 1 },
+        blurb: 'Hosting energy, easy joy.',
+        scores: { dining: 3, outdoor: 1, 'cutting-boards': 1 },
         personaBoost: 'host',
+      },
+      {
+        id: 'open-air',
+        label: 'Open-air',
+        emoji: '🌿',
+        blurb: 'Fresh air is the main room.',
+        scores: { outdoor: 4, dining: 1 },
+        personaBoost: 'patio',
       },
     ],
   },
@@ -270,10 +278,10 @@ export const PERSONAS: Record<string, Persona> = {
   host: {
     id: 'host',
     title: 'Tabletop Host',
-    tagline: 'Serving boards, patio plates, shared plates.',
+    tagline: 'Serving boards, shared plates, candlelight.',
     story:
-      'You set the mood for other people. Bamboo that hosts well — charcuterie energy, outdoor tables, generous serving.',
-    categories: ['dining', 'outdoor', 'cutting-boards'],
+      'You set the mood for other people. Bamboo that hosts well — charcuterie energy, generous serving, the table as invitation.',
+    categories: ['dining', 'cutting-boards', 'kitchen'],
     accent: '#b45309',
   },
   nest: {
@@ -284,6 +292,15 @@ export const PERSONAS: Record<string, Persona> = {
       'First bites deserve soft edges. Bamboo plates, spoons, and trays scaled for little hands.',
     categories: ['baby', 'kitchen'],
     accent: '#7a9e5a',
+  },
+  patio: {
+    id: 'patio',
+    title: 'Patio Naturalist',
+    tagline: 'Open air, warm grain, evenings that start outside.',
+    story:
+      'Fresh air is your main room. Bamboo that lives on the deck — trays, outdoor serve, garden-side tools that still look intentional.',
+    categories: ['outdoor', 'dining', 'kitchen'],
+    accent: '#5a7a3a',
   },
 }
 
@@ -323,8 +340,8 @@ export function scoreQuiz(answers: Record<string, string>): {
     else if (topCat?.[0] === 'desk' || topCat?.[0] === 'organization')
       personaId = 'focus'
     else if (topCat?.[0] === 'baby') personaId = 'nest'
-    else if (topCat?.[0] === 'outdoor' || topCat?.[0] === 'dining')
-      personaId = 'host'
+    else if (topCat?.[0] === 'outdoor') personaId = 'patio'
+    else if (topCat?.[0] === 'dining') personaId = 'host'
   }
 
   const persona = PERSONAS[personaId] || PERSONAS.craft

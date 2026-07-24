@@ -119,6 +119,25 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     shopPath: '/shop?cat=baby',
     shopLabel: 'Browse little-ones bamboo',
   },
+  patio: {
+    id: 'patio',
+    title: 'Patio Naturalist',
+    tagline: 'Open air, warm grain, evenings that start outside.',
+    story:
+      'Fresh air is your main room. Bamboo that lives on the deck — trays, outdoor serve, garden-side tools that still look intentional.',
+    catchphrase: 'The evening starts outside.',
+    traits: [
+      'Open-air loyalist',
+      'Golden-hour planner',
+      'Trays over TV trays',
+    ],
+    avatarName: 'Marcus',
+    avatarQuote:
+      'If the tray is outside, the night has already started. Fresh air does half the hosting.',
+    avatarImageUrl: `${BASE}/brand/vibes/patio-avatar.jpg`,
+    shopPath: '/shop?cat=outdoor',
+    shopLabel: 'Browse outdoor bamboo',
+  },
 }
 
 export function isKnownVibeId(id: string | undefined): boolean {
