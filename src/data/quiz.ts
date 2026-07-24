@@ -598,9 +598,12 @@ export function buildQuizPicks(
   function scoreCandidate(
     p: import('./types').Product,
     slot: QuizPickSlot,
+    requireSlotCat: boolean,
   ): number {
+    const inSlot = slot.categories.includes(p.category)
+    if (requireSlotCat && !inSlot) return -999
     let s = 0
-    if (slot.categories.includes(p.category)) s += 10
+    if (inSlot) s += 10
     else if (topCategories.includes(p.category)) s += 4
     if (p.limitedTime) s += 3
     if (p.badge) s += 1
@@ -615,9 +618,13 @@ export function buildQuizPicks(
 
   for (const slot of slots) {
     if (picks.length >= limit) break
+    // Prefer a product that matches the slot’s categories when any remain
+    const hasInSlot = pool.some(
+      (p) => !usedIds.has(p.id) && slot.categories.includes(p.category),
+    )
     const candidates = pool
       .filter((p) => !usedIds.has(p.id))
-      .map((p) => ({ p, score: scoreCandidate(p, slot) }))
+      .map((p) => ({ p, score: scoreCandidate(p, slot, hasInSlot) }))
       .filter((c) => c.score > -20)
       .sort((a, b) => b.score - a.score)
 
