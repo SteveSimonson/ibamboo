@@ -26,6 +26,27 @@ export type QuizQuestion = {
   prompt: string
   sub?: string
   options: QuizOption[]
+  /** Allow selecting multiple options (stored as comma-joined ids). */
+  multiSelect?: boolean
+  /** Max selections when multiSelect (default 2). */
+  maxSelect?: number
+}
+
+/** Answers map: single option id, or comma-joined ids for multi-select. */
+export type QuizAnswers = Record<string, string>
+
+/** Parse a stored answer value into option id list. */
+export function parseAnswerIds(raw: string | undefined): string[] {
+  if (!raw) return []
+  return raw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
+
+/** Encode option ids for storage / API (stable order). */
+export function encodeAnswerIds(ids: string[]): string {
+  return [...new Set(ids)].filter(Boolean).join(',')
 }
 
 export type Persona = {
@@ -41,7 +62,9 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'room',
     prompt: 'Where should bamboo show up first?',
-    sub: 'Pick the room that makes you grin.',
+    sub: 'Pick up to two rooms that make you grin.',
+    multiSelect: true,
+    maxSelect: 2,
     options: [
       {
         id: 'kitchen',
@@ -246,6 +269,179 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
   },
 ]
+
+/**
+ * Optional branch questions — shown after core answers when a persona leans.
+ * One tailored prompt makes scoring feel smarter without a long tree.
+ */
+export const BRANCH_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 'host-priority',
+    prompt: 'For hosting, what matters more?',
+    sub: 'We’ll tilt your table edit.',
+    options: [
+      {
+        id: 'look',
+        label: 'Look & mood',
+        emoji: '✨',
+        blurb: 'The board should feel like an invitation.',
+        scores: { dining: 3, 'cutting-boards': 1 },
+        personaBoost: 'host',
+      },
+      {
+        id: 'durability',
+        label: 'Durability',
+        emoji: '💪',
+        blurb: 'Built for real parties, not just photos.',
+        scores: { 'cutting-boards': 3, kitchen: 1 },
+        personaBoost: 'craft',
+      },
+    ],
+  },
+  {
+    id: 'craft-priority',
+    prompt: 'In the kitchen, what wins?',
+    sub: 'A quick nudge for your counter edit.',
+    options: [
+      {
+        id: 'prep',
+        label: 'Prep power',
+        emoji: '🔪',
+        blurb: 'Boards and tools that earn the counter.',
+        scores: { 'cutting-boards': 3, kitchen: 2 },
+        personaBoost: 'craft',
+      },
+      {
+        id: 'serve',
+        label: 'Serve ready',
+        emoji: '🍽️',
+        blurb: 'From stove to shared plate without friction.',
+        scores: { dining: 2, kitchen: 2 },
+        personaBoost: 'host',
+      },
+    ],
+  },
+  {
+    id: 'ritual-priority',
+    prompt: 'For your reset ritual, lean…',
+    sub: 'Soft edges either way.',
+    options: [
+      {
+        id: 'soak',
+        label: 'Slow soak',
+        emoji: '🛁',
+        blurb: 'Trays, towels, unhurried evenings.',
+        scores: { bath: 3 },
+        personaBoost: 'ritual',
+      },
+      {
+        id: 'counter',
+        label: 'Quiet counters',
+        emoji: '🌿',
+        blurb: 'Calm holders and order by the sink.',
+        scores: { bath: 2, organization: 2 },
+        personaBoost: 'focus',
+      },
+    ],
+  },
+  {
+    id: 'focus-priority',
+    prompt: 'At the desk, what helps more?',
+    sub: 'We’ll bias the workspace edit.',
+    options: [
+      {
+        id: 'surface',
+        label: 'Clear surface',
+        emoji: '🖥️',
+        blurb: 'Risers and clean lines in the work zone.',
+        scores: { desk: 3 },
+        personaBoost: 'focus',
+      },
+      {
+        id: 'drawers',
+        label: 'Hidden order',
+        emoji: '📦',
+        blurb: 'Drawers and shelves that absorb the chaos.',
+        scores: { organization: 3, desk: 1 },
+        personaBoost: 'focus',
+      },
+    ],
+  },
+  {
+    id: 'patio-priority',
+    prompt: 'Outside time is more about…',
+    sub: 'Deck energy, your way.',
+    options: [
+      {
+        id: 'serve-out',
+        label: 'Outdoor serve',
+        emoji: '🥂',
+        blurb: 'Trays and platters under open sky.',
+        scores: { outdoor: 2, dining: 2 },
+        personaBoost: 'patio',
+      },
+      {
+        id: 'garden',
+        label: 'Garden side',
+        emoji: '🌱',
+        blurb: 'Tools and pieces that live by the plants.',
+        scores: { outdoor: 3, kitchen: 1 },
+        personaBoost: 'patio',
+      },
+    ],
+  },
+  {
+    id: 'nest-priority',
+    prompt: 'For little ones, prioritize…',
+    sub: 'Gentle either way.',
+    options: [
+      {
+        id: 'mealtime',
+        label: 'Mealtime gear',
+        emoji: '🥣',
+        blurb: 'Plates and spoons scaled for tiny hands.',
+        scores: { baby: 4 },
+        personaBoost: 'nest',
+      },
+      {
+        id: 'parent-prep',
+        label: 'Parent prep',
+        emoji: '👨‍🍳',
+        blurb: 'Kitchen allies that survive the toddler years.',
+        scores: { kitchen: 2, baby: 2 },
+        personaBoost: 'craft',
+      },
+    ],
+  },
+]
+
+const BRANCH_BY_PERSONA: Record<string, string> = {
+  host: 'host-priority',
+  craft: 'craft-priority',
+  ritual: 'ritual-priority',
+  focus: 'focus-priority',
+  patio: 'patio-priority',
+  nest: 'nest-priority',
+}
+
+/** Branch question for a leaning persona, if any. */
+export function getBranchQuestion(personaId: string): QuizQuestion | null {
+  const id = BRANCH_BY_PERSONA[personaId]
+  if (!id) return null
+  return BRANCH_QUESTIONS.find((q) => q.id === id) || null
+}
+
+/**
+ * All questions that apply for scoring (core + answered branch).
+ * Branch only counts once answered.
+ */
+export function questionsForScoring(answers: QuizAnswers): QuizQuestion[] {
+  const list = [...QUIZ_QUESTIONS]
+  for (const b of BRANCH_QUESTIONS) {
+    if (answers[b.id]) list.push(b)
+  }
+  return list
+}
 
 export const PERSONAS: Record<string, Persona> = {
   craft: {
@@ -489,6 +685,10 @@ export type QuizPick = {
 
 export type QuizScoreResult = {
   persona: Persona
+  /** Runner-up persona when votes support a clear second (null if none). */
+  secondaryPersona: Persona | null
+  /** Primary vote share 0–1 among persona boosts (confidence signal). */
+  confidence: number
   categoryScores: Record<string, number>
   topCategories: Category[]
   interestTags: string[]
@@ -496,58 +696,97 @@ export type QuizScoreResult = {
   answerLabels: string[]
   /** One-line recap: "Kitchen · Hosting · … → Tabletop Host" */
   answerSummary: string
+  personaVotes: Record<string, number>
 }
 
-export function scoreQuiz(answers: Record<string, string>): QuizScoreResult {
+function personaFromCategoryLeader(
+  categoryScores: Record<string, number>,
+): string {
+  const topCat = Object.entries(categoryScores).sort((a, b) => b[1] - a[1])[0]
+  if (!topCat) return 'craft'
+  if (topCat[0] === 'bath') return 'ritual'
+  if (topCat[0] === 'desk' || topCat[0] === 'organization') return 'focus'
+  if (topCat[0] === 'baby') return 'nest'
+  if (topCat[0] === 'outdoor') return 'patio'
+  if (topCat[0] === 'dining') return 'host'
+  return 'craft'
+}
+
+export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
   const categoryScores: Record<string, number> = {}
   const personaVotes: Record<string, number> = {}
   const answerLabels: string[] = []
+  const questions = questionsForScoring(answers)
 
-  for (const q of QUIZ_QUESTIONS) {
-    const opt = q.options.find((o) => o.id === answers[q.id])
-    if (!opt) continue
-    answerLabels.push(opt.label)
-    for (const [cat, n] of Object.entries(opt.scores)) {
-      categoryScores[cat] = (categoryScores[cat] || 0) + (n || 0)
+  for (const q of questions) {
+    const ids = parseAnswerIds(answers[q.id])
+    if (ids.length === 0) continue
+
+    // Multi-select: slight dampen so two rooms don't dominate single picks
+    const scale = ids.length > 1 ? 0.75 : 1
+    const labels: string[] = []
+
+    for (const id of ids) {
+      const opt = q.options.find((o) => o.id === id)
+      if (!opt) continue
+      labels.push(opt.label)
+      for (const [cat, n] of Object.entries(opt.scores)) {
+        categoryScores[cat] =
+          (categoryScores[cat] || 0) + (n || 0) * scale
+      }
+      if (opt.personaBoost) {
+        personaVotes[opt.personaBoost] =
+          (personaVotes[opt.personaBoost] || 0) + scale
+      }
     }
-    if (opt.personaBoost) {
-      personaVotes[opt.personaBoost] =
-        (personaVotes[opt.personaBoost] || 0) + 1
-    }
+
+    if (labels.length === 1) answerLabels.push(labels[0])
+    else if (labels.length > 1) answerLabels.push(labels.join(' + '))
   }
 
-  let personaId = 'craft'
-  let best = -1
-  for (const [id, n] of Object.entries(personaVotes)) {
-    if (n > best) {
-      best = n
-      personaId = id
-    }
-  }
+  const ranked = Object.entries(personaVotes).sort((a, b) => b[1] - a[1])
+  let personaId = ranked[0]?.[0] || 'craft'
+  let best = ranked[0]?.[1] ?? -1
+
   // Tie-break with category leader
   if (best <= 0) {
-    const topCat = Object.entries(categoryScores).sort((a, b) => b[1] - a[1])[0]
-    if (topCat?.[0] === 'bath') personaId = 'ritual'
-    else if (topCat?.[0] === 'desk' || topCat?.[0] === 'organization')
-      personaId = 'focus'
-    else if (topCat?.[0] === 'baby') personaId = 'nest'
-    else if (topCat?.[0] === 'outdoor') personaId = 'patio'
-    else if (topCat?.[0] === 'dining') personaId = 'host'
+    personaId = personaFromCategoryLeader(categoryScores)
+    best = 1
   }
 
   const persona = PERSONAS[personaId] || PERSONAS.craft
+
+  // Secondary = clear runner-up (not same as primary; at least ~half primary votes)
+  let secondaryPersona: Persona | null = null
+  if (ranked.length >= 2) {
+    const [secondId, secondVotes] = ranked[1]
+    if (
+      secondId !== personaId &&
+      secondVotes > 0 &&
+      secondVotes >= best * 0.4
+    ) {
+      secondaryPersona = PERSONAS[secondId] || null
+    }
+  }
+
+  const totalVotes = ranked.reduce((s, [, n]) => s + n, 0) || 1
+  const confidence = Math.min(1, Math.max(0, best / totalVotes))
+
   const topCategories = Object.entries(categoryScores)
     .sort((a, b) => b[1] - a[1])
     .map(([c]) => c as Category)
     .filter((c) => ALL_CATEGORIES.includes(c))
     .slice(0, 3)
 
+  // Blend secondary categories lightly into interest tags for cross-sell
+  const secondaryCats = secondaryPersona?.categories || []
   const interestTags = [
     ...new Set([
       ...persona.categories.map((c) => `interest:${c}`),
       ...topCategories.map((c) => `interest:${c}`),
+      ...secondaryCats.map((c) => `interest:${c}`),
     ]),
-  ].slice(0, 6)
+  ].slice(0, 8)
 
   const answerSummary =
     answerLabels.length > 0
@@ -556,11 +795,14 @@ export function scoreQuiz(answers: Record<string, string>): QuizScoreResult {
 
   return {
     persona,
+    secondaryPersona,
+    confidence,
     categoryScores,
     topCategories,
     interestTags,
     answerLabels,
     answerSummary,
+    personaVotes,
   }
 }
 
