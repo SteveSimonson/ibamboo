@@ -10,15 +10,16 @@ import {
 } from 'lucide-react'
 import {
   QUIZ_QUESTIONS,
+  buildQuizPicks,
   scoreQuiz,
   shopLinkForCategories,
   type Persona,
+  type QuizPick,
 } from '../data/quiz'
 import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
 import {
   CATEGORY_LABELS,
   shopProducts,
-  type Product,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
@@ -31,6 +32,12 @@ import {
   trackRegistration,
 } from '../lib/analytics'
 import { Seo } from '../components/Seo'
+
+/** Short shop-edit label from persona id (host → “host edit”). */
+function editWordForPersona(personaId: string): string {
+  const known = ['host', 'craft', 'ritual', 'focus', 'nest', 'patio'] as const
+  return (known as readonly string[]).includes(personaId) ? personaId : 'house'
+}
 
 type Phase = 'intro' | 'questions' | 'capture' | 'result'
 
@@ -83,17 +90,18 @@ export function Quiz() {
           ? 100
           : 0
 
-  const picks = useMemo(() => {
-    const cats = scored.topCategories.length
-      ? scored.topCategories
-      : scored.persona.categories
-    const pool = shopProducts.filter(
-      (p) => cats.includes(p.category) && p.images?.length,
-    )
-    const limited = pool.filter((p) => p.limitedTime)
-    const list = (limited.length >= 3 ? limited : pool).slice(0, 6)
-    return list
-  }, [scored])
+  const picks = useMemo(
+    () =>
+      buildQuizPicks(
+        shopProducts,
+        scored.persona.id,
+        scored.topCategories.length
+          ? scored.topCategories
+          : scored.persona.categories,
+        5,
+      ),
+    [scored],
+  )
 
   function pickOption(optionId: string) {
     if (!q || advancing) return
@@ -294,6 +302,7 @@ export function Quiz() {
           <ResultStep
             persona={scored.persona}
             topCategories={scored.topCategories}
+            answerLabels={scored.answerLabels}
             picks={picks}
             saved={saved}
             firstName={firstName}
@@ -429,16 +438,20 @@ function CaptureStep({
   onSubmit: (e: React.FormEvent) => void
   onSkip: () => void
 }) {
+  const editLabel = editWordForPersona(persona.id)
+  const saveValue = `Save your ${persona.title} card + get this week’s ${editLabel} edit`
+
   return (
     <div className="animate-in max-w-lg mx-auto">
-      <p className="label-micro mb-2">Almost there</p>
+      <p className="label-micro mb-2">Optional — results work either way</p>
       <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight">
-        Unlock your vibe card
+        {saveValue}
       </h2>
       <p className="mt-3 text-ink-soft leading-relaxed">
         You’re trending <strong className="text-ink">{persona.title}</strong>.
-        Drop your email to save interests in our house book and get a short
-        welcome note — or skip and see results now.
+        Email keeps your vibe in the house book and sends a short welcome note
+        with this week’s edit. Prefer to browse first? Skip is first-class —
+        no guilt.
       </p>
 
       <form onSubmit={onSubmit} className="mt-8 space-y-4">
@@ -499,16 +512,16 @@ function CaptureStep({
             </>
           ) : (
             <>
-              Save & reveal <Sparkles className="size-4" />
+              Save my vibe card <Sparkles className="size-4" />
             </>
           )}
         </button>
         <button
           type="button"
           onClick={onSkip}
-          className="w-full text-sm font-semibold text-muted hover:text-bamboo py-2"
+          className="w-full rounded-xl border border-line bg-card px-4 py-3 text-sm font-semibold text-ink hover:border-bamboo/40 hover:text-bamboo transition"
         >
-          Skip — just show my results
+          See results without email
         </button>
       </form>
     </div>
@@ -518,6 +531,7 @@ function CaptureStep({
 function ResultStep({
   persona,
   topCategories,
+  answerLabels,
   picks,
   saved,
   firstName,
@@ -525,7 +539,8 @@ function ResultStep({
 }: {
   persona: Persona
   topCategories: Category[]
-  picks: Product[]
+  answerLabels: string[]
+  picks: QuizPick[]
   saved: boolean
   firstName: string
   onRetake: () => void
@@ -533,6 +548,7 @@ function ResultStep({
   const cats = topCategories.length ? topCategories : persona.categories
   const shopTo = shopLinkForCategories(cats)
   const vibe = getVibe(persona.id)
+  const editWord = editWordForPersona(persona.id)
 
   return (
     <div className="animate-in">
@@ -574,6 +590,27 @@ function ResultStep({
               {persona.story}
             </p>
 
+            {/* Answer summary — makes the match feel earned */}
+            {answerLabels.length > 0 && (
+              <div
+                className="mt-5 rounded-2xl border bg-paper-2/80 px-4 py-3"
+                style={{ borderColor: `${persona.accent}33` }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted mb-1.5">
+                  You chose
+                </p>
+                <p className="text-sm text-ink-soft leading-relaxed">
+                  <span className="text-ink font-medium">
+                    {answerLabels.join(' · ')}
+                  </span>
+                  <span className="text-muted"> → </span>
+                  <span className="font-semibold" style={{ color: persona.accent }}>
+                    {persona.title}
+                  </span>
+                </p>
+              </div>
+            )}
+
             <div className="mt-5 flex flex-wrap gap-2">
               {cats.map((c) => (
                 <Link
@@ -593,12 +630,13 @@ function ResultStep({
               </p>
             )}
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link to={vibePath(persona.id)} className="btn-primary">
-                Explore your vibe card <ArrowRight className="size-4" />
+            {/* CTA hierarchy: shop primary · vibe secondary · limited/retake tertiary */}
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <Link to={shopTo} className="btn-primary">
+                Shop your {editWord} edit <ArrowRight className="size-4" />
               </Link>
-              <Link to={shopTo} className="btn-secondary">
-                Shop this edit
+              <Link to={vibePath(persona.id)} className="btn-secondary">
+                See vibe card
               </Link>
               <Link
                 to="/shop?limited=1"
@@ -621,20 +659,27 @@ function ResultStep({
       {picks.length > 0 && (
         <section className="mt-12">
           <h3 className="font-display text-2xl sm:text-3xl font-semibold">
-            Picked for your vibe
+            Named picks for your vibe
           </h3>
           <p className="mt-1 text-sm text-muted">
-            From the current iBamboo catalog — buy on Amazon when you’re ready.
+            Variety over six similar boards — each pick has a role and a why.
           </p>
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {picks.map((p) => (
+            {picks.map((pick) => (
               <ProductCard
-                key={p.id}
-                product={p}
+                key={pick.product.id}
+                product={pick.product}
                 compact
                 listName="quiz_picks"
+                pickLabel={pick.role}
+                whyLine={pick.why}
               />
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link to={shopTo} className="btn-primary">
+              Shop your full {editWord} edit <ArrowRight className="size-4" />
+            </Link>
           </div>
         </section>
       )}

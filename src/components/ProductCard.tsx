@@ -16,11 +16,17 @@ export function ProductCard({
   product,
   compact = false,
   listName = 'catalog',
+  pickLabel,
+  whyLine,
 }: {
   product: Product
   compact?: boolean
   /** GA item list name (e.g. shop grid, quiz picks, vibe loadout) */
   listName?: string
+  /** Named quiz role, e.g. "Hosting board" */
+  pickLabel?: string
+  /** Persona-tied “why this product” line under the title */
+  whyLine?: string
 }) {
   const shopUrl = affiliateUrl({
     asin: product.asin,
@@ -111,10 +117,17 @@ export function ProductCard({
           )}
         </div>
         <div className={`flex flex-col flex-1 ${compact ? 'p-3.5 gap-1' : 'p-4 gap-1.5'}`}>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
-            {categoryLabel(product.category)}
-            {product.limitedTime ? ' · This week' : ''}
-          </p>
+          {pickLabel ? (
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-bamboo">
+              {pickLabel}
+              {product.limitedTime ? ' · This week' : ''}
+            </p>
+          ) : (
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
+              {categoryLabel(product.category)}
+              {product.limitedTime ? ' · This week' : ''}
+            </p>
+          )}
           <h3
             className={`font-display font-semibold leading-snug text-ink group-hover:text-bamboo transition ${
               compact ? 'text-lg' : 'text-xl'
@@ -122,11 +135,15 @@ export function ProductCard({
           >
             {product.name}
           </h3>
-          {!compact && (
+          {whyLine ? (
+            <p className="text-sm text-ink-soft leading-snug line-clamp-2">
+              {whyLine}
+            </p>
+          ) : !compact ? (
             <p className="text-sm text-ink-soft line-clamp-2 leading-relaxed">
               {product.tagline}
             </p>
-          )}
+          ) : null}
           <div className="mt-1">
             <StarRating rating={product.rating} count={product.reviewCount} />
           </div>
