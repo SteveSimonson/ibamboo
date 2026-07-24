@@ -224,7 +224,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'word',
     prompt: 'One word for your bamboo era?',
-    sub: 'Last step before your vibe reveal.',
+    sub: 'Almost there — then your vibe reveal.',
     options: [
       {
         id: 'crafted',
@@ -744,33 +744,43 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
     else if (labels.length > 1) answerLabels.push(labels.join(' + '))
   }
 
-  const ranked = Object.entries(personaVotes).sort((a, b) => b[1] - a[1])
+  const ranked = Object.entries(personaVotes).sort((a, b) => {
+    if (b[1] !== a[1]) return b[1] - a[1]
+    // Stable id order when votes tie (category leader applied next)
+    return a[0].localeCompare(b[0])
+  })
   let personaId = ranked[0]?.[0] || 'craft'
-  let best = ranked[0]?.[1] ?? -1
+  let best = ranked[0]?.[1] ?? 0
+  const hadPersonaVotes = best > 0
 
-  // Tie-break with category leader
-  if (best <= 0) {
+  // No votes, or equal top votes → resolve with category leader
+  if (!hadPersonaVotes) {
     personaId = personaFromCategoryLeader(categoryScores)
-    best = 1
+  } else if (ranked.length >= 2 && ranked[1][1] === ranked[0][1]) {
+    const tiedIds = ranked
+      .filter(([, n]) => n === best)
+      .map(([id]) => id)
+    const fromCats = personaFromCategoryLeader(categoryScores)
+    personaId = tiedIds.includes(fromCats) ? fromCats : tiedIds[0]
   }
 
   const persona = PERSONAS[personaId] || PERSONAS.craft
 
-  // Secondary = clear runner-up (not same as primary; at least ~half primary votes)
+  // Secondary = clear runner-up (≥40% of primary votes, not the same id)
   let secondaryPersona: Persona | null = null
-  if (ranked.length >= 2) {
-    const [secondId, secondVotes] = ranked[1]
-    if (
-      secondId !== personaId &&
-      secondVotes > 0 &&
-      secondVotes >= best * 0.4
-    ) {
+  const others = ranked.filter(([id]) => id !== personaId)
+  if (others.length >= 1 && hadPersonaVotes) {
+    const [secondId, secondVotes] = others[0]
+    if (secondVotes > 0 && secondVotes >= best * 0.4) {
       secondaryPersona = PERSONAS[secondId] || null
     }
   }
 
-  const totalVotes = ranked.reduce((s, [, n]) => s + n, 0) || 1
-  const confidence = Math.min(1, Math.max(0, best / totalVotes))
+  const totalVotes = ranked.reduce((s, [, n]) => s + n, 0)
+  // Category-only fallback is uncertain — keep confidence low so UI hides the chip
+  const confidence = hadPersonaVotes
+    ? Math.min(1, Math.max(0, best / (totalVotes || 1)))
+    : 0.3
 
   const topCategories = Object.entries(categoryScores)
     .sort((a, b) => b[1] - a[1])

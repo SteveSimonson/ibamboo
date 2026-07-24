@@ -61,8 +61,15 @@ export function Quiz() {
   const [saved, setSaved] = useState(false)
   /** Prevent double-taps while single-select auto-advances */
   const [advancing, setAdvancing] = useState(false)
+  const advancingRef = useRef(false)
+  const submittingRef = useRef(false)
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const completedTracked = useRef(false)
+
+  function setAdvancingBoth(v: boolean) {
+    advancingRef.current = v
+    setAdvancing(v)
+  }
 
   const activeQuestions = useMemo(() => {
     const list: QuizQuestion[] = [...QUIZ_QUESTIONS]
@@ -87,13 +94,14 @@ export function Quiz() {
     setAnswers({})
     setSelectedIds([])
     setBranchQ(null)
-    setAdvancing(false)
+    setAdvancingBoth(false)
     setFirstName('')
     setEmail('')
     setOptIn(true)
     setSubmitError(null)
     setSaved(false)
     completedTracked.current = false
+    submittingRef.current = false
     navigate('/quiz', { replace: true })
   }
 
@@ -164,9 +172,9 @@ export function Quiz() {
   }
 
   function commitSingle(optionId: string) {
-    if (!q || advancing) return
+    if (!q || advancingRef.current) return
     setSelectedIds([optionId])
-    setAdvancing(true)
+    setAdvancingBoth(true)
     trackQuizAnswer({
       questionId: q.id,
       optionId,
@@ -174,20 +182,27 @@ export function Quiz() {
       totalSteps,
     })
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
+    const questionId = q.id
+    const fromStep = step
     advanceTimer.current = setTimeout(() => {
-      const nextAnswers = {
-        ...answers,
-        [q.id]: encodeAnswerIds([optionId]),
-      }
-      setAnswers(nextAnswers)
-      setSelectedIds([])
-      setAdvancing(false)
-      advanceAfterAnswer(nextAnswers, step)
+      setAnswers((prev) => {
+        const nextAnswers = {
+          ...prev,
+          [questionId]: encodeAnswerIds([optionId]),
+        }
+        // Defer navigation so we don't set other state inside this updater
+        queueMicrotask(() => {
+          setSelectedIds([])
+          setAdvancingBoth(false)
+          advanceAfterAnswer(nextAnswers, fromStep)
+        })
+        return nextAnswers
+      })
     }, 340)
   }
 
   function toggleMulti(optionId: string) {
-    if (!q || advancing) return
+    if (!q || advancingRef.current) return
     const max = q.maxSelect ?? 2
     setSelectedIds((prev) => {
       if (prev.includes(optionId)) {
@@ -202,8 +217,8 @@ export function Quiz() {
   }
 
   function continueMulti() {
-    if (!q || selectedIds.length === 0 || advancing) return
-    setAdvancing(true)
+    if (!q || selectedIds.length === 0 || advancingRef.current) return
+    setAdvancingBoth(true)
     trackQuizAnswer({
       questionId: q.id,
       optionId: encodeAnswerIds(selectedIds),
@@ -216,17 +231,19 @@ export function Quiz() {
     }
     setAnswers(nextAnswers)
     setSelectedIds([])
-    setAdvancing(false)
+    setAdvancingBoth(false)
     advanceAfterAnswer(nextAnswers, step)
   }
 
   function goBackQuestion() {
-    if (advancing) return
+    if (advancingRef.current) return
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
-    setAdvancing(false)
+    setAdvancingBoth(false)
     if (step === 0) {
       setPhase('intro')
       setSelectedIds([])
+      setAnswers({})
+      setBranchQ(null)
       return
     }
     const prevStep = step - 1
@@ -254,6 +271,8 @@ export function Quiz() {
 
   async function submitCapture(e: React.FormEvent) {
     e.preventDefault()
+    if (submittingRef.current) return
+    submittingRef.current = true
     setSubmitError(null)
     setSubmitting(true)
     const result = scoreQuiz(answers)
@@ -294,6 +313,7 @@ export function Quiz() {
         success: false,
       })
     } finally {
+      submittingRef.current = false
       setSubmitting(false)
     }
   }
@@ -458,6 +478,7 @@ function QuestionStep({
               key={opt.id}
               type="button"
               disabled={advancing && !multi}
+              aria-pressed={active}
               onClick={() =>
                 multi ? onToggleMulti(opt.id) : onSelectSingle(opt.id)
               }
@@ -607,7 +628,10 @@ function SaveHouseBook({
         </label>
 
         {error && (
-          <p className="text-sm text-[#9a3412] bg-[#fff7ed] border border-[#fdba74] rounded-xl px-3 py-2">
+          <p
+            role="alert"
+            className="text-sm text-[#9a3412] bg-[#fff7ed] border border-[#fdba74] rounded-xl px-3 py-2"
+          >
             {error}
           </p>
         )}
