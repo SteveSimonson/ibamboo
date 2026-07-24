@@ -11,10 +11,15 @@ import {
 import {
   QUIZ_QUESTIONS,
   buildQuizPicks,
+  encodeAnswerIds,
+  getBranchQuestion,
+  parseAnswerIds,
   scoreQuiz,
   shopLinkForCategories,
   type Persona,
+  type QuizAnswers,
   type QuizPick,
+  type QuizQuestion,
 } from '../data/quiz'
 import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
 import {
@@ -27,7 +32,6 @@ import {
   trackQuizAnswer,
   trackQuizComplete,
   trackQuizRetake,
-  trackQuizSkipRegistration,
   trackQuizStart,
   trackRegistration,
 } from '../lib/analytics'
@@ -39,23 +43,42 @@ function editWordForPersona(personaId: string): string {
   return (known as readonly string[]).includes(personaId) ? personaId : 'house'
 }
 
-type Phase = 'intro' | 'questions' | 'capture' | 'result'
+type Phase = 'intro' | 'questions' | 'result'
 
 export function Quiz() {
   const navigate = useNavigate()
   const [phase, setPhase] = useState<Phase>('intro')
   const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [selected, setSelected] = useState<string | null>(null)
+  const [answers, setAnswers] = useState<QuizAnswers>({})
+  /** Single-select highlight / multi-select working set */
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const [branchQ, setBranchQ] = useState<QuizQuestion | null>(null)
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [optIn, setOptIn] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
-  /** Prevent double-taps while the selection flash auto-advances */
+  /** Prevent double-taps while single-select auto-advances */
   const [advancing, setAdvancing] = useState(false)
+  const advancingRef = useRef(false)
+  const submittingRef = useRef(false)
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const completedTracked = useRef(false)
+
+  function setAdvancingBoth(v: boolean) {
+    advancingRef.current = v
+    setAdvancing(v)
+  }
+
+  const activeQuestions = useMemo(() => {
+    const list: QuizQuestion[] = [...QUIZ_QUESTIONS]
+    if (branchQ) list.push(branchQ)
+    return list
+  }, [branchQ])
+
+  const q = activeQuestions[step]
+  const totalSteps = activeQuestions.length
 
   useEffect(() => {
     return () => {
@@ -69,26 +92,28 @@ export function Quiz() {
     setPhase('intro')
     setStep(0)
     setAnswers({})
-    setSelected(null)
-    setAdvancing(false)
+    setSelectedIds([])
+    setBranchQ(null)
+    setAdvancingBoth(false)
     setFirstName('')
     setEmail('')
     setOptIn(true)
     setSubmitError(null)
     setSaved(false)
+    completedTracked.current = false
+    submittingRef.current = false
     navigate('/quiz', { replace: true })
   }
 
   const scored = useMemo(() => scoreQuiz(answers), [answers])
-  const q = QUIZ_QUESTIONS[step]
+
   const progress =
     phase === 'questions'
-      ? ((step + (selected ? 0.55 : 0)) / QUIZ_QUESTIONS.length) * 100
-      : phase === 'capture'
-        ? 92
-        : phase === 'result'
-          ? 100
-          : 0
+      ? ((step + (selectedIds.length ? 0.55 : 0)) / Math.max(totalSteps, 1)) *
+        100
+      : phase === 'result'
+        ? 100
+        : 0
 
   const picks = useMemo(
     () =>
@@ -103,47 +128,151 @@ export function Quiz() {
     [scored],
   )
 
-  function pickOption(optionId: string) {
-    if (!q || advancing) return
-    setSelected(optionId)
-    setAdvancing(true)
+  function finishToResult(nextAnswers: QuizAnswers) {
+    const result = scoreQuiz(nextAnswers)
+    writeStoredVibeId(result.persona.id)
+    if (!completedTracked.current) {
+      completedTracked.current = true
+      trackQuizComplete({
+        personaId: result.persona.id,
+        personaLabel: result.persona.title,
+        registered: false,
+      })
+    }
+    setPhase('result')
+  }
+
+  /** After committing an answer for the current question, advance or finish. */
+  function advanceAfterAnswer(nextAnswers: QuizAnswers, fromStep: number) {
+    // Still in core questions (not yet on last core)
+    if (fromStep < QUIZ_QUESTIONS.length - 1) {
+      const nextStep = fromStep + 1
+      setStep(nextStep)
+      const nextQ = QUIZ_QUESTIONS[nextStep]
+      setSelectedIds(parseAnswerIds(nextAnswers[nextQ.id]))
+      return
+    }
+
+    // Just finished last core question — optional branch
+    if (fromStep === QUIZ_QUESTIONS.length - 1) {
+      const interim = scoreQuiz(nextAnswers)
+      const branch = getBranchQuestion(interim.persona.id)
+      if (branch && !nextAnswers[branch.id]) {
+        setBranchQ(branch)
+        setStep(QUIZ_QUESTIONS.length)
+        setSelectedIds([])
+        return
+      }
+      finishToResult(nextAnswers)
+      return
+    }
+
+    // Finished branch (or any extra step)
+    finishToResult(nextAnswers)
+  }
+
+  function commitSingle(optionId: string) {
+    if (!q || advancingRef.current) return
+    setSelectedIds([optionId])
+    setAdvancingBoth(true)
     trackQuizAnswer({
       questionId: q.id,
       optionId,
       step,
-      totalSteps: QUIZ_QUESTIONS.length,
+      totalSteps,
     })
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
-    // Brief highlight so the selection registers, then auto-advance
+    const questionId = q.id
+    const fromStep = step
     advanceTimer.current = setTimeout(() => {
-      const nextAnswers = { ...answers, [q.id]: optionId }
-      setAnswers(nextAnswers)
-      setSelected(null)
-      setAdvancing(false)
-      if (step + 1 < QUIZ_QUESTIONS.length) {
-        setStep((s) => s + 1)
-      } else {
-        setPhase('capture')
-      }
+      setAnswers((prev) => {
+        const nextAnswers = {
+          ...prev,
+          [questionId]: encodeAnswerIds([optionId]),
+        }
+        // Defer navigation so we don't set other state inside this updater
+        queueMicrotask(() => {
+          setSelectedIds([])
+          setAdvancingBoth(false)
+          advanceAfterAnswer(nextAnswers, fromStep)
+        })
+        return nextAnswers
+      })
     }, 340)
   }
 
+  function toggleMulti(optionId: string) {
+    if (!q || advancingRef.current) return
+    const max = q.maxSelect ?? 2
+    setSelectedIds((prev) => {
+      if (prev.includes(optionId)) {
+        return prev.filter((id) => id !== optionId)
+      }
+      if (prev.length >= max) {
+        // Replace oldest selection so tap always does something
+        return [...prev.slice(1), optionId]
+      }
+      return [...prev, optionId]
+    })
+  }
+
+  function continueMulti() {
+    if (!q || selectedIds.length === 0 || advancingRef.current) return
+    setAdvancingBoth(true)
+    trackQuizAnswer({
+      questionId: q.id,
+      optionId: encodeAnswerIds(selectedIds),
+      step,
+      totalSteps,
+    })
+    const nextAnswers = {
+      ...answers,
+      [q.id]: encodeAnswerIds(selectedIds),
+    }
+    setAnswers(nextAnswers)
+    setSelectedIds([])
+    setAdvancingBoth(false)
+    advanceAfterAnswer(nextAnswers, step)
+  }
+
   function goBackQuestion() {
-    if (advancing) return
+    if (advancingRef.current) return
     if (advanceTimer.current) clearTimeout(advanceTimer.current)
-    setSelected(null)
-    setAdvancing(false)
+    setAdvancingBoth(false)
     if (step === 0) {
       setPhase('intro')
+      setSelectedIds([])
+      setAnswers({})
+      setBranchQ(null)
+      return
+    }
+    const prevStep = step - 1
+    // Leaving branch step back into core
+    if (branchQ && step === QUIZ_QUESTIONS.length) {
+      setBranchQ(null)
+      // drop branch answer if any
+      setAnswers((a) => {
+        const next = { ...a }
+        delete next[branchQ.id]
+        return next
+      })
+    }
+    setStep(prevStep)
+    const prevQ =
+      prevStep < QUIZ_QUESTIONS.length
+        ? QUIZ_QUESTIONS[prevStep]
+        : branchQ
+    if (prevQ) {
+      setSelectedIds(parseAnswerIds(answers[prevQ.id]))
     } else {
-      setStep((s) => s - 1)
-      const prev = QUIZ_QUESTIONS[step - 1]
-      setSelected(answers[prev.id] || null)
+      setSelectedIds([])
     }
   }
 
   async function submitCapture(e: React.FormEvent) {
     e.preventDefault()
+    if (submittingRef.current) return
+    submittingRef.current = true
     setSubmitError(null)
     setSubmitting(true)
     const result = scoreQuiz(answers)
@@ -174,49 +303,19 @@ export function Quiz() {
         hasFirstName: Boolean(firstName.trim()),
         success: true,
       })
-      trackQuizComplete({
-        personaId: result.persona.id,
-        personaLabel: result.persona.title,
-        registered: true,
-      })
-      setPhase('result')
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Submit failed')
-      // Still show results offline if CRM fails
-      const fallback = scoreQuiz(answers)
-      writeStoredVibeId(fallback.persona.id)
       trackRegistration({
-        personaId: fallback.persona.id,
-        personaLabel: fallback.persona.title,
+        personaId: result.persona.id,
+        personaLabel: result.persona.title,
         marketingOptIn: optIn,
         hasFirstName: Boolean(firstName.trim()),
         success: false,
       })
-      trackQuizComplete({
-        personaId: fallback.persona.id,
-        personaLabel: fallback.persona.title,
-        registered: false,
-      })
-      setPhase('result')
     } finally {
+      submittingRef.current = false
       setSubmitting(false)
     }
-  }
-
-  function skipToResult() {
-    const result = scoreQuiz(answers)
-    writeStoredVibeId(result.persona.id)
-    setSaved(false)
-    trackQuizSkipRegistration({
-      personaId: result.persona.id,
-      personaLabel: result.persona.title,
-    })
-    trackQuizComplete({
-      personaId: result.persona.id,
-      personaLabel: result.persona.title,
-      registered: false,
-    })
-    setPhase('result')
   }
 
   return (
@@ -257,7 +356,8 @@ export function Quiz() {
             </div>
             {phase === 'questions' && (
               <p className="mt-2 text-xs text-muted font-medium">
-                Question {step + 1} of {QUIZ_QUESTIONS.length}
+                Question {step + 1} of {totalSteps}
+                {branchQ && step === totalSteps - 1 ? ' · bonus' : ''}
               </p>
             )}
           </div>
@@ -275,37 +375,33 @@ export function Quiz() {
         {phase === 'questions' && q && (
           <QuestionStep
             question={q}
-            selected={selected}
+            selectedIds={selectedIds}
             advancing={advancing}
-            onSelect={pickOption}
+            onSelectSingle={commitSingle}
+            onToggleMulti={toggleMulti}
+            onContinueMulti={continueMulti}
             onBack={goBackQuestion}
-          />
-        )}
-
-        {phase === 'capture' && (
-          <CaptureStep
-            persona={scored.persona}
-            firstName={firstName}
-            email={email}
-            optIn={optIn}
-            submitting={submitting}
-            error={submitError}
-            onFirstName={setFirstName}
-            onEmail={setEmail}
-            onOptIn={setOptIn}
-            onSubmit={submitCapture}
-            onSkip={skipToResult}
           />
         )}
 
         {phase === 'result' && (
           <ResultStep
             persona={scored.persona}
+            secondaryPersona={scored.secondaryPersona}
+            confidence={scored.confidence}
             topCategories={scored.topCategories}
             answerLabels={scored.answerLabels}
             picks={picks}
             saved={saved}
             firstName={firstName}
+            email={email}
+            optIn={optIn}
+            submitting={submitting}
+            submitError={submitError}
+            onFirstName={setFirstName}
+            onEmail={setEmail}
+            onOptIn={setOptIn}
+            onSubmit={submitCapture}
             onRetake={retake}
           />
         )}
@@ -324,31 +420,40 @@ function Intro({ onStart }: { onStart: () => void }) {
         Which bamboo life are you building?
       </h1>
       <p className="mt-5 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">
-        Five quick taps. Zero wrong answers. We’ll match you to a bamboo
-        persona and a short list from this week’s house edit — then save your
-        interests if you want updates.
+        A handful of quick taps. Zero wrong answers. See your bamboo persona
+        and named picks immediately — save to the house book only if you want
+        updates.
       </p>
       <button type="button" onClick={onStart} className="btn-primary mt-10 !px-10">
         Start the vibe check <ArrowRight className="size-4" />
       </button>
-      <p className="mt-4 text-xs text-muted">No account required to play · Email optional for results save</p>
+      <p className="mt-4 text-xs text-muted">
+        No account required · Results first · Email optional
+      </p>
     </div>
   )
 }
 
 function QuestionStep({
   question,
-  selected,
+  selectedIds,
   advancing,
-  onSelect,
+  onSelectSingle,
+  onToggleMulti,
+  onContinueMulti,
   onBack,
 }: {
-  question: (typeof QUIZ_QUESTIONS)[0]
-  selected: string | null
+  question: QuizQuestion
+  selectedIds: string[]
   advancing: boolean
-  onSelect: (id: string) => void
+  onSelectSingle: (id: string) => void
+  onToggleMulti: (id: string) => void
+  onContinueMulti: () => void
   onBack: () => void
 }) {
+  const multi = Boolean(question.multiSelect)
+  const max = question.maxSelect ?? 2
+
   return (
     <div key={question.id} className="animate-in">
       <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight text-balance">
@@ -357,21 +462,33 @@ function QuestionStep({
       {question.sub && (
         <p className="mt-2 text-ink-soft">{question.sub}</p>
       )}
+      {multi && (
+        <p className="mt-2 text-xs font-semibold text-bamboo">
+          {selectedIds.length === 0
+            ? `Select 1–${max}`
+            : `${selectedIds.length} of ${max} selected`}
+        </p>
+      )}
 
       <div className="mt-8 grid sm:grid-cols-2 gap-3">
         {question.options.map((opt) => {
-          const active = selected === opt.id
+          const active = selectedIds.includes(opt.id)
           return (
             <button
               key={opt.id}
               type="button"
-              disabled={advancing}
-              onClick={() => onSelect(opt.id)}
+              disabled={advancing && !multi}
+              aria-pressed={active}
+              onClick={() =>
+                multi ? onToggleMulti(opt.id) : onSelectSingle(opt.id)
+              }
               className={`text-left rounded-2xl border p-4 sm:p-5 transition duration-200 ${
                 active
                   ? 'border-bamboo bg-bamboo/10 shadow-[0_12px_30px_-16px_rgba(63,107,53,0.45)] scale-[1.02]'
                   : 'border-line bg-card hover:border-bamboo/40 hover:bg-paper-2'
-              } ${advancing && !active ? 'opacity-50' : ''} ${advancing ? 'pointer-events-none' : ''}`}
+              } ${advancing && !multi && !active ? 'opacity-50' : ''} ${
+                advancing && !multi ? 'pointer-events-none' : ''
+              }`}
             >
               <div className="flex items-start gap-3">
                 <span className="text-3xl leading-none" aria-hidden>
@@ -400,20 +517,31 @@ function QuestionStep({
         <button
           type="button"
           onClick={onBack}
-          disabled={advancing}
+          disabled={advancing && !multi}
           className="text-sm font-semibold text-ink-soft hover:text-bamboo disabled:opacity-40"
         >
           Back
         </button>
-        <p className="text-xs text-muted font-medium">
-          {advancing ? 'Next…' : 'Tap a card to continue'}
-        </p>
+        {multi ? (
+          <button
+            type="button"
+            onClick={onContinueMulti}
+            disabled={selectedIds.length === 0}
+            className="btn-primary !py-2.5 !px-5 disabled:opacity-40"
+          >
+            Continue <ArrowRight className="size-4" />
+          </button>
+        ) : (
+          <p className="text-xs text-muted font-medium">
+            {advancing ? 'Next…' : 'Tap a card to continue'}
+          </p>
+        )}
       </div>
     </div>
   )
 }
 
-function CaptureStep({
+function SaveHouseBook({
   persona,
   firstName,
   email,
@@ -424,7 +552,6 @@ function CaptureStep({
   onEmail,
   onOptIn,
   onSubmit,
-  onSkip,
 }: {
   persona: Persona
   firstName: string
@@ -436,52 +563,57 @@ function CaptureStep({
   onEmail: (v: string) => void
   onOptIn: (v: boolean) => void
   onSubmit: (e: React.FormEvent) => void
-  onSkip: () => void
 }) {
   const editLabel = editWordForPersona(persona.id)
-  const saveValue = `Save your ${persona.title} card + get this week’s ${editLabel} edit`
 
   return (
-    <div className="animate-in max-w-lg mx-auto">
-      <p className="label-micro mb-2">Optional — results work either way</p>
-      <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight">
-        {saveValue}
-      </h2>
-      <p className="mt-3 text-ink-soft leading-relaxed">
-        You’re trending <strong className="text-ink">{persona.title}</strong>.
-        Email keeps your vibe in the house book and sends a short welcome note
-        with this week’s edit. Prefer to browse first? Skip is first-class —
-        no guilt.
+    <section
+      className="mt-8 rounded-2xl border border-bamboo/25 bg-paper-2/90 p-5 sm:p-6 shadow-[0_12px_40px_-24px_rgba(63,107,53,0.35)]"
+      aria-labelledby="save-house-book-heading"
+    >
+      <p className="label-micro text-bamboo mb-1">Optional · house book</p>
+      <h3
+        id="save-house-book-heading"
+        className="font-display text-xl sm:text-2xl font-semibold leading-tight"
+      >
+        Save your {persona.title} card
+      </h3>
+      <p className="mt-2 text-sm text-ink-soft leading-relaxed">
+        Keep this vibe in the house book and get this week’s {editLabel} edit
+        by email. You already have full results above — this is just for
+        follow-up.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
-        <label className="block">
-          <span className="text-xs font-semibold text-muted uppercase tracking-wide">
-            First name
-          </span>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => onFirstName(e.target.value)}
-            placeholder="Alex"
-            className="mt-1.5 w-full rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none focus:border-bamboo focus:ring-2 focus:ring-bamboo/20"
-            autoComplete="given-name"
-          />
-        </label>
-        <label className="block">
-          <span className="text-xs font-semibold text-muted uppercase tracking-wide">
-            Email <span className="text-sunset">*</span>
-          </span>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => onEmail(e.target.value)}
-            placeholder="you@email.com"
-            className="mt-1.5 w-full rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none focus:border-bamboo focus:ring-2 focus:ring-bamboo/20"
-            autoComplete="email"
-          />
-        </label>
+      <form onSubmit={onSubmit} className="mt-5 space-y-3">
+        <div className="grid sm:grid-cols-2 gap-3">
+          <label className="block">
+            <span className="text-xs font-semibold text-muted uppercase tracking-wide">
+              First name
+            </span>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => onFirstName(e.target.value)}
+              placeholder="Alex"
+              className="mt-1.5 w-full rounded-xl border border-line bg-card px-4 py-2.5 text-sm outline-none focus:border-bamboo focus:ring-2 focus:ring-bamboo/20"
+              autoComplete="given-name"
+            />
+          </label>
+          <label className="block">
+            <span className="text-xs font-semibold text-muted uppercase tracking-wide">
+              Email <span className="text-sunset">*</span>
+            </span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => onEmail(e.target.value)}
+              placeholder="you@email.com"
+              className="mt-1.5 w-full rounded-xl border border-line bg-card px-4 py-2.5 text-sm outline-none focus:border-bamboo focus:ring-2 focus:ring-bamboo/20"
+              autoComplete="email"
+            />
+          </label>
+        </div>
         <label className="flex items-start gap-2.5 text-sm text-ink-soft cursor-pointer">
           <input
             type="checkbox"
@@ -490,21 +622,24 @@ function CaptureStep({
             className="mt-1 rounded border-line"
           />
           <span>
-            Send me a welcome email and occasional limited-time bamboo drops.
-            Unsubscribe anytime.
+            Welcome note + occasional limited-time bamboo drops. Unsubscribe
+            anytime.
           </span>
         </label>
 
         {error && (
-          <p className="text-sm text-[#9a3412] bg-[#fff7ed] border border-[#fdba74] rounded-xl px-3 py-2">
-            {error} — showing your results anyway.
+          <p
+            role="alert"
+            className="text-sm text-[#9a3412] bg-[#fff7ed] border border-[#fdba74] rounded-xl px-3 py-2"
+          >
+            {error}
           </p>
         )}
 
         <button
           type="submit"
           disabled={submitting}
-          className="btn-primary w-full !py-3.5 disabled:opacity-60"
+          className="btn-secondary w-full sm:w-auto !py-2.5 disabled:opacity-60"
         >
           {submitting ? (
             <>
@@ -512,43 +647,60 @@ function CaptureStep({
             </>
           ) : (
             <>
-              Save my vibe card <Sparkles className="size-4" />
+              Save to house book <Sparkles className="size-4" />
             </>
           )}
         </button>
-        <button
-          type="button"
-          onClick={onSkip}
-          className="w-full rounded-xl border border-line bg-card px-4 py-3 text-sm font-semibold text-ink hover:border-bamboo/40 hover:text-bamboo transition"
-        >
-          See results without email
-        </button>
       </form>
-    </div>
+    </section>
   )
 }
 
 function ResultStep({
   persona,
+  secondaryPersona,
+  confidence,
   topCategories,
   answerLabels,
   picks,
   saved,
   firstName,
+  email,
+  optIn,
+  submitting,
+  submitError,
+  onFirstName,
+  onEmail,
+  onOptIn,
+  onSubmit,
   onRetake,
 }: {
   persona: Persona
+  secondaryPersona: Persona | null
+  confidence: number
   topCategories: Category[]
   answerLabels: string[]
   picks: QuizPick[]
   saved: boolean
   firstName: string
+  email: string
+  optIn: boolean
+  submitting: boolean
+  submitError: string | null
+  onFirstName: (v: string) => void
+  onEmail: (v: string) => void
+  onOptIn: (v: boolean) => void
+  onSubmit: (e: React.FormEvent) => void
   onRetake: () => void
 }) {
   const cats = topCategories.length ? topCategories : persona.categories
   const shopTo = shopLinkForCategories(cats)
   const vibe = getVibe(persona.id)
+  const secondaryVibe = secondaryPersona
+    ? getVibe(secondaryPersona.id)
+    : null
   const editWord = editWordForPersona(persona.id)
+  const confidencePct = Math.round(confidence * 100)
 
   return (
     <div className="animate-in">
@@ -578,6 +730,35 @@ function ResultStep({
             <p className="mt-2 text-lg text-ink-soft font-medium">
               {persona.tagline}
             </p>
+
+            {/* Primary + secondary vibe */}
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+              <span
+                className="rounded-full px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-paper"
+                style={{ backgroundColor: persona.accent }}
+              >
+                Primary · {persona.title}
+              </span>
+              {secondaryPersona && (
+                <Link
+                  to={vibePath(secondaryPersona.id)}
+                  className="rounded-full border px-2.5 py-1 text-xs font-semibold hover:border-bamboo/50 transition"
+                  style={{
+                    borderColor: `${secondaryPersona.accent}66`,
+                    color: secondaryPersona.accent,
+                  }}
+                >
+                  Secondary · {secondaryPersona.title}
+                  {secondaryVibe ? ` · ${secondaryVibe.avatar.name}` : ''}
+                </Link>
+              )}
+              {confidencePct >= 40 && (
+                <span className="text-xs text-muted font-medium">
+                  {confidencePct}% match confidence
+                </span>
+              )}
+            </div>
+
             {vibe && (
               <p
                 className="mt-3 text-ink-soft italic leading-relaxed border-l-2 pl-3 max-w-xl"
@@ -604,7 +785,10 @@ function ResultStep({
                     {answerLabels.join(' · ')}
                   </span>
                   <span className="text-muted"> → </span>
-                  <span className="font-semibold" style={{ color: persona.accent }}>
+                  <span
+                    className="font-semibold"
+                    style={{ color: persona.accent }}
+                  >
                     {persona.title}
                   </span>
                 </p>
@@ -638,6 +822,14 @@ function ResultStep({
               <Link to={vibePath(persona.id)} className="btn-secondary">
                 See vibe card
               </Link>
+              {secondaryPersona && (
+                <Link
+                  to={vibePath(secondaryPersona.id)}
+                  className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
+                >
+                  Explore {secondaryPersona.title}
+                </Link>
+              )}
               <Link
                 to="/shop?limited=1"
                 className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
@@ -655,6 +847,22 @@ function ResultStep({
           </div>
         </div>
       </div>
+
+      {/* Reverse email: soft save after full results */}
+      {!saved && (
+        <SaveHouseBook
+          persona={persona}
+          firstName={firstName}
+          email={email}
+          optIn={optIn}
+          submitting={submitting}
+          error={submitError}
+          onFirstName={onFirstName}
+          onEmail={onEmail}
+          onOptIn={onOptIn}
+          onSubmit={onSubmit}
+        />
+      )}
 
       {picks.length > 0 && (
         <section className="mt-12">
