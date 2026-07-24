@@ -22,7 +22,7 @@ const categories = [
   'baby',
 ]
 
-const vibes = ['craft', 'ritual', 'focus', 'host', 'nest']
+const vibes = ['craft', 'ritual', 'focus', 'host', 'nest', 'patio']
 
 function extractSlugs(filePath) {
   try {

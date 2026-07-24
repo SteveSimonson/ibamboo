@@ -257,7 +257,7 @@ export function Home() {
                 Find your house energy
               </h2>
               <p className="mt-2 text-ink-soft max-w-lg font-light">
-                Five lifestyle personas—crafted like collector cards. Not sure?
+                Six lifestyle personas—crafted like collector cards. Not sure?
                 Take the check.
               </p>
             </div>
@@ -268,7 +268,7 @@ export function Home() {
               Take the vibe check <ArrowRight className="size-4" />
             </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {VIBE_LIST.map((v) => (
               <Link
                 key={v.id}
