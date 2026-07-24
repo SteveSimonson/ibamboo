@@ -33,6 +33,12 @@ import {
 } from '../lib/analytics'
 import { Seo } from '../components/Seo'
 
+/** Short shop-edit label from persona id (host → “host edit”). */
+function editWordForPersona(personaId: string): string {
+  const known = ['host', 'craft', 'ritual', 'focus', 'nest', 'patio'] as const
+  return (known as readonly string[]).includes(personaId) ? personaId : 'house'
+}
+
 type Phase = 'intro' | 'questions' | 'capture' | 'result'
 
 export function Quiz() {
@@ -296,7 +302,6 @@ export function Quiz() {
           <ResultStep
             persona={scored.persona}
             topCategories={scored.topCategories}
-            answerSummary={scored.answerSummary}
             answerLabels={scored.answerLabels}
             picks={picks}
             saved={saved}
@@ -433,20 +438,7 @@ function CaptureStep({
   onSubmit: (e: React.FormEvent) => void
   onSkip: () => void
 }) {
-  const editLabel =
-    persona.id === 'host'
-      ? 'host'
-      : persona.id === 'craft'
-        ? 'craft'
-        : persona.id === 'ritual'
-          ? 'ritual'
-          : persona.id === 'focus'
-            ? 'focus'
-            : persona.id === 'nest'
-              ? 'nest'
-              : persona.id === 'patio'
-                ? 'patio'
-                : 'house'
+  const editLabel = editWordForPersona(persona.id)
   const saveValue = `Save your ${persona.title} card + get this week’s ${editLabel} edit`
 
   return (
@@ -539,7 +531,6 @@ function CaptureStep({
 function ResultStep({
   persona,
   topCategories,
-  answerSummary,
   answerLabels,
   picks,
   saved,
@@ -548,7 +539,6 @@ function ResultStep({
 }: {
   persona: Persona
   topCategories: Category[]
-  answerSummary: string
   answerLabels: string[]
   picks: QuizPick[]
   saved: boolean
@@ -558,21 +548,7 @@ function ResultStep({
   const cats = topCategories.length ? topCategories : persona.categories
   const shopTo = shopLinkForCategories(cats)
   const vibe = getVibe(persona.id)
-  // Short CTA label, e.g. "host edit" from "Tabletop Host"
-  const editWord =
-    persona.id === 'host'
-      ? 'host'
-      : persona.id === 'craft'
-        ? 'craft'
-        : persona.id === 'ritual'
-          ? 'ritual'
-          : persona.id === 'focus'
-            ? 'focus'
-            : persona.id === 'nest'
-              ? 'nest'
-              : persona.id === 'patio'
-                ? 'patio'
-                : 'house'
+  const editWord = editWordForPersona(persona.id)
 
   return (
     <div className="animate-in">
@@ -632,7 +608,6 @@ function ResultStep({
                     {persona.title}
                   </span>
                 </p>
-                <span className="sr-only">{answerSummary}</span>
               </div>
             )}
 

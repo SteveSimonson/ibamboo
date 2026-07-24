@@ -632,12 +632,24 @@ export function buildQuizPicks(
     if (!best) continue
     usedIds.add(best.id)
     usedCats.set(best.category, (usedCats.get(best.category) || 0) + 1)
-    picks.push({ product: best, role: slot.role, why: slot.why })
+    // Only attach slot role/why when the product matches the slot category
+    const inSlot = slot.categories.includes(best.category)
+    picks.push({
+      product: best,
+      role: inSlot ? slot.role : 'Vibe pick',
+      why: inSlot
+        ? slot.why
+        : best.tagline || 'Picked for your bamboo persona.',
+    })
   }
 
   // Fill if slots undershot (thin catalog for a persona)
   if (picks.length < Math.min(3, limit)) {
-    const fallback = pool
+    const fallbackPool =
+      pool.filter((p) => !usedIds.has(p.id)).length > 0
+        ? pool
+        : products.filter((p) => p.images?.length)
+    const fallback = fallbackPool
       .filter((p) => !usedIds.has(p.id))
       .sort((a, b) => {
         const la = a.limitedTime ? 1 : 0
