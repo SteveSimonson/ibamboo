@@ -10,10 +10,18 @@ Instructions for coding agents working in this repository.
 
 - Do **not** push feature work straight to `main` for non-trivial changes.
 - Use a feature branch, open a PR to `main`, then:
-  1. **Code review** — `/review --pr <n>` (or equivalent reviewer agent)
-  2. **Verify** — `/check-work` (build, lint, correctness)
-  3. **Merge** only when review has **no open bugs** and verify is **PASS**
-- Agents **recommend** merge; do not auto-merge unless the human explicitly asks.
+  1. **Adversarial code review** — spawn one or more review subagents on the PR
+     diff whose explicit job is to find bugs, regressions, security issues, and
+     missing affiliate tags (see "Review focus areas"). Adversarial mindset:
+     assume the change is broken until proven otherwise; verify claims against
+     the actual code, not the PR description.
+  2. **Resolve** every blocking finding and have the reviewer re-check it.
+  3. **Verify** — `/check-work` (build, lint, correctness) and CI green.
+  4. **Merge** (squash, matching repo convention) only when review has **no
+     open bugs** and verify is **PASS**.
+- Per the owner's standing instruction (2026-07-26): the agent **may merge and
+  deploy** its own PRs — but only after the adversarial-review loop above has
+  run and passed. Skipping the review loop forfeits merge/deploy authority.
 - Never commit secrets: `.env`, credential CSVs, Creators API secrets, tokens.
 
 ## Build & quality gates
