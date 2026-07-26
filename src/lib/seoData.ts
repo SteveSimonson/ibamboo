@@ -33,6 +33,7 @@ export function homeSeo(): PageSeo {
     description: DEFAULT_DESCRIPTION,
     path: '/',
     image: '/brand/hero.webp',
+    preloadImage: '/brand/hero.webp',
   }
 }
 
@@ -89,6 +90,7 @@ export function shopSeo(opts: {
     description,
     path,
     image: categoryHero?.image || '/brand/social.png',
+    preloadImage: cat && categoryHero ? categoryHero.image : undefined,
     jsonLd: breadcrumbJsonLd(crumbs),
   }
 }
@@ -147,6 +149,7 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
     ),
     path,
     image: vibe.avatar.image,
+    preloadImage: vibe.scene.image,
     jsonLd: [
       {
         '@context': 'https://schema.org',
@@ -171,6 +174,7 @@ export function whySeo(): PageSeo {
       'iBamboo is a destination for natural bamboo living—kitchen, table, bath, and desk. We curate the collection; Amazon handles fulfillment you already trust.',
     path: '/why',
     image: '/brand/landing-forest.webp',
+    preloadImage: '/brand/landing-forest.webp',
     type: 'article',
   }
 }
@@ -192,6 +196,8 @@ export type RouteMeta = {
   robots: string
   ogType: 'website' | 'product'
   jsonLd: Record<string, unknown>[] | null
+  /** Same-origin LCP image the Worker preloads; absent when the route has none */
+  preloadImage?: string
 }
 
 /**
@@ -211,5 +217,7 @@ export function finalizeRouteMeta(seo: PageSeo): RouteMeta {
     robots: seo.noindex ? 'noindex,nofollow' : 'index,follow',
     ogType: seo.type === 'product' ? 'product' : 'website',
     jsonLd,
+    // undefined keys drop out of routeMeta.json on JSON.stringify
+    preloadImage: seo.preloadImage,
   }
 }

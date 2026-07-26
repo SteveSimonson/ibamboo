@@ -126,14 +126,16 @@ export function amazonImageCandidates(
 function upgradeAmazonThumb(url: string): string {
   return url
     .replace(/^http:\/\//i, 'https://')
-    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UL[^.]+\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UX\d+_.*?\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UY\d+_.*?\./i, '._AC_SL1000_.')
-    .replace(/\._SX\d+_\./i, '._SL1000_.')
-    .replace(/\._SY\d+_\./i, '._SL1000_.')
-    .replace(/\._US\d+_\./i, '._SL1000_.')
-    .replace(/\._SS\d+_\./i, '._SL1000_.')
+    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, '._AC_SL500_.')
+    .replace(/\._AC_UL[^.]+\./i, '._AC_SL500_.')
+    .replace(/\._AC_UX\d+_.*?\./i, '._AC_SL500_.')
+    .replace(/\._AC_UY\d+_.*?\./i, '._AC_SL500_.')
+    // Catalog URLs are already SL-form (SL1000/SL1500) — downsize those too
+    .replace(/\._AC_SL\d+_\./i, '._AC_SL500_.')
+    .replace(/\._SX\d+_\./i, '._SL500_.')
+    .replace(/\._SY\d+_\./i, '._SL500_.')
+    .replace(/\._US\d+_\./i, '._SL500_.')
+    .replace(/\._SS\d+_\./i, '._SL500_.')
 }
 
 /**
