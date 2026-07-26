@@ -411,7 +411,7 @@ function renderShell(html: string, meta: RouteMeta | null): string {
   // Same-origin static path from routeMeta.json — starts the LCP image fetch
   // before the JS bundle boots and React renders the <img>.
   const preload = meta?.preloadImage
-    ? `<link rel="preload" as="image" href="${meta.preloadImage}" fetchpriority="high">`
+    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}" fetchpriority="high">`
     : ''
   return out.replace(
     '</head>',

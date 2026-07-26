@@ -43,9 +43,11 @@ export function ProductPage() {
   const productAsin = product?.asin
   const productLimited = product?.limitedTime
 
-  const mainChain = product ? productImageChain(product) : []
+  // SL1000: the main viewer renders up to ~686px CSS (retina headroom); thumb
+  // clicks load the same URL into the viewer, so the strip shares the size.
+  const mainChain = product ? productImageChain(product, 1000) : []
   const thumbs = product
-    ? productGalleryThumbs(product).filter((u) => !failedThumbs.has(u))
+    ? productGalleryThumbs(product, 1000).filter((u) => !failedThumbs.has(u))
     : []
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export function ProductPage() {
     if (!productId) return
     const p = getProduct(slug || '')
     if (!p) return
-    const chain = productImageChain(p)
+    const chain = productImageChain(p, 1000)
     setMainSrc(chain[0] || '')
     setChainIdx(0)
     setFailedThumbs(new Set())

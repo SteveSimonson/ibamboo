@@ -132,13 +132,19 @@ export function primaryImage(p: Product): string | undefined {
 }
 
 /** Full gallery chain for PDP main viewer / onError fallbacks. */
-export function productImageChain(p: Product): string[] {
-  return resolveProductImages(p)
+export function productImageChain(
+  p: Product,
+  size: 500 | 1000 = 500,
+): string[] {
+  return resolveProductImages(p, size)
 }
 
 /** Thumbnail strip only — reliable Amazon listing photos (hide if ≤1). */
-export function productGalleryThumbs(p: Product): string[] {
-  return galleryThumbImages(p)
+export function productGalleryThumbs(
+  p: Product,
+  size: 500 | 1000 = 500,
+): string[] {
+  return galleryThumbImages(p, size)
 }
 
 export function formatMoney(n: number) {

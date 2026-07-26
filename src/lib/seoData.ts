@@ -97,8 +97,9 @@ export function shopSeo(opts: {
 
 export function productSeo(p: Product): PageSeo {
   const productPath = `/product/${p.slug}`
-  const thumbs = productGalleryThumbs(p)
-  const mainChain = productImageChain(p)
+  // SL1000: og/schema images should be high-res (PDP-grade), not card thumbs
+  const thumbs = productGalleryThumbs(p, 1000)
+  const mainChain = productImageChain(p, 1000)
   const ogImage =
     thumbs[0] ||
     mainChain.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
