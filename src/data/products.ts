@@ -208,7 +208,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.8,
     "reviewCount": 3201,
@@ -243,7 +243,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.6,
     "reviewCount": 890,
@@ -278,7 +278,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.5,
     "reviewCount": 412,
@@ -313,7 +313,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 288,
@@ -348,7 +348,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.7,
     "reviewCount": 1104,
@@ -385,7 +385,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 5600,
@@ -420,7 +420,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.5,
     "reviewCount": 2200,
@@ -455,7 +455,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 760,
@@ -486,7 +486,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.3,
     "reviewCount": 198,
@@ -521,7 +521,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 534,
@@ -556,7 +556,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 871,
@@ -587,7 +587,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 445,
@@ -622,7 +622,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 312,
@@ -657,7 +657,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.7,
     "reviewCount": 1203,
@@ -692,7 +692,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80",
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.5,
     "reviewCount": 678,
@@ -723,7 +723,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=900&q=80",
       "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.5,
     "reviewCount": 256,
@@ -1186,7 +1186,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=900&q=80",
       "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.4,
     "reviewCount": 301,
@@ -1221,7 +1221,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80",
       "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.5,
     "reviewCount": 1120,
@@ -1256,7 +1256,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=900&q=80",
       "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.6,
     "reviewCount": 488,
@@ -1291,7 +1291,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=900&q=80",
       "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.8,
     "reviewCount": 775,
@@ -1327,7 +1327,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&q=80",
       "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.7,
     "reviewCount": 1340,
@@ -1494,7 +1494,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.4,
     "reviewCount": 1455,
@@ -1533,7 +1533,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.3,
     "reviewCount": 560,
@@ -1568,7 +1568,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.6,
     "reviewCount": 2033,
@@ -1603,7 +1603,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 701,
@@ -1638,7 +1638,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 388,
@@ -1673,7 +1673,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 220,
@@ -1708,7 +1708,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 1560,
@@ -1742,7 +1742,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.7,
     "reviewCount": 2890,
@@ -1777,7 +1777,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.6,
     "reviewCount": 940,
@@ -1811,7 +1811,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.3,
     "reviewCount": 175,
@@ -1841,7 +1841,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.5,
     "reviewCount": 430,
@@ -1876,7 +1876,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
       "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 612,
@@ -2158,7 +2158,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=900&q=80",
       "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.4,
     "reviewCount": 1670,
@@ -2189,7 +2189,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=900&q=80",
       "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.3,
     "reviewCount": 540,
@@ -2220,7 +2220,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&q=80",
       "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.2,
     "reviewCount": 880,
@@ -2251,7 +2251,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=900&q=80",
       "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.4,
     "reviewCount": 1320,
@@ -2482,7 +2482,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.6,
     "reviewCount": 1500,
@@ -2516,7 +2516,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.5,
     "reviewCount": 2100,
@@ -2547,7 +2547,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.6,
     "reviewCount": 3200,
@@ -2578,7 +2578,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 1800,
@@ -2613,7 +2613,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.4,
     "reviewCount": 920,
@@ -2644,7 +2644,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.5,
     "reviewCount": 450,
@@ -2678,7 +2678,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.6,
     "reviewCount": 2400,
@@ -2713,7 +2713,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.7,
     "reviewCount": 1600,
@@ -2744,7 +2744,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=900&q=80",
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.3,
     "reviewCount": 1100,
@@ -2775,7 +2775,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.6,
     "reviewCount": 2900,
@@ -3047,7 +3047,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=900&q=80",
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.4,
     "reviewCount": 800,
@@ -3077,7 +3077,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80",
       "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.3,
     "reviewCount": 320,
@@ -3108,7 +3108,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=900&q=80",
       "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.4,
     "reviewCount": 1100,
@@ -3143,7 +3143,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=900&q=80",
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.7,
     "reviewCount": 2600,
@@ -3252,7 +3252,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80",
       "https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.5,
     "reviewCount": 1800,
@@ -3282,7 +3282,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?w=900&q=80",
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.3,
     "reviewCount": 900,
@@ -3313,7 +3313,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=900&q=80",
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.4,
     "reviewCount": 420,
@@ -3348,7 +3348,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80",
       "https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 780,
@@ -3379,7 +3379,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1466692476866-aef1dfb1e735?w=900&q=80",
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.4,
     "reviewCount": 1100,
@@ -3409,7 +3409,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=900&q=80",
       "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.7,
     "reviewCount": 2500,
@@ -3526,7 +3526,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=900&q=80",
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.7,
     "reviewCount": 1800,
@@ -3557,7 +3557,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=900&q=80",
       "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 950,
@@ -3592,7 +3592,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=900&q=80",
       "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=900&q=80",
-      "/brand/products-hero.png"
+      "/brand/products-hero.webp"
     ],
     "rating": 4.5,
     "reviewCount": 670,
@@ -3627,7 +3627,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=900&q=80",
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=900&q=80",
-      "/brand/soho-collection.png"
+      "/brand/soho-collection.webp"
     ],
     "rating": 4.5,
     "reviewCount": 1400,
@@ -3662,7 +3662,7 @@ export const products: Product[] = [
     "images": [
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=900&q=80",
       "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=900&q=80",
-      "/brand/products-flatlay.png"
+      "/brand/products-flatlay.webp"
     ],
     "rating": 4.6,
     "reviewCount": 820,

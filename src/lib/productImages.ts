@@ -7,12 +7,12 @@ import { amazonAsinImage } from './amazon'
 import type { Category, Product } from '../data/types'
 
 const BUSY_BRAND_PATHS = [
-  '/brand/products-flatlay.png',
-  '/brand/products-hero.png',
-  '/brand/soho-collection.png',
-  '/brand/landing-forest.png',
+  '/brand/products-flatlay.webp',
+  '/brand/products-hero.webp',
+  '/brand/soho-collection.webp',
+  '/brand/landing-forest.webp',
   '/brand/hero.png',
-  '/brand/hero.jpg',
+  '/brand/hero.webp',
   '/brand/hero-dining.jpg',
   '/brand/social.png',
 ]

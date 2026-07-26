@@ -103,11 +103,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Portland kitchen island',
       quote:
         'If it doesn’t earn a spot next to the stove, it doesn’t come home with me.',
-      image: '/brand/vibes/craft-avatar.jpg',
+      image: '/brand/vibes/craft-avatar.webp',
       alt: 'Maya at her kitchen island with a bamboo cutting board and fresh herbs',
     },
     scene: {
-      image: '/brand/vibes/craft-scene.jpg',
+      image: '/brand/vibes/craft-scene.webp',
       alt: 'Bamboo cutting board with chopped vegetables beside a steaming pan',
       caption: 'Tuesday 6:40 p.m. — board out, onions already going.',
     },
@@ -186,11 +186,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Morning light bathroom',
       quote:
         'The five minutes before the day starts are the only ones that fully belong to me.',
-      image: '/brand/vibes/ritual-avatar.jpg',
+      image: '/brand/vibes/ritual-avatar.webp',
       alt: 'Elena in a waffle robe by a bamboo bath tray with candle and towels',
     },
     scene: {
-      image: '/brand/vibes/ritual-scene.jpg',
+      image: '/brand/vibes/ritual-scene.webp',
       alt: 'Marble vanity with bamboo tray, candle, towels, and soft steam',
       caption: '6:12 a.m. — tray set, steam up, phone still in the other room.',
     },
@@ -269,11 +269,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Quiet corner office at home',
       quote:
         'If my desk is noisy, my thinking is noisy. Bamboo keeps the surface honest.',
-      image: '/brand/vibes/focus-avatar.jpg',
+      image: '/brand/vibes/focus-avatar.webp',
       alt: 'Jordan at a clean desk with a laptop on a bamboo riser',
     },
     scene: {
-      image: '/brand/vibes/focus-scene.jpg',
+      image: '/brand/vibes/focus-scene.webp',
       alt: 'Minimal desk with bamboo laptop stand, organizer tray, and coffee',
       caption: '9:05 a.m. — riser set, inbox closed, one mug, zero clutter.',
     },
@@ -352,11 +352,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Candlelit dining room',
       quote:
         'People relax when the board is already full. The table does half my hosting for me.',
-      image: '/brand/vibes/host-avatar.jpg',
+      image: '/brand/vibes/host-avatar.webp',
       alt: 'Sofia arranging a long bamboo charcuterie board for guests',
     },
     scene: {
-      image: '/brand/vibes/host-scene.jpg',
+      image: '/brand/vibes/host-scene.webp',
       alt: 'Long bamboo serving board with cheese, fruit, bread, wine, and candles',
       caption: 'Friday 7:15 p.m. — board down, candles lit, doorbell any second.',
     },
@@ -435,11 +435,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Deck at dusk',
       quote:
         'If the tray is outside, the night has already started. Fresh air does half the hosting.',
-      image: '/brand/vibes/patio-avatar.jpg',
+      image: '/brand/vibes/patio-avatar.webp',
       alt: 'Marcus on a wooden deck at golden hour with a bamboo outdoor serving tray',
     },
     scene: {
-      image: '/brand/vibes/patio-scene.jpg',
+      image: '/brand/vibes/patio-scene.webp',
       alt: 'Bamboo tray with drinks on an outdoor table at golden hour',
       caption: '6:48 p.m. — tray out, string lights on, no one inside yet.',
     },
@@ -518,11 +518,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Sunlit family kitchen',
       quote:
         'If mealtime feels gentle, the whole morning softens. That’s the real product.',
-      image: '/brand/vibes/nest-avatar.jpg',
+      image: '/brand/vibes/nest-avatar.webp',
       alt: 'Priya setting a small bamboo plate and spoon for a gentle mealtime',
     },
     scene: {
-      image: '/brand/vibes/nest-scene.jpg',
+      image: '/brand/vibes/nest-scene.webp',
       alt: 'Small bamboo plate with soft foods, spoon, sippy cup, and napkin in morning light',
       caption: '8:20 a.m. — plate ready, spoon waiting, no plastic mountain.',
     },
