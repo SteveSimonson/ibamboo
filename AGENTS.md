@@ -15,13 +15,15 @@ Instructions for coding agents working in this repository.
      missing affiliate tags (see "Review focus areas"). Adversarial mindset:
      assume the change is broken until proven otherwise; verify claims against
      the actual code, not the PR description.
-  2. **Resolve** every blocking finding and have the reviewer re-check it.
+  2. **Resolve** every finding the reviewer marks as a **bug** and have the
+     reviewer re-check it; the reviewer's severity call stands unless the
+     human overrides.
   3. **Verify** — `/check-work` (build, lint, correctness) and CI green.
   4. **Merge** (squash, matching repo convention) only when review has **no
      open bugs** and verify is **PASS**.
 - Per the owner's standing instruction (2026-07-26): the agent **may merge and
-  deploy** its own PRs — but only after the adversarial-review loop above has
-  run and passed. Skipping the review loop forfeits merge/deploy authority.
+  deploy** its own PRs only — but only after the adversarial-review loop above
+  has run and passed. Skipping the review loop forfeits merge/deploy authority.
 - Never commit secrets: `.env`, credential CSVs, Creators API secrets, tokens.
 
 ## Build & quality gates
@@ -32,7 +34,7 @@ npm run lint    # oxlint src
 npm run build   # tsc -b && vite build
 ```
 
-All three must pass before recommending merge. Prefer `npm ci` in CI; `npm install` is fine locally.
+All three must pass before merge. Prefer `npm ci` in CI; `npm install` is fine locally.
 
 `npm run sitemap` (first build step) also emits `worker/generated/routeMeta.json` —
 the per-route SEO head table the Worker injects into the raw HTML shell and uses
@@ -57,7 +59,7 @@ with the React pages); edit SEO copy there, never in the Worker.
 
 ## Deploy
 
-- Deploy only after merge to `main` (or when the human explicitly requests a deploy from a branch).
+- Deploy only after merge to `main` per the Git/PR workflow above (or when the human explicitly requests a deploy from a branch).
 - `npm run deploy` = build + `wrangler deploy`.
 - Custom domain is configured in `wrangler.jsonc`; do not casually change worker/domain names.
 
@@ -71,4 +73,4 @@ When reviewing PRs, prioritize:
 4. Secrets or `.env` leakage
 5. Unrelated drive-by refactors
 
-Nits on style are optional; bugs block merge recommendation.
+Nits on style are optional; bugs block merge.

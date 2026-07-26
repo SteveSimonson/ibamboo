@@ -27,6 +27,6 @@
 
 ## Agent gate
 
-- [ ] `/review --pr` (or code review agent) — no open **bugs**
-- [ ] `/check-work` (or testing agent) — **PASS**
-- [ ] Merge recommended only when both are green
+- [ ] Adversarial review subagent(s) run on the diff — bugs resolved & re-checked by the reviewer
+- [ ] `/check-work` (or testing agent) — **PASS**; CI green
+- [ ] Squash-merge permitted only when all of the above are green
