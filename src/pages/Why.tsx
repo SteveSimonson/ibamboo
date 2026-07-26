@@ -1,20 +1,15 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Seo } from '../components/Seo'
+import { whySeo } from '../lib/seoData'
 
 export function Why() {
   return (
     <div>
-      <Seo
-        title="Our story — bamboo for the whole house"
-        description="iBamboo is a destination for natural bamboo living—kitchen, table, bath, and desk. We curate the collection; Amazon handles fulfillment you already trust."
-        path="/why"
-        image="/brand/landing-forest.png"
-        type="article"
-      />
+      <Seo {...whySeo()} />
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <img
-          src="/brand/landing-forest.png"
+          src="/brand/landing-forest.webp"
           alt="Bamboo forest canopy in soft light"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -59,7 +54,7 @@ export function Why() {
 
         <div className="rounded-2xl overflow-hidden border border-line">
           <img
-            src="/brand/soho-collection.png"
+            src="/brand/soho-collection.webp"
             alt="iBamboo lifestyle"
             className="w-full aspect-[16/9] object-cover"
           />

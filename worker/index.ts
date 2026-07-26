@@ -1,18 +1,49 @@
 /**
- * iBamboo Worker: static SPA + quiz API.
+ * iBamboo Worker: static SPA + quiz API + SEO edge layer.
  *
+ * - Canonical redirects: http:// and www.ibamboo.com → https://ibamboo.com (301)
+ * - Raw-HTML SEO: per-route title/description/canonical/og + JSON-LD injected
+ *   into the SPA shell. Route table: worker/generated/routeMeta.json, emitted
+ *   by scripts/generate-sitemap.mjs from src/lib/seoData.ts (same source the
+ *   React app hydrates from). og:image stays sitewide.
+ * - Real 404 status for unknown routes (SPA shell + noindex)
+ * - Cache-Control: immutable for Vite-hashed /assets/*, 7d for unhashed media
+ * - HSTS on every response
  * - CRM: GoHighLevel contact upsert (secrets GHL_PIT, GHL_LOCATION_ID)
  * - Email: Cloudflare Email Sending binding (`EMAIL`) from hello@ibamboo.com
  *   Domain onboarded: `npx wrangler email sending enable ibamboo.com`
  */
 
 import { buildWelcomeEmail } from './welcomeEmail'
+import routeMetaJson from './generated/routeMeta.json'
 
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
 type WorkerEnv = Env & {
   GHL_PIT?: string
   GHL_LOCATION_ID?: string
 }
+
+type RouteMeta = {
+  title: string
+  description: string
+  canonical: string
+  robots: string
+  ogType: 'website' | 'product'
+  jsonLd: Record<string, unknown>[] | null
+}
+
+type RouteMetaFile = {
+  generatedAt: string
+  ogImage: string
+  globalJsonLd: Record<string, unknown>[]
+  routes: Record<string, RouteMeta>
+}
+
+const routeMeta = routeMetaJson as unknown as RouteMetaFile
+
+const SITE = 'https://ibamboo.com'
+const CANONICAL_HOST = 'ibamboo.com'
+const HSTS = 'max-age=31536000'
 
 type QuizPayload = {
   email?: string
@@ -280,20 +311,230 @@ async function handleQuiz(request: Request, env: WorkerEnv) {
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* SEO edge layer: route lookup, shell transform, caching              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Resolve the route-table entry for a request URL (query-aware for /shop).
+ * The route map doubles as the known-route list: null ⇒ unknown route.
+ */
+function findRouteMeta(url: URL): RouteMeta | null {
+  let path = url.pathname
+  if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1)
+  const { routes } = routeMeta
+
+  if (path === '/shop') {
+    const cat = url.searchParams.get('cat') || ''
+    const limited = url.searchParams.get('limited') === '1'
+    const q = url.searchParams.get('q') || ''
+    if (cat) {
+      const key = `/shop?cat=${cat}${limited ? '&limited=1' : ''}`
+      if (routes[key]) return routes[key]
+    }
+    if (limited && routes['/shop?limited=1']) {
+      return routes['/shop?limited=1']
+    }
+    if (q) {
+      // Client keeps base /shop title+description, canonicalizes with ?q=
+      return {
+        ...routes['/shop'],
+        canonical: `${SITE}/shop?q=${encodeURIComponent(q)}`,
+      }
+    }
+    return routes['/shop'] ?? null
+  }
+
+  return routes[path] ?? null
+}
+
+function escapeHtmlAttr(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
+function escapeHtmlText(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+/** Replace the content="" value of a single <meta> tag in the shell. */
+function setMetaContent(
+  html: string,
+  attr: 'name' | 'property',
+  key: string,
+  value: string,
+): string {
+  const re = new RegExp(`(<meta\\s+${attr}="${key}"\\s+content=")[^"]*(")`)
+  return html.replace(re, `$1${escapeHtmlAttr(value)}$2`)
+}
+
+function jsonLdScript(data: unknown): string {
+  // Escape "<" so embedded JSON can never break out of the <script> block
+  const json = JSON.stringify(data).replace(/</g, '\\u003c')
+  return `<script type="application/ld+json">${json}</script>`
+}
+
+/**
+ * Inject per-route head values into the SPA shell (2.8 KB — string replaces,
+ * no parser needed). Mirrors what src/components/Seo.tsx sets post-hydration;
+ * meta === null yields the noindex shell for unknown routes.
+ */
+function renderShell(html: string, meta: RouteMeta | null): string {
+  let out = html
+  if (meta) {
+    out = out.replace(
+      /<title>[^<]*<\/title>/,
+      `<title>${escapeHtmlText(meta.title)}</title>`,
+    )
+    out = setMetaContent(out, 'name', 'description', meta.description)
+    out = setMetaContent(out, 'name', 'robots', meta.robots)
+    out = out.replace(
+      /(<link\s+rel="canonical"\s+href=")[^"]*(")/,
+      `$1${escapeHtmlAttr(meta.canonical)}$2`,
+    )
+    out = setMetaContent(out, 'property', 'og:type', meta.ogType)
+    out = setMetaContent(out, 'property', 'og:url', meta.canonical)
+    out = setMetaContent(out, 'property', 'og:title', meta.title)
+    out = setMetaContent(out, 'property', 'og:description', meta.description)
+    out = setMetaContent(out, 'property', 'og:image', routeMeta.ogImage)
+    out = setMetaContent(out, 'name', 'twitter:title', meta.title)
+    out = setMetaContent(out, 'name', 'twitter:description', meta.description)
+    out = setMetaContent(out, 'name', 'twitter:image', routeMeta.ogImage)
+  } else {
+    out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
+  }
+  const schemas = [...routeMeta.globalJsonLd, ...(meta?.jsonLd ?? [])]
+  return out.replace(
+    '</head>',
+    `${schemas.map(jsonLdScript).join('')}</head>`,
+  )
+}
+
+let shellPromise: Promise<string> | null = null
+
+/** SPA shell (dist/index.html) via the assets binding, memoized per isolate. */
+function getShell(request: Request, env: WorkerEnv): Promise<string> {
+  if (!shellPromise) {
+    const origin = new URL(request.url).origin
+    // Always an explicit GET: passing the incoming request as init copies its
+    // method, and a HEAD subfetch returns an empty body (intermittent 500s on
+    // HEAD-first cold isolates).
+    shellPromise = env.ASSETS.fetch(new Request(`${origin}/`, { method: 'GET' }))
+      .then((res) => res.text())
+      .then((text) => {
+        // Never memoize a broken shell (deploy in progress, bad fallback…)
+        if (!text.includes('</head>')) {
+          shellPromise = null
+          throw new Error('Assets binding returned an invalid HTML shell')
+        }
+        return text
+      })
+      .catch((err) => {
+        shellPromise = null
+        throw err
+      })
+  }
+  return shellPromise
+}
+
+async function serveShell(
+  request: Request,
+  env: WorkerEnv,
+  meta: RouteMeta | null,
+  status: number,
+): Promise<Response> {
+  const headers = {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'public, max-age=0, must-revalidate',
+  }
+  // HEAD: status + headers only — no shell fetch, no transform, no body
+  if (request.method === 'HEAD') {
+    return new Response(null, { status, headers })
+  }
+  const html = renderShell(await getShell(request, env), meta)
+  return new Response(html, { status, headers })
+}
+
+/** Long cache for Vite-hashed assets; medium for unhashed public media. */
+function withCacheHeaders(res: Response, path: string): Response {
+  let cacheControl: string | null = null
+  if (path.startsWith('/assets/')) {
+    cacheControl = 'public, max-age=31536000, immutable'
+  } else if (/^\/(brand|images|products|videos)\//.test(path)) {
+    cacheControl = 'public, max-age=604800'
+  }
+  if (!cacheControl) return res
+  const out = new Response(res.body, res)
+  out.headers.set('Cache-Control', cacheControl)
+  return out
+}
+
+async function handleRequest(
+  request: Request,
+  env: WorkerEnv,
+): Promise<Response> {
+  const url = new URL(request.url)
+  const host = url.hostname.toLowerCase()
+
+  // Canonical host + protocol in one 301 hop. Scoped to production hosts so
+  // workers.dev previews and wrangler dev keep working.
+  if (
+    host === `www.${CANONICAL_HOST}` ||
+    (host === CANONICAL_HOST && url.protocol === 'http:')
+  ) {
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: `${SITE}${url.pathname}${url.search}`,
+      },
+    })
+  }
+
+  if (url.pathname === '/api/quiz') {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS })
+    }
+    if (request.method === 'POST') {
+      return handleQuiz(request, env)
+    }
+    return json({ ok: false, error: 'Method not allowed' }, 405)
+  }
+
+  // API misses are JSON 404s, never the HTML shell
+  if (url.pathname.startsWith('/api/')) {
+    return json({ ok: false, error: 'Not found' }, 404)
+  }
+
+  if (request.method === 'GET' || request.method === 'HEAD') {
+    const meta = findRouteMeta(url)
+    if (meta) return serveShell(request, env, meta, 200)
+
+    // Unknown path: extension ⇒ file request → assets; otherwise the SPA
+    // shell with a real 404 (client boots and redirects home from there).
+    const lastSegment = url.pathname.split('/').pop() || ''
+    if (lastSegment.includes('.')) {
+      const res = await env.ASSETS.fetch(request)
+      // SPA fallback returns index.html for missing files — don't serve
+      // HTML under a file URL
+      if ((res.headers.get('Content-Type') || '').startsWith('text/html')) {
+        return new Response('Not found', { status: 404 })
+      }
+      return withCacheHeaders(res, url.pathname)
+    }
+    return serveShell(request, env, null, 404)
+  }
+
+  return env.ASSETS.fetch(request)
+}
+
 export default {
   async fetch(request: Request, env: WorkerEnv): Promise<Response> {
-    const url = new URL(request.url)
-
-    if (url.pathname === '/api/quiz') {
-      if (request.method === 'OPTIONS') {
-        return new Response(null, { status: 204, headers: CORS })
-      }
-      if (request.method === 'POST') {
-        return handleQuiz(request, env)
-      }
-      return json({ ok: false, error: 'Method not allowed' }, 405)
-    }
-
-    return env.ASSETS.fetch(request)
+    const res = await handleRequest(request, env)
+    const out = new Response(res.body, res)
+    out.headers.set('Strict-Transport-Security', HSTS)
+    return out
   },
 }

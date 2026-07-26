@@ -26,6 +26,11 @@ npm run build   # tsc -b && vite build
 
 All three must pass before recommending merge. Prefer `npm ci` in CI; `npm install` is fine locally.
 
+`npm run sitemap` (first build step) also emits `worker/generated/routeMeta.json` —
+the per-route SEO head table the Worker injects into the raw HTML shell and uses
+as its known-route list for 404s. Source of truth is `src/lib/seoData.ts` (shared
+with the React pages); edit SEO copy there, never in the Worker.
+
 ## Stack
 
 - Vite + React 19 + TypeScript + Tailwind v4

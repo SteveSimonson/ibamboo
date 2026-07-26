@@ -36,6 +36,7 @@ import {
   trackRegistration,
 } from '../lib/analytics'
 import { Seo } from '../components/Seo'
+import { quizSeo } from '../lib/seoData'
 
 /** Short shop-edit label from persona id (host → “host edit”). */
 function editWordForPersona(personaId: string): string {
@@ -320,11 +321,7 @@ export function Quiz() {
 
   return (
     <div className="relative overflow-hidden">
-      <Seo
-        title="Bamboo Vibe Check — find your house energy"
-        description="Take the 60-second Bamboo Vibe Check. Match with a bamboo lifestyle persona—craft, ritual, focus, host, or nest—then shop rooms that fit."
-        path="/quiz"
-      />
+      <Seo {...quizSeo()} />
       {/* Ambient backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-32 -right-24 size-[28rem] rounded-full bg-bamboo/10 blur-3xl" />

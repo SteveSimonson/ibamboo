@@ -12,7 +12,7 @@ import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { Seo } from '../components/Seo'
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from '../lib/seo'
+import { homeSeo } from '../lib/seoData'
 
 const featured = [
   ...shopProducts.filter((p) => p.badge),
@@ -31,16 +31,11 @@ export function Home() {
 
   return (
     <>
-      <Seo
-        title={DEFAULT_TITLE}
-        description={DEFAULT_DESCRIPTION}
-        path="/"
-        image="/brand/hero.jpg"
-      />
+      <Seo {...homeSeo()} />
       {/* Hero — photoreal lifestyle, not illustration */}
       <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
         <img
-          src="/brand/hero.jpg"
+          src="/brand/hero.webp"
           alt="Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
           fetchPriority="high"
@@ -169,7 +164,7 @@ export function Home() {
         <div className="mx-auto max-w-7xl grid lg:grid-cols-2">
           <div className="relative min-h-[420px] lg:min-h-[560px]">
             <img
-              src="/brand/products-flatlay.png"
+              src="/brand/products-flatlay.webp"
               alt="iBamboo kitchenware collection"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -303,7 +298,7 @@ export function Home() {
       {/* SOHO / lifestyle */}
       <section className="relative overflow-hidden">
         <img
-          src="/brand/soho-collection.png"
+          src="/brand/soho-collection.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />

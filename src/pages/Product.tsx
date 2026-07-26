@@ -26,11 +26,7 @@ import { Seo } from '../components/Seo'
 import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
-import {
-  breadcrumbJsonLd,
-  clipMeta,
-  productJsonLd,
-} from '../lib/seo'
+import { productSeo } from '../lib/seoData'
 
 export function ProductPage() {
   const { slug } = useParams()
@@ -110,11 +106,6 @@ export function ProductPage() {
   const alsoLike = youMayAlsoLike(p, 4)
   const main = mainSrc || mainChain[0] || ''
   const until = formatExpiry(p.expiresAt)
-  const productPath = `/product/${p.slug}`
-  const ogImage =
-    thumbs[0] ||
-    mainChain.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
-    '/brand/social.png'
 
   function onAmazonClick(location: string) {
     trackAmazonClick({
@@ -129,40 +120,7 @@ export function ProductPage() {
 
   return (
     <div className="pb-28">
-      <Seo
-        title={p.name}
-        description={clipMeta(
-          `${p.tagline} ${p.description} Bamboo ${categoryLabel(p.category).toLowerCase()} on iBamboo — buy on Amazon.`,
-        )}
-        path={productPath}
-        image={ogImage}
-        type="product"
-        jsonLd={[
-          productJsonLd({
-            name: p.name,
-            description: p.description || p.tagline,
-            path: productPath,
-            images: (thumbs.length ? thumbs : mainChain).filter(
-              (u) => !isQuietPlaceholder(u),
-            ),
-            price: p.priceHint,
-            asin: p.asin,
-            brand: p.brand,
-            rating: p.rating,
-            reviewCount: p.reviewCount,
-            category: categoryLabel(p.category),
-          }),
-          breadcrumbJsonLd([
-            { name: 'Home', path: '/' },
-            { name: 'Shop', path: '/shop' },
-            {
-              name: categoryLabel(p.category),
-              path: `/shop?cat=${p.category}`,
-            },
-            { name: p.name, path: productPath },
-          ]),
-        ]}
-      />
+      <Seo {...productSeo(p)} />
       {/* Breadcrumb */}
       <div className="border-b border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-2 text-xs text-muted">

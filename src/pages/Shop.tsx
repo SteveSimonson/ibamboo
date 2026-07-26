@@ -17,7 +17,7 @@ import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { Seo } from '../components/Seo'
-import { breadcrumbJsonLd, clipMeta } from '../lib/seo'
+import { shopSeo } from '../lib/seoData'
 
 export function Shop() {
   const [params, setParams] = useSearchParams()
@@ -80,50 +80,9 @@ export function Shop() {
       ? 'This week'
       : 'All rooms'
 
-  const seoPath = cat
-    ? `/shop?cat=${cat}${limited ? '&limited=1' : ''}`
-    : limited
-      ? '/shop?limited=1'
-      : q
-        ? `/shop?q=${encodeURIComponent(q)}`
-        : '/shop'
-
-  const seoTitle = cat
-    ? `${CATEGORY_LABELS[cat as Category]} bamboo`
-    : limited
-      ? 'This week’s limited bamboo options'
-      : 'Shop bamboo for every room'
-
-  const seoDescription = cat && categoryHero
-    ? clipMeta(
-        `${categoryHero.blurb} Browse ${filtered.length} bamboo ${CATEGORY_LABELS[cat as Category].toLowerCase()} picks on iBamboo; buy on Amazon.`,
-      )
-    : limited
-      ? 'Amazon Best Sellers bamboo edit for kitchen, table, bath, and desk. Limited-time options that refresh weekly—discover on iBamboo, buy on Amazon.'
-      : 'Shop bamboo kitchen tools, cutting boards, tabletop, bath, desk, and home. Discover the collection on iBamboo; complete purchase on Amazon.'
-
-  const crumbs = [
-    { name: 'Home', path: '/' },
-    { name: 'Shop', path: '/shop' },
-  ]
-  if (cat) {
-    crumbs.push({
-      name: CATEGORY_LABELS[cat as Category],
-      path: `/shop?cat=${cat}`,
-    })
-  } else if (limited) {
-    crumbs.push({ name: 'This week', path: '/shop?limited=1' })
-  }
-
   return (
     <div className="pb-28">
-      <Seo
-        title={seoTitle}
-        description={seoDescription}
-        path={seoPath}
-        image={categoryHero?.image || '/brand/social.png'}
-        jsonLd={breadcrumbJsonLd(crumbs)}
-      />
+      <Seo {...shopSeo({ cat, limited, q })} />
       {showCategoryHero && categoryHero ? (
         <CategoryHero
           content={categoryHero}

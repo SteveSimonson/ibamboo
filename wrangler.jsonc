@@ -6,7 +6,10 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    // Worker runs for every request: SEO head injection, canonical
+    // redirects, real 404s, and Cache-Control all happen in worker/index.ts.
+    "run_worker_first": true
   },
   // Custom domains become the origin (GHL A/CNAME records removed first).
   "workers_dev": true,
