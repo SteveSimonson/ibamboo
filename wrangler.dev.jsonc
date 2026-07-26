@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ibamboo-dev",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  // Local dev copy of wrangler.jsonc WITHOUT the custom-domain routes:
+  // wrangler dev (v4) answers every request whose Host doesn't match a
+  // custom_domain route with a 301 to itself, which makes local smoke tests
+  // impossible. Production deploys use wrangler.jsonc (with routes).
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": [
+        "hello@ibamboo.com",
+        "vibe@ibamboo.com",
+        "noreply@ibamboo.com"
+      ]
+    }
+  ],
+  "vars": {
+    "EMAIL_FROM": "hello@ibamboo.com",
+    "EMAIL_FROM_NAME": "iBamboo",
+    "EMAIL_REPLY_TO": "hello@ibamboo.com"
+  }
+}
