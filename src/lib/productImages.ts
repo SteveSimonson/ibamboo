@@ -123,17 +123,19 @@ export function amazonImageCandidates(
   ]
 }
 
-function upgradeAmazonThumb(url: string): string {
+function upgradeAmazonThumb(url: string, size: 500 | 1000 = 500): string {
   return url
     .replace(/^http:\/\//i, 'https://')
-    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UL[^.]+\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UX\d+_.*?\./i, '._AC_SL1000_.')
-    .replace(/\._AC_UY\d+_.*?\./i, '._AC_SL1000_.')
-    .replace(/\._SX\d+_\./i, '._SL1000_.')
-    .replace(/\._SY\d+_\./i, '._SL1000_.')
-    .replace(/\._US\d+_\./i, '._SL1000_.')
-    .replace(/\._SS\d+_\./i, '._SL1000_.')
+    .replace(/\._AC_UL\d+(?:_SR\d+,\d+)?(?:_QL\d+)?_\./i, `._AC_SL${size}_.`)
+    .replace(/\._AC_UL[^.]+\./i, `._AC_SL${size}_.`)
+    .replace(/\._AC_UX\d+_.*?\./i, `._AC_SL${size}_.`)
+    .replace(/\._AC_UY\d+_.*?\./i, `._AC_SL${size}_.`)
+    // Catalog URLs are already SL-form (SL1000/SL1500) — retarget those too
+    .replace(/\._AC_SL\d+_\./i, `._AC_SL${size}_.`)
+    .replace(/\._SX\d+_\./i, `._SL${size}_.`)
+    .replace(/\._SY\d+_\./i, `._SL${size}_.`)
+    .replace(/\._US\d+_\./i, `._SL${size}_.`)
+    .replace(/\._SS\d+_\./i, `._SL${size}_.`)
 }
 
 /**
@@ -141,8 +143,13 @@ function upgradeAmazonThumb(url: string): string {
  * 1) Real Amazon CDN images from catalog
  * 2) ASIN-based Amazon URL attempts (if ASIN known)
  * 3) Quiet unique monogram placeholder — never busy brand flatlays
+ * `size` is the Amazon CDN target: 500 for cards/grids, 1000 for the PDP
+ * main viewer and og/schema images (rendered up to ~686px CSS).
  */
-export function resolveProductImages(product: Product): string[] {
+export function resolveProductImages(
+  product: Product,
+  size: 500 | 1000 = 500,
+): string[] {
   const out: string[] = []
   const seen = new Set<string>()
 
@@ -151,7 +158,7 @@ export function resolveProductImages(product: Product): string[] {
     let u = url.trim()
     if (!u) return
     if (isBusyBrandFallback(u) || isStockPhotoUrl(u)) return
-    if (isAmazonCdnImage(u)) u = upgradeAmazonThumb(u)
+    if (isAmazonCdnImage(u)) u = upgradeAmazonThumb(u, size)
     if (seen.has(u)) return
     seen.add(u)
     out.push(u)
@@ -174,7 +181,7 @@ export function resolveProductImages(product: Product): string[] {
   }
 
   if (product.asin) {
-    for (const c of amazonImageCandidates(product.asin, 500)) push(c)
+    for (const c of amazonImageCandidates(product.asin, size)) push(c)
   }
 
   push(quietPlaceholderUrl(product))
@@ -190,12 +197,15 @@ export function primaryDisplayImage(product: Product): string {
  * Never ASIN P/ guesses, never placeholders, never busy brand art.
  * Hide the strip entirely when this returns 0–1 items.
  */
-export function galleryThumbImages(product: Product): string[] {
+export function galleryThumbImages(
+  product: Product,
+  size: 500 | 1000 = 500,
+): string[] {
   const out: string[] = []
   const seen = new Set<string>()
   for (const img of product.images || []) {
     if (!isReliableAmazonImage(img)) continue
-    const u = upgradeAmazonThumb(img.trim())
+    const u = upgradeAmazonThumb(img.trim(), size)
     if (!u || seen.has(u)) continue
     seen.add(u)
     out.push(u)

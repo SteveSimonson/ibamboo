@@ -33,6 +33,7 @@ export function homeSeo(): PageSeo {
     description: DEFAULT_DESCRIPTION,
     path: '/',
     image: '/brand/hero.webp',
+    preloadImage: '/brand/hero.webp',
   }
 }
 
@@ -89,14 +90,16 @@ export function shopSeo(opts: {
     description,
     path,
     image: categoryHero?.image || '/brand/social.png',
+    preloadImage: cat && categoryHero ? categoryHero.image : undefined,
     jsonLd: breadcrumbJsonLd(crumbs),
   }
 }
 
 export function productSeo(p: Product): PageSeo {
   const productPath = `/product/${p.slug}`
-  const thumbs = productGalleryThumbs(p)
-  const mainChain = productImageChain(p)
+  // SL1000: og/schema images should be high-res (PDP-grade), not card thumbs
+  const thumbs = productGalleryThumbs(p, 1000)
+  const mainChain = productImageChain(p, 1000)
   const ogImage =
     thumbs[0] ||
     mainChain.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
@@ -147,6 +150,7 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
     ),
     path,
     image: vibe.avatar.image,
+    preloadImage: vibe.scene.image,
     jsonLd: [
       {
         '@context': 'https://schema.org',
@@ -171,6 +175,7 @@ export function whySeo(): PageSeo {
       'iBamboo is a destination for natural bamboo living—kitchen, table, bath, and desk. We curate the collection; Amazon handles fulfillment you already trust.',
     path: '/why',
     image: '/brand/landing-forest.webp',
+    preloadImage: '/brand/landing-forest.webp',
     type: 'article',
   }
 }
@@ -192,6 +197,8 @@ export type RouteMeta = {
   robots: string
   ogType: 'website' | 'product'
   jsonLd: Record<string, unknown>[] | null
+  /** Same-origin LCP image the Worker preloads; absent when the route has none */
+  preloadImage?: string
 }
 
 /**
@@ -211,5 +218,7 @@ export function finalizeRouteMeta(seo: PageSeo): RouteMeta {
     robots: seo.noindex ? 'noindex,nofollow' : 'index,follow',
     ogType: seo.type === 'product' ? 'product' : 'website',
     jsonLd,
+    // undefined keys drop out of routeMeta.json on JSON.stringify
+    preloadImage: seo.preloadImage,
   }
 }

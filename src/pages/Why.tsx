@@ -12,6 +12,7 @@ export function Why() {
           src="/brand/landing-forest.webp"
           alt="Bamboo forest canopy in soft light"
           className="absolute inset-0 w-full h-full object-cover"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 pt-28">

@@ -14,6 +14,8 @@ export type PageSeo = {
   /** Path starting with / (no origin) */
   path: string
   image?: string
+  /** Same-origin LCP image the Worker preloads in the raw HTML head */
+  preloadImage?: string
   type?: 'website' | 'article' | 'product'
   noindex?: boolean
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]

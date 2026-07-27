@@ -30,6 +30,7 @@ type RouteMeta = {
   robots: string
   ogType: 'website' | 'product'
   jsonLd: Record<string, unknown>[] | null
+  preloadImage?: string
 }
 
 type RouteMetaFile = {
@@ -407,9 +408,14 @@ function renderShell(html: string, meta: RouteMeta | null): string {
     out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
   }
   const schemas = [...routeMeta.globalJsonLd, ...(meta?.jsonLd ?? [])]
+  // Same-origin static path from routeMeta.json — starts the LCP image fetch
+  // before the JS bundle boots and React renders the <img>.
+  const preload = meta?.preloadImage
+    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}" fetchpriority="high">`
+    : ''
   return out.replace(
     '</head>',
-    `${schemas.map(jsonLdScript).join('')}</head>`,
+    `${preload}${schemas.map(jsonLdScript).join('')}</head>`,
   )
 }
 
