@@ -2,6 +2,10 @@
 
 Instructions for coding agents working in this repository.
 
+## Ship gate (all repos)
+
+Global skill **`pr-ship-gate`** (`~/.grok/skills/pr-ship-gate/SKILL.md`) applies: branch → issue (when trackable) → PR → CI → independent review → merge → deploy. Layer this on top of the Git/PR workflow below. Always leave a GitHub trail Steve can track back.
+
 ## Product
 
 **iBamboo** is a private Amazon Associates storefront for bamboo home goods. Buy buttons go to Amazon with Associates tag **`iu0e3-20`**. Live site: [ibamboo.com](https://ibamboo.com).
