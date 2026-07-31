@@ -63,7 +63,7 @@ export function Home() {
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
               A calmer kitchen, table, bath, and workspace—curated weekly from
-              Amazon Best Sellers. Discover here. Buy on Amazon.
+              Weekly house edit from the best sellers lists.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -316,7 +316,7 @@ export function Home() {
             From the forest to the table.
           </h2>
           <p className="mt-4 text-white/75 font-light text-lg max-w-lg mx-auto leading-relaxed">
-            A full house of bamboo—discover, compare, and buy on Amazon with
+            A full house of bamboo—discover, compare, and shop with
             iBamboo as your guide.
           </p>
           <Link to="/shop" className="btn-primary mt-8 !bg-white !text-moss hover:!bg-cream">

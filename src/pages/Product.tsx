@@ -23,7 +23,7 @@ import {
 import { ProductCard } from '../components/ProductCard'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
-import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
+import { affiliateUrl } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
 import { productSeo } from '../lib/seoData'
@@ -347,16 +347,6 @@ export function ProductPage() {
               >
                 Buy on Amazon <ExternalLink className="size-4" />
               </a>
-              <p className="text-[11px] text-muted text-center leading-relaxed">
-                You&apos;ll complete checkout on Amazon.com. Associate tag{' '}
-                <code className="font-mono text-ink-soft">{AMAZON_ASSOCIATE_TAG}</code>
-                {product.asin ? (
-                  <>
-                    {' '}
-                    · ASIN <code className="font-mono">{product.asin}</code>
-                  </>
-                ) : null}
-              </p>
             </div>
 
             <div className="grid grid-cols-3 gap-3 pt-2">
