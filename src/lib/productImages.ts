@@ -67,9 +67,81 @@ function hashSeed(s: string): number {
   return h
 }
 
+const SKIP_MONOGRAM_WORDS = new Set([
+  'a',
+  'an',
+  'the',
+  'and',
+  'or',
+  'for',
+  'with',
+  'set',
+  'of',
+  'to',
+  'in',
+  'on',
+  'by',
+  'pcs',
+  'pc',
+  'pack',
+  'bamboo', // skip so not every card is "B"
+  'wood',
+  'wooden',
+  'natural',
+  'organic',
+  'premium',
+  'new',
+  'best',
+])
+
+/**
+ * Build a stable 2-letter monogram that varies by product
+ * (not always "B" for Bamboo…).
+ */
+export function monogramFromProduct(product: {
+  name: string
+  asin?: string
+  id?: string
+}): string {
+  const words = product.name
+    .replace(/[^a-zA-Z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w.length > 1 && !SKIP_MONOGRAM_WORDS.has(w.toLowerCase()))
+
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase()
+  }
+  if (words.length === 1 && words[0].length >= 2) {
+    return words[0].slice(0, 2).toUpperCase()
+  }
+  if (product.asin && product.asin.length >= 2) {
+    return product.asin.slice(-2).toUpperCase()
+  }
+  const seed = hashSeed(product.id || product.name || 'ib')
+  return String.fromCharCode(65 + (seed % 26)) + String.fromCharCode(65 + ((seed >> 4) % 26))
+}
+
+/** Short unique label under monogram (ASIN tail or category word). */
+function placeholderCaption(product: {
+  name: string
+  asin?: string
+  category?: string
+}): string {
+  if (product.asin) return product.asin.slice(-4).toUpperCase()
+  const w = product.name
+    .split(/\s+/)
+    .find((x) => x.length > 3 && !SKIP_MONOGRAM_WORDS.has(x.toLowerCase()))
+  return (w || product.category || 'item').slice(0, 10).toUpperCase()
+}
+
 /**
  * Quiet, unique monogram card — not a busy product flatlay.
  * Used only after Amazon image attempts fail.
+ * Designed so a grid of missing photos does not look identical:
+ * - 2-letter monogram from title words (skips "Bamboo")
+ * - ASIN-derived accent stripe + caption
+ * - Hue/pattern variation from stable hash
  */
 export function quietPlaceholderUrl(product: {
   id: string
@@ -79,29 +151,38 @@ export function quietPlaceholderUrl(product: {
 }): string {
   const seed = hashSeed(product.asin || product.id || product.name)
   const baseHue = CATEGORY_HUE[product.category || ''] ?? 110
-  const hue = (baseHue + (seed % 16) - 8 + 360) % 360
-  // Near-white cool fields — never warm tan
-  const sat = 8 + (seed % 6)
-  const light = 94 + (seed % 4)
-  const accent = `hsl(${hue}, ${sat + 18}%, 38%)`
+  const hue = (baseHue + (seed % 28) - 14 + 360) % 360
+  const sat = 10 + (seed % 10)
+  const light = 92 + (seed % 5)
+  const accent = `hsl(${hue}, ${sat + 22}%, 36%)`
+  const accent2 = `hsl(${(hue + 40) % 360}, ${sat + 12}%, 42%)`
   const bg = `hsl(${hue}, ${sat}%, ${light}%)`
-  const bg2 = `hsl(${(hue + 12) % 360}, ${Math.max(4, sat - 2)}%, ${light - 3}%)`
-  const initial = (product.name.trim().charAt(0) || 'B').toUpperCase()
-  const label = product.asin
-    ? 'Photo unavailable'
-    : 'Search Amazon'
+  const bg2 = `hsl(${(hue + 18) % 360}, ${Math.max(5, sat - 2)}%, ${light - 4}%)`
+  const mono = monogramFromProduct(product)
+  const caption = placeholderCaption(product)
+  // Subtle pattern choice so adjacent cards differ
+  const pattern = seed % 3
+  const decor =
+    pattern === 0
+      ? `<circle cx="400" cy="400" r="128" fill="none" stroke="${accent}" stroke-width="3" opacity="0.3"/>`
+      : pattern === 1
+        ? `<rect x="272" y="272" width="256" height="256" rx="28" fill="none" stroke="${accent}" stroke-width="3" opacity="0.3"/>`
+        : `<polygon points="400,260 540,400 400,540 260,400" fill="none" stroke="${accent}" stroke-width="3" opacity="0.3"/>`
+
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="g${seed % 997}" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="${bg}"/>
       <stop offset="100%" stop-color="${bg2}"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="1000" fill="url(#g)"/>
-  <circle cx="400" cy="420" r="120" fill="none" stroke="${accent}" stroke-width="3" opacity="0.35"/>
-  <text x="400" y="450" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="120" fill="${accent}" opacity="0.85">${initial}</text>
-  <text x="400" y="620" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" fill="${accent}" opacity="0.55" letter-spacing="4">${label.toUpperCase()}</text>
-  <text x="400" y="900" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="${accent}" opacity="0.4">iBamboo</text>
+  <rect width="800" height="1000" fill="url(#g${seed % 997})"/>
+  <rect x="0" y="0" width="800" height="10" fill="${accent2}" opacity="0.55"/>
+  ${decor}
+  <text x="400" y="430" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="108" fill="${accent}" opacity="0.9" letter-spacing="6">${mono}</text>
+  <text x="400" y="520" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="${accent}" opacity="0.5" letter-spacing="5">NO PHOTO</text>
+  <text x="400" y="580" text-anchor="middle" font-family="ui-monospace,monospace" font-size="26" fill="${accent2}" opacity="0.65" letter-spacing="3">${caption}</text>
+  <text x="400" y="900" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="${accent}" opacity="0.35">iBamboo</text>
 </svg>`
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
 }
