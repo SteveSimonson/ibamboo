@@ -8,7 +8,6 @@ import {
   filterProducts,
   formatExpiry,
   limitedTimeCopy,
-  shopProducts,
   type Category,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
@@ -18,9 +17,12 @@ import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 
 export function Shop() {
   const [params, setParams] = useSearchParams()
+  const flash = useFlashCatalog('ibamboo')
+  const pool = flash.products
 
   // Legacy ?collection= → room category (P0: single browse spine)
   useEffect(() => {
@@ -55,10 +57,10 @@ export function Shop() {
   }, [filterKey, cat, limited, q])
 
   const filtered = useMemo(
-    () => filterProducts({ cat, q, limited }),
-    [cat, q, limited],
+    () => filterProducts({ cat, q, limited }, pool),
+    [cat, q, limited, pool],
   )
-  const drop = limitedTimeCopy()
+  const drop = limitedTimeCopy(pool)
   const until = formatExpiry(drop.expiresAt ?? undefined)
   const categoryHero = getCategoryHero(cat || null)
   const showCategoryHero = Boolean(cat && categoryHero)
@@ -104,7 +106,7 @@ export function Shop() {
             </h1>
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
-                ? 'Amazon Best Sellers edit for bamboo living. Options only available for a limited time—lists refresh weekly and ranks move.'
+                ? 'Live Amazon flash edit for bamboo living. Options only available for a limited time—lists refresh on the flash catalog schedule.'
                 : 'Browse by room of the house, then buy on Amazon with secure checkout.'}
             </p>
 
@@ -114,10 +116,12 @@ export function Shop() {
                 <div className="text-sm text-[#9a3412]">
                   <p className="font-bold uppercase tracking-wide text-[11px]">
                     {drop.headline}
+                    {flash.source === 'flash' ? ' · live flash' : ''}
                   </p>
                   <p className="mt-0.5">
                     {drop.count} options in this drop
                     {until ? ` · Rotates ${until}` : ''}
+                    {flash.loading ? ' · updating…' : ''}
                   </p>
                 </div>
               </div>
@@ -193,7 +197,7 @@ export function Shop() {
             Showing: {contextLabel}
             {' · '}
             {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
-            {!hasFilters ? ` · ${shopProducts.length} in the house` : ''}
+            {!hasFilters ? ` · ${pool.length} in the house` : ''}
           </p>
           {hasFilters && (
             <button

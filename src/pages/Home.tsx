@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Clock3 } from 'lucide-react'
 import {
@@ -13,21 +14,27 @@ import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
-
-const featured = [
-  ...shopProducts.filter((p) => p.badge),
-  ...shopProducts,
-]
-  .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
-  .slice(0, 8)
-
-const newArrivals = shopProducts.slice().reverse().slice(0, 4)
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 
 export function Home() {
-  const limited = limitedTimeCopy()
-  const weekLeaders = bsrLeaders(8)
-  const limitedAll = limitedProducts()
+  const flash = useFlashCatalog('ibamboo')
+  const pool = flash.products
+  const limited = limitedTimeCopy(pool)
+  const weekLeaders = bsrLeaders(8, pool)
+  const limitedAll = limitedProducts(pool)
   const until = formatExpiry(limited.expiresAt ?? undefined)
+
+  const featured = useMemo(() => {
+    const base = pool.length ? pool : shopProducts
+    return [...base.filter((p) => p.badge), ...base]
+      .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
+      .slice(0, 8)
+  }, [pool])
+
+  const newArrivals = useMemo(() => {
+    const base = pool.length ? pool : shopProducts
+    return base.slice().reverse().slice(0, 4)
+  }, [pool])
 
   return (
     <>

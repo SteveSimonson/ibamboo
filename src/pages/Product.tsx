@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -27,10 +27,15 @@ import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
 import { productSeo } from '../lib/seoData'
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 
 export function ProductPage() {
   const { slug } = useParams()
-  const product = slug ? getProduct(slug) : undefined
+  const flash = useFlashCatalog('ibamboo')
+  const product = useMemo(
+    () => (slug ? getProduct(slug, flash.products) : undefined),
+    [slug, flash.products],
+  )
   /** Main viewer walks full fallback chain; thumbs only use known-good listing photos */
   const [mainSrc, setMainSrc] = useState<string>('')
   const [chainIdx, setChainIdx] = useState(0)
