@@ -74,18 +74,29 @@ export function ProductPage() {
     productLimited,
   ])
 
-  // Reset gallery when product changes
+  // Reset gallery when product changes (include flash pool)
   useEffect(() => {
-    if (!productId) return
-    const p = getProduct(slug || '')
-    if (!p) return
-    const chain = productImageChain(p, 1000)
+    if (!product) return
+    const chain = productImageChain(product, 1000)
     setMainSrc(chain[0] || '')
     setChainIdx(0)
     setFailedThumbs(new Set())
-  }, [productId, slug])
+  }, [product])
 
   if (!product) {
+    if (flash.loading) {
+      return (
+        <div className="max-w-lg mx-auto px-4 py-20 text-center">
+          <Seo
+            title="Loading product"
+            description="Loading the house edit."
+            path={`/product/${slug || ''}`}
+            noindex
+          />
+          <p className="text-ink-soft font-medium">Loading product…</p>
+        </div>
+      )
+    }
     return (
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <Seo
