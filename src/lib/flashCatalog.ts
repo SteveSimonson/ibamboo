@@ -76,7 +76,11 @@ export function flashToProduct(p: FlashProductDto): Product {
   const asin = p.asin.toUpperCase()
   const name = (p.title || '').trim()
   const cat = asCategory(p.siteCategory)
-  const images = p.image ? [p.image] : []
+  // Only keep reliable listing CDN paths; empty → ProductCard uses unique monogram chain
+  const images =
+    p.image && /\/images\/I\//i.test(p.image) && !/\/images\/P\//i.test(p.image)
+      ? [p.image]
+      : []
   const tagline =
     p.blurb?.split('—')[0]?.trim() ||
     'Limited-time bamboo pick from this week’s flash drop.'
