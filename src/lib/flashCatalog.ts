@@ -30,6 +30,7 @@ export type FlashProductDto = {
   limitedTime: boolean
   weekOf: string
   enriched: boolean
+  blurb?: string
 }
 
 const CATEGORIES: Category[] = [
@@ -63,24 +64,31 @@ function hueFromAsin(asin: string): number {
   return h
 }
 
+/** Skip non-bamboo / placeholder titles client-side (defense in depth). */
+export function isQualityFlashTitle(title: string | undefined): boolean {
+  if (!title || title.trim().length < 12) return false
+  if (/^amazon product\s+[a-z0-9]{10}$/i.test(title.trim())) return false
+  return /\bbamboo\b/i.test(title)
+}
+
 /** Map flash DTO → iBamboo Product (limited-time shelf). */
 export function flashToProduct(p: FlashProductDto): Product {
   const asin = p.asin.toUpperCase()
-  const name = p.title || `Amazon ${asin}`
+  const name = (p.title || '').trim()
   const cat = asCategory(p.siteCategory)
-  // Prefer API image; otherwise try common Amazon image patterns (may soft-fail).
-  const images = p.image
-    ? [p.image]
-    : [
-        `https://m.media-amazon.com/images/P/${asin}._AC_SL500_.jpg`,
-        `https://images-na.ssl-images-amazon.com/images/P/${asin}.01._SCLZZZZZZZ_SX500_.jpg`,
-      ]
+  const images = p.image ? [p.image] : []
+  const tagline =
+    p.blurb?.split('—')[0]?.trim() ||
+    'Limited-time bamboo pick from this week’s flash drop.'
+  const description =
+    p.blurb ||
+    `${name} — a bamboo piece curated for the ${cat.replace(/-/g, ' ')} room. Complete your purchase on Amazon; iBamboo is an Amazon Associate.`
   return {
     id: `flash-${asin}`,
     slug: slugify(name) || asin.toLowerCase(),
     name,
-    tagline: 'Limited-time flash pick from this week’s Amazon drop.',
-    description: `${name} — live flash catalog item. Complete your purchase on Amazon; iBamboo is an Amazon Associate.`,
+    tagline: tagline.slice(0, 140),
+    description,
     category: cat,
     collection:
       cat === 'cutting-boards'
@@ -93,11 +101,11 @@ export function flashToProduct(p: FlashProductDto): Product {
               ? 'Tabletop'
               : cat.charAt(0).toUpperCase() + cat.slice(1),
     material: 'Bamboo',
-    features: ['Flash catalog', 'Amazon Associates'],
+    features: ['Bamboo focus', 'Limited-time flash', 'Amazon Associates'],
     specs: [],
-    priceHint: p.price ?? 29,
+    priceHint: p.price && p.price > 0 ? p.price : 24,
     asin,
-    searchKeywords: name,
+    searchKeywords: `${name} bamboo`,
     images,
     rating: p.rating,
     reviewCount: p.reviewCount,
@@ -148,6 +156,7 @@ export function mapFlashProducts(payload: FlashCatalogPayload | null): Product[]
   const seen = new Set<string>()
   for (const p of payload.products) {
     if (!p.asin || !/^[A-Z0-9]{10}$/i.test(p.asin)) continue
+    if (!isQualityFlashTitle(p.title)) continue
     const key = p.asin.toUpperCase()
     if (seen.has(key)) continue
     seen.add(key)
