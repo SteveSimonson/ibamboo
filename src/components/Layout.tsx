@@ -70,7 +70,7 @@ export function Layout() {
           {until ? ` · Refresh ${until}` : ''}
           <span className="text-paper/70">
             {' '}
-            · Shop on iBamboo · Buy on Amazon
+            · Shop the house edit
           </span>
         </Link>
       </div>
@@ -198,12 +198,7 @@ export function Layout() {
             </Link>
             <p className="text-sm text-paper/65 leading-relaxed max-w-sm font-light">
               A destination for bamboo living—kitchen, table, bath, workspace,
-              and home. Discover the collection here; complete your purchase on
-              Amazon.
-            </p>
-            <p className="text-xs text-paper/45 leading-relaxed max-w-sm">
-              Amazon Associates participant. We may earn from qualifying
-              purchases at no extra cost to you.
+              and home.
             </p>
           </div>
           <div className="md:col-span-2">
@@ -279,8 +274,12 @@ export function Layout() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-white/10 py-4 text-center text-[11px] text-paper/40 tracking-wide">
-          © {new Date().getFullYear()} iBamboo · Bamboo living, elevated
+        <div className="border-t border-white/10 py-4 px-4 text-center text-[11px] text-paper/40 tracking-wide space-y-1.5">
+          <p>© {new Date().getFullYear()} iBamboo · Bamboo living, elevated</p>
+          <p>
+            As an affiliate, iBamboo may earn a referral commission on
+            qualifying purchases.
+          </p>
         </div>
       </footer>
     </div>

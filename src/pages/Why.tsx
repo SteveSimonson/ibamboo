@@ -42,8 +42,8 @@ export function Why() {
               d: 'From prep boards to monitor stands, the assortment is meant to feel like one language of form across every room.',
             },
             {
-              t: 'Shop here. Buy on Amazon.',
-              d: 'Explore photography, specifications, and related pieces on iBamboo. When you are ready, continue to Amazon as an authorized Associate purchase—fast shipping, familiar checkout, seller guarantees.',
+              t: 'Shop the story. Check out when ready.',
+              d: 'Explore photography, specifications, and related pieces on iBamboo. When you are ready, continue to the retailer of record for shipping and checkout.',
             },
           ].map((x) => (
             <div key={x.t} className="border-t border-line pt-8">
@@ -59,18 +59,6 @@ export function Why() {
             alt="iBamboo lifestyle"
             className="w-full aspect-[16/9] object-cover"
           />
-        </div>
-
-        <div className="rounded-2xl border border-line bg-card p-8">
-          <h2 className="font-display text-xl font-semibold">
-            Affiliate disclosure
-          </h2>
-          <p className="text-sm text-ink-soft mt-2 leading-relaxed">
-            iBamboo participates in the Amazon Services LLC Associates Program,
-            an affiliate advertising program. As an Amazon Associate we earn
-            from qualifying purchases. Product prices, images, and availability
-            on Amazon may change; always review the live listing before you buy.
-          </p>
         </div>
 
         <Link to="/shop" className="btn-primary">

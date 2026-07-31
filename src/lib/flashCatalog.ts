@@ -86,7 +86,7 @@ export function flashToProduct(p: FlashProductDto): Product {
     'Limited-time bamboo pick from this week’s flash drop.'
   const description =
     p.blurb ||
-    `${name} — a bamboo piece curated for the ${cat.replace(/-/g, ' ')} room. Complete your purchase on Amazon; iBamboo is an Amazon Associate.`
+    `${name} — a bamboo piece curated for the ${cat.replace(/-/g, ' ')} room.`
   return {
     id: `flash-${asin}`,
     slug: slugify(name) || asin.toLowerCase(),
@@ -105,7 +105,7 @@ export function flashToProduct(p: FlashProductDto): Product {
               ? 'Tabletop'
               : cat.charAt(0).toUpperCase() + cat.slice(1),
     material: 'Bamboo',
-    features: ['Bamboo focus', 'Limited-time flash', 'Amazon Associates'],
+    features: ['Bamboo focus', 'Limited-time flash'],
     specs: [],
     priceHint: p.price && p.price > 0 ? p.price : 24,
     asin,
