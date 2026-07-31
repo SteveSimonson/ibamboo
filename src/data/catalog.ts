@@ -122,7 +122,14 @@ function collectionBlurb(label: string): string {
   return map[label] ?? 'Designed for modern living in bamboo.'
 }
 
-export function getProduct(slug: string): Product | undefined {
+export function getProduct(
+  slug: string,
+  pool?: Product[],
+): Product | undefined {
+  if (pool?.length) {
+    const hit = pool.find((p) => p.slug === slug)
+    if (hit) return hit
+  }
   return products.find((p) => p.slug === slug)
 }
 
@@ -160,16 +167,22 @@ export function categoryLabel(c: Category) {
   return CATEGORY_LABELS[c]
 }
 
-export function filterProducts(opts: {
-  cat?: string
-  collection?: string
-  q?: string
-  limited?: boolean
-  bsr?: boolean
-  /** Include ASIN-less pads (default false — prevents house-edit walls) */
-  includePads?: boolean
-}) {
-  let list = opts.includePads ? products.slice() : shopProducts.slice()
+export function filterProducts(
+  opts: {
+    cat?: string
+    collection?: string
+    q?: string
+    limited?: boolean
+    bsr?: boolean
+    /** Include ASIN-less pads (default false — prevents house-edit walls) */
+    includePads?: boolean
+  },
+  /** Optional live catalog (flash + static). Defaults to static shopProducts. */
+  pool?: Product[],
+) {
+  let list = opts.includePads
+    ? (pool ?? products).slice()
+    : (pool ?? shopProducts).slice()
   if (opts.cat && opts.cat in CATEGORY_LABELS) {
     list = list.filter((p) => p.category === opts.cat)
   }
@@ -201,12 +214,12 @@ export function filterProducts(opts: {
   return list
 }
 
-export function limitedProducts(): Product[] {
-  return shopProducts.filter((p) => p.limitedTime)
+export function limitedProducts(pool: Product[] = shopProducts): Product[] {
+  return pool.filter((p) => p.limitedTime)
 }
 
-export function bsrLeaders(limit = 12): Product[] {
-  return shopProducts
+export function bsrLeaders(limit = 12, pool: Product[] = shopProducts): Product[] {
+  return pool
     .filter((p) => p.limitedTime && p.bsrRank != null)
     .sort((a, b) => (a.bsrRank ?? 999) - (b.bsrRank ?? 999))
     .slice(0, limit)
@@ -278,13 +291,13 @@ export function formatRating(n?: number) {
   return n.toFixed(1)
 }
 
-export function limitedTimeCopy() {
+export function limitedTimeCopy(pool: Product[] = shopProducts) {
   return {
     headline: bsrMarketing.headline,
     subhead: bsrMarketing.subhead,
     weekOf: bsrWeekOf || null,
     expiresAt: bsrExpiresAt || null,
-    count: limitedProducts().length,
+    count: limitedProducts(pool).length,
   }
 }
 

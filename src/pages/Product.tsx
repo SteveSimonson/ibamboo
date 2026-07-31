@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -27,10 +27,15 @@ import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
 import { productSeo } from '../lib/seoData'
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 
 export function ProductPage() {
   const { slug } = useParams()
-  const product = slug ? getProduct(slug) : undefined
+  const flash = useFlashCatalog('ibamboo')
+  const product = useMemo(
+    () => (slug ? getProduct(slug, flash.products) : undefined),
+    [slug, flash.products],
+  )
   /** Main viewer walks full fallback chain; thumbs only use known-good listing photos */
   const [mainSrc, setMainSrc] = useState<string>('')
   const [chainIdx, setChainIdx] = useState(0)
@@ -69,18 +74,29 @@ export function ProductPage() {
     productLimited,
   ])
 
-  // Reset gallery when product changes
+  // Reset gallery when product changes (include flash pool)
   useEffect(() => {
-    if (!productId) return
-    const p = getProduct(slug || '')
-    if (!p) return
-    const chain = productImageChain(p, 1000)
+    if (!product) return
+    const chain = productImageChain(product, 1000)
     setMainSrc(chain[0] || '')
     setChainIdx(0)
     setFailedThumbs(new Set())
-  }, [productId, slug])
+  }, [product])
 
   if (!product) {
+    if (flash.loading) {
+      return (
+        <div className="max-w-lg mx-auto px-4 py-20 text-center">
+          <Seo
+            title="Loading product"
+            description="Loading the house edit."
+            path={`/product/${slug || ''}`}
+            noindex
+          />
+          <p className="text-ink-soft font-medium">Loading product…</p>
+        </div>
+      )
+    }
     return (
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <Seo
