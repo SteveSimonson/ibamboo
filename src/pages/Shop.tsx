@@ -22,6 +22,7 @@ import {
   FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   hasBalloonAnchor,
   sizeForTier,
 } from '../lib/balloonPlan'
@@ -126,7 +127,7 @@ export function Shop() {
             topics: [cat || 'home', item.topic],
             editorialTypes: FACT_EDITORIAL_TYPES,
           })),
-          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
+          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
           { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
         ],
       }),

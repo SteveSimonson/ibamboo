@@ -9,6 +9,7 @@ import {
   DESIGN_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   sizeForTier,
 } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
@@ -20,9 +21,9 @@ export function Why() {
     () => deriveBalloonPlan({
       routeKey: 'why', tier: viewportTier, narrativeSections: 4, featureGroups: 2, mediaBlocks: 2,
       candidates: [
-        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
-        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: ['design', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
-        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: CRAFT_EDITORIAL_TYPES },
+        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: ['design', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
       ],
     }), [viewportTier],
   )

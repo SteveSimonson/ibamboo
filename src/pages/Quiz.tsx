@@ -35,6 +35,7 @@ import {
   DESIGN_EDITORIAL_TYPES,
   FACT_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   sizeForTier,
 } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
@@ -144,8 +145,8 @@ export function Quiz() {
       routeKey: 'quiz', tier: viewportTier, narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
       candidates: [
         { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 108, topics: ['quiz', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
-        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 108, topics: ['quiz', 'care'], editorialTypes: CARE_EDITORIAL_TYPES },
+        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 108, topics: ['quiz', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 108, topics: ['quiz', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
       ],
     }), [viewportTier],
   )
