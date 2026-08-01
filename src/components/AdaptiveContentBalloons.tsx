@@ -50,7 +50,7 @@ export function AdaptiveContentBalloon({
 
   return (
     <aside
-      aria-label="Bamboo note"
+      aria-label={slot.ariaLabel}
       className={`content-balloon content-balloon--${family} ${className}`.trim()}
       data-content-balloon={item.slug}
       data-editorial-type={item.editorial_type}

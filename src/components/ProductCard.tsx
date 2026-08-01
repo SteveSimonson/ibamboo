@@ -37,7 +37,7 @@ export function ProductCard({
   const img = primaryImage(product) || chain[0]
 
   return (
-    <article className="card-soft group flex flex-col overflow-hidden">
+    <article className="card-soft group flex h-full flex-col overflow-hidden">
       <Link
         to={`/product/${product.slug}`}
         className="flex flex-col flex-1 min-h-0"

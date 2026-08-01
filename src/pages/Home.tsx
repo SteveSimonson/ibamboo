@@ -13,21 +13,19 @@ import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
 import {
-  CARE_EDITORIAL_TYPES,
   CRAFT_EDITORIAL_TYPES,
-  DESIGN_EDITORIAL_TYPES,
   FACT_EDITORIAL_TYPES,
-  MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
-  sizeForTier,
 } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
+import { canReplaceShelfProduct } from '../lib/shopBalloonGrid'
 
 export function Home() {
   const flash = useFlashCatalog('ibamboo')
@@ -49,6 +47,9 @@ export function Home() {
     const base = pool.length ? pool : shopProducts
     return base.slice().reverse().slice(0, 4)
   }, [pool])
+  const weeklyBalloonEligible = canReplaceShelfProduct(weekLeaders.length, 2)
+  const featuredBalloonEligible = canReplaceShelfProduct(featured.length, 2)
+  const arrivalsBalloonEligible = canReplaceShelfProduct(newArrivals.length, 1)
   const balloonPlan = useMemo(
     () =>
       deriveBalloonPlan({
@@ -59,19 +60,18 @@ export function Home() {
         itemCount: featured.length + newArrivals.length + weekLeaders.length,
         mediaBlocks: 3,
         candidates: [
-          { anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['design', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-          { anchor: 'home-after-featured', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['craft-history', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
-          { anchor: 'home-after-story', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'sustainability'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '320x100' }), minHeight: 120, topics: ['care', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
-          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['home', 'design'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+          ...(weeklyBalloonEligible ? [{ anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact among this week’s products', size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          ...(featuredBalloonEligible ? [{ anchor: 'home-after-featured', ariaLabel: 'Bamboo fact among featured products', size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: viewportTier === 'compact' ? 'responsive' : '300x250', topics: ['craft-history', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
+          ...(arrivalsBalloonEligible ? [{ anchor: 'home-after-arrivals', ariaLabel: 'Bamboo fact among new arrivals', size: 'responsive' as const, minHeight: 120, topics: ['care', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
         ],
       }),
-    [featured.length, newArrivals.length, viewportTier, weekLeaders.length],
+    [arrivalsBalloonEligible, featured.length, featuredBalloonEligible, newArrivals.length, viewportTier, weekLeaders.length, weeklyBalloonEligible],
   )
   const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
+  const weeklyBalloonReady = weeklyBalloonEligible && Boolean(balloonDeck['home-after-weekly'])
+  const featuredBalloonReady = featuredBalloonEligible && Boolean(balloonDeck['home-after-featured'])
+  const arrivalsBalloonReady = arrivalsBalloonEligible && Boolean(balloonDeck['home-after-arrivals'])
 
   return (
     <>
@@ -152,22 +152,28 @@ export function Home() {
                 View all {limitedAll.length || ''} <ArrowRight className="size-4" />
               </Link>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {weekLeaders.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  listName="home_week_leaders"
-                />
-              ))}
+            <div className="grid items-stretch sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {weekLeaders
+                .slice(0, weeklyBalloonReady ? -1 : undefined)
+                .flatMap((p, index) => [
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    listName="home_week_leaders"
+                  />,
+                  index === 2 && weeklyBalloonReady ? (
+                    <ProductGridBalloonCard
+                      key="home-after-weekly"
+                      plan={balloonPlan}
+                      deck={balloonDeck}
+                      anchor="home-after-weekly"
+                    />
+                  ) : null,
+                ])}
             </div>
           </div>
         </section>
       )}
-
-      <section className="border-b border-line bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-weekly" /></div>
-      </section>
 
       {/* Category strip */}
       <section className="border-b border-line bg-card">
@@ -181,12 +187,6 @@ export function Home() {
               {c.label}
             </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="border-b border-line bg-paper">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
-          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-categories" />
         </div>
       </section>
 
@@ -206,14 +206,22 @@ export function Home() {
             View all <ArrowRight className="size-4" />
           </Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {featured.map((p) => (
-            <ProductCard key={p.id} product={p} listName="home_featured" />
-          ))}
+        <div className="grid items-stretch sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {featured
+            .slice(0, featuredBalloonReady ? -1 : undefined)
+            .flatMap((p, index) => [
+              <ProductCard key={p.id} product={p} listName="home_featured" />,
+              index === 2 && featuredBalloonReady ? (
+                <ProductGridBalloonCard
+                  key="home-after-featured"
+                  plan={balloonPlan}
+                  deck={balloonDeck}
+                  anchor="home-after-featured"
+                />
+              ) : null,
+            ])}
         </div>
       </section>
-
-      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-featured" /></div></section>
 
       <section className="border-y border-line bg-card">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 grid md:grid-cols-[1fr_300px] items-center gap-10 md:gap-14">
@@ -269,8 +277,6 @@ export function Home() {
         </div>
       </section>
 
-      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-story" /></div></section>
-
       {/* New arrivals */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between gap-4 mb-10">
@@ -281,14 +287,22 @@ export function Home() {
             </h2>
           </div>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {newArrivals.map((p) => (
-            <ProductCard key={p.id} product={p} listName="home_new_arrivals" />
-          ))}
+        <div className="grid items-stretch sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {newArrivals
+            .slice(0, arrivalsBalloonReady ? -1 : undefined)
+            .flatMap((p, index) => [
+              <ProductCard key={p.id} product={p} listName="home_new_arrivals" />,
+              index === 1 && arrivalsBalloonReady ? (
+                <ProductGridBalloonCard
+                  key="home-after-arrivals"
+                  plan={balloonPlan}
+                  deck={balloonDeck}
+                  anchor="home-after-arrivals"
+                />
+              ) : null,
+            ])}
         </div>
       </section>
-
-      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-arrivals" /></div></section>
 
       {/* Rooms */}
       <section className="border-t border-line bg-card">
@@ -325,8 +339,6 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-rooms" /></div></section>
 
       {/* Vibes strip — CMO: soft discovery under shop-by-room */}
       <section className="border-t border-line bg-paper">
@@ -380,8 +392,6 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      <section className="border-t border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-before-lifestyle" /></div></section>
 
       {/* SOHO / lifestyle */}
       <section className="relative overflow-hidden">
