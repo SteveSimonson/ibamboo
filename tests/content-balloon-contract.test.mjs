@@ -9,6 +9,10 @@ import {
 } from '../src/lib/contentBalloonHistory.ts'
 import { validatedContentBalloonDeck } from '../src/lib/contentBalloonValidation.ts'
 import { deriveBalloonPlan } from '../src/lib/balloonPlan.ts'
+import {
+  canReplaceShelfProduct,
+  shopGridInsertions,
+} from '../src/lib/shopBalloonGrid.ts'
 
 test('history is site-wide, bounded, deduplicated, and rejects malformed storage', () => {
   assert.equal(contentBalloonHistoryKey('site-a'), 'ibamboo:content-balloon:previous:site-a')
@@ -54,4 +58,28 @@ test('planner preserves the editorial types authored for each placement', () => 
     ['design_note'],
     ['material_myth'],
   ])
+})
+
+test('shop editorial cards occupy unique progressive product-grid positions', () => {
+  const full = shopGridInsertions(50)
+  assert.equal(full.length, 4)
+  assert.deepEqual(full.map((item) => item.anchor), [
+    'shop-grid-20',
+    'shop-grid-40',
+    'shop-grid-60',
+    'shop-grid-80',
+  ])
+  assert.equal(new Set(full.map((item) => item.afterIndex)).size, full.length)
+  assert.ok(full.every((item, index) => index === 0 || item.afterIndex > full[index - 1].afterIndex))
+
+  assert.deepEqual(shopGridInsertions(0), [])
+  assert.equal(shopGridInsertions(3).length, 2)
+})
+
+test('home shelf replacement never drops a product without inserting a note', () => {
+  assert.equal(canReplaceShelfProduct(3, 2), false)
+  assert.equal(canReplaceShelfProduct(4, 2), true)
+  assert.equal(canReplaceShelfProduct(2, 1), false)
+  assert.equal(canReplaceShelfProduct(3, 1), true)
+  assert.equal(canReplaceShelfProduct(8, -1), false)
 })
