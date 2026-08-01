@@ -61,9 +61,9 @@ Logos and hero art live under `public/brand/` (copied from your iBamboo Master k
 ## Conbal content balloons
 
 iBamboo can render owner-managed editorial content from Conbal without a new
-storefront build. `src/components/ConbalBalloon.tsx` uses Conbal's public
-delivery endpoint directly so placements also work after React Router
-navigation.
+storefront build. `src/hooks/useAdaptiveContentBalloons.ts` uses Conbal's
+public sampling endpoint directly, so fresh editorial decks also work after
+React Router navigation.
 
 Production defaults to the public iBamboo Conbal site key `NYcKxGAVDdeF` at
 `https://conbal.us`. Preview environments can override either value:
@@ -73,23 +73,24 @@ VITE_CONBAL_ORIGIN=https://conbal.us
 VITE_CONBAL_SITE_KEY=NYcKxGAVDdeF
 ```
 
-Route code uses named placements from `src/components/ConbalPlacement.tsx`, so
-page layouts do not depend on Conbal slugs scattered throughout the app:
+`src/lib/balloonPlan.ts` derives 3–8 natural anchors from each route's semantic
+content units. `src/components/AdaptiveContentBalloons.tsx` makes one
+route-scoped `/_sample` request per page visit, asks for the requested size,
+topic, and editorial type at each anchor, and keeps that returned deck stable
+through incidental React rerenders. A hard reload or route change receives a
+new sample. The visitor sees only editorial labels such as “Did you know?” and
+“Care tip”; the delivery implementation is never named in storefront copy.
 
-| Route placement | Published balloon | Format |
-|---|---|---|
-| Home field note | `bamboo-is-a-grass` | responsive |
-| Home culture feature | `bamboo-weaving-heritage` | 300×250 |
-| Shop field note | `running-bamboo-rhizomes` | responsive |
-| Product field note | `bamboo-rhizomes` | 320×100 |
-| Why field note | `bamboo-gregarious-flowering` | responsive |
-| Vibe field note | `bamboo-growth-record` | 300×250 |
+The client rejects missing, duplicate, wrong-size, or wrong-editorial-type
+payloads and removes those slots rather than leaving an empty panel. Delivery
+calls—not guaranteed viewport impressions—roll up through the shared iBamboo
+site key.
 
-If a balloon is unavailable, unpublished, or cannot be loaded, the component
-removes the empty placement. It also rejects a payload whose published size no
-longer matches the layout contract. Delivery calls—not guaranteed viewport
-impressions—roll up through the balloon, site, and account analytics provided
-by the shared iBamboo site key.
+Manual adaptive-deck checks: load each route with a populated catalog and
+confirm it renders its planned 3–8 notes; reload to confirm a fresh sample;
+navigate or filter without incidental React rerenders issuing duplicate calls;
+test at 320px for horizontal overflow; and confirm quiz notes render only below
+the active panel, never between answer choices.
 
 ## Project layout
 

@@ -1,10 +1,24 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { ConbalPlacement } from '../components/ConbalPlacement'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { whySeo } from '../lib/seoData'
 
 export function Why() {
+  const balloonPlan = useMemo(
+    () => deriveBalloonPlan({
+      routeKey: 'why', narrativeSections: 4, featureGroups: 2, mediaBlocks: 2,
+      candidates: [
+        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: 'responsive', minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: ['did_you_know', 'fun_fact'] },
+      ],
+    }), [],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
   return (
     <div>
       <Seo {...whySeo()} />
@@ -33,7 +47,7 @@ export function Why() {
         </p>
 
         <div className="border-y border-line py-8">
-          <ConbalPlacement placement="why-field-note" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-intro" />
         </div>
 
         <div className="space-y-8">
@@ -50,10 +64,11 @@ export function Why() {
               t: 'Shop the story. Check out when ready.',
               d: 'Explore photography, specifications, and related pieces on iBamboo. When you are ready, continue to the retailer of record for shipping and checkout.',
             },
-          ].map((x) => (
+          ].map((x, index) => (
             <div key={x.t} className="border-t border-line pt-8">
               <h2 className="font-display text-2xl font-semibold">{x.t}</h2>
               <p className="text-ink-soft mt-2 leading-relaxed">{x.d}</p>
+              {index === 0 && <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-material" /></div>}
             </div>
           ))}
         </div>
@@ -65,6 +80,8 @@ export function Why() {
             className="w-full aspect-[16/9] object-cover"
           />
         </div>
+
+        <div className="border-y border-line py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-close" /></div>
 
         <Link to="/shop" className="btn-primary">
           Shop the collection <ArrowRight className="size-4" />

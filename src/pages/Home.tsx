@@ -12,7 +12,9 @@ import {
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
-import { ConbalPlacement } from '../components/ConbalPlacement'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -36,6 +38,28 @@ export function Home() {
     const base = pool.length ? pool : shopProducts
     return base.slice().reverse().slice(0, 4)
   }, [pool])
+  const balloonPlan = useMemo(
+    () =>
+      deriveBalloonPlan({
+        routeKey: 'home',
+        narrativeSections: 7,
+        featureGroups: 5,
+        itemCount: featured.length + newArrivals.length + weekLeaders.length,
+        mediaBlocks: 3,
+        candidates: [
+          { anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: ['did_you_know', 'fun_fact'] },
+          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 120, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+          { anchor: 'home-after-featured', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: ['did_you_know', 'fun_fact'] },
+          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: '300x250', topics: ['craft-history', 'home'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'home-after-story', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 120, topics: ['care', 'home'], editorialTypes: ['care_tip', 'fun_fact'] },
+          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['home', 'design'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: ['fun_fact', 'material_myth'] },
+        ],
+      }),
+    [featured.length, newArrivals.length, weekLeaders.length],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
 
   return (
     <>
@@ -129,6 +153,10 @@ export function Home() {
         </section>
       )}
 
+      <section className="border-b border-line bg-paper">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-weekly" /></div>
+      </section>
+
       {/* Category strip */}
       <section className="border-b border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 flex gap-2 overflow-x-auto">
@@ -144,10 +172,9 @@ export function Home() {
         </div>
       </section>
 
-      {/* Conbal-managed editorial note */}
       <section className="border-b border-line bg-paper">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
-          <ConbalPlacement placement="home-field-note" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-categories" />
         </div>
       </section>
 
@@ -174,7 +201,8 @@ export function Home() {
         </div>
       </section>
 
-      {/* Conbal-managed culture feature */}
+      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-featured" /></div></section>
+
       <section className="border-y border-line bg-card">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 grid md:grid-cols-[1fr_300px] items-center gap-10 md:gap-14">
           <div>
@@ -183,8 +211,8 @@ export function Home() {
               A material with stories to tell.
             </h2>
             <p className="mt-4 text-ink-soft leading-relaxed text-lg font-light max-w-xl">
-              iBamboo uses Conbal to publish fresh field notes, material facts,
-              and cultural context without rebuilding the storefront.
+              Stories, material facts, and cultural context make the objects in
+              the house feel more considered.
             </p>
             <Link
               to="/why"
@@ -194,7 +222,7 @@ export function Home() {
             </Link>
           </div>
           <div className="-mx-4 sm:mx-0">
-            <ConbalPlacement placement="home-culture" />
+            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-culture" />
           </div>
         </div>
       </section>
@@ -229,6 +257,8 @@ export function Home() {
         </div>
       </section>
 
+      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-story" /></div></section>
+
       {/* New arrivals */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between gap-4 mb-10">
@@ -245,6 +275,8 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-arrivals" /></div></section>
 
       {/* Rooms */}
       <section className="border-t border-line bg-card">
@@ -281,6 +313,8 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-after-rooms" /></div></section>
 
       {/* Vibes strip — CMO: soft discovery under shop-by-room */}
       <section className="border-t border-line bg-paper">
@@ -334,6 +368,8 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <section className="border-t border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-before-lifestyle" /></div></section>
 
       {/* SOHO / lifestyle */}
       <section className="relative overflow-hidden">

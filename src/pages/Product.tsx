@@ -21,7 +21,9 @@ import {
   youMayAlsoLike,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
-import { ConbalPlacement } from '../components/ConbalPlacement'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { affiliateUrl } from '../lib/amazon'
@@ -48,6 +50,9 @@ export function ProductPage() {
   const productPrice = product?.priceHint
   const productAsin = product?.asin
   const productLimited = product?.limitedTime
+  const hasRelatedProducts = product
+    ? similarProducts(product, 4).length > 0 || youMayAlsoLike(product, 4).length > 0
+    : false
 
   // SL1000: the main viewer renders up to ~686px CSS (retina headroom); thumb
   // clicks load the same URL into the viewer, so the strip shares the size.
@@ -83,6 +88,26 @@ export function ProductPage() {
     setChainIdx(0)
     setFailedThumbs(new Set())
   }, [product])
+
+  const balloonPlan = useMemo(
+    () =>
+      deriveBalloonPlan({
+        routeKey: `product:${slug || 'unknown'}`,
+        narrativeSections: product ? 3 : 0,
+        featureGroups: product ? 2 : 0,
+        itemCount: product ? 8 : 0,
+        mediaBlocks: product?.featureVideo ? 1 : 0,
+        candidates: [
+          { anchor: 'product-after-trust', ariaLabel: 'Bamboo product fact', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: ['care_tip', 'material_myth'] },
+          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: ['fun_fact', 'did_you_know'] },
+          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: 'responsive' as const, minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: ['design_note', 'fun_fact'] as const }] : []),
+          { anchor: 'product-end', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+        ],
+      }),
+    [hasRelatedProducts, product, slug],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
 
   if (!product) {
     if (flash.loading) {
@@ -374,7 +399,7 @@ export function ProductPage() {
         </div>
 
         <section className="-mx-4 mt-12 border-y border-line bg-paper-2 py-8 sm:mx-0">
-          <ConbalPlacement placement="product-field-note" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-after-trust" />
         </section>
 
         {/* Specs */}
@@ -436,6 +461,10 @@ export function ProductPage() {
           </div>
         </section>
 
+        <section className="mt-12 border-y border-line bg-paper py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-after-details" /></section>
+
+        <section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-before-similar" /></section>
+
         {/* Similar */}
         {similar.length > 0 && (
           <section className="mt-20">
@@ -468,6 +497,7 @@ export function ProductPage() {
 
         {/* You may also like */}
         {alsoLike.length > 0 && (
+          <><section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-between-grids" /></section>
           <section className="mt-20 pt-16 border-t border-line">
             <div className="mb-8">
               <p className="label-micro mb-1">Complete the house</p>
@@ -486,7 +516,10 @@ export function ProductPage() {
               ))}
             </div>
           </section>
+          </>
         )}
+
+        <section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-end" /></section>
       </div>
     </div>
   )

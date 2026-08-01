@@ -27,6 +27,9 @@ import {
   shopProducts,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import {
   trackQuizAnswer,
@@ -128,6 +131,17 @@ export function Quiz() {
       ),
     [scored],
   )
+  const balloonPlan = useMemo(
+    () => deriveBalloonPlan({
+      routeKey: 'quiz', narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
+      candidates: [
+        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
+        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 108, topics: ['quiz', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 108, topics: ['quiz', 'care'], editorialTypes: ['care_tip', 'did_you_know'] },
+      ],
+    }), [],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
 
   function finishToResult(nextAnswers: QuizAnswers) {
     const result = scoreQuiz(nextAnswers)
@@ -402,6 +416,12 @@ export function Quiz() {
             onRetake={retake}
           />
         )}
+
+        <footer className="mt-12 space-y-8 border-t border-line pt-10" aria-label="Bamboo notes">
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-intro" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-result" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-picks" />
+        </footer>
       </div>
     </div>
   )
