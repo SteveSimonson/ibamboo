@@ -7,6 +7,7 @@
  * the React app sets after hydration. og:image stays sitewide per scope.
  */
 import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
+import { getProductEnrichment } from '../src/data/productEnrichments'
 import { VIBE_LIST } from '../src/data/vibes'
 import {
   DEFAULT_OG_IMAGE,
@@ -51,7 +52,10 @@ export function buildRouteMeta(): RouteMetaFile {
   }
 
   for (const p of products) {
-    routes[`/product/${p.slug}`] = finalizeRouteMeta(productSeo(p))
+    const enrichment = getProductEnrichment(p.slug)
+    routes[`/product/${p.slug}`] = finalizeRouteMeta(
+      productSeo(p, enrichment),
+    )
   }
 
   return {

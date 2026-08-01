@@ -67,6 +67,18 @@ with the React pages); edit SEO copy there, never in the Worker.
 - `npm run deploy` = build + `wrangler deploy`.
 - Custom domain is configured in `wrangler.jsonc`; do not casually change worker/domain names.
 
+## Product page enrichment
+
+PDPs should be **destinations** (judgment + depth), not thin Amazon hops.
+
+- **Rules:** `docs/PRODUCT-ENRICHMENT-RULES.md` (network standard; iBamboo voice = calm natural living)
+- **Data:** `src/data/productEnrichments.ts` via `getProductEnrichment(slug)`
+- **UI:** `src/components/ProductEnrichment.tsx` on `Product.tsx` (after specs / why; before similar)
+- **SEO:** `productSeo(product, enrichment?)` appends FAQPage JSON-LD; `scripts/route-meta.ts` must call it **with** enrichment so raw HTML has FAQ schema
+- **Non-negotiable:** original prose only (research → synthesize). No Associate-tag chrome on-page; tag only in buy `href`
+- **Coverage:** every ASIN SKU should have enrichment **or** a tracked GitHub issue for backlog
+- Research helper (optional): copy skill script → `scripts/research-product-enrichment.mjs` + TinyFish key
+
 ## Review focus areas
 
 When reviewing PRs, prioritize:
@@ -76,5 +88,6 @@ When reviewing PRs, prioritize:
 3. Catalog regressions (empty categories, missing images, bad ASINs)
 4. Secrets or `.env` leakage
 5. Unrelated drive-by refactors
+6. Enrichment originality (no pasted Amazon/competitor copy); FAQPage in routeMeta for enriched PDPs
 
 Nits on style are optional; bugs block merge.
