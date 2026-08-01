@@ -38,4 +38,11 @@ interface Env {
   EMAIL_REPLY_TO: string
   GHL_PIT?: string
   GHL_LOCATION_ID?: string
+  /** Admin control plane (POC) */
+  ADMIN_KV?: KVNamespace
+  ADMIN_PASSWORD?: string
+  ADMIN_SESSION_SECRET?: string
+  FLASH_CATALOG_URL?: string
+  LIBRARY_URL?: string
+  LIBRARY_TOKEN?: string
 }

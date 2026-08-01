@@ -16,12 +16,14 @@
 
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
+import { handleAdmin, type AdminEnv } from './admin'
 
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
-type WorkerEnv = Env & {
-  GHL_PIT?: string
-  GHL_LOCATION_ID?: string
-}
+type WorkerEnv = Env &
+  AdminEnv & {
+    GHL_PIT?: string
+    GHL_LOCATION_ID?: string
+  }
 
 type RouteMeta = {
   title: string
@@ -509,6 +511,10 @@ async function handleRequest(
     return json({ ok: false, error: 'Method not allowed' }, 405)
   }
 
+  // iBamboo Admin POC control plane
+  const adminRes = await handleAdmin(request, env)
+  if (adminRes) return adminRes
+
   // API misses are JSON 404s, never the HTML shell
   if (url.pathname.startsWith('/api/')) {
     return json({ ok: false, error: 'Not found' }, 404)
@@ -517,6 +523,14 @@ async function handleRequest(
   if (request.method === 'GET' || request.method === 'HEAD') {
     const meta = findRouteMeta(url)
     if (meta) return serveShell(request, env, meta, 200)
+
+    // Admin control plane: 200 + noindex shell (not a soft-404 storefront miss)
+    if (
+      url.pathname === '/admin' ||
+      url.pathname.startsWith('/admin/')
+    ) {
+      return serveShell(request, env, null, 200)
+    }
 
     // Unknown path: extension ⇒ file request → assets; otherwise the SPA
     // shell with a real 404 (client boots and redirects home from there).

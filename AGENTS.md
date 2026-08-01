@@ -10,6 +10,27 @@ Global skill **`pr-ship-gate`** (`~/.grok/skills/pr-ship-gate/SKILL.md`) applies
 
 **iBamboo** is a private Amazon Associates storefront for bamboo home goods. Buy buttons go to Amazon with Associates tag **`iu0e3-20`**. Live site: [ibamboo.com](https://ibamboo.com).
 
+## Admin control plane (POC)
+
+**URL:** https://ibamboo.com/admin  
+
+Password auth via Worker secret `ADMIN_PASSWORD` (optional `ADMIN_SESSION_SECRET`). Config in KV `ADMIN_KV`.
+
+| Tab | Purpose |
+|-----|---------|
+| Flash catalog | Live flash status + link to Flash Catalog admin |
+| Product library | Review kyasi.us links for site `ibamboo` |
+| Conbal | Origin + site key + health probe |
+| Avatars | Edit house persona avatars (KV; storefront still ships vibes.ts until wired) |
+| Editor in Chief | System prompt, demeanor, audience, language, guardrails, targeting categories |
+
+```bash
+npx wrangler secret put ADMIN_PASSWORD
+# optional: ADMIN_SESSION_SECRET
+```
+
+API: `/api/admin/*` (see `worker/admin.ts`). Not a public merch CMS yet.
+
 ## Git / PR workflow
 
 - Do **not** push feature work straight to `main` for non-trivial changes.
