@@ -416,10 +416,6 @@ async function readSession(
   }
 }
 
-async function isAuthed(request: Request, env: AdminEnv): Promise<boolean> {
-  return Boolean(await readSession(request, env))
-}
-
 function parseAllowedEmails(csv: string | undefined): string[] {
   return (csv || '')
     .split(',')
@@ -934,15 +930,18 @@ export async function handleAdmin(
 
   // Activity / audit log
   if (path === '/api/admin/audit' && method === 'GET') {
+    const all = await loadAuditLog(env)
+    const rawLimit = Number(url.searchParams.get('limit') || 100)
     const limit = Math.min(
       200,
-      Math.max(1, Number(url.searchParams.get('limit') || 100)),
+      Math.max(1, Number.isFinite(rawLimit) ? rawLimit : 100),
     )
-    const entries = (await loadAuditLog(env)).slice(0, limit)
+    const entries = all.slice(0, limit)
     return json({
       ok: true,
       entries,
-      total: entries.length,
+      returned: entries.length,
+      total: all.length,
       cap: AUDIT_MAX,
       allowlistNote:
         'Google sign-in is allowed only if the account email is listed in Worker secret ADMIN_ALLOWED_EMAILS (comma-separated, case-insensitive).',
