@@ -15,7 +15,9 @@ import { resolveCollectionToCategory } from '../data/collectionRedirect'
 import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
-import { ConbalPlacement } from '../components/ConbalPlacement'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -65,6 +67,26 @@ export function Shop() {
   const until = formatExpiry(drop.expiresAt ?? undefined)
   const categoryHero = getCategoryHero(cat || null)
   const showCategoryHero = Boolean(cat && categoryHero)
+  const balloonPlan = useMemo(
+    () =>
+      deriveBalloonPlan({
+        routeKey: `shop:${cat || 'all'}:${limited ? 'limited' : 'standard'}:${filtered.length}`,
+        narrativeSections: showCategoryHero ? 2 : 1,
+        featureGroups: cat ? 2 : 1,
+        itemCount: filtered.length,
+        candidates: [
+          { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['did_you_know', 'care_tip'] },
+          { anchor: 'shop-grid-20', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'design'], editorialTypes: ['design_note', 'fun_fact'] },
+          { anchor: 'shop-grid-40', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'bamboo-basics'], editorialTypes: ['did_you_know', 'fun_fact'] },
+          { anchor: 'shop-grid-60', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'care'], editorialTypes: ['care_tip', 'material_myth'] },
+          { anchor: 'shop-grid-80', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['design_note', 'care_tip'] },
+          { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
+        ],
+      }),
+    [cat, filtered.length, limited, showCategoryHero],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
 
   function updateParams(patch: Record<string, string | null>) {
     const next = new URLSearchParams(params)
@@ -212,7 +234,7 @@ export function Shop() {
         </div>
 
         <div className="mb-10 border-y border-line py-8">
-          <ConbalPlacement placement="shop-field-note" />
+          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-top" />
         </div>
 
         {/* Room → vibe engagement (quiz / registration funnel) */}
@@ -236,26 +258,32 @@ export function Shop() {
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {filtered.map((p) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                listName={
-                  cat
-                    ? `shop_${cat}`
-                    : limited
-                      ? 'shop_limited'
-                      : 'shop_all'
-                }
-              />
-            ))}
+            {filtered.flatMap((p, index) => {
+              const placement = [
+                'shop-grid-20',
+                'shop-grid-40',
+                'shop-grid-60',
+                'shop-grid-80',
+              ][Math.floor(((index + 1) * 4) / filtered.length) - 1]
+              return [
+                <ProductCard key={p.id} product={p} listName={cat ? `shop_${cat}` : limited ? 'shop_limited' : 'shop_all'} />,
+                placement && index < filtered.length - 1 ? (
+                  <div key={`${p.id}-${placement}`} className="col-span-full border-y border-line py-7">
+                    <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor={placement} />
+                  </div>
+                ) : null,
+              ]
+            })}
           </div>
         )}
+
+        <div className="mt-10 border-y border-line py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-after-grid" /></div>
 
         {/* Second touch after browsing — stronger CTA */}
         {cat ? (
           <CategoryVibeCheck category={cat as Category} placement="end" />
         ) : null}
+        <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-end" /></div>
       </div>
     </div>
   )

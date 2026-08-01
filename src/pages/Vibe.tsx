@@ -19,7 +19,9 @@ import {
 } from '../data/vibes'
 import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
-import { ConbalPlacement } from '../components/ConbalPlacement'
+import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
+import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import { deriveBalloonPlan } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
 import { Seo } from '../components/Seo'
@@ -49,6 +51,21 @@ export function VibePage() {
     const limited = pool.filter((p) => p.limitedTime)
     return (limited.length >= 4 ? limited : pool).slice(0, 6)
   }, [vibe])
+  const balloonPlan = useMemo(
+    () => deriveBalloonPlan({
+      routeKey: `vibe:${vibeId || 'unknown'}`,
+      narrativeSections: 6, featureGroups: 5, itemCount: picks.length, mediaBlocks: 2,
+      candidates: [
+        { anchor: 'vibe-profile', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
+        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: '300x250', topics: ['vibe', 'bamboo-basics'], editorialTypes: ['did_you_know', 'design_note'] },
+        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: ['vibe', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: ['did_you_know', 'material_myth'] },
+        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: ['vibe', 'care'], editorialTypes: ['care_tip', 'fun_fact'] },
+        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: ['did_you_know', 'design_note'] },
+      ],
+    }), [picks.length, vibeId],
+  )
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
 
   if (!vibe) return <Navigate to="/quiz" replace />
 
@@ -115,6 +132,8 @@ export function VibePage() {
           </p>
         </div>
       </section>
+
+      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-profile" /></div></section>
 
       {/* Avatar + trading card strip */}
       <section className="border-b border-line bg-paper">
@@ -222,12 +241,12 @@ export function VibePage() {
               Every vibe starts with an extraordinary grass.
             </h2>
             <p className="mt-4 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
-              A Conbal field note connects this personality to the living
-              material behind the collection.
+              A material note connects this personality to the living material
+              behind the collection.
             </p>
           </div>
           <div className="-mx-4 sm:mx-0">
-            <ConbalPlacement placement="vibe-field-note" />
+            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-plant-energy" />
           </div>
         </div>
       </section>
@@ -268,6 +287,7 @@ export function VibePage() {
                   </li>
                 ))}
               </ol>
+              <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-day" /></div>
             </div>
 
             <div>
@@ -327,6 +347,8 @@ export function VibePage() {
                 ))}
               </div>
             </div>
+
+            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-traits" />
           </div>
 
           <div className="lg:col-span-5 space-y-6">
@@ -415,6 +437,8 @@ export function VibePage() {
         </div>
       </section>
 
+      <section className="border-y border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-rooms" /></div></section>
+
       {/* Rooms */}
       <section className="border-y border-line bg-paper-2/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
@@ -474,6 +498,7 @@ export function VibePage() {
               />
             ))}
           </div>
+          <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-products" /></div>
         </section>
       )}
 
