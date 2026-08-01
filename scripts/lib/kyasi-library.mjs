@@ -1,6 +1,6 @@
 /**
  * Client for the federated product library at kyasi.us
- * Reads are public. Writes need KYASI_LIBRARY_TOKEN (ADMIN_API_TOKEN).
+ * Reads and writes require KYASI_LIBRARY_TOKEN (ADMIN_API_TOKEN on kyasi-net).
  */
 const DEFAULT_BASE =
   process.env.KYASI_LIBRARY_URL || "https://kyasi.us";
@@ -27,10 +27,11 @@ async function req(path, opts = {}) {
     headers["Content-Type"] = "application/json";
   }
   const token = libraryToken();
-  if (opts.auth) {
+  // All library APIs are auth-gated (session or Bearer). Machine clients use Bearer.
+  if (opts.auth !== false) {
     if (!token) {
       throw new Error(
-        "KYASI_LIBRARY_TOKEN (or ADMIN_API_TOKEN) required for library writes",
+        "KYASI_LIBRARY_TOKEN (or ADMIN_API_TOKEN) required for library access",
       );
     }
     headers.Authorization = `Bearer ${token}`;
@@ -138,5 +139,5 @@ export async function linkSiteItem(input) {
 }
 
 export async function health() {
-  return req("/api/health");
+  return req("/api/health", { auth: false });
 }
