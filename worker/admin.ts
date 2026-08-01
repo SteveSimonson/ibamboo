@@ -813,44 +813,33 @@ export async function handleAdmin(
     // Always this site: admin panel is site-local (ibamboo), not a network hub.
     const siteId = 'ibamboo'
     try {
-      const [statsRes, itemsRes] = await Promise.all([
-        fetch(`${base}/api/stats`),
-        fetch(
-          `${base}/api/library/items?site=${encodeURIComponent(siteId)}&limit=100`,
-        ),
-      ])
-      const networkStats = (await statsRes.json()) as {
-        bySite?: { siteId: string; count: number }[]
-        items?: number
-        siteLinks?: number
-      }
+      // Site-filtered list only — never call network-wide /api/stats here.
+      const itemsRes = await fetch(
+        `${base}/api/library/items?site=${encodeURIComponent(siteId)}&limit=100`,
+      )
       const itemsPayload = (await itemsRes.json()) as {
         items?: unknown[]
         total?: number
       }
-      const siteRow = (networkStats.bySite || []).find(
-        (r) => r.siteId === siteId,
-      )
-      const itemTotal =
-        typeof itemsPayload.total === 'number'
-          ? itemsPayload.total
-          : siteRow?.count
       const siteItems = Array.isArray(itemsPayload.items)
         ? itemsPayload.items
         : []
+      const itemTotal =
+        typeof itemsPayload.total === 'number'
+          ? itemsPayload.total
+          : siteItems.length
       return json({
-        ok: statsRes.ok && itemsRes.ok,
+        ok: itemsRes.ok,
         baseUrl: base,
         siteId,
-        // Site-local summary only — do not expose other storefronts
         stats: {
           siteId,
-          itemCount: itemTotal ?? siteItems.length,
+          itemCount: itemTotal,
           listed: siteItems.length,
         },
         items: {
           items: siteItems,
-          total: itemTotal ?? siteItems.length,
+          total: itemTotal,
         },
         notes: cfg.library.notes,
         syncHint:
