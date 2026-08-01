@@ -22,6 +22,7 @@ import {
   FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   sizeForTier,
 } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
@@ -59,13 +60,13 @@ export function Home() {
         mediaBlocks: 3,
         candidates: [
           { anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['design', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
+          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['design', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
           { anchor: 'home-after-featured', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['craft-history', 'home'], editorialTypes: CRAFT_EDITORIAL_TYPES },
-          { anchor: 'home-after-story', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'sustainability'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
-          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '320x100' }), minHeight: 120, topics: ['care', 'home'], editorialTypes: CARE_EDITORIAL_TYPES },
-          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['home', 'design'], editorialTypes: DESIGN_EDITORIAL_TYPES },
-          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
+          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['craft-history', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
+          { anchor: 'home-after-story', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'sustainability'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '320x100' }), minHeight: 120, topics: ['care', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['home', 'design'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
         ],
       }),
     [featured.length, newArrivals.length, viewportTier, weekLeaders.length],

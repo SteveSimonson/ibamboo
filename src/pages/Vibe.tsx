@@ -29,6 +29,7 @@ import {
   FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   sizeForTier,
 } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
@@ -68,11 +69,11 @@ export function VibePage() {
       narrativeSections: 6, featureGroups: 5, itemCount: picks.length, mediaBlocks: 2,
       candidates: [
         { anchor: 'vibe-profile', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['vibe', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
-        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: ['vibe', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
-        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280', wide: '160x600' }), minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
-        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'care'], editorialTypes: CARE_EDITORIAL_TYPES },
-        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', desktop: '320x100' }), minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: CRAFT_EDITORIAL_TYPES },
+        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: ['vibe', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280', wide: '160x600' }), minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', desktop: '320x100' }), minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
       ],
     }), [picks.length, vibeId, viewportTier],
   )

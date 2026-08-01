@@ -30,6 +30,7 @@ import {
   FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
+  editorialTypesForTier,
   sizeForTier,
 } from '../lib/balloonPlan'
 import { StarRating } from '../components/StarRating'
@@ -109,9 +110,9 @@ export function ProductPage() {
         mediaBlocks: product?.featureVideo ? 1 : 0,
         candidates: [
           { anchor: 'product-after-trust', ariaLabel: 'Bamboo product fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: CARE_EDITORIAL_TYPES },
-          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
-          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: DESIGN_EDITORIAL_TYPES }] : []),
+          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) }] : []),
           { anchor: 'product-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'sustainability'], editorialTypes: FACT_EDITORIAL_TYPES },
         ],
       }),

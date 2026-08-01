@@ -36,6 +36,14 @@ export const CRAFT_EDITORIAL_TYPES = [
   'culture_craft', 'design_note', 'did_you_know', 'fun_fact', 'nature_note',
 ] as const satisfies readonly EditorialType[]
 
+/** Compact routes share the responsive factual pool to retain a full reload buffer. */
+export function editorialTypesForTier(
+  tier: ViewportTier,
+  specialized: readonly EditorialType[],
+): readonly EditorialType[] {
+  return tier === 'compact' ? FACT_EDITORIAL_TYPES : specialized
+}
+
 export type BalloonSlot = {
   anchor: string
   ariaLabel: string

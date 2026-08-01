@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { deriveBalloonPlan, sizeForTier } from '../src/lib/balloonPlan.ts'
+import {
+  DESIGN_EDITORIAL_TYPES,
+  FACT_EDITORIAL_TYPES,
+  deriveBalloonPlan,
+  editorialTypesForTier,
+  sizeForTier,
+} from '../src/lib/balloonPlan.ts'
 
 test('creative sizes inherit upward without sending desktop formats to compact screens', () => {
   const creative = {
@@ -27,6 +33,12 @@ test('wide plans can opt into a rail without changing smaller tiers', () => {
   assert.equal(sizeForTier('compact', creative), 'responsive')
   assert.equal(sizeForTier('desktop', creative), '336x280')
   assert.equal(sizeForTier('wide', creative), '160x600')
+})
+
+test('compact slots share the factual pool while larger tiers keep specialization', () => {
+  assert.equal(editorialTypesForTier('compact', DESIGN_EDITORIAL_TYPES), FACT_EDITORIAL_TYPES)
+  assert.equal(editorialTypesForTier('tablet', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
+  assert.equal(editorialTypesForTier('desktop', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
 })
 
 test('page-density planning remains bounded by viewport and unique anchors', () => {
