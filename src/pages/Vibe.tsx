@@ -19,6 +19,7 @@ import {
 } from '../data/vibes'
 import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
+import { ConbalPlacement } from '../components/ConbalPlacement'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
 import { Seo } from '../components/Seo'
@@ -209,6 +210,24 @@ export function VibePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-line bg-card">
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1fr_300px] md:gap-14">
+          <div>
+            <p className="label-micro mb-3">Plant energy</p>
+            <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
+              Every vibe starts with an extraordinary grass.
+            </h2>
+            <p className="mt-4 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
+              A Conbal field note connects this personality to the living
+              material behind the collection.
+            </p>
+          </div>
+          <div className="-mx-4 sm:mx-0">
+            <ConbalPlacement placement="vibe-field-note" />
           </div>
         </div>
       </section>

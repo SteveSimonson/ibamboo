@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { ConbalPlacement } from '../components/ConbalPlacement'
 import { Seo } from '../components/Seo'
 import { whySeo } from '../lib/seoData'
 
@@ -30,6 +31,10 @@ export function Why() {
           We bring the collection together; Amazon handles fulfillment you
           already trust.
         </p>
+
+        <div className="border-y border-line py-8">
+          <ConbalPlacement placement="why-field-note" />
+        </div>
 
         <div className="space-y-8">
           {[

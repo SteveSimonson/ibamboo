@@ -73,14 +73,23 @@ VITE_CONBAL_ORIGIN=https://conbal.us
 VITE_CONBAL_SITE_KEY=NYcKxGAVDdeF
 ```
 
-The homepage currently places these published balloons:
+Route code uses named placements from `src/components/ConbalPlacement.tsx`, so
+page layouts do not depend on Conbal slugs scattered throughout the app:
 
-- `bamboo-is-a-grass` — responsive field note
-- `bamboo-weaving-heritage` — 300×250 culture feature
+| Route placement | Published balloon | Format |
+|---|---|---|
+| Home field note | `bamboo-is-a-grass` | responsive |
+| Home culture feature | `bamboo-weaving-heritage` | 300×250 |
+| Shop field note | `running-bamboo-rhizomes` | responsive |
+| Product field note | `bamboo-rhizomes` | 320×100 |
+| Why field note | `bamboo-gregarious-flowering` | responsive |
+| Vibe field note | `bamboo-growth-record` | 300×250 |
 
 If a balloon is unavailable, unpublished, or cannot be loaded, the component
-removes the empty placement. Conbal calls still roll up through the balloon,
-site, and account analytics already provided by the delivery API.
+removes the empty placement. It also rejects a payload whose published size no
+longer matches the layout contract. Delivery calls—not guaranteed viewport
+impressions—roll up through the balloon, site, and account analytics provided
+by the shared iBamboo site key.
 
 ## Project layout
 

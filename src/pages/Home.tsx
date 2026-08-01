@@ -12,7 +12,7 @@ import {
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
-import { ConbalBalloon } from '../components/ConbalBalloon'
+import { ConbalPlacement } from '../components/ConbalPlacement'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -147,13 +147,7 @@ export function Home() {
       {/* Conbal-managed editorial note */}
       <section className="border-b border-line bg-paper">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
-          <ConbalBalloon
-            ariaLabel="Bamboo field note"
-            className="mx-auto"
-            minHeight={126}
-            size="responsive"
-            slug="bamboo-is-a-grass"
-          />
+          <ConbalPlacement placement="home-field-note" />
         </div>
       </section>
 
@@ -199,12 +193,9 @@ export function Home() {
               Why bamboo <ArrowRight className="size-4" />
             </Link>
           </div>
-          <ConbalBalloon
-            ariaLabel="Bamboo weaving field note"
-            className="mx-auto"
-            size="300x250"
-            slug="bamboo-weaving-heritage"
-          />
+          <div className="-mx-4 sm:mx-0">
+            <ConbalPlacement placement="home-culture" />
+          </div>
         </div>
       </section>
 

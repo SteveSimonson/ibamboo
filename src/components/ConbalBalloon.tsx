@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 
-type ConbalSize =
+export type ConbalSize =
   | 'responsive'
   | '300x250'
   | '336x280'
@@ -77,6 +77,16 @@ export function ConbalBalloon({
           return
         }
 
+        if (balloon.size !== size) {
+          console.warn('Conbal balloon size does not match its placement', {
+            actual: balloon.size,
+            expected: size,
+            slug,
+          })
+          setStatus('error')
+          return
+        }
+
         setContent(`<style>${balloon.css || ''}</style>${balloon.html}`)
         setStatus('ready')
       } catch (error) {
@@ -88,7 +98,7 @@ export function ConbalBalloon({
 
     void load()
     return () => controller.abort()
-  }, [origin, siteKey, slug])
+  }, [origin, siteKey, size, slug])
 
   if (status === 'empty' || status === 'error') return null
 

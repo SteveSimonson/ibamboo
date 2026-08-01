@@ -15,6 +15,7 @@ import { resolveCollectionToCategory } from '../data/collectionRedirect'
 import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
+import { ConbalPlacement } from '../components/ConbalPlacement'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -208,6 +209,10 @@ export function Shop() {
               Clear filters
             </button>
           )}
+        </div>
+
+        <div className="mb-10 border-y border-line py-8">
+          <ConbalPlacement placement="shop-field-note" />
         </div>
 
         {/* Room → vibe engagement (quiz / registration funnel) */}

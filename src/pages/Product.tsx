@@ -21,6 +21,7 @@ import {
   youMayAlsoLike,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
+import { ConbalPlacement } from '../components/ConbalPlacement'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { affiliateUrl } from '../lib/amazon'
@@ -371,6 +372,10 @@ export function ProductPage() {
             </p>
           </div>
         </div>
+
+        <section className="-mx-4 mt-12 border-y border-line bg-paper-2 py-8 sm:mx-0">
+          <ConbalPlacement placement="product-field-note" />
+        </section>
 
         {/* Specs */}
         <section className="mt-16 grid lg:grid-cols-12 gap-10">
