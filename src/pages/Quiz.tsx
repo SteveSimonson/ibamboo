@@ -29,7 +29,14 @@ import {
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import {
+  CARE_EDITORIAL_TYPES,
+  DESIGN_EDITORIAL_TYPES,
+  FACT_EDITORIAL_TYPES,
+  deriveBalloonPlan,
+  sizeForTier,
+} from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import {
   trackQuizAnswer,
@@ -51,6 +58,7 @@ type Phase = 'intro' | 'questions' | 'result'
 
 export function Quiz() {
   const navigate = useNavigate()
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const [phase, setPhase] = useState<Phase>('intro')
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<QuizAnswers>({})
@@ -133,15 +141,15 @@ export function Quiz() {
   )
   const balloonPlan = useMemo(
     () => deriveBalloonPlan({
-      routeKey: 'quiz', narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
+      routeKey: 'quiz', tier: viewportTier, narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
       candidates: [
-        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
-        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 108, topics: ['quiz', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
-        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 108, topics: ['quiz', 'care'], editorialTypes: ['care_tip', 'did_you_know'] },
+        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 108, topics: ['quiz', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 108, topics: ['quiz', 'care'], editorialTypes: CARE_EDITORIAL_TYPES },
       ],
-    }), [],
+    }), [viewportTier],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady, viewportTier)
 
   function finishToResult(nextAnswers: QuizAnswers) {
     const result = scoreQuiz(nextAnswers)

@@ -21,7 +21,16 @@ import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import {
+  CARE_EDITORIAL_TYPES,
+  CRAFT_EDITORIAL_TYPES,
+  DESIGN_EDITORIAL_TYPES,
+  FACT_EDITORIAL_TYPES,
+  MATERIAL_EDITORIAL_TYPES,
+  deriveBalloonPlan,
+  sizeForTier,
+} from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
 import { Seo } from '../components/Seo'
@@ -29,6 +38,7 @@ import { vibeSeo } from '../lib/seoData'
 
 export function VibePage() {
   const { vibeId } = useParams()
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const vibe = getVibe(vibeId)
   const [stored, setStored] = useState<string | null>(null)
   const vibeKey = vibe?.id
@@ -54,18 +64,19 @@ export function VibePage() {
   const balloonPlan = useMemo(
     () => deriveBalloonPlan({
       routeKey: `vibe:${vibeId || 'unknown'}`,
+      tier: viewportTier,
       narrativeSections: 6, featureGroups: 5, itemCount: picks.length, mediaBlocks: 2,
       candidates: [
-        { anchor: 'vibe-profile', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
-        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: '300x250', topics: ['vibe', 'bamboo-basics'], editorialTypes: ['did_you_know', 'design_note'] },
-        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: ['vibe', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
-        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: ['did_you_know', 'material_myth'] },
-        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: ['vibe', 'care'], editorialTypes: ['care_tip', 'fun_fact'] },
-        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: 'responsive', minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: ['did_you_know', 'design_note'] },
+        { anchor: 'vibe-profile', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['vibe', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
+        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: ['vibe', 'home'], editorialTypes: DESIGN_EDITORIAL_TYPES },
+        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280', wide: '160x600' }), minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
+        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'care'], editorialTypes: CARE_EDITORIAL_TYPES },
+        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', desktop: '320x100' }), minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: CRAFT_EDITORIAL_TYPES },
       ],
-    }), [picks.length, vibeId],
+    }), [picks.length, vibeId, viewportTier],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady, viewportTier)
 
   if (!vibe) return <Navigate to="/quiz" replace />
 

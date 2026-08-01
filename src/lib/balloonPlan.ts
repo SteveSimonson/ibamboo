@@ -1,4 +1,5 @@
 import type { ConbalSize } from '../components/ConbalBalloon'
+import type { ViewportTier } from '../hooks/useViewportTier'
 
 export type EditorialType =
   | 'did_you_know'
@@ -19,6 +20,22 @@ export const ALL_EDITORIAL_TYPES: readonly EditorialType[] = [
   'culture_craft',
 ]
 
+export const FACT_EDITORIAL_TYPES = [
+  'did_you_know', 'fun_fact', 'nature_note', 'culture_craft', 'material_myth',
+] as const satisfies readonly EditorialType[]
+export const DESIGN_EDITORIAL_TYPES = [
+  'design_note', 'fun_fact', 'culture_craft', 'nature_note', 'did_you_know',
+] as const satisfies readonly EditorialType[]
+export const MATERIAL_EDITORIAL_TYPES = [
+  'material_myth', 'did_you_know', 'nature_note', 'fun_fact', 'design_note',
+] as const satisfies readonly EditorialType[]
+export const CARE_EDITORIAL_TYPES = [
+  'care_tip', 'did_you_know', 'nature_note', 'material_myth', 'fun_fact',
+] as const satisfies readonly EditorialType[]
+export const CRAFT_EDITORIAL_TYPES = [
+  'culture_craft', 'design_note', 'did_you_know', 'fun_fact', 'nature_note',
+] as const satisfies readonly EditorialType[]
+
 export type BalloonSlot = {
   anchor: string
   ariaLabel: string
@@ -26,6 +43,13 @@ export type BalloonSlot = {
   minHeight?: number
   size: ConbalSize
   topics: string[]
+}
+
+export type TieredCreative = {
+  compact: ConbalSize
+  tablet?: ConbalSize
+  desktop?: ConbalSize
+  wide?: ConbalSize
 }
 
 export type BalloonPlanInput = {
@@ -36,6 +60,7 @@ export type BalloonPlanInput = {
   mediaBlocks?: number
   narrativeSections?: number
   routeKey: string
+  tier?: ViewportTier
 }
 
 export type BalloonPlan = {
@@ -46,6 +71,25 @@ export type BalloonPlan = {
 
 const MIN_BALLOONS = 3
 const MAX_BALLOONS = 8
+const MAX_BALLOONS_BY_TIER: Record<ViewportTier, number> = {
+  compact: 4,
+  tablet: 6,
+  desktop: MAX_BALLOONS,
+  wide: MAX_BALLOONS,
+}
+
+/** Resolve the creative requested at a breakpoint, inheriting smaller tiers. */
+export function sizeForTier(tier: ViewportTier, creative: TieredCreative): ConbalSize {
+  if (tier === 'wide') return creative.wide || creative.desktop || creative.tablet || creative.compact
+  if (tier === 'desktop') return creative.desktop || creative.tablet || creative.compact
+  if (tier === 'tablet') return creative.tablet || creative.compact
+  return creative.compact
+}
+
+/** Keep existing scalar slots compatible while allowing page plans to resolve a creative. */
+export function withTieredSize(slot: BalloonSlot, tier: ViewportTier, creative?: TieredCreative): BalloonSlot {
+  return creative ? { ...slot, size: sizeForTier(tier, creative) } : slot
+}
 
 /**
  * Select a small, evenly distributed editorial deck from semantic page units.
@@ -53,6 +97,7 @@ const MAX_BALLOONS = 8
  * DOM, where interactive controls and commerce actions would be indistinct.
  */
 export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
+  const tier = input.tier || 'compact'
   const density =
     (input.narrativeSections || 0) * 2 +
     (input.featureGroups || 0) +
@@ -61,17 +106,13 @@ export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
     Math.floor((input.interactiveSteps || 0) / 2)
   const requested = Math.max(
     MIN_BALLOONS,
-    Math.min(MAX_BALLOONS, 2 + Math.floor(density / 3)),
+    Math.min(MAX_BALLOONS_BY_TIER[tier], 2 + Math.floor(density / 3)),
   )
   const count = Math.min(requested, input.candidates.length)
-  // iBamboo's editorial bands are deliberately general. A broad type request
-  // prevents a narrowly labelled anchor from starving a healthy content pool.
-  const slots = evenlyDistributed(input.candidates, count).map((slot) => ({
-    ...slot,
-    editorialTypes: ALL_EDITORIAL_TYPES,
-  }))
+  const slots = evenlyDistributed(input.candidates, count)
   const signature = JSON.stringify({
     routeKey: input.routeKey,
+    tier,
     slots: slots.map(({ anchor, size, topics, editorialTypes }) => ({
       anchor,
       size,
