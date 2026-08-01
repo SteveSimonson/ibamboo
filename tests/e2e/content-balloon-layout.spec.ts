@@ -1,7 +1,13 @@
 import { expect, test, type Page } from '@playwright/test'
+import { products as curatedProducts } from '../../src/data/products'
+import { bsrProducts } from '../../src/data/products.bsr.generated'
 
 const PRODUCT_PATH = '/product/riveira-dark-bamboo-wooden-spoons-for-cooking-6-piece-apartment-essentials-wood-'
+const NIAGARA_PATH = '/product/niagara-sleep-solution-ultra-soft-queen-size-mattress-topper-rayon-derived-from-'
 const WIDTHS = [390, 768, 1024, 1440, 2560]
+const products = [...bsrProducts, ...curatedProducts].filter((product, index, catalog) =>
+  product.asin && catalog.findIndex((candidate) => candidate.asin === product.asin) === index,
+)
 
 async function mockSmartDelivery(page: Page) {
   await page.route('https://conbal.us/v2/b/**/sample', async (route) => {
@@ -82,10 +88,16 @@ for (const width of WIDTHS) {
     expect(audit.unsafe).toBe(false)
 
     if (width >= 1024) {
-      const columnBottoms = await page.locator('[data-product-column]').evaluateAll((nodes) =>
-        nodes.map((node) => Math.round(node.getBoundingClientRect().bottom)),
+      const surfaces = await page.locator('[data-product-surface]').evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          bottom: Math.round(node.getBoundingClientRect().bottom),
+          height: Math.round(node.getBoundingClientRect().height),
+          top: Math.round(node.getBoundingClientRect().top),
+        })),
       )
-      expect(Math.abs(columnBottoms[0] - columnBottoms[1])).toBeLessThanOrEqual(100)
+      expect(surfaces).toHaveLength(2)
+      expect(Math.abs(surfaces[0].height - surfaces[1].height)).toBeLessThanOrEqual(2)
+      expect(Math.abs(surfaces[0].bottom - surfaces[1].bottom)).toBeLessThanOrEqual(2)
     }
 
     const amazonLinks = page.locator('a[href*="amazon.com"]')
@@ -111,6 +123,94 @@ for (const width of WIDTHS) {
     }
   })
 }
+
+test('a standard PDP has three useful, separated placements', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await loadWithFacts(page, NIAGARA_PATH)
+  const anchors = await page.locator('[data-content-balloon]').evaluateAll((nodes) =>
+    nodes.map((node) => node.getAttribute('data-balloon-anchor')).sort(),
+  )
+  expect(anchors).toEqual(['product-guide-note', 'product-related-card', 'product-spec-note'])
+  expect(new Set(await page.locator('[data-content-balloon]').evaluateAll((nodes) =>
+    nodes.map((node) => node.getAttribute('data-balloon-section')),
+  )).size).toBe(3)
+})
+
+test('mobile reads image, purchase decision, then specifications', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await loadWithFacts(page, NIAGARA_PATH)
+  const order = await page.evaluate(() => {
+    const top = (selector: string) => document.querySelector(selector)?.getBoundingClientRect().top ?? -1
+    return {
+      buy: top('[data-product-surface="purchase"] a[href*="amazon.com"]'),
+      details: top('#product-details-heading'),
+      title: top('h1'),
+    }
+  })
+  expect(order.title).toBeGreaterThanOrEqual(0)
+  expect(order.buy).toBeGreaterThan(order.title)
+  expect(order.details).toBeGreaterThan(order.buy)
+})
+
+test('every catalog PDP uses balanced top surfaces at desktop width', async ({ page }) => {
+  test.setTimeout(120_000)
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.route('**/*', async (route) => {
+    const request = route.request()
+    if (['image', 'media'].includes(request.resourceType()) && new URL(request.url()).origin !== 'http://127.0.0.1:4175') {
+      await route.abort()
+    } else {
+      await route.continue()
+    }
+  })
+  await mockSmartDelivery(page)
+
+  const failures: string[] = []
+  for (const product of products) {
+    await page.goto(`/product/${product.slug}`, { waitUntil: 'domcontentloaded' })
+    await page.locator('[data-product-surface="purchase"]').waitFor()
+    const geometry = await page.locator('[data-product-surface]').evaluateAll((nodes) => nodes.map((node) => ({
+      bottom: Math.round(node.getBoundingClientRect().bottom),
+      height: Math.round(node.getBoundingClientRect().height),
+    })))
+    const detailsTop = await page.locator('#product-details-heading').evaluate((node) => Math.round(node.getBoundingClientRect().top))
+    if (
+      geometry.length !== 2 ||
+      Math.abs(geometry[0].height - geometry[1].height) > 2 ||
+      Math.abs(geometry[0].bottom - geometry[1].bottom) > 2 ||
+      detailsTop < Math.max(...geometry.map((item) => item.bottom))
+    ) failures.push(product.slug)
+  }
+  expect(failures, `unbalanced PDPs: ${failures.join(', ')}`).toEqual([])
+})
+
+test('a failed route request cannot retain facts from the prior product', async ({ page }) => {
+  let deliveries = 0
+  await page.route('https://conbal.us/v2/b/**/sample', async (route) => {
+    deliveries += 1
+    if (deliveries > 1) {
+      await route.fulfill({ body: JSON.stringify({ error: 'temporary' }), contentType: 'application/json', status: 503 })
+      return
+    }
+    const body = route.request().postDataJSON() as { slots: Array<{ budget: string; id: string; role: string }> }
+    await route.fulfill({
+      body: JSON.stringify({ assignments: Object.fromEntries(body.slots.map((slot, index) => [slot.id, {
+        assignment_id: `first-${index}`,
+        budget: slot.budget,
+        content: { headline: `First route ${index}`, body: 'This copy belongs only to the first product route and must not survive navigation.' },
+        editorial_type: 'did_you_know',
+        role: slot.role,
+        slug: `first-route-${index}`,
+      }])) }),
+      contentType: 'application/json',
+    })
+  })
+  await page.goto(PRODUCT_PATH)
+  await expect(page.locator('[data-content-balloon]')).toHaveCount(3)
+  await page.goto(NIAGARA_PATH)
+  await expect(page.locator('[data-content-balloon]')).toHaveCount(0)
+  await expect.poll(() => deliveries).toBe(2)
+})
 
 test('responsive host rendering does not clear or refetch a compatible deck', async ({ page }) => {
   let requests = 0

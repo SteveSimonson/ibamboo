@@ -65,9 +65,6 @@ export function ProductPage() {
   const productPrice = product?.priceHint
   const productAsin = product?.asin
   const productLimited = product?.limitedTime
-  const hasRelatedProducts = product
-    ? similarProducts(product, 4).length > 0 || youMayAlsoLike(product, 4).length > 0
-    : false
   // SL1000: the main viewer renders up to ~686px CSS (retina headroom); thumb
   // clicks load the same URL into the viewer, so the strip shares the size.
   const mainChain = product ? productImageChain(product, 1000) : []
@@ -118,12 +115,13 @@ export function ProductPage() {
             { anchor: 'product-review-note', ariaLabel: 'Bamboo product fact', budget: 'standard-v1' as const, layout: 'inline' as const, priority: 90, role: 'inline-note' as const, section: 'review', size: 'responsive' as const, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
             { anchor: 'product-guide-note', ariaLabel: 'Bamboo care tip', budget: 'standard-v1' as const, layout: 'panel' as const, priority: 80, role: 'section-break' as const, section: 'field-guide', size: 'responsive' as const, topics: [product?.category || 'home', 'care', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
           ] : [
-            { anchor: 'product-guide-note', ariaLabel: 'Bamboo material note', budget: 'standard-v1' as const, layout: 'panel' as const, priority: 90, role: 'section-break' as const, section: 'product-details', size: 'responsive' as const, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+            { anchor: 'product-spec-note', ariaLabel: 'Bamboo material fact', budget: 'standard-v1' as const, layout: 'inline' as const, priority: 90, role: 'inline-note' as const, section: 'product-details', size: 'responsive' as const, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+            { anchor: 'product-guide-note', ariaLabel: 'Bamboo care tip', budget: 'standard-v1' as const, layout: 'panel' as const, priority: 80, role: 'aside-note' as const, section: 'practical-guide', size: 'responsive' as const, topics: [product?.category || 'home', 'care', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
           ]),
-          ...(hasRelatedProducts ? [{ anchor: 'product-related-card', ariaLabel: 'Bamboo fact among related products', budget: 'compact-v1' as const, layout: 'product-card' as const, priority: 70, role: 'grid-tile' as const, section: 'related-products', size: 'responsive' as const, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          { anchor: 'product-related-card', ariaLabel: 'Bamboo fact among related products', budget: 'compact-v1' as const, layout: 'product-card' as const, priority: 70, role: 'grid-tile' as const, section: 'related-products', size: 'responsive' as const, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
         ],
       }),
-    [enrichment, hasRelatedProducts, product, slug, viewportTier],
+    [enrichment, product, slug, viewportTier],
   )
   const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
 
@@ -215,9 +213,9 @@ export function ProductPage() {
           <ArrowLeft className="size-4" /> Back to shop
         </Link>
 
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
+        <div className="grid items-stretch gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Gallery */}
-          <div className="lg:col-span-7 space-y-3" data-product-column="gallery-details">
+          <div className="h-full space-y-3 rounded-3xl border border-line bg-card p-3 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] lg:col-span-7" data-product-surface="media">
             <div className="relative rounded-2xl overflow-hidden aspect-square product-well border border-line shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)]">
               {main ? (
                 <img
@@ -279,62 +277,10 @@ export function ProductPage() {
               </div>
             )}
 
-            {product.featureVideo && (
-              <div className="mt-2 rounded-2xl overflow-hidden border border-line bg-ink shadow-sm">
-                <div className="relative aspect-square sm:aspect-[4/3] bg-ink">
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover"
-                    src={product.featureVideo}
-                    poster={product.featureVideoPoster}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    controls
-                    aria-label={`Feature film: ${product.name}`}
-                  />
-                  <div className="pointer-events-none absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow">
-                    <Play className="size-3 fill-ink" /> Feature film
-                  </div>
-                </div>
-                {product.featureVideoCaption && (
-                  <p className="px-4 py-3 text-sm text-paper/90 leading-relaxed border-t border-white/10">
-                    {product.featureVideoCaption}
-                  </p>
-                )}
-              </div>
-            )}
-
-            <section className="pt-10" data-balloon-zone="asymmetric" aria-labelledby="product-details-heading">
-              <h2 id="product-details-heading" className="font-display text-2xl font-semibold mb-5">
-                Product details
-              </h2>
-              <div className="rounded-2xl border border-line overflow-hidden bg-card">
-                <table className="w-full text-sm">
-                  <tbody>
-                    {product.specs.map((s, i) => (
-                      <tr key={`${s.label}-${i}`} className={i % 2 === 0 ? 'bg-paper/60' : 'bg-card'}>
-                        <th className="text-left font-semibold text-ink-soft px-5 py-3.5 w-[40%] border-b border-line/60">
-                          {s.label}
-                        </th>
-                        <td className="px-5 py-3.5 text-ink border-b border-line/60">{s.value}</td>
-                      </tr>
-                    ))}
-                    <tr className="bg-paper/60">
-                      <th className="text-left font-semibold text-ink-soft px-5 py-3.5">Material note</th>
-                      <td className="px-5 py-3.5 text-ink-soft">
-                        {product.material}. Always confirm the live Amazon listing for current specifications.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
           </div>
 
           {/* Buy box */}
-          <div className="lg:col-span-5 space-y-6" data-balloon-zone="commerce" data-product-column="purchase-rationale">
+          <div className="h-full space-y-6 rounded-3xl border border-line bg-card p-6 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] sm:p-8 lg:col-span-5" data-balloon-zone="commerce" data-product-surface="purchase">
             {product.limitedTime && (
               <div className="rounded-2xl border border-[#fdba74] bg-[#fff7ed] px-4 py-3 flex gap-3">
                 <Clock3 className="size-5 text-[#9a3412] shrink-0 mt-0.5" />
@@ -442,6 +388,74 @@ export function ProductPage() {
           </div>
         </div>
 
+        <section className="mt-12" aria-labelledby="product-details-heading">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="label-micro mb-1">Before you choose</p>
+              <h2 id="product-details-heading" className="font-display text-2xl font-semibold sm:text-3xl">
+                Product details
+              </h2>
+            </div>
+            <p className="hidden max-w-md text-right text-xs leading-relaxed text-muted sm:block">
+              Listing details can change. Confirm dimensions, care, and availability on Amazon.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-line bg-card">
+            <table className="w-full text-sm">
+              <tbody>
+                {product.specs.map((spec, index) => (
+                  <tr key={`${spec.label}-${index}`} className={index % 2 === 0 ? 'bg-paper/60' : 'bg-card'}>
+                    <th className="w-[40%] border-b border-line/60 px-5 py-3.5 text-left font-semibold text-ink-soft">
+                      {spec.label}
+                    </th>
+                    <td className="border-b border-line/60 px-5 py-3.5 text-ink">{spec.value}</td>
+                  </tr>
+                ))}
+                <tr className="bg-paper/60">
+                  <th className="px-5 py-3.5 text-left font-semibold text-ink-soft">Material note</th>
+                  <td className="px-5 py-3.5 text-ink-soft">
+                    {product.material}. Always confirm the live Amazon listing for current specifications.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {!enrichment && balloonDeck['product-spec-note'] ? (
+            <div className="mt-7">
+              <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-spec-note" />
+            </div>
+          ) : null}
+        </section>
+
+        {product.featureVideo && (
+          <section className="mt-14" aria-label="Product feature film">
+            <div className="overflow-hidden rounded-3xl border border-line bg-ink shadow-sm">
+              <div className="relative aspect-video bg-ink">
+                <video
+                  className="absolute inset-0 size-full object-cover"
+                  src={product.featureVideo}
+                  poster={product.featureVideoPoster}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  controls
+                  aria-label={`Feature film: ${product.name}`}
+                />
+                <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink shadow">
+                  <Play className="size-3 fill-ink" /> Feature film
+                </div>
+              </div>
+              {product.featureVideoCaption && (
+                <p className="border-t border-white/10 px-5 py-4 text-sm leading-relaxed text-paper/90">
+                  {product.featureVideoCaption}
+                </p>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* Destination content: review snapshot, field notes, tips, FAQ */}
         {enrichment ? (
           <div className="mt-4">
@@ -470,11 +484,31 @@ export function ProductPage() {
               </a>
             </div>
           </div>
-        ) : balloonDeck['product-guide-note'] ? (
-          <section className="mt-16" aria-label="Bamboo field note">
-            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-guide-note" />
+        ) : (
+          <section className="mt-16 grid gap-6 lg:grid-cols-12 lg:items-stretch" aria-labelledby="practical-guide-heading">
+            <div className="rounded-3xl bg-moss p-7 text-white sm:p-9 lg:col-span-7">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-leaf">A useful checkout pause</p>
+              <h2 id="practical-guide-heading" className="mt-2 font-display text-3xl font-semibold">
+                Three things worth checking
+              </h2>
+              <div className="mt-7 grid gap-5 sm:grid-cols-3">
+                {[
+                  ['Fit', `Check the listed dimensions against the space where this ${categoryLabel(product.category).toLowerCase()} piece will live.`],
+                  ['Finish', `Use the live listing to confirm the exact ${product.material.toLowerCase()} construction and care instructions.`],
+                  ['Routine', 'Choose for the way you will actually clean, store, and use it—not for the product photo alone.'],
+                ].map(([label, copy], index) => (
+                  <div key={label} className="border-t border-white/20 pt-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-gold">0{index + 1} · {label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80">{copy}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {balloonDeck['product-guide-note'] ? (
+              <AdaptiveContentBalloon className="h-full lg:col-span-5" plan={balloonPlan} deck={balloonDeck} anchor="product-guide-note" />
+            ) : null}
           </section>
-        ) : null}
+        )}
 
         {/* Similar */}
         {similar.length > 0 && (

@@ -9,9 +9,19 @@ const MAX_HEADLINE_LENGTH = 72
 const MAX_BODY_LENGTH = 180
 
 function decodeEntities(value: string) {
+  const codePoint = (raw: string, radix: number) => {
+    const parsed = Number.parseInt(raw, radix)
+    if (
+      !Number.isInteger(parsed) ||
+      parsed <= 0 ||
+      parsed > 0x10ffff ||
+      (parsed >= 0xd800 && parsed <= 0xdfff)
+    ) return ''
+    return String.fromCodePoint(parsed)
+  }
   return value
-    .replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)))
-    .replace(/&#x([\da-f]+);/gi, (_, code: string) => String.fromCodePoint(Number.parseInt(code, 16)))
+    .replace(/&#(\d+);/g, (_, code: string) => codePoint(code, 10))
+    .replace(/&#x([\da-f]+);/gi, (_, code: string) => codePoint(code, 16))
     .replaceAll('&amp;', '&')
     .replaceAll('&lt;', '<')
     .replaceAll('&gt;', '>')

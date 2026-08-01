@@ -87,6 +87,10 @@ test('legacy HTML is reduced to copy and never needs remote CSS to render', () =
     body: 'Lucky bamboo is a dracaena; the plants are not closely related.',
   })
   assert.equal(legacyBalloonCopy('<style>body{display:none}</style><p>no structured copy</p>'), null)
+  assert.deepEqual(legacyBalloonCopy('<strong>Safe numeric entities</strong><p>A malformed code &#999999999; cannot crash the host renderer.</p>'), {
+    headline: 'Safe numeric entities',
+    body: 'A malformed code cannot crash the host renderer.',
+  })
 })
 
 test('planner preserves the editorial types authored for each placement', () => {

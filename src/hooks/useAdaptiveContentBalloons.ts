@@ -19,15 +19,6 @@ function requestNonce() {
   return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`
 }
 
-function estimatedContainer(role: BalloonPlan['slots'][number]['role']) {
-  const viewport = typeof window === 'undefined' ? 390 : window.innerWidth
-  const content = Math.max(280, Math.min(1280, viewport - (viewport >= 640 ? 48 : 32)))
-  if (role !== 'grid-tile') return { width: content, height: 360 }
-  const columns = viewport >= 1280 ? 4 : viewport >= 1024 ? 3 : viewport >= 640 ? 2 : 1
-  const gaps = (columns - 1) * 20
-  return { width: Math.floor((content - gaps) / columns), height: columns === 1 ? 320 : 760 }
-}
-
 /** Fetch one random deck for a stable route/data state. */
 function priorDeck(key: string): string[] {
   try {
@@ -54,7 +45,10 @@ export function useAdaptiveContentBalloons(
   enabled = true,
   _tier: ViewportTier = 'compact',
 ) {
-  const [deck, setDeck] = useState<ContentBalloonDeck>({})
+  const [delivery, setDelivery] = useState<{
+    deck: ContentBalloonDeck
+    routeKey: string
+  }>(() => ({ deck: {}, routeKey: plan.routeKey }))
   const routeRef = useRef(plan.routeKey)
   const planRef = useRef(plan)
   planRef.current = plan
@@ -69,7 +63,10 @@ export function useAdaptiveContentBalloons(
 
   useEffect(() => {
     const activePlan = planRef.current
-    if (!enabled || activePlan.slots.length === 0) { setDeck({}); return }
+    if (!enabled || activePlan.slots.length === 0) {
+      setDelivery({ deck: {}, routeKey: activePlan.routeKey })
+      return
+    }
     const controller = new AbortController()
     const previous = priorDeck(historyKey)
     const params = new URLSearchParams({
@@ -88,7 +85,6 @@ export function useAdaptiveContentBalloons(
         budget: slot.budget,
         topics: slot.topics,
         editorial_types: slot.editorialTypes,
-        container: estimatedContainer(slot.role),
       })),
     }
 
@@ -108,31 +104,36 @@ export function useAdaptiveContentBalloons(
           signal: controller.signal,
         })
         const isJson = response.headers.get('content-type')?.includes('application/json')
-        if (response.status === 404 || response.status === 405 || !isJson) return legacyLoad()
+        if (response.status === 404 || response.status === 405) {
+          const legacy = await legacyLoad()
+          if (!legacy || typeof legacy !== 'object' || Array.isArray(legacy)) return {}
+          return Object.fromEntries(Object.entries(legacy).filter(([, item]) => {
+            const slug = (item as { slug?: unknown })?.slug
+            return typeof slug === 'string' && !previous.includes(slug)
+          }))
+        }
+        if (!isJson) throw new Error('Smart content sample returned a non-JSON response')
         if (!response.ok) throw new Error(`Smart content sample failed: ${response.status}`)
         return ((await response.json()) as { assignments?: unknown }).assignments
     }
 
     async function load() {
       try {
-        let received: unknown
-        try {
-          received = await smartLoad()
-        } catch (error) {
-          if (controller.signal.aborted) throw error
-          received = await legacyLoad()
-        }
+        const received = await smartLoad()
         const valid = validatedContentBalloonDeck(activePlan, received)
         if (!controller.signal.aborted) {
-          setDeck(valid)
+          setDelivery({ deck: valid, routeKey: activePlan.routeKey })
           saveDeck(historyKey, valid, previous)
         }
       } catch (error) {
-        if (!controller.signal.aborted) console.warn('Unable to load editorial content', error)
+        if (!controller.signal.aborted) {
+          setDelivery({ deck: {}, routeKey: activePlan.routeKey })
+          console.warn('Unable to load editorial content', error)
+        }
       }
     }
     void load()
     return () => controller.abort()
   }, [enabled, historyKey, origin, plan.signature, siteKey])
-  return deck
+  return delivery.routeKey === plan.routeKey ? delivery.deck : {}
 }
