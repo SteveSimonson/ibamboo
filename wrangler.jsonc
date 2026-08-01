@@ -48,4 +48,7 @@
   //   npx wrangler secret put GHL_LOCATION_ID
   //   npx wrangler secret put ADMIN_PASSWORD
   //   npx wrangler secret put ADMIN_SESSION_SECRET   (optional; falls back to ADMIN_PASSWORD)
+  //   npx wrangler secret put GOOGLE_CLIENT_ID
+  //   npx wrangler secret put GOOGLE_CLIENT_SECRET
+  //   npx wrangler secret put ADMIN_ALLOWED_EMAILS   (comma-separated)
 }
