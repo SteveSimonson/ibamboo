@@ -21,22 +21,23 @@ import {
   type QuizPick,
   type QuizQuestion,
 } from '../data/quiz'
-import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
+import { getVibe, VIBE_LIST, vibePath, writeStoredVibeId } from '../data/vibes'
 import {
   CATEGORY_LABELS,
   shopProducts,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
+import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
-import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
+import {
+  useAdaptiveContentBalloons,
+  type ContentBalloonDeck,
+} from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
 import {
-  CARE_EDITORIAL_TYPES,
-  DESIGN_EDITORIAL_TYPES,
   FACT_EDITORIAL_TYPES,
+  type BalloonPlan,
   deriveBalloonPlan,
-  editorialTypesForTier,
-  sizeForTier,
 } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import {
@@ -144,13 +145,18 @@ export function Quiz() {
     () => deriveBalloonPlan({
       routeKey: 'quiz', tier: viewportTier, narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
       candidates: [
-        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-result', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 108, topics: ['quiz', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-        { anchor: 'quiz-picks', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 108, topics: ['quiz', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact before the quiz', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-midpoint', ariaLabel: 'Bamboo fact during the quiz', size: 'responsive', minHeight: 108, topics: ['quiz', 'home', 'material'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo field note among your picks', size: 'responsive', minHeight: 108, topics: ['quiz', 'care', 'design'], editorialTypes: FACT_EDITORIAL_TYPES },
       ],
     }), [viewportTier],
   )
   const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady, viewportTier)
+  const midpointStep = Math.floor((totalSteps - 1) / 2)
+  const showMidpointNote =
+    phase === 'questions' &&
+    step === midpointStep &&
+    hasRenderableBalloon(balloonPlan, balloonDeck, 'quiz-midpoint')
 
   function finishToResult(nextAnswers: QuizAnswers) {
     const result = scoreQuiz(nextAnswers)
@@ -352,22 +358,24 @@ export function Quiz() {
         <div className="absolute bottom-0 right-1/4 size-[18rem] rounded-full bg-sunset/10 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 sm:py-14">
-        <div className="flex items-center justify-between gap-3 mb-8">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-soft hover:text-bamboo"
-          >
-            <ArrowLeft className="size-4" /> Home
-          </Link>
-          <p className="label-micro flex items-center gap-1.5">
-            <Sparkles className="size-3.5" /> Bamboo Vibe Check
-          </p>
-        </div>
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        {phase !== 'intro' && (
+          <div className="mb-8 flex items-center justify-between gap-3">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-soft hover:text-bamboo"
+            >
+              <ArrowLeft className="size-4" /> Home
+            </Link>
+            <p className="label-micro flex items-center gap-1.5">
+              <Sparkles className="size-3.5" /> Bamboo Vibe Check
+            </p>
+          </div>
+        )}
 
         {/* Progress */}
         {phase !== 'intro' && (
-          <div className="mb-8">
+          <div className="mx-auto mb-8 max-w-3xl">
             <div className="h-2 rounded-full bg-line/70 overflow-hidden">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-bamboo to-leaf transition-all duration-500 ease-out"
@@ -385,6 +393,8 @@ export function Quiz() {
 
         {phase === 'intro' && (
           <Intro
+            balloonDeck={balloonDeck}
+            balloonPlan={balloonPlan}
             onStart={() => {
               trackQuizStart()
               setPhase('questions')
@@ -393,15 +403,26 @@ export function Quiz() {
         )}
 
         {phase === 'questions' && q && (
-          <QuestionStep
-            question={q}
-            selectedIds={selectedIds}
-            advancing={advancing}
-            onSelectSingle={commitSingle}
-            onToggleMulti={toggleMulti}
-            onContinueMulti={continueMulti}
-            onBack={goBackQuestion}
-          />
+          <div
+            className={
+              showMidpointNote
+                ? 'grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]'
+                : 'mx-auto max-w-3xl'
+            }
+          >
+            <QuestionStep
+              question={q}
+              selectedIds={selectedIds}
+              advancing={advancing}
+              onSelectSingle={commitSingle}
+              onToggleMulti={toggleMulti}
+              onContinueMulti={continueMulti}
+              onBack={goBackQuestion}
+            />
+            {showMidpointNote && (
+              <QuizQuestionNote plan={balloonPlan} deck={balloonDeck} />
+            )}
+          </div>
         )}
 
         {phase === 'result' && (
@@ -423,40 +444,172 @@ export function Quiz() {
             onOptIn={setOptIn}
             onSubmit={submitCapture}
             onRetake={retake}
+            balloonDeck={balloonDeck}
+            balloonPlan={balloonPlan}
           />
         )}
-
-        <footer className="mt-12 space-y-8 border-t border-line pt-10" aria-label="Bamboo notes">
-          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-intro" />
-          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-result" />
-          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="quiz-picks" />
-        </footer>
       </div>
     </div>
   )
 }
 
-function Intro({ onStart }: { onStart: () => void }) {
+function hasRenderableBalloon(
+  plan: BalloonPlan,
+  deck: ContentBalloonDeck,
+  anchor: string,
+) {
+  return Boolean(
+    plan.slots.some((slot) => slot.anchor === anchor) &&
+      deck[anchor]?.editorial_type,
+  )
+}
+
+function Intro({
+  balloonDeck,
+  balloonPlan,
+  onStart,
+}: {
+  balloonDeck: ContentBalloonDeck
+  balloonPlan: BalloonPlan
+  onStart: () => void
+}) {
+  const introBalloonAvailable = hasRenderableBalloon(
+    balloonPlan,
+    balloonDeck,
+    'quiz-intro',
+  )
+  const featuredVibes = VIBE_LIST.slice(0, 6)
+
   return (
-    <div className="text-center animate-in">
-      <div className="inline-flex items-center gap-2 rounded-full bg-moss text-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider mb-6">
-        <PartyPopper className="size-3.5" /> 60-second vibe check
-      </div>
-      <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] text-balance">
-        Which bamboo life are you building?
-      </h1>
-      <p className="mt-5 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">
-        A handful of quick taps. Zero wrong answers. See your bamboo persona
-        and named picks immediately — save to the house book only if you want
-        updates.
-      </p>
-      <button type="button" onClick={onStart} className="btn-primary mt-10 !px-10">
-        Start the vibe check <ArrowRight className="size-4" />
-      </button>
-      <p className="mt-4 text-xs text-muted">
+    <div className="animate-in grid items-stretch gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]">
+      <section className="relative isolate min-h-[32rem] overflow-hidden rounded-[2rem] bg-moss px-6 py-8 text-white shadow-[0_28px_70px_-38px_rgba(18,26,18,0.7)] sm:px-10 sm:py-11 lg:min-h-[38rem] lg:px-12 lg:py-12">
+        <div className="pointer-events-none absolute -right-20 -top-24 -z-10 size-80 rounded-full border-[4rem] border-leaf/15" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 size-72 rounded-full bg-bamboo/35 blur-3xl" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-paper">
+          <PartyPopper className="size-3.5 text-gold" /> 60-second vibe check
+        </div>
+        <h1 className="mt-8 max-w-2xl font-display text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-7xl">
+          Find the bamboo rhythm that feels like home.
+        </h1>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-paper/75 sm:text-lg">
+          Six quick choices turn into a named house persona and five useful
+          picks. There are no wrong answers—just a sharper edit for the way
+          you actually live.
+        </p>
+        <button
+          type="button"
+          onClick={onStart}
+          className="mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-moss shadow-[0_16px_40px_-20px_rgba(255,255,255,0.7)] transition hover:bg-paper-2"
+        >
+          Start the vibe check <ArrowRight className="size-4" />
+        </button>
+        <div className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-white/15 pt-6">
+          {[
+            ['6', 'house energies'],
+            ['60 sec', 'from start to result'],
+            ['5', 'named picks'],
+          ].map(([value, label]) => (
+            <div key={label}>
+              <p className="font-display text-2xl font-semibold text-white sm:text-3xl">
+                {value}
+              </p>
+              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.13em] text-paper/55">
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <aside className="flex min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-line bg-card shadow-[0_24px_60px_-40px_rgba(18,26,18,0.4)] lg:min-h-[38rem]">
+        <div className="grid h-56 grid-cols-4 grid-rows-2 gap-1.5 bg-paper-2 p-1.5 sm:h-64 lg:h-72">
+          {featuredVibes.slice(0, 3).map((vibe, index) => (
+            <div
+              key={vibe.id}
+              className={`relative col-span-2 overflow-hidden rounded-[1.5rem] ${index === 0 ? 'row-span-2' : ''}`}
+            >
+              <img
+                src={vibe.avatar.image}
+                alt={vibe.avatar.alt}
+                className="absolute inset-0 size-full object-cover object-top"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/75 to-transparent px-3 pb-3 pt-8 text-white">
+                <p className="text-xs font-bold">{vibe.avatar.name}</p>
+                <p className="text-[10px] text-white/70">{vibe.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
+          <p className="label-micro">Six ways to live with bamboo</p>
+          <h2 className="mt-2 font-display text-3xl font-semibold leading-none">
+            Your answers build the edit.
+          </h2>
+          <div className="mt-5 flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {featuredVibes.map((vibe) => (
+                <img
+                  key={vibe.id}
+                  src={vibe.avatar.image}
+                  alt=""
+                  className="size-9 rounded-full border-2 border-card object-cover object-top"
+                />
+              ))}
+            </div>
+            <p className="text-xs font-semibold text-ink-soft">
+              Craft · ritual · focus · host · patio · nest
+            </p>
+          </div>
+          {introBalloonAvailable && (
+            <div className="mt-auto border-t border-line pt-5">
+              <AdaptiveContentBalloon
+                plan={balloonPlan}
+                deck={balloonDeck}
+                anchor="quiz-intro"
+                className="!m-0 !w-full"
+              />
+            </div>
+          )}
+        </div>
+      </aside>
+
+      <p className="text-center text-xs text-muted lg:col-span-2">
         No account required · Results first · Email optional
       </p>
     </div>
+  )
+}
+
+function QuizQuestionNote({
+  deck,
+  plan,
+}: {
+  deck: ContentBalloonDeck
+  plan: BalloonPlan
+}) {
+  if (!hasRenderableBalloon(plan, deck, 'quiz-midpoint')) return null
+
+  return (
+    <aside className="animate-in overflow-hidden rounded-3xl border border-line bg-card shadow-[0_20px_55px_-38px_rgba(18,26,18,0.45)]">
+      <div className="bg-moss p-6 text-white">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+          Halfway point
+        </p>
+        <h3 className="mt-2 font-display text-3xl font-semibold leading-none">
+          The material has a personality, too.
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-paper/70">
+          Keep choosing by instinct. The details are what turn a generic room
+          into your room.
+        </p>
+      </div>
+      <AdaptiveContentBalloon
+        plan={plan}
+        deck={deck}
+        anchor="quiz-midpoint"
+        className="!m-0 !w-full p-5"
+      />
+    </aside>
   )
 }
 
@@ -683,6 +836,8 @@ function SaveHouseBook({
 }
 
 function ResultStep({
+  balloonDeck,
+  balloonPlan,
   persona,
   secondaryPersona,
   confidence,
@@ -701,6 +856,8 @@ function ResultStep({
   onSubmit,
   onRetake,
 }: {
+  balloonDeck: ContentBalloonDeck
+  balloonPlan: BalloonPlan
   persona: Persona
   secondaryPersona: Persona | null
   confidence: number
@@ -727,6 +884,11 @@ function ResultStep({
     : null
   const editWord = editWordForPersona(persona.id)
   const confidencePct = Math.round(confidence * 100)
+  const picksBalloonAvailable = hasRenderableBalloon(
+    balloonPlan,
+    balloonDeck,
+    'quiz-picks',
+  )
 
   return (
     <div className="animate-in">
@@ -909,6 +1071,13 @@ function ResultStep({
                 whyLine={pick.why}
               />
             ))}
+            {picksBalloonAvailable && (
+              <ProductGridBalloonCard
+                plan={balloonPlan}
+                deck={balloonDeck}
+                anchor="quiz-picks"
+              />
+            )}
           </div>
           <div className="mt-8 text-center">
             <Link to={shopTo} className="btn-primary">
