@@ -15,7 +15,9 @@
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
     "deploy": "npm run build && wrangler deploy",
-    "deploy:flash": "VITE_FLASH_CATALOG_URL=${VITE_FLASH_CATALOG_URL:-https://amazon-flash-catalog.tech-bf6.workers.dev} npm run build && wrangler deploy"
+    "deploy:flash": "VITE_FLASH_CATALOG_URL=${VITE_FLASH_CATALOG_URL:-https://amazon-flash-catalog.tech-bf6.workers.dev} npm run build && wrangler deploy",
+    "library:sync": "node scripts/sync-from-library.mjs",
+    "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run"
   },
   "dependencies": {
     "lucide-react": "^1.25.0",
