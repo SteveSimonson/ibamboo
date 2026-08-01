@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { ScrollToTop } from './components/ScrollToTop'
@@ -8,7 +9,10 @@ import { ProductPage } from './pages/Product'
 import { Why } from './pages/Why'
 import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
-import { Admin } from './pages/Admin'
+
+const Admin = lazy(() =>
+  import('./pages/Admin').then((m) => ({ default: m.Admin })),
+)
 
 export default function App() {
   return (
@@ -16,8 +20,21 @@ export default function App() {
       <ScrollToTop />
       <GoogleAnalytics />
       <Routes>
-        {/* Admin is full-bleed (no storefront chrome) */}
-        <Route path="admin/*" element={<Admin />} />
+        {/* Admin is full-bleed (no storefront chrome); lazy to keep merch chunk lean */}
+        <Route
+          path="admin/*"
+          element={
+            <Suspense
+              fallback={
+                <div className="min-h-screen bg-[#0f1412] text-white/60 flex items-center justify-center text-sm">
+                  Loading admin…
+                </div>
+              }
+            >
+              <Admin />
+            </Suspense>
+          }
+        />
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />

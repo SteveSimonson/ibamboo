@@ -376,7 +376,7 @@ export async function handleAdmin(
       { ok: true },
       200,
       {
-        'Set-Cookie': `${COOKIE}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`,
+        'Set-Cookie': `${COOKIE}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax${secure ? '; Secure' : ''}`,
       },
     )
   }
@@ -438,7 +438,7 @@ export async function handleAdmin(
     return json({ ok: true, config: next })
   }
 
-  // Live flash catalog snapshot (public GET)
+  // Live flash catalog snapshot (auth-gated operator probe)
   if (path === '/api/admin/flash/status' && method === 'GET') {
     const cfg = await loadConfig(env)
     const catalogUrl =

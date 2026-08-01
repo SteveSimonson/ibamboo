@@ -524,6 +524,14 @@ async function handleRequest(
     const meta = findRouteMeta(url)
     if (meta) return serveShell(request, env, meta, 200)
 
+    // Admin control plane: 200 + noindex shell (not a soft-404 storefront miss)
+    if (
+      url.pathname === '/admin' ||
+      url.pathname.startsWith('/admin/')
+    ) {
+      return serveShell(request, env, null, 200)
+    }
+
     // Unknown path: extension ⇒ file request → assets; otherwise the SPA
     // shell with a real 404 (client boots and redirects home from there).
     const lastSegment = url.pathname.split('/').pop() || ''
