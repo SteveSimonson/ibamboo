@@ -12,6 +12,7 @@ import {
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
+import { ConbalBalloon } from '../components/ConbalBalloon'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -143,6 +144,19 @@ export function Home() {
         </div>
       </section>
 
+      {/* Conbal-managed editorial note */}
+      <section className="border-b border-line bg-paper">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+          <ConbalBalloon
+            ariaLabel="Bamboo field note"
+            className="mx-auto"
+            minHeight={126}
+            size="responsive"
+            slug="bamboo-is-a-grass"
+          />
+        </div>
+      </section>
+
       {/* Featured grid */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between gap-4 mb-10">
@@ -163,6 +177,34 @@ export function Home() {
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} listName="home_featured" />
           ))}
+        </div>
+      </section>
+
+      {/* Conbal-managed culture feature */}
+      <section className="border-y border-line bg-card">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 grid md:grid-cols-[1fr_300px] items-center gap-10 md:gap-14">
+          <div>
+            <p className="label-micro mb-3">Beyond the product</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight">
+              A material with stories to tell.
+            </h2>
+            <p className="mt-4 text-ink-soft leading-relaxed text-lg font-light max-w-xl">
+              iBamboo uses Conbal to publish fresh field notes, material facts,
+              and cultural context without rebuilding the storefront.
+            </p>
+            <Link
+              to="/why"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-bamboo hover:text-bamboo-deep transition"
+            >
+              Why bamboo <ArrowRight className="size-4" />
+            </Link>
+          </div>
+          <ConbalBalloon
+            ariaLabel="Bamboo weaving field note"
+            className="mx-auto"
+            size="300x250"
+            slug="bamboo-weaving-heritage"
+          />
         </div>
       </section>
 

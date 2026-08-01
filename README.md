@@ -58,6 +58,30 @@ npm run lint     # oxlint
 
 Logos and hero art live under `public/brand/` (copied from your iBamboo Master kit).
 
+## Conbal content balloons
+
+iBamboo can render owner-managed editorial content from Conbal without a new
+storefront build. `src/components/ConbalBalloon.tsx` uses Conbal's public
+delivery endpoint directly so placements also work after React Router
+navigation.
+
+Production defaults to the public iBamboo Conbal site key `NYcKxGAVDdeF` at
+`https://conbal.us`. Preview environments can override either value:
+
+```bash
+VITE_CONBAL_ORIGIN=https://conbal.us
+VITE_CONBAL_SITE_KEY=NYcKxGAVDdeF
+```
+
+The homepage currently places these published balloons:
+
+- `bamboo-is-a-grass` — responsive field note
+- `bamboo-weaving-heritage` — 300×250 culture feature
+
+If a balloon is unavailable, unpublished, or cannot be loaded, the component
+removes the empty placement. Conbal calls still roll up through the balloon,
+site, and account analytics already provided by the delivery API.
+
 ## Project layout
 
 ```
