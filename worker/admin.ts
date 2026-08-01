@@ -1,6 +1,6 @@
 /**
  * iBamboo Admin API — POC control plane at /api/admin/*
- * Auth: password → signed cookie (ADMIN_PASSWORD secret).
+ * Auth: Google OAuth (email allowlist) + optional password fallback.
  * State: KV ADMIN_KV key "config".
  */
 
@@ -8,9 +8,26 @@ export type AdminEnv = {
   ADMIN_KV?: KVNamespace
   ADMIN_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
+  /** Google OAuth Web client id */
+  GOOGLE_CLIENT_ID?: string
+  GOOGLE_CLIENT_SECRET?: string
+  /** Comma-separated emails allowed after Google sign-in */
+  ADMIN_ALLOWED_EMAILS?: string
   FLASH_CATALOG_URL?: string
   LIBRARY_URL?: string
   LIBRARY_TOKEN?: string
+}
+
+export type AdminSessionUser = {
+  provider: 'google' | 'password'
+  email?: string
+  name?: string
+  picture?: string
+}
+
+type SessionPayload = AdminSessionUser & {
+  exp: number
+  v: 1
 }
 
 export type TargetingCategory = {
@@ -80,7 +97,12 @@ export type AdminConfig = {
 }
 
 const COOKIE = 'ibamboo_admin_session'
+const OAUTH_STATE_COOKIE = 'ibamboo_admin_oauth_state'
 const CONFIG_KEY = 'config'
+const SESSION_MAX_AGE_SEC = 12 * 60 * 60
+const GOOGLE_AUTH = 'https://accounts.google.com/o/oauth2/v2/auth'
+const GOOGLE_TOKEN = 'https://oauth2.googleapis.com/token'
+const GOOGLE_USERINFO = 'https://openidconnect.googleapis.com/v1/userinfo'
 
 function defaultConfig(): AdminConfig {
   const now = new Date().toISOString()
@@ -244,6 +266,22 @@ function json(data: unknown, status = 200, extra: HeadersInit = {}) {
   })
 }
 
+function b64urlEncode(bytes: Uint8Array | ArrayBuffer): string {
+  const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes)
+  let s = ''
+  for (const b of u8) s += String.fromCharCode(b)
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
+function b64urlDecode(s: string): Uint8Array {
+  const pad = s.length % 4 === 0 ? '' : '='.repeat(4 - (s.length % 4))
+  const b64 = s.replace(/-/g, '+').replace(/_/g, '/') + pad
+  const bin = atob(b64)
+  const out = new Uint8Array(bin.length)
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i)
+  return out
+}
+
 async function hmacSign(secret: string, payload: string): Promise<string> {
   const key = await crypto.subtle.importKey(
     'raw',
@@ -262,30 +300,190 @@ async function hmacSign(secret: string, payload: string): Promise<string> {
     .join('')
 }
 
+function sessionSecret(env: AdminEnv): string | null {
+  return env.ADMIN_SESSION_SECRET || env.ADMIN_PASSWORD || null
+}
+
+function cookieFlags(secure: boolean, maxAge: number): string {
+  return `Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure ? '; Secure' : ''}`
+}
+
+async function signSession(
+  env: AdminEnv,
+  user: AdminSessionUser,
+): Promise<string> {
+  const secret = sessionSecret(env) || 'dev'
+  const payload: SessionPayload = {
+    v: 1,
+    exp: Date.now() + SESSION_MAX_AGE_SEC * 1000,
+    provider: user.provider,
+    email: user.email,
+    name: user.name,
+    picture: user.picture,
+  }
+  const body = b64urlEncode(new TextEncoder().encode(JSON.stringify(payload)))
+  const sig = await hmacSign(secret, body)
+  return `${body}.${sig}`
+}
+
 async function sessionCookie(
   env: AdminEnv,
   secure: boolean,
+  user: AdminSessionUser,
 ): Promise<string> {
-  const secret = env.ADMIN_SESSION_SECRET || env.ADMIN_PASSWORD || 'dev'
-  const exp = Date.now() + 12 * 60 * 60 * 1000
-  const payload = `admin:${exp}`
-  const sig = await hmacSign(secret, payload)
-  const value = `${payload}.${sig}`
-  return `${COOKIE}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=43200${secure ? '; Secure' : ''}`
+  const value = await signSession(env, user)
+  return `${COOKIE}=${value}; ${cookieFlags(secure, SESSION_MAX_AGE_SEC)}`
+}
+
+function clearSessionCookie(secure: boolean): string {
+  return `${COOKIE}=; ${cookieFlags(secure, 0)}`
+}
+
+function oauthStateCookie(state: string, secure: boolean): string {
+  return `${OAUTH_STATE_COOKIE}=${state}; ${cookieFlags(secure, 600)}`
+}
+
+function clearOauthStateCookie(secure: boolean): string {
+  return `${OAUTH_STATE_COOKIE}=; ${cookieFlags(secure, 0)}`
+}
+
+function readCookie(request: Request, name: string): string | null {
+  const cookie = request.headers.get('Cookie') || ''
+  const m = cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`))
+  return m ? decodeURIComponent(m[1]) : null
+}
+
+async function readSession(
+  request: Request,
+  env: AdminEnv,
+): Promise<SessionPayload | null> {
+  const secret = sessionSecret(env)
+  if (!secret) return null
+  const raw = readCookie(request, COOKIE)
+  if (!raw) return null
+  const [body, sig] = raw.split('.')
+  if (!body || !sig) return null
+  const expected = await hmacSign(secret, body)
+  if (expected !== sig) return null
+
+  // Legacy password sessions: admin:<exp>.sig
+  if (body.startsWith('admin:')) {
+    const exp = Number(body.split(':')[1] || 0)
+    if (exp > Date.now()) {
+      return { v: 1, exp, provider: 'password' }
+    }
+    return null
+  }
+
+  try {
+    const payload = JSON.parse(
+      new TextDecoder().decode(b64urlDecode(body)),
+    ) as SessionPayload
+    if (payload.v !== 1 || !payload.exp || payload.exp < Date.now()) return null
+    if (payload.provider !== 'google' && payload.provider !== 'password') {
+      return null
+    }
+    return payload
+  } catch {
+    return null
+  }
 }
 
 async function isAuthed(request: Request, env: AdminEnv): Promise<boolean> {
-  const secret = env.ADMIN_SESSION_SECRET || env.ADMIN_PASSWORD
-  if (!secret) return false
-  const cookie = request.headers.get('Cookie') || ''
-  const m = cookie.match(new RegExp(`${COOKIE}=([^;]+)`))
-  if (!m) return false
-  const [payload, sig] = m[1].split('.')
-  if (!payload || !sig) return false
-  const expected = await hmacSign(secret, payload)
-  if (expected !== sig) return false
-  const exp = Number(payload.split(':')[1] || 0)
-  return exp > Date.now()
+  return Boolean(await readSession(request, env))
+}
+
+function parseAllowedEmails(csv: string | undefined): string[] {
+  return (csv || '')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)
+}
+
+function isEmailAllowed(email: string, env: AdminEnv): boolean {
+  const list = parseAllowedEmails(env.ADMIN_ALLOWED_EMAILS)
+  if (!list.length) return false
+  return list.includes(email.trim().toLowerCase())
+}
+
+function googleConfigured(env: AdminEnv): boolean {
+  return Boolean(
+    env.GOOGLE_CLIENT_ID &&
+      env.GOOGLE_CLIENT_SECRET &&
+      parseAllowedEmails(env.ADMIN_ALLOWED_EMAILS).length,
+  )
+}
+
+function googleRedirectUri(requestUrl: URL): string {
+  return `${requestUrl.origin}/api/admin/auth/google/callback`
+}
+
+function randomState(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(24))
+  return b64urlEncode(bytes)
+}
+
+async function exchangeGoogleCode(
+  env: AdminEnv,
+  code: string,
+  redirectUri: string,
+): Promise<string> {
+  const body = new URLSearchParams({
+    code,
+    client_id: env.GOOGLE_CLIENT_ID || '',
+    client_secret: env.GOOGLE_CLIENT_SECRET || '',
+    redirect_uri: redirectUri,
+    grant_type: 'authorization_code',
+  })
+  const res = await fetch(GOOGLE_TOKEN, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  })
+  const data = (await res.json()) as {
+    access_token?: string
+    error?: string
+    error_description?: string
+  }
+  if (!data.access_token) {
+    throw new Error(
+      data.error_description || data.error || 'Google token exchange failed',
+    )
+  }
+  return data.access_token
+}
+
+async function fetchGoogleUser(accessToken: string): Promise<{
+  email: string
+  name?: string
+  picture?: string
+  email_verified?: boolean
+}> {
+  const res = await fetch(GOOGLE_USERINFO, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
+  if (!res.ok) {
+    throw new Error(`Google userinfo failed (${res.status})`)
+  }
+  const data = (await res.json()) as {
+    email?: string
+    name?: string
+    picture?: string
+    email_verified?: boolean
+  }
+  if (!data.email) throw new Error('Google account has no email')
+  return {
+    email: data.email,
+    name: data.name,
+    picture: data.picture,
+    email_verified: data.email_verified,
+  }
+}
+
+function adminErrorRedirect(origin: string, message: string): Response {
+  const u = new URL('/admin', origin)
+  u.searchParams.set('auth_error', message)
+  return Response.redirect(u.toString(), 302)
 }
 
 async function loadConfig(env: AdminEnv): Promise<AdminConfig> {
@@ -347,12 +545,107 @@ export async function handleAdmin(
       service: 'ibamboo-admin',
       kv: Boolean(env.ADMIN_KV),
       passwordConfigured: Boolean(env.ADMIN_PASSWORD),
+      googleConfigured: googleConfigured(env),
+      authMethods: [
+        ...(googleConfigured(env) ? (['google'] as const) : []),
+        ...(env.ADMIN_PASSWORD ? (['password'] as const) : []),
+      ],
     })
   }
 
+  // --- Google OAuth start ---
+  if (path === '/api/admin/auth/google' && method === 'GET') {
+    if (!googleConfigured(env)) {
+      return json(
+        {
+          ok: false,
+          error:
+            'Google OAuth not configured (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ADMIN_ALLOWED_EMAILS)',
+        },
+        503,
+      )
+    }
+    const state = randomState()
+    const params = new URLSearchParams({
+      client_id: env.GOOGLE_CLIENT_ID || '',
+      redirect_uri: googleRedirectUri(url),
+      response_type: 'code',
+      scope: 'openid email profile',
+      state,
+      access_type: 'online',
+      prompt: 'select_account',
+    })
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: `${GOOGLE_AUTH}?${params}`,
+        'Set-Cookie': oauthStateCookie(state, secure),
+        'Cache-Control': 'no-store',
+      },
+    })
+  }
+
+  // --- Google OAuth callback ---
+  if (path === '/api/admin/auth/google/callback' && method === 'GET') {
+    const origin = url.origin
+    if (!googleConfigured(env)) {
+      return adminErrorRedirect(origin, 'Google OAuth is not configured')
+    }
+    const err = url.searchParams.get('error')
+    if (err) {
+      return adminErrorRedirect(
+        origin,
+        url.searchParams.get('error_description') || err,
+      )
+    }
+    const code = url.searchParams.get('code')
+    const state = url.searchParams.get('state')
+    const expectedState = readCookie(request, OAUTH_STATE_COOKIE)
+    if (!code || !state || !expectedState || state !== expectedState) {
+      return adminErrorRedirect(origin, 'Invalid OAuth state — try again')
+    }
+    try {
+      const token = await exchangeGoogleCode(
+        env,
+        code,
+        googleRedirectUri(url),
+      )
+      const profile = await fetchGoogleUser(token)
+      if (profile.email_verified === false) {
+        return adminErrorRedirect(origin, 'Google email is not verified')
+      }
+      if (!isEmailAllowed(profile.email, env)) {
+        return adminErrorRedirect(
+          origin,
+          `Access denied for ${profile.email}`,
+        )
+      }
+      const setCookie = await sessionCookie(env, secure, {
+        provider: 'google',
+        email: profile.email,
+        name: profile.name,
+        picture: profile.picture,
+      })
+      const headers = new Headers({
+        Location: `${origin}/admin?auth=ok`,
+        'Cache-Control': 'no-store',
+      })
+      // Multiple Set-Cookie: session + clear oauth state
+      headers.append('Set-Cookie', setCookie)
+      headers.append('Set-Cookie', clearOauthStateCookie(secure))
+      return new Response(null, { status: 302, headers })
+    } catch (e) {
+      return adminErrorRedirect(
+        origin,
+        e instanceof Error ? e.message : 'Google sign-in failed',
+      )
+    }
+  }
+
+  // Password fallback (emergency / break-glass)
   if (path === '/api/admin/login' && method === 'POST') {
     if (!env.ADMIN_PASSWORD) {
-      return json({ ok: false, error: 'ADMIN_PASSWORD secret not set' }, 503)
+      return json({ ok: false, error: 'Password login not enabled' }, 503)
     }
     let body: { password?: string }
     try {
@@ -363,27 +656,44 @@ export async function handleAdmin(
     if (body.password !== env.ADMIN_PASSWORD) {
       return json({ ok: false, error: 'Invalid password' }, 401)
     }
-    const setCookie = await sessionCookie(env, secure)
-    return json(
-      { ok: true },
-      200,
-      { 'Set-Cookie': setCookie },
-    )
+    const setCookie = await sessionCookie(env, secure, {
+      provider: 'password',
+      email: 'password@local',
+      name: 'Password operator',
+    })
+    return json({ ok: true }, 200, { 'Set-Cookie': setCookie })
   }
 
   if (path === '/api/admin/logout' && method === 'POST') {
     return json(
       { ok: true },
       200,
-      {
-        'Set-Cookie': `${COOKIE}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax${secure ? '; Secure' : ''}`,
-      },
+      { 'Set-Cookie': clearSessionCookie(secure) },
     )
   }
 
   if (path === '/api/admin/session' && method === 'GET') {
-    const ok = await isAuthed(request, env)
-    return json({ ok, authenticated: ok })
+    const session = await readSession(request, env)
+    if (!session) {
+      return json({
+        ok: false,
+        authenticated: false,
+        googleConfigured: googleConfigured(env),
+        passwordConfigured: Boolean(env.ADMIN_PASSWORD),
+      })
+    }
+    return json({
+      ok: true,
+      authenticated: true,
+      user: {
+        provider: session.provider,
+        email: session.email,
+        name: session.name,
+        picture: session.picture,
+      },
+      googleConfigured: googleConfigured(env),
+      passwordConfigured: Boolean(env.ADMIN_PASSWORD),
+    })
   }
 
   // Everything below requires auth

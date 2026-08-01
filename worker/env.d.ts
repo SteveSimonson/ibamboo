@@ -42,6 +42,10 @@ interface Env {
   ADMIN_KV?: KVNamespace
   ADMIN_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
+  GOOGLE_CLIENT_ID?: string
+  GOOGLE_CLIENT_SECRET?: string
+  /** Comma-separated allowlist for Google OAuth */
+  ADMIN_ALLOWED_EMAILS?: string
   FLASH_CATALOG_URL?: string
   LIBRARY_URL?: string
   LIBRARY_TOKEN?: string

@@ -14,7 +14,9 @@ Global skill **`pr-ship-gate`** (`~/.grok/skills/pr-ship-gate/SKILL.md`) applies
 
 **URL:** https://ibamboo.com/admin  
 
-Password auth via Worker secret `ADMIN_PASSWORD` (optional `ADMIN_SESSION_SECRET`). Config in KV `ADMIN_KV`.
+**Auth (preferred):** Google OAuth — only emails in `ADMIN_ALLOWED_EMAILS`.  
+**Auth (fallback):** shared `ADMIN_PASSWORD` (break-glass).  
+Session: HMAC cookie (`ADMIN_SESSION_SECRET` or password). Config in KV `ADMIN_KV`.
 
 | Tab | Purpose |
 |-----|---------|
@@ -24,12 +26,24 @@ Password auth via Worker secret `ADMIN_PASSWORD` (optional `ADMIN_SESSION_SECRET
 | Avatars | Edit house persona avatars (KV; storefront still ships vibes.ts until wired) |
 | Editor in Chief | System prompt, demeanor, audience, language, guardrails, targeting categories |
 
+### Google OAuth setup
+
+1. [Google Cloud Console](https://console.cloud.google.com/apis/credentials) → create **OAuth 2.0 Client ID** (Web application).
+2. Authorized redirect URIs:
+   - `https://ibamboo.com/api/admin/auth/google/callback`
+   - `https://ibamboo.tech-bf6.workers.dev/api/admin/auth/google/callback` (optional)
+3. Secrets:
+
 ```bash
+npx wrangler secret put GOOGLE_CLIENT_ID
+npx wrangler secret put GOOGLE_CLIENT_SECRET
+npx wrangler secret put ADMIN_ALLOWED_EMAILS   # e.g. you@gmail.com,ops@example.com
+npx wrangler secret put ADMIN_SESSION_SECRET  # recommended
+# optional break-glass:
 npx wrangler secret put ADMIN_PASSWORD
-# optional: ADMIN_SESSION_SECRET
 ```
 
-API: `/api/admin/*` (see `worker/admin.ts`). Not a public merch CMS yet.
+API: `/api/admin/*` (see `worker/admin.ts`). OAuth start: `GET /api/admin/auth/google`. Not a public merch CMS yet.
 
 ## Git / PR workflow
 
