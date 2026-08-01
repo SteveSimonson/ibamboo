@@ -995,9 +995,14 @@ export async function handleAdmin(
     // Always this site: admin panel is site-local (ibamboo), not a network hub.
     const siteId = 'ibamboo'
     try {
-      // Site-filtered list only — never call network-wide /api/stats here.
+      // Site-filtered list only. kyasi.us reads require Bearer or operator session.
+      const headers: Record<string, string> = { Accept: 'application/json' }
+      if (env.LIBRARY_TOKEN) {
+        headers.Authorization = `Bearer ${env.LIBRARY_TOKEN}`
+      }
       const itemsRes = await fetch(
         `${base}/api/library/items?site=${encodeURIComponent(siteId)}&limit=100`,
+        { headers },
       )
       const itemsPayload = (await itemsRes.json()) as {
         items?: unknown[]
