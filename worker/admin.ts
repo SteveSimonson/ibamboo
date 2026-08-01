@@ -312,7 +312,12 @@ async function signSession(
   env: AdminEnv,
   user: AdminSessionUser,
 ): Promise<string> {
-  const secret = sessionSecret(env) || 'dev'
+  const secret = sessionSecret(env)
+  if (!secret) {
+    throw new Error(
+      'Session signing requires ADMIN_SESSION_SECRET or ADMIN_PASSWORD',
+    )
+  }
   const payload: SessionPayload = {
     v: 1,
     exp: Date.now() + SESSION_MAX_AGE_SEC * 1000,
@@ -407,10 +412,12 @@ function isEmailAllowed(email: string, env: AdminEnv): boolean {
 }
 
 function googleConfigured(env: AdminEnv): boolean {
+  // Need a real session secret so cookies can be verified (no 'dev' fallback).
   return Boolean(
     env.GOOGLE_CLIENT_ID &&
       env.GOOGLE_CLIENT_SECRET &&
-      parseAllowedEmails(env.ADMIN_ALLOWED_EMAILS).length,
+      parseAllowedEmails(env.ADMIN_ALLOWED_EMAILS).length &&
+      sessionSecret(env),
   )
 }
 
@@ -593,10 +600,8 @@ export async function handleAdmin(
     }
     const err = url.searchParams.get('error')
     if (err) {
-      return adminErrorRedirect(
-        origin,
-        url.searchParams.get('error_description') || err,
-      )
+      // Don't reflect Google's free-text error_description (phishing banner risk)
+      return adminErrorRedirect(origin, 'Google sign-in was cancelled or failed')
     }
     const code = url.searchParams.get('code')
     const state = url.searchParams.get('state')
@@ -611,7 +616,7 @@ export async function handleAdmin(
         googleRedirectUri(url),
       )
       const profile = await fetchGoogleUser(token)
-      if (profile.email_verified === false) {
+      if (profile.email_verified !== true) {
         return adminErrorRedirect(origin, 'Google email is not verified')
       }
       if (!isEmailAllowed(profile.email, env)) {
@@ -635,10 +640,8 @@ export async function handleAdmin(
       headers.append('Set-Cookie', clearOauthStateCookie(secure))
       return new Response(null, { status: 302, headers })
     } catch (e) {
-      return adminErrorRedirect(
-        origin,
-        e instanceof Error ? e.message : 'Google sign-in failed',
-      )
+      console.error('Google OAuth callback failed', e)
+      return adminErrorRedirect(origin, 'Google sign-in failed')
     }
   }
 
@@ -646,6 +649,12 @@ export async function handleAdmin(
   if (path === '/api/admin/login' && method === 'POST') {
     if (!env.ADMIN_PASSWORD) {
       return json({ ok: false, error: 'Password login not enabled' }, 503)
+    }
+    if (!sessionSecret(env)) {
+      return json(
+        { ok: false, error: 'ADMIN_SESSION_SECRET or ADMIN_PASSWORD required' },
+        503,
+      )
     }
     let body: { password?: string }
     try {
@@ -656,12 +665,22 @@ export async function handleAdmin(
     if (body.password !== env.ADMIN_PASSWORD) {
       return json({ ok: false, error: 'Invalid password' }, 401)
     }
-    const setCookie = await sessionCookie(env, secure, {
-      provider: 'password',
-      email: 'password@local',
-      name: 'Password operator',
-    })
-    return json({ ok: true }, 200, { 'Set-Cookie': setCookie })
+    try {
+      const setCookie = await sessionCookie(env, secure, {
+        provider: 'password',
+        email: 'password@local',
+        name: 'Password operator',
+      })
+      return json({ ok: true }, 200, { 'Set-Cookie': setCookie })
+    } catch (e) {
+      return json(
+        {
+          ok: false,
+          error: e instanceof Error ? e.message : 'Session create failed',
+        },
+        500,
+      )
+    }
   }
 
   if (path === '/api/admin/logout' && method === 'POST') {
