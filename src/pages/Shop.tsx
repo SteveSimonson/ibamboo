@@ -18,7 +18,13 @@ import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
-import { deriveBalloonPlan, hasBalloonAnchor, sizeForTier } from '../lib/balloonPlan'
+import {
+  FACT_EDITORIAL_TYPES,
+  MATERIAL_EDITORIAL_TYPES,
+  deriveBalloonPlan,
+  hasBalloonAnchor,
+  sizeForTier,
+} from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -107,7 +113,7 @@ export function Shop() {
         featureGroups: cat ? 2 : 1,
         itemCount: filtered.length,
         candidates: [
-          { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['did_you_know', 'care_tip'] },
+          { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
           ...gridInsertions.map((item, index) => ({
             anchor: item.anchor,
             ariaLabel: 'Bamboo note',
@@ -118,10 +124,10 @@ export function Shop() {
             }),
             minHeight: 112,
             topics: [cat || 'home', item.topic],
-            editorialTypes: ['did_you_know' as const],
+            editorialTypes: FACT_EDITORIAL_TYPES,
           })),
-          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['design_note', 'care_tip'] },
-          { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
+          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: MATERIAL_EDITORIAL_TYPES },
+          { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
         ],
       }),
     [cat, filtered.length, gridInsertions, limited, showCategoryHero, viewportTier],

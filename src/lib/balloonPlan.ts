@@ -20,6 +20,22 @@ export const ALL_EDITORIAL_TYPES: readonly EditorialType[] = [
   'culture_craft',
 ]
 
+export const FACT_EDITORIAL_TYPES = [
+  'did_you_know', 'fun_fact', 'nature_note', 'culture_craft', 'material_myth',
+] as const satisfies readonly EditorialType[]
+export const DESIGN_EDITORIAL_TYPES = [
+  'design_note', 'fun_fact', 'culture_craft', 'nature_note', 'did_you_know',
+] as const satisfies readonly EditorialType[]
+export const MATERIAL_EDITORIAL_TYPES = [
+  'material_myth', 'did_you_know', 'nature_note', 'fun_fact', 'design_note',
+] as const satisfies readonly EditorialType[]
+export const CARE_EDITORIAL_TYPES = [
+  'care_tip', 'did_you_know', 'nature_note', 'material_myth', 'fun_fact',
+] as const satisfies readonly EditorialType[]
+export const CRAFT_EDITORIAL_TYPES = [
+  'culture_craft', 'design_note', 'did_you_know', 'fun_fact', 'nature_note',
+] as const satisfies readonly EditorialType[]
+
 export type BalloonSlot = {
   anchor: string
   ariaLabel: string
@@ -93,12 +109,7 @@ export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
     Math.min(MAX_BALLOONS_BY_TIER[tier], 2 + Math.floor(density / 3)),
   )
   const count = Math.min(requested, input.candidates.length)
-  // iBamboo's editorial bands are deliberately general. A broad type request
-  // prevents a narrowly labelled anchor from starving a healthy content pool.
-  const slots = evenlyDistributed(input.candidates, count).map((slot) => ({
-    ...slot,
-    editorialTypes: ALL_EDITORIAL_TYPES,
-  }))
+  const slots = evenlyDistributed(input.candidates, count)
   const signature = JSON.stringify({
     routeKey: input.routeKey,
     tier,
