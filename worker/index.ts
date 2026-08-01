@@ -16,12 +16,14 @@
 
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
+import { handleAdmin, type AdminEnv } from './admin'
 
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
-type WorkerEnv = Env & {
-  GHL_PIT?: string
-  GHL_LOCATION_ID?: string
-}
+type WorkerEnv = Env &
+  AdminEnv & {
+    GHL_PIT?: string
+    GHL_LOCATION_ID?: string
+  }
 
 type RouteMeta = {
   title: string
@@ -508,6 +510,10 @@ async function handleRequest(
     }
     return json({ ok: false, error: 'Method not allowed' }, 405)
   }
+
+  // iBamboo Admin POC control plane
+  const adminRes = await handleAdmin(request, env)
+  if (adminRes) return adminRes
 
   // API misses are JSON 404s, never the HTML shell
   if (url.pathname.startsWith('/api/')) {

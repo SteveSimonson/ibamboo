@@ -8,6 +8,7 @@ import { ProductPage } from './pages/Product'
 import { Why } from './pages/Why'
 import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
+import { Admin } from './pages/Admin'
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
       <ScrollToTop />
       <GoogleAnalytics />
       <Routes>
+        {/* Admin is full-bleed (no storefront chrome) */}
+        <Route path="admin/*" element={<Admin />} />
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />

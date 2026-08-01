@@ -32,6 +32,12 @@
       ]
     }
   ],
+  "kv_namespaces": [
+    {
+      "binding": "ADMIN_KV",
+      "id": "ee7481f766d2470895b0e97d1c2a4f82"
+    }
+  ],
   "vars": {
     "EMAIL_FROM": "hello@ibamboo.com",
     "EMAIL_FROM_NAME": "iBamboo",
@@ -40,4 +46,6 @@
   // Secrets (set via CLI, never commit):
   //   npx wrangler secret put GHL_PIT
   //   npx wrangler secret put GHL_LOCATION_ID
+  //   npx wrangler secret put ADMIN_PASSWORD
+  //   npx wrangler secret put ADMIN_SESSION_SECRET   (optional; falls back to ADMIN_PASSWORD)
 }
