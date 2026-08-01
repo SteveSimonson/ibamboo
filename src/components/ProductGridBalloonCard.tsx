@@ -24,6 +24,7 @@ export function ProductGridBalloonCard({
   if (
     !slot ||
     slot.size !== 'responsive' ||
+    slot.layout !== 'product-card' ||
     !item ||
     !item.editorial_type
   ) {

@@ -1,10 +1,11 @@
 import type { ConbalSize } from '../components/ConbalBalloon'
-import type { BalloonPlan, EditorialType } from './balloonPlan'
+import type { BalloonLayout, BalloonPlan, EditorialType } from './balloonPlan'
 
 export type ContentBalloonPayload = {
   css?: string
   editorial_type?: EditorialType
   html: string
+  layout?: BalloonLayout
   size?: ConbalSize
   slug?: string
 }
@@ -28,6 +29,7 @@ export function validatedContentBalloonDeck(
       !item.slug ||
       knownSlugs.has(item.slug) ||
       !item.editorial_type ||
+      (item.layout !== undefined && item.layout !== (slot.layout || 'inline')) ||
       !slot.editorialTypes.includes(item.editorial_type)
     ) return []
     knownSlugs.add(item.slug)

@@ -60,10 +60,10 @@ export function Home() {
         itemCount: featured.length + newArrivals.length + weekLeaders.length,
         mediaBlocks: 3,
         candidates: [
-          ...(weeklyBalloonEligible ? [{ anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact among this week’s products', size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
-          ...(featuredBalloonEligible ? [{ anchor: 'home-after-featured', ariaLabel: 'Bamboo fact among featured products', size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
-          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: viewportTier === 'compact' ? 'responsive' : '300x250', topics: ['craft-history', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
-          ...(arrivalsBalloonEligible ? [{ anchor: 'home-after-arrivals', ariaLabel: 'Bamboo fact among new arrivals', size: 'responsive' as const, minHeight: 120, topics: ['care', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          ...(weeklyBalloonEligible ? [{ anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact among this week’s products', layout: 'product-card' as const, size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          ...(featuredBalloonEligible ? [{ anchor: 'home-after-featured', ariaLabel: 'Bamboo fact among featured products', layout: 'product-card' as const, size: 'responsive' as const, minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', layout: 'panel' as const, size: 'responsive' as const, minHeight: 112, topics: ['craft-history', 'home'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
+          ...(arrivalsBalloonEligible ? [{ anchor: 'home-after-arrivals', ariaLabel: 'Bamboo fact among new arrivals', layout: 'product-card' as const, size: 'responsive' as const, minHeight: 120, topics: ['care', 'home'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
         ],
       }),
     [arrivalsBalloonEligible, featured.length, featuredBalloonEligible, newArrivals.length, viewportTier, weekLeaders.length, weeklyBalloonEligible],
@@ -224,7 +224,7 @@ export function Home() {
       </section>
 
       <section className="border-y border-line bg-card">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 grid md:grid-cols-[1fr_300px] items-center gap-10 md:gap-14">
+        <div className={`mx-auto max-w-5xl px-4 py-16 sm:px-6 ${balloonDeck['home-culture'] ? 'grid items-center gap-10 md:grid-cols-[1fr_minmax(20rem,24rem)] md:gap-14' : ''}`}>
           <div>
             <p className="label-micro mb-3">Beyond the product</p>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight">
@@ -241,9 +241,9 @@ export function Home() {
               Why bamboo <ArrowRight className="size-4" />
             </Link>
           </div>
-          <div className="-mx-4 sm:mx-0">
+          {balloonDeck['home-culture'] ? <div className="-mx-4 sm:mx-0">
             <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="home-culture" />
-          </div>
+          </div> : null}
         </div>
       </section>
 

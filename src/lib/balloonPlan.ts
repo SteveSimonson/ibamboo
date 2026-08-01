@@ -48,10 +48,19 @@ export type BalloonSlot = {
   anchor: string
   ariaLabel: string
   editorialTypes: readonly EditorialType[]
+  layout?: BalloonLayout
   minHeight?: number
   size: ConbalSize
   topics: string[]
 }
+
+export type BalloonLayout =
+  | 'inline'
+  | 'panel'
+  | 'product-card'
+  | 'banner'
+  | 'rail'
+  | 'fixed'
 
 export type TieredCreative = {
   compact: ConbalSize
@@ -106,6 +115,7 @@ export function withTieredSize(slot: BalloonSlot, tier: ViewportTier, creative?:
  */
 export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
   const tier = input.tier || 'compact'
+  const compatibleCandidates = input.candidates.filter(isLayoutCompatible)
   const density =
     (input.narrativeSections || 0) * 2 +
     (input.featureGroups || 0) +
@@ -116,13 +126,14 @@ export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
     MIN_BALLOONS,
     Math.min(MAX_BALLOONS_BY_TIER[tier], 2 + Math.floor(density / 3)),
   )
-  const count = Math.min(requested, input.candidates.length)
-  const slots = evenlyDistributed(input.candidates, count)
+  const count = Math.min(requested, compatibleCandidates.length)
+  const slots = evenlyDistributed(compatibleCandidates, count)
   const signature = JSON.stringify({
     routeKey: input.routeKey,
     tier,
-    slots: slots.map(({ anchor, size, topics, editorialTypes }) => ({
+    slots: slots.map(({ anchor, layout = 'inline', size, topics, editorialTypes }) => ({
       anchor,
+      layout,
       size,
       topics,
       editorialTypes,
@@ -130,6 +141,21 @@ export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
   })
 
   return { routeKey: input.routeKey, signature, slots }
+}
+
+/** Fluid host layouts fail closed instead of centering a fixed ad-size canvas. */
+export function isLayoutCompatible(slot: BalloonSlot) {
+  const layout = slot.layout || 'inline'
+  if (['inline', 'panel', 'product-card'].includes(layout)) {
+    return slot.size === 'responsive'
+  }
+  if (layout === 'banner') {
+    return ['responsive', '728x90', '320x100'].includes(slot.size)
+  }
+  if (layout === 'rail') {
+    return ['responsive', '160x600'].includes(slot.size)
+  }
+  return true
 }
 
 function evenlyDistributed<T>(items: T[], count: number): T[] {

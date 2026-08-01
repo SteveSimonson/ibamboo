@@ -21,17 +21,16 @@ import {
   youMayAlsoLike,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
+import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
 import {
   CARE_EDITORIAL_TYPES,
-  DESIGN_EDITORIAL_TYPES,
   FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
-  sizeForTier,
 } from '../lib/balloonPlan'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
@@ -69,7 +68,6 @@ export function ProductPage() {
   const hasRelatedProducts = product
     ? similarProducts(product, 4).length > 0 || youMayAlsoLike(product, 4).length > 0
     : false
-
   // SL1000: the main viewer renders up to ~686px CSS (retina headroom); thumb
   // clicks load the same URL into the viewer, so the strip shares the size.
   const mainChain = product ? productImageChain(product, 1000) : []
@@ -115,11 +113,10 @@ export function ProductPage() {
         itemCount: product ? 8 : 0,
         mediaBlocks: product?.featureVideo ? 1 : 0,
         candidates: [
-          { anchor: 'product-after-trust', ariaLabel: 'Bamboo product fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
-          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) }] : []),
-          { anchor: 'product-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'sustainability'], editorialTypes: FACT_EDITORIAL_TYPES },
+          { anchor: 'product-buy-note', ariaLabel: 'Bamboo product fact', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
+          { anchor: 'product-details-note', ariaLabel: 'Bamboo care tip', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+          { anchor: 'product-field-note', ariaLabel: 'Bamboo material note', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+          ...(hasRelatedProducts ? [{ anchor: 'product-related-card', ariaLabel: 'Bamboo fact among related products', layout: 'product-card' as const, size: 'responsive' as const, minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
         ],
       }),
     [hasRelatedProducts, product, slug, viewportTier],
@@ -412,12 +409,13 @@ export function ProductPage() {
             <p className="text-[10px] text-muted">
               *Prime eligibility depends on the seller listing on Amazon.
             </p>
+            {balloonDeck['product-buy-note'] ? (
+              <div className="rounded-2xl border border-line bg-card p-4 shadow-[0_12px_35px_-28px_rgba(18,26,18,0.35)]">
+                <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-buy-note" />
+              </div>
+            ) : null}
           </div>
         </div>
-
-        <section className="-mx-4 mt-12 border-y border-line bg-paper-2 py-8 sm:mx-0">
-          <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-after-trust" />
-        </section>
 
         {/* Specs */}
         <section className="mt-16 grid lg:grid-cols-12 gap-10">
@@ -475,15 +473,25 @@ export function ProductPage() {
                 Continue to Amazon <ExternalLink className="size-4" />
               </a>
             </div>
+            {balloonDeck['product-details-note'] ? (
+              <div className="mt-5 rounded-2xl border border-line bg-card p-4">
+                <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-details-note" />
+              </div>
+            ) : null}
           </div>
         </section>
-
-        <section className="mt-12 border-y border-line bg-paper py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-after-details" /></section>
 
         {/* Destination content: review snapshot, field notes, tips, FAQ */}
         {enrichment ? (
           <div className="mt-4">
-            <ProductEnrichmentSections enrichment={enrichment} />
+            <ProductEnrichmentSections
+              enrichment={enrichment}
+              editorialNote={
+                balloonDeck['product-field-note'] ? (
+                  <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-field-note" />
+                ) : null
+              }
+            />
             <div className="mt-10 flex justify-center">
               <a
                 href={shopUrl}
@@ -496,9 +504,11 @@ export function ProductPage() {
               </a>
             </div>
           </div>
+        ) : balloonDeck['product-field-note'] ? (
+          <section className="mt-12 rounded-3xl border border-line bg-card p-5 sm:p-7">
+            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-field-note" />
+          </section>
         ) : null}
-
-        <section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-before-similar" /></section>
 
         {/* Similar */}
         {similar.length > 0 && (
@@ -518,21 +528,28 @@ export function ProductPage() {
               </Link>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {similar.map((p) => (
+              {similar.flatMap((related, index) => [
                 <ProductCard
-                  key={p.id}
-                  product={p}
+                  key={related.id}
+                  product={related}
                   compact
                   listName="product_similar"
-                />
-              ))}
+                />,
+                index === Math.min(1, similar.length - 1) && balloonDeck['product-related-card'] ? (
+                  <ProductGridBalloonCard
+                    key={`${related.id}-product-related-card`}
+                    plan={balloonPlan}
+                    deck={balloonDeck}
+                    anchor="product-related-card"
+                  />
+                ) : null,
+              ])}
             </div>
           </section>
         )}
 
         {/* You may also like */}
         {alsoLike.length > 0 && (
-          <><section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-between-grids" /></section>
           <section className="mt-20 pt-16 border-t border-line">
             <div className="mb-8">
               <p className="label-micro mb-1">Complete the house</p>
@@ -541,20 +558,27 @@ export function ProductPage() {
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {alsoLike.map((p) => (
+              {alsoLike.flatMap((related, index) => [
                 <ProductCard
-                  key={p.id}
-                  product={p}
+                  key={related.id}
+                  product={related}
                   compact
                   listName="product_also_like"
-                />
-              ))}
+                />,
+                similar.length === 0 &&
+                index === Math.min(1, alsoLike.length - 1) &&
+                balloonDeck['product-related-card'] ? (
+                  <ProductGridBalloonCard
+                    key={`${related.id}-product-related-card`}
+                    plan={balloonPlan}
+                    deck={balloonDeck}
+                    anchor="product-related-card"
+                  />
+                ) : null,
+              ])}
             </div>
           </section>
-          </>
         )}
-
-        <section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-end" /></section>
       </div>
     </div>
   )

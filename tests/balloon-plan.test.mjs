@@ -6,6 +6,7 @@ import {
   FACT_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
+  isLayoutCompatible,
   sizeForTier,
 } from '../src/lib/balloonPlan.ts'
 
@@ -39,6 +40,29 @@ test('compact slots share the factual pool while larger tiers keep specializatio
   assert.equal(editorialTypesForTier('compact', DESIGN_EDITORIAL_TYPES), FACT_EDITORIAL_TYPES)
   assert.equal(editorialTypesForTier('tablet', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
   assert.equal(editorialTypesForTier('desktop', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
+})
+
+test('container-native layouts fail closed when paired with fixed-size creative', () => {
+  const compatible = (layout, size) => isLayoutCompatible({
+    anchor: 'test', ariaLabel: 'Test', editorialTypes: ['fun_fact'], layout, size, topics: ['general'],
+  })
+  assert.equal(compatible('inline', 'responsive'), true)
+  assert.equal(compatible('panel', '336x280'), false)
+  assert.equal(compatible('product-card', '300x250'), false)
+  assert.equal(compatible('banner', '728x90'), true)
+  assert.equal(compatible('fixed', '336x280'), true)
+
+  const plan = deriveBalloonPlan({
+    routeKey: 'layout-safe',
+    candidates: [
+      { anchor: 'bad', ariaLabel: 'Bad', editorialTypes: ['fun_fact'], layout: 'panel', size: '336x280', topics: ['general'] },
+      { anchor: 'good', ariaLabel: 'Good', editorialTypes: ['fun_fact'], layout: 'panel', size: 'responsive', topics: ['general'] },
+      { anchor: 'opt-in', ariaLabel: 'Opt in', editorialTypes: ['fun_fact'], layout: 'fixed', size: '336x280', topics: ['general'] },
+    ],
+  })
+
+  assert.deepEqual(plan.slots.map((slot) => slot.anchor), ['good', 'opt-in'])
+  assert.match(plan.signature, /\"layout\":\"panel\"/)
 })
 
 test('page-density planning remains bounded by viewport and unique anchors', () => {

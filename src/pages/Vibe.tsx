@@ -23,14 +23,10 @@ import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
 import {
-  CARE_EDITORIAL_TYPES,
-  CRAFT_EDITORIAL_TYPES,
   DESIGN_EDITORIAL_TYPES,
-  FACT_EDITORIAL_TYPES,
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
-  sizeForTier,
 } from '../lib/balloonPlan'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
@@ -68,12 +64,9 @@ export function VibePage() {
       tier: viewportTier,
       narrativeSections: 6, featureGroups: 5, itemCount: picks.length, mediaBlocks: 2,
       candidates: [
-        { anchor: 'vibe-profile', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: ['vibe', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280', wide: '160x600' }), minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-        { anchor: 'vibe-rooms', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['vibe', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
-        { anchor: 'vibe-products', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', desktop: '320x100' }), minHeight: 112, topics: ['vibe', 'craft-history'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
+        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', layout: 'panel', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', layout: 'inline', size: 'responsive', minHeight: 112, topics: ['vibe', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', layout: 'panel', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
       ],
     }), [picks.length, vibeId, viewportTier],
   )
@@ -144,8 +137,6 @@ export function VibePage() {
           </p>
         </div>
       </section>
-
-      <section className="border-b border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-profile" /></div></section>
 
       {/* Avatar + trading card strip */}
       <section className="border-b border-line bg-paper">
@@ -246,7 +237,7 @@ export function VibePage() {
       </section>
 
       <section className="border-b border-line bg-card">
-        <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1fr_300px] md:gap-14">
+        <div className={`mx-auto max-w-5xl items-center gap-10 px-4 py-14 sm:px-6 ${balloonDeck['vibe-plant-energy'] ? 'grid md:grid-cols-[1fr_minmax(19rem,24rem)] md:gap-14' : ''}`}>
           <div>
             <p className="label-micro mb-3">Plant energy</p>
             <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
@@ -257,9 +248,9 @@ export function VibePage() {
               behind the collection.
             </p>
           </div>
-          <div className="-mx-4 sm:mx-0">
+          {balloonDeck['vibe-plant-energy'] ? <div className="-mx-4 sm:mx-0">
             <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-plant-energy" />
-          </div>
+          </div> : null}
         </div>
       </section>
 
@@ -299,7 +290,7 @@ export function VibePage() {
                   </li>
                 ))}
               </ol>
-              <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-day" /></div>
+              {balloonDeck['vibe-day'] ? <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-day" /></div> : null}
             </div>
 
             <div>
@@ -449,8 +440,6 @@ export function VibePage() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-paper"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-rooms" /></div></section>
-
       {/* Rooms */}
       <section className="border-y border-line bg-paper-2/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
@@ -510,7 +499,6 @@ export function VibePage() {
               />
             ))}
           </div>
-          <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="vibe-products" /></div>
         </section>
       )}
 
