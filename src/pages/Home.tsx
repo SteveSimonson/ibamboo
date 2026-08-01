@@ -14,13 +14,15 @@ import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import { deriveBalloonPlan, sizeForTier } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
 
 export function Home() {
   const flash = useFlashCatalog('ibamboo')
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const pool = flash.products
   const limited = limitedTimeCopy(pool)
   const weekLeaders = bsrLeaders(8, pool)
@@ -42,24 +44,25 @@ export function Home() {
     () =>
       deriveBalloonPlan({
         routeKey: 'home',
+        tier: viewportTier,
         narrativeSections: 7,
         featureGroups: 5,
         itemCount: featured.length + newArrivals.length + weekLeaders.length,
         mediaBlocks: 3,
         candidates: [
-          { anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: ['did_you_know', 'fun_fact'] },
-          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 120, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
-          { anchor: 'home-after-featured', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: ['did_you_know', 'fun_fact'] },
-          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: '300x250', topics: ['craft-history', 'home'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'home-after-weekly', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'home'], editorialTypes: ['did_you_know', 'fun_fact'] },
+          { anchor: 'home-after-categories', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+          { anchor: 'home-after-featured', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['bamboo-basics', 'kitchen'], editorialTypes: ['did_you_know', 'fun_fact'] },
+          { anchor: 'home-culture', ariaLabel: 'Bamboo craft note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), topics: ['craft-history', 'home'], editorialTypes: ['did_you_know', 'design_note'] },
           { anchor: 'home-after-story', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['bamboo-basics', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
-          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 120, topics: ['care', 'home'], editorialTypes: ['care_tip', 'fun_fact'] },
-          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 120, topics: ['home', 'design'], editorialTypes: ['did_you_know', 'design_note'] },
-          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: ['fun_fact', 'material_myth'] },
+          { anchor: 'home-after-arrivals', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '320x100' }), minHeight: 120, topics: ['care', 'home'], editorialTypes: ['care_tip', 'fun_fact'] },
+          { anchor: 'home-after-rooms', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 120, topics: ['home', 'design'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'home-before-lifestyle', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 120, topics: ['lifestyle', 'bamboo-basics'], editorialTypes: ['fun_fact', 'material_myth'] },
         ],
       }),
-    [featured.length, newArrivals.length, weekLeaders.length],
+    [featured.length, newArrivals.length, viewportTier, weekLeaders.length],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
 
   return (
     <>

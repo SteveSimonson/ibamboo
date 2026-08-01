@@ -3,22 +3,24 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import { deriveBalloonPlan, sizeForTier } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { whySeo } from '../lib/seoData'
 
 export function Why() {
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const balloonPlan = useMemo(
     () => deriveBalloonPlan({
-      routeKey: 'why', narrativeSections: 4, featureGroups: 2, mediaBlocks: 2,
+      routeKey: 'why', tier: viewportTier, narrativeSections: 4, featureGroups: 2, mediaBlocks: 2,
       candidates: [
-        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
-        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
-        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: 'responsive', minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: ['did_you_know', 'fun_fact'] },
+        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: ['design', 'home'], editorialTypes: ['design_note', 'fun_fact'] },
+        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: ['did_you_know', 'fun_fact'] },
       ],
-    }), [],
+    }), [viewportTier],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady, viewportTier)
   return (
     <div>
       <Seo {...whySeo()} />

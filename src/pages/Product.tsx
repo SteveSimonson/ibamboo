@@ -23,7 +23,8 @@ import {
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import { deriveBalloonPlan, sizeForTier } from '../lib/balloonPlan'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { affiliateUrl } from '../lib/amazon'
@@ -35,6 +36,7 @@ import { useFlashCatalog } from '../hooks/useFlashCatalog'
 export function ProductPage() {
   const { slug } = useParams()
   const flash = useFlashCatalog('ibamboo')
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const product = useMemo(
     () => (slug ? getProduct(slug, flash.products) : undefined),
     [slug, flash.products],
@@ -93,21 +95,22 @@ export function ProductPage() {
     () =>
       deriveBalloonPlan({
         routeKey: `product:${slug || 'unknown'}`,
+        tier: viewportTier,
         narrativeSections: product ? 3 : 0,
         featureGroups: product ? 2 : 0,
         itemCount: product ? 8 : 0,
         mediaBlocks: product?.featureVideo ? 1 : 0,
         candidates: [
-          { anchor: 'product-after-trust', ariaLabel: 'Bamboo product fact', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: ['did_you_know', 'design_note'] },
-          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: ['care_tip', 'material_myth'] },
-          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: ['fun_fact', 'did_you_know'] },
-          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: 'responsive' as const, minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: ['design_note', 'fun_fact'] as const }] : []),
-          { anchor: 'product-end', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+          { anchor: 'product-after-trust', ariaLabel: 'Bamboo product fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: ['did_you_know', 'design_note'] },
+          { anchor: 'product-after-details', ariaLabel: 'Bamboo care tip', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: ['care_tip', 'material_myth'] },
+          { anchor: 'product-before-similar', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: ['fun_fact', 'did_you_know'] },
+          ...(hasRelatedProducts ? [{ anchor: 'product-between-grids', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250' }), minHeight: 112, topics: [product?.category || 'home', 'design'], editorialTypes: ['design_note', 'fun_fact'] as const }] : []),
+          { anchor: 'product-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '336x280' }), minHeight: 112, topics: [product?.category || 'home', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
         ],
       }),
-    [hasRelatedProducts, product, slug],
+    [hasRelatedProducts, product, slug, viewportTier],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
 
   if (!product) {
     if (flash.loading) {

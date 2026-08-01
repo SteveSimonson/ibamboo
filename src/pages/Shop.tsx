@@ -17,7 +17,8 @@ import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan, hasBalloonAnchor } from '../lib/balloonPlan'
+import { useViewportTier } from '../hooks/useViewportTier'
+import { deriveBalloonPlan, hasBalloonAnchor, sizeForTier } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
@@ -46,6 +47,7 @@ function shopGridInsertions(itemCount: number) {
 export function Shop() {
   const [params, setParams] = useSearchParams()
   const flash = useFlashCatalog('ibamboo')
+  const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const pool = flash.products
 
   // Legacy ?collection= → room category (P0: single browse spine)
@@ -100,19 +102,31 @@ export function Shop() {
     () =>
       deriveBalloonPlan({
         routeKey: `shop:${cat || 'all'}:${limited ? 'limited' : 'standard'}:${filtered.length}`,
+        tier: viewportTier,
         narrativeSections: showCategoryHero ? 2 : 1,
         featureGroups: cat ? 2 : 1,
         itemCount: filtered.length,
         candidates: [
-          { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['did_you_know', 'care_tip'] },
-          ...gridInsertions.map(item => ({ anchor: item.anchor, ariaLabel: 'Bamboo note', size: 'responsive' as const, minHeight: 112, topics: [cat || 'home', item.topic], editorialTypes: ['did_you_know' as const] })),
-          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['design_note', 'care_tip'] },
-          { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
+          { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['did_you_know', 'care_tip'] },
+          ...gridInsertions.map((item, index) => ({
+            anchor: item.anchor,
+            ariaLabel: 'Bamboo note',
+            size: sizeForTier(viewportTier, {
+              compact: 'responsive',
+              tablet: index % 2 === 0 ? '300x250' : '320x100',
+              desktop: (['300x250', '336x280', '320x100', '300x250'] as const)[index],
+            }),
+            minHeight: 112,
+            topics: [cat || 'home', item.topic],
+            editorialTypes: ['did_you_know' as const],
+          })),
+          { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['design_note', 'care_tip'] },
+          { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
         ],
       }),
-    [cat, filtered.length, gridInsertions, limited, showCategoryHero],
+    [cat, filtered.length, gridInsertions, limited, showCategoryHero, viewportTier],
   )
-  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
+  const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
 
   function updateParams(patch: Record<string, string | null>) {
     const next = new URLSearchParams(params)

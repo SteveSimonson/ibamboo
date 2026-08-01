@@ -19,6 +19,14 @@ function slotStyle(slot: BalloonSlot): CSSProperties {
   return { height, marginInline: 'auto', maxWidth: '100%', overflow: 'hidden', width }
 }
 
+function sizeFamily(size: BalloonSlot['size']) {
+  if (size === 'responsive') return 'fluid'
+  if (size === '728x90') return 'banner'
+  if (size === '160x600') return 'rail'
+  if (size === '320x100') return 'strip'
+  return 'card'
+}
+
 type AdaptiveContentBalloonProps = {
   anchor: string
   className?: string
@@ -38,13 +46,16 @@ export function AdaptiveContentBalloon({
   )
   const item = deck[anchor]
   if (!slot || !item || !item.editorial_type) return null
+  const family = sizeFamily(slot.size)
 
   return (
     <aside
       aria-label="Bamboo note"
-      className={`content-balloon ${className}`.trim()}
+      className={`content-balloon content-balloon--${family} ${className}`.trim()}
       data-content-balloon={item.slug}
       data-editorial-type={item.editorial_type}
+      data-size={slot.size}
+      data-size-family={family}
     >
       <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-bamboo">
         {LABELS[item.editorial_type]}

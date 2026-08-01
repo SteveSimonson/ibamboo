@@ -77,6 +77,28 @@
   }
 }
 
+@layer components {
+  .content-balloon {
+    animation: ibamboo-fade-up 0.45s ease-out both;
+  }
+  .content-balloon--banner {
+    margin-inline: auto;
+    width: min(100%, 728px);
+  }
+  .content-balloon--card {
+    margin-inline: auto;
+    width: min(100%, 336px);
+  }
+  .content-balloon--strip {
+    margin-inline: auto;
+    width: min(100%, 320px);
+  }
+  .content-balloon--rail {
+    margin-inline: auto;
+    width: min(100%, 160px);
+  }
+}
+
 @keyframes ibamboo-fade-up {
   from {
     opacity: 0;

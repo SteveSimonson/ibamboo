@@ -9,6 +9,7 @@
     "indexnow": "node scripts/indexnow.mjs",
     "build": "npm run sitemap && tsc -b && vite build",
     "lint": "oxlint src",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "preview": "vite preview",
     "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
