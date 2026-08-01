@@ -95,6 +95,7 @@ export function Shop() {
           ...gridInsertions.map((item) => ({
             anchor: item.anchor,
             ariaLabel: 'Bamboo fact among products',
+            layout: 'product-card' as const,
             size: 'responsive' as const,
             minHeight: 112,
             topics: [cat || 'home', item.topic],
@@ -104,9 +105,10 @@ export function Shop() {
             { anchor: 'shop-top', topic: 'product-research' },
             { anchor: 'shop-after-grid', topic: 'bamboo-basics' },
             { anchor: 'shop-end', topic: 'lifestyle' },
-          ].slice(0, Math.max(0, 3 - gridInsertions.length)).map((item) => ({
+          ].slice(0, filtered.length === 0 ? 0 : Math.min(filtered.length < 4 ? 1 : 2, Math.max(0, 3 - gridInsertions.length))).map((item) => ({
             anchor: item.anchor,
             ariaLabel: 'Bamboo shopping fact',
+            layout: 'inline' as const,
             size: 'responsive' as const,
             minHeight: 112,
             topics: [cat || 'home', item.topic],

@@ -54,13 +54,13 @@ export function useAdaptiveContentBalloons(
   const historyKey = contentBalloonHistoryKey(siteKey)
 
   useEffect(() => {
-    if (!enabled) { setDeck({}); return }
+    if (!enabled || plan.slots.length === 0) { setDeck({}); return }
     const controller = new AbortController()
     setDeck({})
     const previous = priorDeck(historyKey)
     const params = new URLSearchParams({
       nonce: nonceRef.current,
-      slots: JSON.stringify(plan.slots.map((slot) => ({ id: slot.anchor, size: slot.size, topics: slot.topics, editorial_types: slot.editorialTypes }))),
+      slots: JSON.stringify(plan.slots.map((slot) => ({ id: slot.anchor, layout: slot.layout || 'inline', size: slot.size, topics: slot.topics, editorial_types: slot.editorialTypes }))),
     })
     if (previous.length) params.set('exclude_slugs', previous.join(','))
     async function load() {

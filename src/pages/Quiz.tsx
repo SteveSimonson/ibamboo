@@ -145,9 +145,9 @@ export function Quiz() {
     () => deriveBalloonPlan({
       routeKey: 'quiz', tier: viewportTier, narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
       candidates: [
-        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact before the quiz', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-midpoint', ariaLabel: 'Bamboo fact during the quiz', size: 'responsive', minHeight: 108, topics: ['quiz', 'home', 'material'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-picks', ariaLabel: 'Bamboo field note among your picks', size: 'responsive', minHeight: 108, topics: ['quiz', 'care', 'design'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact before the quiz', layout: 'panel', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-midpoint', ariaLabel: 'Bamboo fact during the quiz', layout: 'panel', size: 'responsive', minHeight: 108, topics: ['quiz', 'home', 'material'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo field note among your picks', layout: 'product-card', size: 'responsive', minHeight: 108, topics: ['quiz', 'care', 'design'], editorialTypes: FACT_EDITORIAL_TYPES },
       ],
     }), [viewportTier],
   )

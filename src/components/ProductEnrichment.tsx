@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { ChevronDown, Leaf, ThumbsDown, ThumbsUp, Wrench } from 'lucide-react'
 import type { ProductEnrichment } from '../data/types'
 
@@ -67,8 +67,10 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export function ProductEnrichmentSections({
+  editorialNote,
   enrichment,
 }: {
+  editorialNote?: ReactNode
   enrichment: ProductEnrichment
 }) {
   const { reviewSnapshot: r, blog, faq, setupTips, researchNotes } = enrichment
@@ -144,6 +146,15 @@ export function ProductEnrichmentSections({
           </div>
         </div>
       </section>
+
+      {editorialNote ? (
+        <section
+          aria-label="Bamboo field note"
+          className="rounded-3xl border border-line bg-card p-5 shadow-[0_18px_50px_-38px_rgba(18,26,18,0.4)] sm:p-7"
+        >
+          {editorialNote}
+        </section>
+      ) : null}
 
       <section aria-labelledby="item-blog-heading">
         <div className="mb-6">

@@ -47,13 +47,15 @@ export function AdaptiveContentBalloon({
   const item = deck[anchor]
   if (!slot || !item || !item.editorial_type) return null
   const family = sizeFamily(slot.size)
+  const layout = slot.layout || 'inline'
 
   return (
     <aside
       aria-label={slot.ariaLabel}
-      className={`content-balloon content-balloon--${family} ${className}`.trim()}
+      className={`content-balloon content-balloon--${family} content-balloon--layout-${layout} ${className}`.trim()}
       data-content-balloon={item.slug}
       data-editorial-type={item.editorial_type}
+      data-layout={layout}
       data-size={slot.size}
       data-size-family={family}
     >

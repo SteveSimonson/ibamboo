@@ -10,7 +10,6 @@ import {
   MATERIAL_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
-  sizeForTier,
 } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { whySeo } from '../lib/seoData'
@@ -21,9 +20,9 @@ export function Why() {
     () => deriveBalloonPlan({
       routeKey: 'why', tier: viewportTier, narrativeSections: 4, featureGroups: 2, mediaBlocks: 2,
       candidates: [
-        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100', desktop: '728x90' }), minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-        { anchor: 'why-material', ariaLabel: 'Bamboo design note', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '300x250', desktop: '336x280' }), minHeight: 112, topics: ['design', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', size: sizeForTier(viewportTier, { compact: 'responsive', tablet: '320x100' }), minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
+        { anchor: 'why-intro', ariaLabel: 'Bamboo fact', layout: 'inline', size: 'responsive', minHeight: 112, topics: ['bamboo-basics', 'sustainability'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'why-material', ariaLabel: 'Bamboo design note', layout: 'panel', size: 'responsive', minHeight: 112, topics: ['design', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'why-close', ariaLabel: 'Bamboo craft fact', layout: 'inline', size: 'responsive', minHeight: 112, topics: ['craft-history', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CRAFT_EDITORIAL_TYPES) },
       ],
     }), [viewportTier],
   )
@@ -55,9 +54,9 @@ export function Why() {
           already trust.
         </p>
 
-        <div className="border-y border-line py-8">
+        {balloonDeck['why-intro'] ? <div className="rounded-3xl border border-line bg-card p-5 sm:p-7">
           <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-intro" />
-        </div>
+        </div> : null}
 
         <div className="space-y-8">
           {[
@@ -77,7 +76,7 @@ export function Why() {
             <div key={x.t} className="border-t border-line pt-8">
               <h2 className="font-display text-2xl font-semibold">{x.t}</h2>
               <p className="text-ink-soft mt-2 leading-relaxed">{x.d}</p>
-              {index === 0 && <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-material" /></div>}
+              {index === 0 && balloonDeck['why-material'] ? <div className="mt-8 rounded-3xl border border-line bg-card p-5"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-material" /></div> : null}
             </div>
           ))}
         </div>
@@ -90,7 +89,7 @@ export function Why() {
           />
         </div>
 
-        <div className="border-y border-line py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-close" /></div>
+        {balloonDeck['why-close'] ? <div className="rounded-3xl border border-line bg-card p-5 sm:p-7"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="why-close" /></div> : null}
 
         <Link to="/shop" className="btn-primary">
           Shop the collection <ArrowRight className="size-4" />

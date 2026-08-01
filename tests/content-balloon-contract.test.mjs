@@ -28,9 +28,9 @@ test('response validation rejects duplicate slugs, wrong sizes, and wrong editor
     routeKey: 'validation',
     tier: 'desktop',
     candidates: [
-      { anchor: 'one', ariaLabel: 'One', editorialTypes: ['fun_fact'], size: '728x90', topics: ['general'] },
-      { anchor: 'two', ariaLabel: 'Two', editorialTypes: ['did_you_know'], size: '336x280', topics: ['general'] },
-      { anchor: 'three', ariaLabel: 'Three', editorialTypes: ['nature_note'], size: '320x100', topics: ['general'] },
+      { anchor: 'one', ariaLabel: 'One', editorialTypes: ['fun_fact'], layout: 'fixed', size: '728x90', topics: ['general'] },
+      { anchor: 'two', ariaLabel: 'Two', editorialTypes: ['did_you_know'], layout: 'fixed', size: '336x280', topics: ['general'] },
+      { anchor: 'three', ariaLabel: 'Three', editorialTypes: ['nature_note'], layout: 'fixed', size: '320x100', topics: ['general'] },
     ],
   })
   const deck = validatedContentBalloonDeck(plan, {
@@ -41,6 +41,25 @@ test('response validation rejects duplicate slugs, wrong sizes, and wrong editor
 
   assert.deepEqual(Object.keys(deck), ['one'])
   assert.deepEqual(validatedContentBalloonDeck(plan, []), {})
+})
+
+test('response validation rejects a mismatched layout while accepting legacy payloads', () => {
+  const plan = deriveBalloonPlan({
+    routeKey: 'layout-validation',
+    candidates: [
+      { anchor: 'one', ariaLabel: 'One', editorialTypes: ['fun_fact'], layout: 'panel', size: 'responsive', topics: ['general'] },
+      { anchor: 'two', ariaLabel: 'Two', editorialTypes: ['did_you_know'], layout: 'inline', size: 'responsive', topics: ['general'] },
+      { anchor: 'three', ariaLabel: 'Three', editorialTypes: ['nature_note'], layout: 'product-card', size: 'responsive', topics: ['general'] },
+    ],
+  })
+
+  const deck = validatedContentBalloonDeck(plan, {
+    one: { slug: 'wrong-layout', layout: 'inline', size: 'responsive', editorial_type: 'fun_fact', html: '<p>wrong</p>' },
+    two: { slug: 'matching-layout', layout: 'inline', size: 'responsive', editorial_type: 'did_you_know', html: '<p>ok</p>' },
+    three: { slug: 'legacy-layout', size: 'responsive', editorial_type: 'nature_note', html: '<p>legacy</p>' },
+  })
+
+  assert.deepEqual(Object.keys(deck), ['two', 'three'])
 })
 
 test('planner preserves the editorial types authored for each placement', () => {
