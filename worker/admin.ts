@@ -1,7 +1,7 @@
 /**
  * iBamboo Admin API — POC control plane at /api/admin/*
  * Auth: Google OAuth (email allowlist) + optional password fallback.
- * State: KV ADMIN_KV key "config".
+ * State: KV ADMIN_KV key "config"; audit log key "audit_log".
  */
 
 export type AdminEnv = {
@@ -99,10 +99,32 @@ export type AdminConfig = {
 const COOKIE = 'ibamboo_admin_session'
 const OAUTH_STATE_COOKIE = 'ibamboo_admin_oauth_state'
 const CONFIG_KEY = 'config'
+const AUDIT_KEY = 'audit_log'
+const AUDIT_MAX = 500
 const SESSION_MAX_AGE_SEC = 12 * 60 * 60
 const GOOGLE_AUTH = 'https://accounts.google.com/o/oauth2/v2/auth'
 const GOOGLE_TOKEN = 'https://oauth2.googleapis.com/token'
 const GOOGLE_USERINFO = 'https://openidconnect.googleapis.com/v1/userinfo'
+
+export type AuditAction =
+  | 'login'
+  | 'login_denied'
+  | 'logout'
+  | 'config_save'
+
+export type AuditEntry = {
+  id: string
+  at: string
+  action: AuditAction
+  actor: {
+    email?: string
+    name?: string
+    provider?: 'google' | 'password'
+  }
+  detail: string
+  meta?: Record<string, unknown>
+  ip?: string
+}
 
 function defaultConfig(): AdminConfig {
   const now = new Date().toISOString()
@@ -523,6 +545,76 @@ async function saveConfig(env: AdminEnv, cfg: AdminConfig): Promise<void> {
   await env.ADMIN_KV.put(CONFIG_KEY, JSON.stringify(cfg))
 }
 
+function clientIp(request: Request): string | undefined {
+  return (
+    request.headers.get('CF-Connecting-IP') ||
+    request.headers.get('X-Forwarded-For')?.split(',')[0]?.trim() ||
+    undefined
+  )
+}
+
+function newAuditId(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(8))
+  return b64urlEncode(bytes)
+}
+
+async function loadAuditLog(env: AdminEnv): Promise<AuditEntry[]> {
+  if (!env.ADMIN_KV) return []
+  const raw = await env.ADMIN_KV.get(AUDIT_KEY)
+  if (!raw) return []
+  try {
+    const parsed = JSON.parse(raw) as AuditEntry[]
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+async function appendAudit(
+  env: AdminEnv,
+  entry: Omit<AuditEntry, 'id' | 'at'> & { at?: string },
+): Promise<void> {
+  if (!env.ADMIN_KV) return
+  const full: AuditEntry = {
+    id: newAuditId(),
+    at: entry.at || new Date().toISOString(),
+    action: entry.action,
+    actor: entry.actor || {},
+    detail: entry.detail,
+    meta: entry.meta,
+    ip: entry.ip,
+  }
+  try {
+    const existing = await loadAuditLog(env)
+    const next = [full, ...existing].slice(0, AUDIT_MAX)
+    await env.ADMIN_KV.put(AUDIT_KEY, JSON.stringify(next))
+  } catch (e) {
+    console.error('audit append failed', e)
+  }
+}
+
+/** Which top-level config sections differ (for audit detail). */
+function configChangeSummary(
+  before: AdminConfig,
+  after: AdminConfig,
+): string[] {
+  const sections: (keyof AdminConfig)[] = [
+    'editorInChief',
+    'avatars',
+    'conbal',
+    'flash',
+    'library',
+    'featureFlags',
+  ]
+  const changed: string[] = []
+  for (const key of sections) {
+    if (JSON.stringify(before[key]) !== JSON.stringify(after[key])) {
+      changed.push(String(key))
+    }
+  }
+  return changed
+}
+
 export async function handleAdmin(
   request: Request,
   env: AdminEnv,
@@ -617,9 +709,21 @@ export async function handleAdmin(
       )
       const profile = await fetchGoogleUser(token)
       if (profile.email_verified !== true) {
+        await appendAudit(env, {
+          action: 'login_denied',
+          actor: { email: profile.email, name: profile.name, provider: 'google' },
+          detail: 'Google email not verified',
+          ip: clientIp(request),
+        })
         return adminErrorRedirect(origin, 'Google email is not verified')
       }
       if (!isEmailAllowed(profile.email, env)) {
+        await appendAudit(env, {
+          action: 'login_denied',
+          actor: { email: profile.email, name: profile.name, provider: 'google' },
+          detail: 'Email not on ADMIN_ALLOWED_EMAILS allowlist',
+          ip: clientIp(request),
+        })
         return adminErrorRedirect(
           origin,
           `Access denied for ${profile.email}`,
@@ -631,6 +735,16 @@ export async function handleAdmin(
         name: profile.name,
         picture: profile.picture,
       })
+      await appendAudit(env, {
+        action: 'login',
+        actor: {
+          email: profile.email,
+          name: profile.name,
+          provider: 'google',
+        },
+        detail: 'Signed in with Google',
+        ip: clientIp(request),
+      })
       const headers = new Headers({
         Location: `${origin}/admin?auth=ok`,
         'Cache-Control': 'no-store',
@@ -641,6 +755,12 @@ export async function handleAdmin(
       return new Response(null, { status: 302, headers })
     } catch (e) {
       console.error('Google OAuth callback failed', e)
+      await appendAudit(env, {
+        action: 'login_denied',
+        actor: { provider: 'google' },
+        detail: 'Google OAuth callback failed',
+        ip: clientIp(request),
+      })
       return adminErrorRedirect(origin, 'Google sign-in failed')
     }
   }
@@ -663,6 +783,12 @@ export async function handleAdmin(
       return json({ ok: false, error: 'Invalid JSON' }, 400)
     }
     if (body.password !== env.ADMIN_PASSWORD) {
+      await appendAudit(env, {
+        action: 'login_denied',
+        actor: { provider: 'password', email: 'password@local' },
+        detail: 'Invalid password',
+        ip: clientIp(request),
+      })
       return json({ ok: false, error: 'Invalid password' }, 401)
     }
     try {
@@ -670,6 +796,16 @@ export async function handleAdmin(
         provider: 'password',
         email: 'password@local',
         name: 'Password operator',
+      })
+      await appendAudit(env, {
+        action: 'login',
+        actor: {
+          provider: 'password',
+          email: 'password@local',
+          name: 'Password operator',
+        },
+        detail: 'Signed in with password',
+        ip: clientIp(request),
       })
       return json({ ok: true }, 200, { 'Set-Cookie': setCookie })
     } catch (e) {
@@ -684,6 +820,19 @@ export async function handleAdmin(
   }
 
   if (path === '/api/admin/logout' && method === 'POST') {
+    const session = await readSession(request, env)
+    if (session) {
+      await appendAudit(env, {
+        action: 'logout',
+        actor: {
+          email: session.email,
+          name: session.name,
+          provider: session.provider,
+        },
+        detail: 'Signed out',
+        ip: clientIp(request),
+      })
+    }
     return json(
       { ok: true },
       200,
@@ -716,7 +865,8 @@ export async function handleAdmin(
   }
 
   // Everything below requires auth
-  if (!(await isAuthed(request, env))) {
+  const session = await readSession(request, env)
+  if (!session) {
     return json({ ok: false, error: 'Unauthorized' }, 401)
   }
 
@@ -753,8 +903,23 @@ export async function handleAdmin(
         : current.featureFlags,
       updatedAt: new Date().toISOString(),
     }
+    const changed = configChangeSummary(current, next)
     try {
       await saveConfig(env, next)
+      await appendAudit(env, {
+        action: 'config_save',
+        actor: {
+          email: session.email,
+          name: session.name,
+          provider: session.provider,
+        },
+        detail:
+          changed.length > 0
+            ? `Saved config: ${changed.join(', ')}`
+            : 'Saved config (no section changes detected)',
+        meta: { sections: changed },
+        ip: clientIp(request),
+      })
     } catch (e) {
       return json(
         {
@@ -765,6 +930,24 @@ export async function handleAdmin(
       )
     }
     return json({ ok: true, config: next })
+  }
+
+  // Activity / audit log
+  if (path === '/api/admin/audit' && method === 'GET') {
+    const limit = Math.min(
+      200,
+      Math.max(1, Number(url.searchParams.get('limit') || 100)),
+    )
+    const entries = (await loadAuditLog(env)).slice(0, limit)
+    return json({
+      ok: true,
+      entries,
+      total: entries.length,
+      cap: AUDIT_MAX,
+      allowlistNote:
+        'Google sign-in is allowed only if the account email is listed in Worker secret ADMIN_ALLOWED_EMAILS (comma-separated, case-insensitive).',
+      allowedEmails: parseAllowedEmails(env.ADMIN_ALLOWED_EMAILS),
+    })
   }
 
   // Live flash catalog snapshot (auth-gated operator probe)

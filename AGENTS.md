@@ -43,7 +43,12 @@ npx wrangler secret put ADMIN_SESSION_SECRET  # recommended
 npx wrangler secret put ADMIN_PASSWORD
 ```
 
-API: `/api/admin/*` (see `worker/admin.ts`). OAuth start: `GET /api/admin/auth/google`. Not a public merch CMS yet.
+API: `/api/admin/*` (see `worker/admin.ts`). OAuth start: `GET /api/admin/auth/google`.  
+Activity log: `GET /api/admin/audit` (auth required) — logins, denials, logouts, config saves in KV `audit_log` (ring buffer, last 500).  
+
+**Google allowlist:** after Google returns a verified email, the Worker checks it against `ADMIN_ALLOWED_EMAILS` (comma-separated, case-insensitive). Not on the list → access denied + audit entry.  
+
+Not a public merch CMS yet.
 
 ## Git / PR workflow
 

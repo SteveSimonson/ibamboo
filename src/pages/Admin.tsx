@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   LogOut,
   MessageSquareQuote,
+  ScrollText,
   Save,
   Sparkles,
   Users,
@@ -23,6 +24,21 @@ type Tab =
   | 'conbal'
   | 'avatars'
   | 'editor'
+  | 'audit'
+
+type AuditEntry = {
+  id: string
+  at: string
+  action: 'login' | 'login_denied' | 'logout' | 'config_save'
+  actor: {
+    email?: string
+    name?: string
+    provider?: 'google' | 'password'
+  }
+  detail: string
+  meta?: Record<string, unknown>
+  ip?: string
+}
 
 type TargetingCategory = {
   id: string
@@ -100,7 +116,38 @@ const TABS: { id: Tab; label: string; icon: typeof Database }[] = [
   { id: 'conbal', label: 'Conbal', icon: MessageSquareQuote },
   { id: 'avatars', label: 'Avatars', icon: Users },
   { id: 'editor', label: 'Editor in Chief', icon: BookOpen },
+  { id: 'audit', label: 'Activity log', icon: ScrollText },
 ]
+
+function actionLabel(action: AuditEntry['action']): string {
+  switch (action) {
+    case 'login':
+      return 'Login'
+    case 'login_denied':
+      return 'Login denied'
+    case 'logout':
+      return 'Logout'
+    case 'config_save':
+      return 'Config save'
+    default:
+      return action
+  }
+}
+
+function actionClass(action: AuditEntry['action']): string {
+  switch (action) {
+    case 'login':
+      return 'text-bamboo'
+    case 'login_denied':
+      return 'text-red-300'
+    case 'logout':
+      return 'text-white/60'
+    case 'config_save':
+      return 'text-sky-300'
+    default:
+      return 'text-white/70'
+  }
+}
 
 type SessionUser = {
   provider: 'google' | 'password'
@@ -123,6 +170,12 @@ export function Admin() {
   const [flash, setFlash] = useState<Record<string, unknown> | null>(null)
   const [library, setLibrary] = useState<Record<string, unknown> | null>(null)
   const [conbal, setConbal] = useState<Record<string, unknown> | null>(null)
+  const [audit, setAudit] = useState<{
+    entries: AuditEntry[]
+    cap?: number
+    allowlistNote?: string
+    allowedEmails?: string[]
+  } | null>(null)
   const [busy, setBusy] = useState(false)
 
   const refreshSession = useCallback(async () => {
@@ -252,11 +305,38 @@ export function Admin() {
     }
   }
 
+  async function loadAudit() {
+    setBusy(true)
+    try {
+      const res = await api<{
+        entries: AuditEntry[]
+        cap?: number
+        allowlistNote?: string
+        allowedEmails?: string[]
+      }>('/api/admin/audit?limit=150')
+      setAudit({
+        entries: res.entries || [],
+        cap: res.cap,
+        allowlistNote: res.allowlistNote,
+        allowedEmails: res.allowedEmails,
+      })
+    } catch (err) {
+      setAudit({
+        entries: [],
+        allowlistNote:
+          err instanceof Error ? err.message : 'Failed to load activity log',
+      })
+    } finally {
+      setBusy(false)
+    }
+  }
+
   useEffect(() => {
     if (!authed) return
     if (tab === 'flash' && !flash) void loadFlash()
     if (tab === 'library' && !library) void loadLibrary()
     if (tab === 'conbal' && !conbal) void loadConbal()
+    if (tab === 'audit') void loadAudit()
   }, [tab, authed]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (authed === null) {
@@ -1127,6 +1207,112 @@ export function Admin() {
               >
                 + Add category
               </button>
+            </section>
+          )}
+
+          {tab === 'audit' && (
+            <section className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h1 className="font-display text-2xl font-semibold">
+                  Activity log
+                </h1>
+                <button
+                  type="button"
+                  onClick={() => void loadAudit()}
+                  className="text-sm rounded-full border border-white/20 px-3 py-1.5"
+                >
+                  Refresh
+                </button>
+              </div>
+              <p className="text-sm text-white/65">
+                Logins, denied attempts, logouts, and config saves. Stored in
+                admin KV (last {audit?.cap ?? 500} events).
+              </p>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-2 text-sm">
+                <p className="text-xs uppercase tracking-wider text-white/45">
+                  Who can sign in with Google?
+                </p>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {audit?.allowlistNote ||
+                    'Emails listed in Worker secret ADMIN_ALLOWED_EMAILS.'}
+                </p>
+                {audit?.allowedEmails && audit.allowedEmails.length > 0 ? (
+                  <ul className="text-xs font-mono text-bamboo space-y-0.5">
+                    {audit.allowedEmails.map((e) => (
+                      <li key={e}>{e}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-amber-200/80">
+                    No allowlisted emails configured.
+                  </p>
+                )}
+              </div>
+
+              {audit ? (
+                audit.entries.length === 0 ? (
+                  <p className="text-sm text-white/50">
+                    No events yet — log in or save config to start the log.
+                  </p>
+                ) : (
+                  <div className="rounded-xl border border-white/10 overflow-hidden">
+                    <div className="max-h-[28rem] overflow-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead className="sticky top-0 bg-[#0f1412] text-white/45 border-b border-white/10">
+                          <tr>
+                            <th className="py-2 px-3 font-medium">When</th>
+                            <th className="py-2 px-3 font-medium">Action</th>
+                            <th className="py-2 px-3 font-medium">User</th>
+                            <th className="py-2 px-3 font-medium">Detail</th>
+                            <th className="py-2 px-3 font-medium">IP</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {audit.entries.map((row) => (
+                            <tr
+                              key={row.id}
+                              className="border-t border-white/10 align-top"
+                            >
+                              <td className="py-2 px-3 whitespace-nowrap text-white/50">
+                                {new Date(row.at).toLocaleString()}
+                              </td>
+                              <td
+                                className={`py-2 px-3 font-medium whitespace-nowrap ${actionClass(row.action)}`}
+                              >
+                                {actionLabel(row.action)}
+                              </td>
+                              <td className="py-2 px-3">
+                                <div className="text-white/85">
+                                  {row.actor.name || row.actor.email || '—'}
+                                </div>
+                                {row.actor.email && row.actor.name ? (
+                                  <div className="text-white/40 font-mono">
+                                    {row.actor.email}
+                                  </div>
+                                ) : null}
+                                {row.actor.provider ? (
+                                  <div className="text-white/35">
+                                    via {row.actor.provider}
+                                  </div>
+                                ) : null}
+                              </td>
+                              <td className="py-2 px-3 text-white/70">
+                                {row.detail}
+                              </td>
+                              <td className="py-2 px-3 font-mono text-white/40">
+                                {row.ip || '—'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )
+              ) : (
+                <p className="text-sm text-white/50">Loading activity log…</p>
+              )}
             </section>
           )}
         </main>
