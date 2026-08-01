@@ -492,9 +492,9 @@ function Intro({
           Find the bamboo rhythm that feels like home.
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-paper/75 sm:text-lg">
-          Six quick choices turn into a named house persona and five useful
-          picks. There are no wrong answers—just a sharper edit for the way
-          you actually live.
+          Five quick choices turn into a named house persona and five useful
+          picks, with a tailored tie-breaker only when it helps. There are no
+          wrong answers—just a sharper edit for the way you actually live.
         </p>
         <button
           type="button"
