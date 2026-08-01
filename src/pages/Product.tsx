@@ -40,6 +40,8 @@ import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
 import { productSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
+import { getProductEnrichment } from '../data/productEnrichments'
+import { ProductEnrichmentSections } from '../components/ProductEnrichment'
 
 export function ProductPage() {
   const { slug } = useParams()
@@ -48,6 +50,10 @@ export function ProductPage() {
   const product = useMemo(
     () => (slug ? getProduct(slug, flash.products) : undefined),
     [slug, flash.products],
+  )
+  const enrichment = useMemo(
+    () => (product ? getProductEnrichment(product.slug) : undefined),
+    [product],
   )
   /** Main viewer walks full fallback chain; thumbs only use known-good listing photos */
   const [mainSrc, setMainSrc] = useState<string>('')
@@ -175,7 +181,7 @@ export function ProductPage() {
 
   return (
     <div className="pb-28">
-      <Seo {...productSeo(p)} />
+      <Seo {...productSeo(p, enrichment)} />
       {/* Breadcrumb */}
       <div className="border-b border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-2 text-xs text-muted">
@@ -473,6 +479,24 @@ export function ProductPage() {
         </section>
 
         <section className="mt-12 border-y border-line bg-paper py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-after-details" /></section>
+
+        {/* Destination content: review snapshot, field notes, tips, FAQ */}
+        {enrichment ? (
+          <div className="mt-4">
+            <ProductEnrichmentSections enrichment={enrichment} />
+            <div className="mt-10 flex justify-center">
+              <a
+                href={shopUrl}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="btn-primary"
+                onClick={() => onAmazonClick('product_page_after_enrichment')}
+              >
+                Buy on Amazon <ExternalLink className="size-4" />
+              </a>
+            </div>
+          </div>
+        ) : null}
 
         <section className="mt-12"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-before-similar" /></section>
 

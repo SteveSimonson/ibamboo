@@ -46,6 +46,27 @@ export function clipMeta(text: string, max = 160): string {
   return `${s.slice(0, max - 1).trim()}…`
 }
 
+/** FAQPage JSON-LD for product enrichment FAQs (raw HTML + client Seo). */
+export function faqPageJsonLd(
+  faqs: { q: string; a: string }[],
+  pagePath: string,
+) {
+  if (!faqs.length) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.a,
+      },
+    })),
+    url: absoluteUrl(pagePath),
+  }
+}
+
 export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
