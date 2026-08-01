@@ -594,18 +594,12 @@ export function Admin() {
                   Refresh
                 </button>
               </div>
-              <p className="text-sm text-white/65">{config.library.notes}</p>
-              <p className="text-sm">
-                Dashboard:{' '}
-                <a
-                  className="text-bamboo underline"
-                  href={config.library.baseUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {config.library.baseUrl}
-                </a>
+              <p className="text-sm text-white/65">
+                This storefront only — site{' '}
+                <code className="text-bamboo">ibamboo</code>. Other network
+                sites are not shown here.
               </p>
+              <p className="text-sm text-white/50">{config.library.notes}</p>
               {library ? (
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-3 text-sm">
                   <p>
@@ -613,11 +607,37 @@ export function Admin() {
                     <strong className={library.ok ? 'text-bamboo' : 'text-red-300'}>
                       {library.ok ? 'Yes' : 'No'}
                     </strong>
+                    {' · '}
+                    Site{' '}
+                    <code className="text-bamboo">
+                      {String(library.siteId || 'ibamboo')}
+                    </code>
                   </p>
                   {library.stats && typeof library.stats === 'object' ? (
-                    <pre className="text-[11px] overflow-auto bg-black/30 p-3 rounded-lg">
-                      {JSON.stringify(library.stats, null, 2)}
-                    </pre>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="rounded-lg bg-black/30 px-3 py-2">
+                        <p className="text-[11px] uppercase tracking-wider text-white/45">
+                          Linked ASINs
+                        </p>
+                        <p className="font-semibold text-lg">
+                          {String(
+                            (library.stats as { itemCount?: number }).itemCount ??
+                              '—',
+                          )}
+                        </p>
+                      </div>
+                      <div className="rounded-lg bg-black/30 px-3 py-2">
+                        <p className="text-[11px] uppercase tracking-wider text-white/45">
+                          Showing
+                        </p>
+                        <p className="font-semibold text-lg">
+                          {String(
+                            (library.stats as { listed?: number }).listed ??
+                              '—',
+                          )}
+                        </p>
+                      </div>
+                    </div>
                   ) : null}
                   <p className="text-xs text-white/50">
                     {String(library.syncHint || '')}
@@ -646,7 +666,10 @@ export function Admin() {
                               }[]
                             }
                           ).items.map((it) => (
-                            <tr key={it.externalId} className="border-t border-white/10">
+                            <tr
+                              key={it.externalId}
+                              className="border-t border-white/10"
+                            >
                               <td className="py-1.5 font-mono text-white/50">
                                 {it.externalId}
                               </td>

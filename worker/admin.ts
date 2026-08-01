@@ -244,7 +244,7 @@ function defaultConfig(): AdminConfig {
       baseUrl: 'https://kyasi.us',
       siteId: 'ibamboo',
       notes:
-        'Federated ASIN library. Site catalog remains shelf source of truth; library:sync writes house metadata + images to kyasi.us.',
+        'Federated ASIN library for this storefront only (site ibamboo). Site catalog remains shelf source of truth; library:sync writes house metadata + images to kyasi.us.',
     },
     featureFlags: {
       flashEnabled: true,
@@ -803,36 +803,54 @@ export async function handleAdmin(
     }
   }
 
-  // Library review for this site
+  // Library review — this storefront only (never network-wide bySite dump)
   if (path === '/api/admin/library/status' && method === 'GET') {
     const cfg = await loadConfig(env)
     const base = (env.LIBRARY_URL || cfg.library.baseUrl || 'https://kyasi.us').replace(
       /\/$/,
       '',
     )
-    const siteId = cfg.library.siteId || 'ibamboo'
+    // Always this site: admin panel is site-local (ibamboo), not a network hub.
+    const siteId = 'ibamboo'
     try {
-      const [statsRes, itemsRes] = await Promise.all([
-        fetch(`${base}/api/stats`),
-        fetch(`${base}/api/library/items?site=${encodeURIComponent(siteId)}&limit=40`),
-      ])
-      const stats = await statsRes.json()
-      const items = await itemsRes.json()
+      // Site-filtered list only — never call network-wide /api/stats here.
+      const itemsRes = await fetch(
+        `${base}/api/library/items?site=${encodeURIComponent(siteId)}&limit=100`,
+      )
+      const itemsPayload = (await itemsRes.json()) as {
+        items?: unknown[]
+        total?: number
+      }
+      const siteItems = Array.isArray(itemsPayload.items)
+        ? itemsPayload.items
+        : []
+      const itemTotal =
+        typeof itemsPayload.total === 'number'
+          ? itemsPayload.total
+          : siteItems.length
       return json({
-        ok: statsRes.ok && itemsRes.ok,
+        ok: itemsRes.ok,
         baseUrl: base,
         siteId,
-        stats,
-        items,
+        stats: {
+          siteId,
+          itemCount: itemTotal,
+          listed: siteItems.length,
+        },
+        items: {
+          items: siteItems,
+          total: itemTotal,
+        },
         notes: cfg.library.notes,
         syncHint:
-          'From repo: KYASI_LIBRARY_TOKEN=… npm run library:sync',
+          'From repo: KYASI_LIBRARY_TOKEN=… npm run library:sync (writes this site only)',
       })
     } catch (e) {
       return json({
         ok: false,
         error: e instanceof Error ? e.message : 'Library fetch failed',
         baseUrl: base,
+        siteId,
       })
     }
   }
