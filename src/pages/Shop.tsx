@@ -17,10 +17,31 @@ import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
-import { deriveBalloonPlan } from '../lib/balloonPlan'
+import { deriveBalloonPlan, hasBalloonAnchor } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
+
+const SHOP_GRID_SLOTS = [
+  { anchor: 'shop-grid-20', progress: 0.2, topic: 'design' },
+  { anchor: 'shop-grid-40', progress: 0.4, topic: 'bamboo-basics' },
+  { anchor: 'shop-grid-60', progress: 0.6, topic: 'care' },
+  { anchor: 'shop-grid-80', progress: 0.8, topic: 'sustainability' },
+] as const
+
+function shopGridInsertions(itemCount: number) {
+  if (itemCount < 2) return []
+  const usedIndexes = new Set<number>()
+  return SHOP_GRID_SLOTS.flatMap((slot) => {
+    const afterIndex = Math.min(
+      itemCount - 2,
+      Math.max(0, Math.round(itemCount * slot.progress) - 1),
+    )
+    if (usedIndexes.has(afterIndex)) return []
+    usedIndexes.add(afterIndex)
+    return [{ ...slot, afterIndex }]
+  })
+}
 
 export function Shop() {
   const [params, setParams] = useSearchParams()
@@ -67,6 +88,14 @@ export function Shop() {
   const until = formatExpiry(drop.expiresAt ?? undefined)
   const categoryHero = getCategoryHero(cat || null)
   const showCategoryHero = Boolean(cat && categoryHero)
+  const gridInsertions = useMemo(
+    () => shopGridInsertions(filtered.length),
+    [filtered.length],
+  )
+  const gridPlacementByIndex = useMemo(
+    () => new Map(gridInsertions.map(item => [item.afterIndex, item.anchor])),
+    [gridInsertions],
+  )
   const balloonPlan = useMemo(
     () =>
       deriveBalloonPlan({
@@ -76,15 +105,12 @@ export function Shop() {
         itemCount: filtered.length,
         candidates: [
           { anchor: 'shop-top', ariaLabel: 'Bamboo shopping fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['did_you_know', 'care_tip'] },
-          { anchor: 'shop-grid-20', ariaLabel: 'Bamboo design note', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'design'], editorialTypes: ['design_note', 'fun_fact'] },
-          { anchor: 'shop-grid-40', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'bamboo-basics'], editorialTypes: ['did_you_know', 'fun_fact'] },
-          { anchor: 'shop-grid-60', ariaLabel: 'Bamboo care tip', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'care'], editorialTypes: ['care_tip', 'material_myth'] },
-          { anchor: 'shop-grid-80', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'sustainability'], editorialTypes: ['did_you_know', 'material_myth'] },
+          ...gridInsertions.map(item => ({ anchor: item.anchor, ariaLabel: 'Bamboo note', size: 'responsive' as const, minHeight: 112, topics: [cat || 'home', item.topic], editorialTypes: ['did_you_know' as const] })),
           { anchor: 'shop-after-grid', ariaLabel: 'Bamboo material note', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'product-research'], editorialTypes: ['design_note', 'care_tip'] },
           { anchor: 'shop-end', ariaLabel: 'Bamboo fact', size: 'responsive', minHeight: 112, topics: [cat || 'home', 'lifestyle'], editorialTypes: ['fun_fact', 'did_you_know'] },
         ],
       }),
-    [cat, filtered.length, limited, showCategoryHero],
+    [cat, filtered.length, gridInsertions, limited, showCategoryHero],
   )
   const balloonDeck = useAdaptiveContentBalloons(balloonPlan, !flash.loading)
 
@@ -259,15 +285,10 @@ export function Shop() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filtered.flatMap((p, index) => {
-              const placement = [
-                'shop-grid-20',
-                'shop-grid-40',
-                'shop-grid-60',
-                'shop-grid-80',
-              ][Math.floor(((index + 1) * 4) / filtered.length) - 1]
+              const placement = gridPlacementByIndex.get(index)
               return [
                 <ProductCard key={p.id} product={p} listName={cat ? `shop_${cat}` : limited ? 'shop_limited' : 'shop_all'} />,
-                placement && index < filtered.length - 1 ? (
+                placement && hasBalloonAnchor(balloonPlan, placement) ? (
                   <div key={`${p.id}-${placement}`} className="col-span-full border-y border-line py-7">
                     <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor={placement} />
                   </div>
@@ -277,13 +298,17 @@ export function Shop() {
           </div>
         )}
 
-        <div className="mt-10 border-y border-line py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-after-grid" /></div>
+        {hasBalloonAnchor(balloonPlan, 'shop-after-grid') && (
+          <div className="mt-10 border-y border-line py-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-after-grid" /></div>
+        )}
 
         {/* Second touch after browsing — stronger CTA */}
         {cat ? (
           <CategoryVibeCheck category={cat as Category} placement="end" />
         ) : null}
-        <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-end" /></div>
+        {hasBalloonAnchor(balloonPlan, 'shop-end') && (
+          <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-end" /></div>
+        )}
       </div>
     </div>
   )
