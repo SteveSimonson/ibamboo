@@ -213,10 +213,10 @@ export function ProductPage() {
           <ArrowLeft className="size-4" /> Back to shop
         </Link>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="grid items-start gap-8 xl:grid-cols-12 xl:gap-10">
           {/* Gallery */}
-          <div className="h-full space-y-3 rounded-3xl border border-line bg-card p-3 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] lg:col-span-7" data-product-surface="media">
-            <div className="relative rounded-2xl overflow-hidden aspect-square product-well border border-line shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)]">
+          <div className="rounded-3xl border border-line bg-card p-3 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] xl:col-span-7" data-product-surface="media">
+            <div className="relative aspect-square overflow-hidden rounded-2xl border border-line product-well shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)] lg:aspect-[16/10] xl:aspect-square">
               {main ? (
                 <img
                   key={main}
@@ -225,7 +225,7 @@ export function ProductPage() {
                   className={`absolute inset-0 w-full h-full ${
                     isQuietPlaceholder(main)
                       ? 'object-cover'
-                      : 'object-contain product-well p-6 sm:p-10'
+                      : 'object-contain product-well p-6 pb-24 sm:p-10 sm:pb-28'
                   }`}
                   referrerPolicy="no-referrer"
                   onError={() => {
@@ -244,10 +244,10 @@ export function ProductPage() {
                   {product.badge}
                 </span>
               )}
-            </div>
-            {/* Only reliable listing photos — never empty ASIN-guess boxes */}
-            {thumbs.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-1">
+              {/* Reliable listing photos stay inside the media stage instead of
+                  creating an unpredictable second row below it. */}
+              {thumbs.length > 1 && (
+                <div className="absolute inset-x-3 bottom-3 flex gap-2 overflow-x-auto rounded-2xl border border-line/80 bg-card/95 p-2 shadow-lg backdrop-blur sm:inset-x-auto sm:left-4 sm:bottom-4 sm:max-w-[calc(100%-2rem)]">
                 {thumbs.map((src) => (
                   <button
                     key={src}
@@ -257,7 +257,7 @@ export function ProductPage() {
                       const idx = mainChain.indexOf(src)
                       setChainIdx(idx >= 0 ? idx : 0)
                     }}
-                    className={`relative shrink-0 size-20 sm:size-24 rounded-xl overflow-hidden border-2 transition product-well ${
+                    className={`relative size-14 shrink-0 overflow-hidden rounded-xl border-2 bg-card transition sm:size-16 lg:size-20 ${
                       main === src
                         ? 'border-bamboo'
                         : 'border-line hover:border-bamboo/30'
@@ -275,36 +275,22 @@ export function ProductPage() {
                   </button>
                 ))}
               </div>
-            )}
-
+              )}
+            </div>
           </div>
 
           {/* Buy box */}
-          <div className="h-full space-y-6 rounded-3xl border border-line bg-card p-6 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] sm:p-8 lg:col-span-5" data-balloon-zone="commerce" data-product-surface="purchase">
+          <div className="space-y-4 rounded-3xl border border-line bg-card p-6 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] sm:p-8 xl:col-span-5" data-balloon-zone="commerce" data-product-surface="purchase">
             {product.limitedTime && (
-              <div className="rounded-2xl border border-[#fdba74] bg-[#fff7ed] px-4 py-3 flex gap-3">
-                <Clock3 className="size-5 text-[#9a3412] shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-[#9a3412]">
-                    Options only available for a limited time
-                  </p>
-                  <p className="text-sm text-[#9a3412]/90 mt-0.5">
-                    {product.source === 'amazon-bsr'
-                      ? 'Part of this week’s Amazon Best Sellers edit'
-                      : product.source === 'curated'
-                        ? 'Part of this week’s iBamboo house edit'
-                        : 'Part of this week’s limited-time bamboo edit'}
-                    {product.source === 'amazon-bsr' &&
-                    product.bsrRank != null &&
-                    product.bsrCategory
-                      ? ` · #${product.bsrRank} in ${product.bsrCategory}`
-                      : ''}
-                    {until ? ` · Rotates ${until}` : ''}.
-                    {product.source === 'amazon-bsr'
-                      ? ' Rankings move—shop while it’s on the list.'
-                      : ' Options rotate weekly—shop while this placement is live.'}
-                  </p>
-                </div>
+              <div className="flex items-center gap-2 rounded-full border border-[#fdba74] bg-[#fff7ed] px-3 py-2 text-xs font-semibold text-[#9a3412]">
+                <Clock3 className="size-4 shrink-0" />
+                <span>
+                  Limited-time edit
+                  {product.source === 'amazon-bsr' && product.bsrRank != null && product.bsrCategory
+                    ? ` · #${product.bsrRank} in ${product.bsrCategory}`
+                    : ''}
+                  {until ? ` · Rotates ${until}` : ''}
+                </span>
               </div>
             )}
             <div>
@@ -340,18 +326,6 @@ export function ProductPage() {
             </div>
 
             <p className="text-ink-soft leading-relaxed">{product.tagline}</p>
-            <p className="text-sm text-ink-soft/90 leading-relaxed">
-              {product.description}
-            </p>
-
-            <ul className="space-y-2.5 py-2">
-              {product.features.map((f) => (
-                <li key={f} className="flex items-start gap-2.5 text-sm">
-                  <Check className="size-4 text-bamboo shrink-0 mt-0.5" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
 
             <div className="flex flex-col gap-3 pt-1">
               <a
@@ -425,6 +399,44 @@ export function ProductPage() {
               <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-spec-note" />
             </div>
           ) : null}
+        </section>
+
+        <section className="mt-12 grid gap-6 lg:grid-cols-12" aria-labelledby="product-rationale-heading">
+          <div className="rounded-3xl border border-line bg-card p-6 sm:p-8 lg:col-span-8">
+            <p className="label-micro mb-1">What earns its place</p>
+            <h2 id="product-rationale-heading" className="font-display text-2xl font-semibold sm:text-3xl">
+              Why this piece is in the edit
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink-soft sm:text-base">
+              {product.description}
+            </p>
+            <ul className="mt-7 grid gap-4 sm:grid-cols-2">
+              {product.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-3 rounded-2xl bg-paper/70 p-4 text-sm leading-relaxed text-ink-soft">
+                  <Check className="mt-0.5 size-4 shrink-0 text-bamboo" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <aside className="flex flex-col justify-between rounded-3xl bg-moss p-6 text-white sm:p-8 lg:col-span-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-leaf">The live-listing rule</p>
+              <h3 className="mt-2 font-display text-2xl font-semibold">Verify the version you are buying</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/75">
+                Sellers can update dimensions, bundles, finishes, and care instructions. Treat the Amazon listing as the final specification.
+              </p>
+            </div>
+            <a
+              href={shopUrl}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-moss"
+              onClick={() => onAmazonClick('product_page_rationale')}
+            >
+              Check the live listing <ExternalLink className="size-4" />
+            </a>
+          </aside>
         </section>
 
         {product.featureVideo && (

@@ -87,17 +87,16 @@ for (const width of WIDTHS) {
     expect(audit.remoteStyles).toBe(false)
     expect(audit.unsafe).toBe(false)
 
-    if (width >= 1024) {
+    if (width >= 1280) {
       const surfaces = await page.locator('[data-product-surface]').evaluateAll((nodes) =>
         nodes.map((node) => ({
           bottom: Math.round(node.getBoundingClientRect().bottom),
-          height: Math.round(node.getBoundingClientRect().height),
-          top: Math.round(node.getBoundingClientRect().top),
+          contentBottom: Math.round(node.lastElementChild?.getBoundingClientRect().bottom || node.getBoundingClientRect().bottom),
         })),
       )
       expect(surfaces).toHaveLength(2)
-      expect(Math.abs(surfaces[0].height - surfaces[1].height)).toBeLessThanOrEqual(2)
-      expect(Math.abs(surfaces[0].bottom - surfaces[1].bottom)).toBeLessThanOrEqual(2)
+      expect(surfaces.every((surface) => surface.bottom - surface.contentBottom <= 40)).toBe(true)
+      expect(Math.abs(surfaces[0].bottom - surfaces[1].bottom)).toBeLessThanOrEqual(100)
     }
 
     const amazonLinks = page.locator('a[href*="amazon.com"]')
@@ -171,13 +170,13 @@ test('every catalog PDP uses balanced top surfaces at desktop width', async ({ p
     await page.locator('[data-product-surface="purchase"]').waitFor()
     const geometry = await page.locator('[data-product-surface]').evaluateAll((nodes) => nodes.map((node) => ({
       bottom: Math.round(node.getBoundingClientRect().bottom),
-      height: Math.round(node.getBoundingClientRect().height),
+      contentBottom: Math.round(node.lastElementChild?.getBoundingClientRect().bottom || node.getBoundingClientRect().bottom),
     })))
     const detailsTop = await page.locator('#product-details-heading').evaluate((node) => Math.round(node.getBoundingClientRect().top))
     if (
       geometry.length !== 2 ||
-      Math.abs(geometry[0].height - geometry[1].height) > 2 ||
-      Math.abs(geometry[0].bottom - geometry[1].bottom) > 2 ||
+      geometry.some((surface) => surface.bottom - surface.contentBottom > 40) ||
+      Math.max(...geometry.map((surface) => surface.bottom)) - Math.min(...geometry.map((surface) => surface.bottom)) > 100 ||
       detailsTop < Math.max(...geometry.map((item) => item.bottom))
     ) failures.push(product.slug)
   }
