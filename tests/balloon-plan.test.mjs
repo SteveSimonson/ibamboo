@@ -3,7 +3,6 @@ import test from 'node:test'
 
 import {
   DESIGN_EDITORIAL_TYPES,
-  FACT_EDITORIAL_TYPES,
   deriveBalloonPlan,
   editorialTypesForTier,
   isLayoutCompatible,
@@ -36,8 +35,8 @@ test('wide plans can opt into a rail without changing smaller tiers', () => {
   assert.equal(sizeForTier('wide', creative), '160x600')
 })
 
-test('compact slots share the factual pool while larger tiers keep specialization', () => {
-  assert.equal(editorialTypesForTier('compact', DESIGN_EDITORIAL_TYPES), FACT_EDITORIAL_TYPES)
+test('host-native slots keep contextual specialization across viewport changes', () => {
+  assert.equal(editorialTypesForTier('compact', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
   assert.equal(editorialTypesForTier('tablet', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
   assert.equal(editorialTypesForTier('desktop', DESIGN_EDITORIAL_TYPES), DESIGN_EDITORIAL_TYPES)
 })
@@ -65,7 +64,7 @@ test('container-native layouts fail closed when paired with fixed-size creative'
   assert.match(plan.signature, /\"layout\":\"panel\"/)
 })
 
-test('page-density planning remains bounded by viewport and unique anchors', () => {
+test('page-density planning is bounded by page safety rather than viewport', () => {
   const candidates = Array.from({ length: 12 }, (_, index) => ({
     anchor: `slot-${index}`,
     ariaLabel: 'Bamboo note',
@@ -98,9 +97,25 @@ test('page-density planning remains bounded by viewport and unique anchors', () 
   })
 
   assert.equal(short.slots.length, 3)
-  assert.equal(compactLong.slots.length, 4)
-  assert.equal(tabletLong.slots.length, 6)
+  assert.equal(compactLong.slots.length, 8)
+  assert.equal(tabletLong.slots.length, 8)
   assert.equal(long.slots.length, 8)
   assert.equal(new Set(long.slots.map((slot) => slot.anchor)).size, 8)
-  assert.match(long.signature, /"tier":"wide"/)
+  assert.doesNotMatch(long.signature, /"tier"/)
+})
+
+test('planner keeps one placement per semantic section and honors a page cap', () => {
+  const base = { ariaLabel: 'Fact', budget: 'standard-v1', editorialTypes: ['fun_fact'], layout: 'inline', role: 'inline-note', size: 'responsive', topics: ['general'] }
+  const plan = deriveBalloonPlan({
+    routeKey: 'safe-sections',
+    narrativeSections: 10,
+    maxPlacements: 2,
+    candidates: [
+      { ...base, anchor: 'one', section: 'intro' },
+      { ...base, anchor: 'duplicate-section', section: 'intro' },
+      { ...base, anchor: 'two', section: 'body' },
+      { ...base, anchor: 'three', section: 'closing' },
+    ],
+  })
+  assert.deepEqual(plan.slots.map((slot) => slot.anchor), ['one', 'three'])
 })

@@ -5,18 +5,26 @@ const SHOP_GRID_SLOTS = [
   { anchor: 'shop-grid-80', progress: 0.8, topic: 'sustainability' },
 ] as const
 
-/** Place up to four facts at unique, progressive points in a product result. */
+/** Product-led density: never let editorial cards approach a 1:1 result ratio. */
+export function shopBalloonTarget(itemCount: number) {
+  if (!Number.isInteger(itemCount) || itemCount <= 0) return 0
+  return Math.min(4, Math.max(1, Math.floor(itemCount / 4)))
+}
+
+/** Place the approved fact count at unique, progressive grid positions. */
 export function shopGridInsertions(itemCount: number) {
-  if (itemCount < 2) return []
+  const target = shopBalloonTarget(itemCount)
+  if (!target || itemCount < 2) return []
   const usedIndexes = new Set<number>()
-  return SHOP_GRID_SLOTS.flatMap((slot) => {
+  return SHOP_GRID_SLOTS.slice(0, target).flatMap((slot, index) => {
+    const progress = (index + 1) / (target + 1)
     const afterIndex = Math.min(
       itemCount - 2,
-      Math.max(0, Math.round(itemCount * slot.progress) - 1),
+      Math.max(0, Math.round(itemCount * progress) - 1),
     )
     if (usedIndexes.has(afterIndex)) return []
     usedIndexes.add(afterIndex)
-    return [{ ...slot, afterIndex }]
+    return [{ ...slot, afterIndex, progress }]
   })
 }
 

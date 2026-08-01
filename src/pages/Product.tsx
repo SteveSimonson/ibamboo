@@ -112,14 +112,18 @@ export function ProductPage() {
         featureGroups: product ? 2 : 0,
         itemCount: product ? 8 : 0,
         mediaBlocks: product?.featureVideo ? 1 : 0,
+        maxPlacements: 3,
         candidates: [
-          { anchor: 'product-buy-note', ariaLabel: 'Bamboo product fact', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
-          { anchor: 'product-details-note', ariaLabel: 'Bamboo care tip', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'care'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
-          { anchor: 'product-field-note', ariaLabel: 'Bamboo material note', layout: 'panel', size: 'responsive', minHeight: 112, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-          ...(hasRelatedProducts ? [{ anchor: 'product-related-card', ariaLabel: 'Bamboo fact among related products', layout: 'product-card' as const, size: 'responsive' as const, minHeight: 112, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
+          ...(enrichment ? [
+            { anchor: 'product-review-note', ariaLabel: 'Bamboo product fact', budget: 'standard-v1' as const, layout: 'inline' as const, priority: 90, role: 'inline-note' as const, section: 'review', size: 'responsive' as const, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES },
+            { anchor: 'product-guide-note', ariaLabel: 'Bamboo care tip', budget: 'standard-v1' as const, layout: 'panel' as const, priority: 80, role: 'section-break' as const, section: 'field-guide', size: 'responsive' as const, topics: [product?.category || 'home', 'care', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, CARE_EDITORIAL_TYPES) },
+          ] : [
+            { anchor: 'product-guide-note', ariaLabel: 'Bamboo material note', budget: 'standard-v1' as const, layout: 'panel' as const, priority: 90, role: 'section-break' as const, section: 'product-details', size: 'responsive' as const, topics: [product?.category || 'home', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+          ]),
+          ...(hasRelatedProducts ? [{ anchor: 'product-related-card', ariaLabel: 'Bamboo fact among related products', budget: 'compact-v1' as const, layout: 'product-card' as const, priority: 70, role: 'grid-tile' as const, section: 'related-products', size: 'responsive' as const, topics: [product?.category || 'home', 'product-research'], editorialTypes: FACT_EDITORIAL_TYPES }] : []),
         ],
       }),
-    [hasRelatedProducts, product, slug, viewportTier],
+    [enrichment, hasRelatedProducts, product, slug, viewportTier],
   )
   const balloonDeck = useAdaptiveContentBalloons(balloonPlan, viewportReady && !flash.loading, viewportTier)
 
@@ -213,7 +217,7 @@ export function ProductPage() {
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
           {/* Gallery */}
-          <div className="lg:col-span-7 space-y-3">
+          <div className="lg:col-span-7 space-y-3" data-product-column="gallery-details">
             <div className="relative rounded-2xl overflow-hidden aspect-square product-well border border-line shadow-[0_2px_16px_-10px_rgba(18,26,18,0.10)]">
               {main ? (
                 <img
@@ -301,10 +305,36 @@ export function ProductPage() {
                 )}
               </div>
             )}
+
+            <section className="pt-10" data-balloon-zone="asymmetric" aria-labelledby="product-details-heading">
+              <h2 id="product-details-heading" className="font-display text-2xl font-semibold mb-5">
+                Product details
+              </h2>
+              <div className="rounded-2xl border border-line overflow-hidden bg-card">
+                <table className="w-full text-sm">
+                  <tbody>
+                    {product.specs.map((s, i) => (
+                      <tr key={`${s.label}-${i}`} className={i % 2 === 0 ? 'bg-paper/60' : 'bg-card'}>
+                        <th className="text-left font-semibold text-ink-soft px-5 py-3.5 w-[40%] border-b border-line/60">
+                          {s.label}
+                        </th>
+                        <td className="px-5 py-3.5 text-ink border-b border-line/60">{s.value}</td>
+                      </tr>
+                    ))}
+                    <tr className="bg-paper/60">
+                      <th className="text-left font-semibold text-ink-soft px-5 py-3.5">Material note</th>
+                      <td className="px-5 py-3.5 text-ink-soft">
+                        {product.material}. Always confirm the live Amazon listing for current specifications.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
           </div>
 
           {/* Buy box */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-6" data-balloon-zone="commerce" data-product-column="purchase-rationale">
             {product.limitedTime && (
               <div className="rounded-2xl border border-[#fdba74] bg-[#fff7ed] px-4 py-3 flex gap-3">
                 <Clock3 className="size-5 text-[#9a3412] shrink-0 mt-0.5" />
@@ -409,86 +439,22 @@ export function ProductPage() {
             <p className="text-[10px] text-muted">
               *Prime eligibility depends on the seller listing on Amazon.
             </p>
-            {balloonDeck['product-buy-note'] ? (
-              <div className="rounded-2xl border border-line bg-card p-4 shadow-[0_12px_35px_-28px_rgba(18,26,18,0.35)]">
-                <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-buy-note" />
-              </div>
-            ) : null}
           </div>
         </div>
-
-        {/* Specs */}
-        <section className="mt-16 grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-7">
-            <h2 className="font-display text-2xl font-semibold mb-5">
-              Product details
-            </h2>
-            <div className="rounded-2xl border border-line overflow-hidden bg-card">
-              <table className="w-full text-sm">
-                <tbody>
-                  {product.specs.map((s, i) => (
-                    <tr
-                      key={`${s.label}-${i}`}
-                      className={i % 2 === 0 ? 'bg-paper/60' : 'bg-card'}
-                    >
-                      <th className="text-left font-semibold text-ink-soft px-5 py-3.5 w-[40%] border-b border-line/60">
-                        {s.label}
-                      </th>
-                      <td className="px-5 py-3.5 text-ink border-b border-line/60">
-                        {s.value}
-                      </td>
-                    </tr>
-                  ))}
-                  <tr className="bg-paper/60">
-                    <th className="text-left font-semibold text-ink-soft px-5 py-3.5">
-                      Material note
-                    </th>
-                    <td className="px-5 py-3.5 text-ink-soft">
-                      {product.material}. Always confirm the live Amazon listing
-                      for current specifications.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="lg:col-span-5">
-            <h2 className="font-display text-2xl font-semibold mb-5">
-              Why this piece
-            </h2>
-            <div className="rounded-2xl border border-line bg-card p-6 space-y-4">
-              <p className="text-sm text-ink-soft leading-relaxed">
-                Every iBamboo product is selected for material quality, daily
-                usability, and a finish that belongs in a considered home. We
-                show you the details here—then you buy where fulfillment is
-                fast and familiar: Amazon.
-              </p>
-              <a
-                href={shopUrl}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="btn-primary !w-full"
-                onClick={() => onAmazonClick('product_page_secondary')}
-              >
-                Continue to Amazon <ExternalLink className="size-4" />
-              </a>
-            </div>
-            {balloonDeck['product-details-note'] ? (
-              <div className="mt-5 rounded-2xl border border-line bg-card p-4">
-                <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-details-note" />
-              </div>
-            ) : null}
-          </div>
-        </section>
 
         {/* Destination content: review snapshot, field notes, tips, FAQ */}
         {enrichment ? (
           <div className="mt-4">
             <ProductEnrichmentSections
               enrichment={enrichment}
-              editorialNote={
-                balloonDeck['product-field-note'] ? (
-                  <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-field-note" />
+              reviewNote={
+                balloonDeck['product-review-note'] ? (
+                  <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-review-note" />
+                ) : null
+              }
+              guideNote={
+                balloonDeck['product-guide-note'] ? (
+                  <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-guide-note" />
                 ) : null
               }
             />
@@ -504,9 +470,9 @@ export function ProductPage() {
               </a>
             </div>
           </div>
-        ) : balloonDeck['product-field-note'] ? (
-          <section className="mt-12 rounded-3xl border border-line bg-card p-5 sm:p-7">
-            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-field-note" />
+        ) : balloonDeck['product-guide-note'] ? (
+          <section className="mt-16" aria-label="Bamboo field note">
+            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="product-guide-note" />
           </section>
         ) : null}
 
@@ -528,22 +494,23 @@ export function ProductPage() {
               </Link>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {similar.flatMap((related, index) => [
-                <ProductCard
-                  key={related.id}
-                  product={related}
-                  compact
-                  listName="product_similar"
-                />,
-                index === Math.min(1, similar.length - 1) && balloonDeck['product-related-card'] ? (
+              {similar.map((related, index) =>
+                index === Math.min(2, similar.length - 1) && balloonDeck['product-related-card'] ? (
                   <ProductGridBalloonCard
-                    key={`${related.id}-product-related-card`}
+                    key="product-related-card"
                     plan={balloonPlan}
                     deck={balloonDeck}
                     anchor="product-related-card"
                   />
-                ) : null,
-              ])}
+                ) : (
+                  <ProductCard
+                    key={related.id}
+                    product={related}
+                    compact
+                    listName="product_similar"
+                  />
+                ),
+              )}
             </div>
           </section>
         )}
@@ -558,24 +525,23 @@ export function ProductPage() {
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {alsoLike.flatMap((related, index) => [
-                <ProductCard
-                  key={related.id}
-                  product={related}
-                  compact
-                  listName="product_also_like"
-                />,
-                similar.length === 0 &&
-                index === Math.min(1, alsoLike.length - 1) &&
-                balloonDeck['product-related-card'] ? (
+              {alsoLike.map((related, index) =>
+                similar.length === 0 && index === Math.min(2, alsoLike.length - 1) && balloonDeck['product-related-card'] ? (
                   <ProductGridBalloonCard
-                    key={`${related.id}-product-related-card`}
+                    key="product-related-card"
                     plan={balloonPlan}
                     deck={balloonDeck}
                     anchor="product-related-card"
                   />
-                ) : null,
-              ])}
+                ) : (
+                  <ProductCard
+                    key={related.id}
+                    product={related}
+                    compact
+                    listName="product_also_like"
+                  />
+                ),
+              )}
             </div>
           </section>
         )}

@@ -67,11 +67,13 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export function ProductEnrichmentSections({
-  editorialNote,
   enrichment,
+  guideNote,
+  reviewNote,
 }: {
-  editorialNote?: ReactNode
   enrichment: ProductEnrichment
+  guideNote?: ReactNode
+  reviewNote?: ReactNode
 }) {
   const { reviewSnapshot: r, blog, faq, setupTips, researchNotes } = enrichment
 
@@ -147,14 +149,7 @@ export function ProductEnrichmentSections({
         </div>
       </section>
 
-      {editorialNote ? (
-        <section
-          aria-label="Bamboo field note"
-          className="rounded-3xl border border-line bg-card p-5 shadow-[0_18px_50px_-38px_rgba(18,26,18,0.4)] sm:p-7"
-        >
-          {editorialNote}
-        </section>
-      ) : null}
+      {reviewNote}
 
       <section aria-labelledby="item-blog-heading">
         <div className="mb-6">
@@ -181,6 +176,8 @@ export function ProductEnrichmentSections({
           ))}
         </article>
       </section>
+
+      {guideNote}
 
       {setupTips && setupTips.length > 0 ? (
         <section aria-labelledby="setup-tips-heading">

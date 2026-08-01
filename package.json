@@ -10,6 +10,7 @@
     "build": "npm run sitemap && tsc -b && vite build",
     "lint": "oxlint src",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
     "preview": "vite preview",
     "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
@@ -26,6 +27,7 @@
     "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
