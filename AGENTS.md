@@ -91,3 +91,18 @@ When reviewing PRs, prioritize:
 6. Enrichment originality (no pasted Amazon/competitor copy); FAQPage in routeMeta for enriched PDPs
 
 Nits on style are optional; bugs block merge.
+
+## Federated product library (kyasi.us)
+
+iBamboo is a **consumer** of the network product library at **https://kyasi.us**.
+
+```bash
+export KYASI_LIBRARY_TOKEN=…   # kyasi-net ADMIN_API_TOKEN
+npm run library:sync:dry
+npm run library:sync           # write-back only (catalog → library)
+```
+
+- Client: `scripts/lib/kyasi-library.mjs`
+- Sync: `scripts/sync-from-library.mjs` (`imagesMode: replace`; no library→catalog image pull)
+- Docs: `docs/KYASI-LIBRARY.md`
+- Associate tag stays in site config / buy URLs only — never in library payloads.
