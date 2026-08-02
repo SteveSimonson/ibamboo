@@ -9,6 +9,7 @@ import {
   limitedTimeCopy,
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
+import { featuredGiftGuides } from '../data/giftGuides'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
@@ -220,6 +221,64 @@ export function Home() {
                 />
               ) : null,
             ])}
+        </div>
+      </section>
+
+      {/* Gift guides rail */}
+      <section className="border-t border-line bg-card">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="label-micro mb-2">Gift edit</p>
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold">
+                Gifts with a place in the house
+              </h2>
+              <p className="text-ink-soft mt-2 max-w-xl font-light">
+                Housewarming, hosts, kitchen, everyday eco swaps, and Christmas
+                home picks — listicles from the iBamboo shelf only.
+              </p>
+            </div>
+            <Link
+              to="/gifts"
+              className="text-sm font-semibold text-bamboo inline-flex items-center gap-1"
+            >
+              All gift guides <ArrowRight className="size-4" />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featuredGiftGuides(5).map((g) => (
+              <Link
+                key={g.slug}
+                to={`/gifts/${g.slug}`}
+                className="rounded-2xl border border-line bg-paper overflow-hidden hover:border-bamboo/35 transition group flex flex-col"
+              >
+                {g.heroImage ? (
+                  <div className="aspect-[16/10] relative overflow-hidden border-b border-line">
+                    <img
+                      src={g.heroImage}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
+                <div className="p-5 flex flex-col flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-bamboo">
+                    {g.primaryQuery}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-semibold group-hover:text-bamboo transition">
+                    {g.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-ink-soft line-clamp-2 leading-relaxed flex-1">
+                    {g.dek}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-bamboo">
+                    Open guide <ArrowRight className="size-4" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

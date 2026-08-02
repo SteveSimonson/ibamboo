@@ -9,11 +9,13 @@ import {
   CATEGORY_LABELS,
   categoryLabel,
   filterProducts,
+  getProduct,
   productGalleryThumbs,
   productImageChain,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
-import type { Category, Product } from '../data/types'
+import { giftGuides } from '../data/giftGuides'
+import type { Category, GiftGuide, Product } from '../data/types'
 import type { VibeProfile } from '../data/vibes'
 import { isQuietPlaceholder } from './productImages'
 import {
@@ -23,6 +25,7 @@ import {
   breadcrumbJsonLd,
   clipMeta,
   faqPageJsonLd,
+  itemListJsonLd,
   pageTitle,
   productJsonLd,
   type PageSeo,
@@ -201,6 +204,72 @@ export function quizSeo(): PageSeo {
     description:
       'Take the 60-second Bamboo Vibe Check. Match with a bamboo lifestyle persona—craft, ritual, focus, host, or nest—then shop rooms that fit.',
     path: '/quiz',
+  }
+}
+
+export function giftsHubSeo(): PageSeo {
+  return {
+    title: 'Bamboo gift guides',
+    description: clipMeta(
+      `Housewarming, host, kitchen, eco, and Christmas home gifts — ${giftGuides.length} curated iBamboo guides. Chosen here; buy on Amazon.`,
+    ),
+    path: '/gifts',
+    image: '/brand/soho-collection.webp',
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: 'Home', path: '/' },
+        { name: 'Gifts', path: '/gifts' },
+      ]),
+      itemListJsonLd({
+        name: 'iBamboo bamboo gift guides',
+        path: '/gifts',
+        items: giftGuides.map((g, i) => ({
+          name: g.title,
+          path: `/gifts/${g.slug}`,
+          position: i + 1,
+        })),
+      }),
+    ],
+  }
+}
+
+export function giftGuideSeo(g: GiftGuide): PageSeo {
+  const path = `/gifts/${g.slug}`
+  const products = g.productEntries
+    .map((e) => getProduct(e.productSlug))
+    .filter(Boolean) as Product[]
+
+  const jsonLd: Record<string, unknown>[] = [
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Gifts', path: '/gifts' },
+      { name: g.title, path },
+    ]),
+    itemListJsonLd({
+      name: g.title,
+      path,
+      items: products.map((p, i) => ({
+        name: p.name,
+        path: `/product/${p.slug}`,
+        position: g.productEntries[i]?.rank ?? i + 1,
+      })),
+    }),
+  ]
+
+  if (g.faq.length) {
+    const faqLd = faqPageJsonLd(g.faq, path)
+    if (faqLd) jsonLd.push(faqLd)
+  }
+
+  return {
+    title: g.title,
+    description: clipMeta(
+      `${g.dek} ${g.productEntries.length} bamboo picks on iBamboo. Updated ${g.updatedAt.slice(0, 4)}.`,
+    ),
+    path,
+    type: 'article',
+    image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
+    jsonLd,
   }
 }
 

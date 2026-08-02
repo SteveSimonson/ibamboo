@@ -112,3 +112,66 @@ export interface ProductEnrichment {
   /** Site names only — not full articles */
   researchNotes?: string[]
 }
+
+/** Gift guide listicles — avatar-locked, catalog-backed. See AGENTS.md. */
+export type GiftRecipientId =
+  | 'host'
+  | 'couple'
+  | 'friend'
+  | 'self'
+  | 'coworker'
+  | 'new-home'
+  | 'cook'
+  | 'eco-minded'
+
+export type GiftOccasionId =
+  | 'christmas'
+  | 'housewarming'
+  | 'birthday'
+  | 'wedding'
+  | 'hosting'
+  | 'just-because'
+  | 'black-friday'
+
+export type GiftBudgetBand = 'under-50' | '50-150' | '150-400' | 'splurge'
+
+export interface GiftGuideProductEntry {
+  productSlug: string
+  rank?: number
+  /** Why this works as a gift — not a PDP paste */
+  giftWhy: string
+  priceBand?: GiftBudgetBand
+  badge?: string
+}
+
+export interface GiftGuideSection {
+  heading: string
+  body: string
+}
+
+export interface GiftGuideFaq {
+  q: string
+  a: string
+}
+
+export interface GiftGuide {
+  slug: string
+  title: string
+  dek: string
+  primaryQuery: string
+  recipientIds: GiftRecipientId[]
+  occasionIds: GiftOccasionId[]
+  budgetBands: GiftBudgetBand[]
+  productEntries: GiftGuideProductEntry[]
+  intro: string
+  sections: GiftGuideSection[]
+  faq: GiftGuideFaq[]
+  heroImage?: string
+  publishedAt: string
+  updatedAt: string
+  seasonal?: {
+    peakMonths: number[]
+    yearHint?: number
+  }
+  readMinutes?: number
+}
