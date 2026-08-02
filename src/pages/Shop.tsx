@@ -151,8 +151,8 @@ export function Shop() {
             </h1>
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
-                ? 'Assortment from the live flash catalog control plane — filters and schedule managed there; refresh anytime without a site redeploy.'
-                : 'Browse by room of the house, then buy on Amazon with secure checkout. Assortment is driven by the flash catalog.'}
+                ? 'This week’s limited options from the house edit and live flash refresh.'
+                : 'Browse by room of the house, then buy on Amazon with secure checkout.'}
             </p>
 
             <div className="mt-6 rounded-2xl border border-line bg-card px-5 py-4 flex flex-wrap items-center gap-3">
@@ -161,17 +161,17 @@ export function Shop() {
                 <p className="font-bold uppercase tracking-wide text-[11px] text-ink">
                   {flash.loading
                     ? 'Loading assortment…'
-                    : flash.source === 'flash'
-                      ? 'Live assortment'
-                      : 'Emergency static catalog'}
+                    : flash.source === 'merged'
+                      ? 'Full collection · live flash layered'
+                      : 'Full collection'}
                 </p>
                 <p className="mt-0.5">
                   {flash.loading ? '…' : `${pool.length} products`}
+                  {!flash.loading && flash.flashOnly.length
+                    ? ` · ${flash.flashOnly.length} live flash`
+                    : ''}
                   {!flash.loading && drop.weekOf ? ` · week of ${drop.weekOf}` : ''}
                   {!flash.loading && until ? ` · rotates ${until}` : ''}
-                  {!flash.loading && flash.error && flash.source === 'static'
-                    ? ` · ${flash.error}`
-                    : ''}
                 </p>
               </div>
             </div>
