@@ -260,7 +260,7 @@ function defaultConfig(): AdminConfig {
         'https://amazon-flash-catalog.tech-bf6.workers.dev/api/catalog/ibamboo',
       adminUrl: 'https://amazon-flash-catalog.tech-bf6.workers.dev/admin',
       notes:
-        'Limited-time bamboo flash shelf. Full category/filter editing lives in Flash Catalog admin (GitHub OAuth).',
+        'Assortment source of truth. Cron, targeting, and filters live in Flash Catalog admin (GitHub OAuth). Storefront consumes published JSON only.',
     },
     library: {
       baseUrl: 'https://kyasi.us',
@@ -960,9 +960,37 @@ export async function handleAdmin(
       const res = await fetch(catalogUrl, {
         headers: { Accept: 'application/json' },
       })
-      const data = (await res.json()) as Record<string, unknown>
+      const text = await res.text()
+      let data: Record<string, unknown> = {}
+      try {
+        data = JSON.parse(text) as Record<string, unknown>
+      } catch {
+        return json({
+          ok: false,
+          status: res.status,
+          error: `Flash catalog returned non-JSON (HTTP ${res.status})`,
+          catalogUrl,
+          adminUrl: cfg.flash.adminUrl,
+          siteId: cfg.flash.siteId,
+          notes: cfg.flash.notes,
+        })
+      }
+      if (!res.ok) {
+        return json({
+          ok: false,
+          status: res.status,
+          error:
+            typeof data.error === 'string'
+              ? data.error
+              : `Flash catalog HTTP ${res.status}`,
+          catalogUrl,
+          adminUrl: cfg.flash.adminUrl,
+          siteId: cfg.flash.siteId,
+          notes: cfg.flash.notes,
+        })
+      }
       return json({
-        ok: res.ok,
+        ok: true,
         status: res.status,
         catalogUrl,
         adminUrl: cfg.flash.adminUrl,
@@ -981,6 +1009,7 @@ export async function handleAdmin(
         error: e instanceof Error ? e.message : 'Flash fetch failed',
         catalogUrl,
         adminUrl: cfg.flash.adminUrl,
+        siteId: cfg.flash.siteId,
       })
     }
   }

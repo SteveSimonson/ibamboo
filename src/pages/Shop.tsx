@@ -69,7 +69,10 @@ export function Shop() {
     () => filterProducts({ cat, q, limited }, pool),
     [cat, q, limited, pool],
   )
-  const drop = limitedTimeCopy(pool)
+  const drop = limitedTimeCopy(pool, {
+    weekOf: flash.weekOf,
+    generatedAt: flash.generatedAt,
+  })
   const until = formatExpiry(drop.expiresAt ?? undefined)
   const categoryHero = getCategoryHero(cat || null)
   const showCategoryHero = Boolean(cat && categoryHero)
@@ -148,26 +151,29 @@ export function Shop() {
             </h1>
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
-                ? 'Live Amazon flash edit for bamboo living. Options only available for a limited time—lists refresh on the flash catalog schedule.'
-                : 'Browse by room of the house, then buy on Amazon with secure checkout.'}
+                ? 'Assortment from the live flash catalog control plane — filters and schedule managed there; refresh anytime without a site redeploy.'
+                : 'Browse by room of the house, then buy on Amazon with secure checkout. Assortment is driven by the flash catalog.'}
             </p>
 
-            {limited && (
-              <div className="mt-6 rounded-2xl border border-[#fdba74] bg-[#fff7ed] px-5 py-4 flex flex-wrap items-center gap-3">
-                <Clock3 className="size-5 text-[#9a3412] shrink-0" />
-                <div className="text-sm text-[#9a3412]">
-                  <p className="font-bold uppercase tracking-wide text-[11px]">
-                    {drop.headline}
-                    {flash.source === 'flash' ? ' · live flash' : ''}
-                  </p>
-                  <p className="mt-0.5">
-                    {drop.count} options in this drop
-                    {until ? ` · Rotates ${until}` : ''}
-                    {flash.loading ? ' · updating…' : ''}
-                  </p>
-                </div>
+            <div className="mt-6 rounded-2xl border border-line bg-card px-5 py-4 flex flex-wrap items-center gap-3">
+              <Clock3 className="size-5 text-bamboo shrink-0" />
+              <div className="text-sm text-ink-soft">
+                <p className="font-bold uppercase tracking-wide text-[11px] text-ink">
+                  {flash.source === 'flash'
+                    ? 'Live assortment'
+                    : 'Emergency static catalog'}
+                  {flash.loading ? ' · updating…' : ''}
+                </p>
+                <p className="mt-0.5">
+                  {pool.length} products
+                  {drop.weekOf ? ` · week of ${drop.weekOf}` : ''}
+                  {until ? ` · rotates ${until}` : ''}
+                  {flash.error && flash.source === 'static'
+                    ? ` · ${flash.error}`
+                    : ''}
+                </p>
               </div>
-            )}
+            </div>
           </>
         )}
 

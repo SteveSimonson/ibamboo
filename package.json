@@ -15,8 +15,8 @@
     "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
-    "deploy": "npm run build && wrangler deploy",
-    "deploy:flash": "VITE_FLASH_CATALOG_URL=${VITE_FLASH_CATALOG_URL:-https://amazon-flash-catalog.tech-bf6.workers.dev} npm run build && wrangler deploy",
+    "deploy": "VITE_FLASH_CATALOG_URL=${VITE_FLASH_CATALOG_URL:-https://amazon-flash-catalog.tech-bf6.workers.dev} npm run build && wrangler deploy",
+    "deploy:flash": "npm run deploy",
     "library:sync": "node scripts/sync-from-library.mjs",
     "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run"
   },
