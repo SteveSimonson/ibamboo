@@ -173,11 +173,16 @@ test('every catalog PDP uses balanced top surfaces at desktop width', async ({ p
       contentBottom: Math.round(node.lastElementChild?.getBoundingClientRect().bottom || node.getBoundingClientRect().bottom),
     })))
     const detailsTop = await page.locator('#product-details-heading').evaluate((node) => Math.round(node.getBoundingClientRect().top))
+    const imagePadding = await page.locator('[data-has-thumbnail-rail]').evaluate((node) => ({
+      hasRail: node.getAttribute('data-has-thumbnail-rail') === 'true',
+      paddingBottom: Number.parseFloat(getComputedStyle(node).paddingBottom),
+    }))
     if (
       geometry.length !== 2 ||
       geometry.some((surface) => surface.bottom - surface.contentBottom > 40) ||
       Math.max(...geometry.map((surface) => surface.bottom)) - Math.min(...geometry.map((surface) => surface.bottom)) > 100 ||
-      detailsTop < Math.max(...geometry.map((item) => item.bottom))
+      detailsTop < Math.max(...geometry.map((item) => item.bottom)) ||
+      (!imagePadding.hasRail && imagePadding.paddingBottom > 40)
     ) failures.push(product.slug)
   }
   expect(failures, `unbalanced PDPs: ${failures.join(', ')}`).toEqual([])

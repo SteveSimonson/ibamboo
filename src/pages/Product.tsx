@@ -225,8 +225,9 @@ export function ProductPage() {
                   className={`absolute inset-0 w-full h-full ${
                     isQuietPlaceholder(main)
                       ? 'object-cover'
-                      : 'object-contain product-well p-6 pb-24 sm:p-10 sm:pb-28'
+                      : `object-contain product-well p-6 sm:p-10 ${thumbs.length > 1 ? 'pb-24 sm:pb-28' : ''}`
                   }`}
+                  data-has-thumbnail-rail={thumbs.length > 1 ? 'true' : 'false'}
                   referrerPolicy="no-referrer"
                   onError={() => {
                     // Walk ASIN attempts / monogram; do not leave blank tiles
