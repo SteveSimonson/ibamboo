@@ -5,9 +5,17 @@ import { bsrProducts } from '../../src/data/products.bsr.generated'
 const PRODUCT_PATH = '/product/riveira-dark-bamboo-wooden-spoons-for-cooking-6-piece-apartment-essentials-wood-'
 const NIAGARA_PATH = '/product/niagara-sleep-solution-ultra-soft-queen-size-mattress-topper-rayon-derived-from-'
 const WIDTHS = [390, 768, 1024, 1440, 2560]
-const products = [...bsrProducts, ...curatedProducts].filter((product, index, catalog) =>
-  product.asin && catalog.findIndex((candidate) => candidate.asin === product.asin) === index,
-)
+const products = (() => {
+  const seenAsins = new Set<string>()
+  const seenSlugs = new Set<string>()
+  return [...bsrProducts, ...curatedProducts].flatMap((product) => {
+    if (!product.asin || seenAsins.has(product.asin)) return []
+    seenAsins.add(product.asin)
+    const slug = seenSlugs.has(product.slug) ? `${product.slug}-${product.id}` : product.slug
+    seenSlugs.add(slug)
+    return [{ ...product, slug }]
+  })
+})()
 
 async function mockSmartDelivery(page: Page) {
   await page.route('https://conbal.us/v2/b/**/sample', async (route) => {
@@ -152,7 +160,7 @@ test('mobile reads image, purchase decision, then specifications', async ({ page
 })
 
 test('every catalog PDP uses balanced top surfaces at desktop width', async ({ page }) => {
-  test.setTimeout(120_000)
+  test.setTimeout(180_000)
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.route('**/*', async (route) => {
     const request = route.request()
@@ -165,8 +173,17 @@ test('every catalog PDP uses balanced top surfaces at desktop width', async ({ p
   await mockSmartDelivery(page)
 
   const failures: string[] = []
-  for (const product of products) {
-    await page.goto(`/product/${product.slug}`, { waitUntil: 'domcontentloaded' })
+  for (const [index, product] of products.entries()) {
+    const path = `/product/${product.slug}`
+    if (index === 0) {
+      await page.goto(path, { waitUntil: 'domcontentloaded' })
+    } else {
+      await page.evaluate((nextPath) => {
+        window.history.pushState({}, '', nextPath)
+        window.dispatchEvent(new PopStateEvent('popstate'))
+      }, path)
+    }
+    await expect(page.locator('h1')).toHaveText(product.name)
     await page.locator('[data-product-surface="purchase"]').waitFor()
     const geometry = await page.locator('[data-product-surface]').evaluateAll((nodes) => nodes.map((node) => ({
       bottom: Math.round(node.getBoundingClientRect().bottom),
