@@ -4,6 +4,7 @@ import { bsrProducts } from '../../src/data/products.bsr.generated'
 
 const PRODUCT_PATH = '/product/riveira-dark-bamboo-wooden-spoons-for-cooking-6-piece-apartment-essentials-wood-'
 const NIAGARA_PATH = '/product/niagara-sleep-solution-ultra-soft-queen-size-mattress-topper-rayon-derived-from-'
+const SMIRLY_PATH = '/product/smirly-bamboo-cutting-boards-for-kitchen-wood-cutting-board-for-meal-prep-servin'
 const WIDTHS = [390, 768, 1024, 1440, 2560]
 const products = (() => {
   const seenAsins = new Set<string>()
@@ -141,6 +142,17 @@ test('a standard PDP has three useful, separated placements', async ({ page }) =
   expect(new Set(await page.locator('[data-content-balloon]').evaluateAll((nodes) =>
     nodes.map((node) => node.getAttribute('data-balloon-section')),
   )).size).toBe(3)
+})
+
+test('an unverified Amazon gallery never exposes recommendation images', async ({ page }) => {
+  await page.goto(SMIRLY_PATH)
+  const media = page.locator('[data-product-surface="media"]')
+  await expect(media.locator('img')).toHaveAttribute('src', /81FoZNCStHL/)
+  await expect(media.locator('[data-has-thumbnail-rail]')).toHaveAttribute(
+    'data-has-thumbnail-rail',
+    'false',
+  )
+  await expect(media.locator('button')).toHaveCount(0)
 })
 
 test('mobile reads image, purchase decision, then specifications', async ({ page }) => {

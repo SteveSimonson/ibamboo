@@ -310,15 +310,17 @@ const products = structuredClone(snap.products)
         !String(u).startsWith('/brand/landing-forest') &&
         !String(u).startsWith('/brand/hero'),
     )
-    // If no Amazon photo left but we have an ASIN, keep ASIN image attempts for the client
-    if (cleaned.length === 0 && p.asin) {
+    const externallySourced =
+      p.source === 'amazon-bsr' || p.source === 'amazon-search'
+    const safeImages = externallySourced && !p.imageGalleryVerified
+      ? cleaned.slice(0, 1)
+      : cleaned
+    // If no Amazon photo left but we have an ASIN, keep an ASIN image attempt for the client
+    if (safeImages.length === 0 && p.asin) {
       const a = String(p.asin).toUpperCase()
-      cleaned.push(
-        `https://m.media-amazon.com/images/P/${a}.01._SCLZZZZZZZ_SX500_.jpg`,
-        `https://images-na.ssl-images-amazon.com/images/P/${a}.01.LZZZZZZZ.jpg`,
-      )
+      safeImages.push(`https://m.media-amazon.com/images/P/${a}.01._SCLZZZZZZZ_SX500_.jpg`)
     }
-    return { ...p, images: cleaned }
+    return { ...p, images: safeImages }
   })
 const weekOf = snap.weekOf
 const expiresAt = snap.expiresAt
