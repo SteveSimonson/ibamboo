@@ -18,7 +18,27 @@ const products = (() => {
   })
 })()
 
+/**
+ * Force static emergency catalog in e2e so layout gates stay deterministic.
+ * Production uses live flash SoT; unit tests cover the flash mapper/contract.
+ */
+async function mockFlashCatalogOffline(page: Page) {
+  await page.route(
+    (url) =>
+      /amazon-flash-catalog/i.test(url.href) ||
+      /\/api\/catalog\//i.test(url.pathname),
+    async (route) => {
+      await route.fulfill({
+        status: 503,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'e2e: flash mocked offline' }),
+      })
+    },
+  )
+}
+
 async function mockSmartDelivery(page: Page) {
+  await mockFlashCatalogOffline(page)
   await page.route('https://conbal.us/v2/b/**/sample', async (route) => {
     const request = route.request()
     const body = request.postDataJSON() as {
@@ -274,6 +294,7 @@ test('responsive host rendering does not clear or refetch a compatible deck', as
 })
 
 test('empty or failed delivery reserves no geometry', async ({ page }) => {
+  await mockFlashCatalogOffline(page)
   await page.route('https://conbal.us/v2/b/**/sample', (route) => route.fulfill({
     body: JSON.stringify({ assignments: {} }),
     contentType: 'application/json',
@@ -289,11 +310,15 @@ test('empty or failed delivery reserves no geometry', async ({ page }) => {
 test('short and empty Shop results never become balloon-led', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await loadWithFacts(page, '/shop?q=Riveira')
+  await expect(page.locator('a[href^="/product/"]').first()).toBeVisible({
+    timeout: 15_000,
+  })
   const productCount = await page.locator('a[href^="/product/"]').count()
   const balloonCount = await page.locator('[data-content-balloon]').count()
   expect(productCount).toBeGreaterThan(0)
   expect(balloonCount).toBeLessThanOrEqual(Math.max(1, Math.floor(productCount / 4)))
 
+  await mockFlashCatalogOffline(page)
   await page.goto('/shop?q=definitely-no-such-bamboo-product')
   await expect(page.getByText('No matches')).toBeVisible()
   await expect(page.locator('[data-content-balloon]')).toHaveCount(0)

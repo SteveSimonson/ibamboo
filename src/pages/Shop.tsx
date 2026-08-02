@@ -159,16 +159,17 @@ export function Shop() {
               <Clock3 className="size-5 text-bamboo shrink-0" />
               <div className="text-sm text-ink-soft">
                 <p className="font-bold uppercase tracking-wide text-[11px] text-ink">
-                  {flash.source === 'flash'
-                    ? 'Live assortment'
-                    : 'Emergency static catalog'}
-                  {flash.loading ? ' · updating…' : ''}
+                  {flash.loading
+                    ? 'Loading assortment…'
+                    : flash.source === 'flash'
+                      ? 'Live assortment'
+                      : 'Emergency static catalog'}
                 </p>
                 <p className="mt-0.5">
-                  {pool.length} products
-                  {drop.weekOf ? ` · week of ${drop.weekOf}` : ''}
-                  {until ? ` · rotates ${until}` : ''}
-                  {flash.error && flash.source === 'static'
+                  {flash.loading ? '…' : `${pool.length} products`}
+                  {!flash.loading && drop.weekOf ? ` · week of ${drop.weekOf}` : ''}
+                  {!flash.loading && until ? ` · rotates ${until}` : ''}
+                  {!flash.loading && flash.error && flash.source === 'static'
                     ? ` · ${flash.error}`
                     : ''}
                 </p>
