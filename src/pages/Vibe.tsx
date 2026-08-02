@@ -64,9 +64,9 @@ export function VibePage() {
       tier: viewportTier,
       narrativeSections: 6, featureGroups: 5, itemCount: picks.length, mediaBlocks: 2,
       candidates: [
-        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', layout: 'panel', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
-        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', layout: 'inline', size: 'responsive', minHeight: 112, topics: ['vibe', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
-        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', layout: 'panel', size: 'responsive', minHeight: 112, topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'vibe-plant-energy', ariaLabel: 'Bamboo material note', budget: 'standard-v1', layout: 'panel', role: 'section-break', section: 'plant-energy', size: 'responsive', topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
+        { anchor: 'vibe-day', ariaLabel: 'Bamboo design note', budget: 'standard-v1', layout: 'inline', role: 'inline-note', section: 'day-in-life', size: 'responsive', topics: ['vibe', 'home'], editorialTypes: editorialTypesForTier(viewportTier, DESIGN_EDITORIAL_TYPES) },
+        { anchor: 'vibe-traits', ariaLabel: 'Bamboo fact', budget: 'standard-v1', layout: 'panel', role: 'aside-note', section: 'traits', size: 'responsive', topics: ['vibe', 'bamboo-basics'], editorialTypes: editorialTypesForTier(viewportTier, MATERIAL_EDITORIAL_TYPES) },
       ],
     }), [picks.length, vibeId, viewportTier],
   )

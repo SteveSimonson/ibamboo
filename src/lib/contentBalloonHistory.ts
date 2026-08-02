@@ -1,11 +1,11 @@
-export const MAX_RECENT_BALLOON_SLUGS = 8
+export const MAX_RECENT_BALLOON_SLUGS = 24
 
 const validSlug = (value: unknown): value is string =>
   typeof value === 'string' && /^[a-z0-9-]{1,80}$/.test(value)
 
-/** One site-wide key makes the previous deck follow route and viewport changes. */
-export function contentBalloonHistoryKey(siteKey: string) {
-  return `ibamboo:content-balloon:previous:${siteKey}`
+/** Rotation is contextual: a kitchen PDP does not exhaust a Why-page deck. */
+export function contentBalloonHistoryKey(siteKey: string, routeKey: string) {
+  return `ibamboo:content-balloon:previous:${siteKey}:${encodeURIComponent(routeKey)}`
 }
 
 export function parseRecentBalloonSlugs(raw: string | null): string[] {

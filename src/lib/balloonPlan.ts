@@ -38,20 +38,37 @@ export const CRAFT_EDITORIAL_TYPES = [
 
 /** Compact routes share the responsive factual pool to retain a full reload buffer. */
 export function editorialTypesForTier(
-  tier: ViewportTier,
+  _tier: ViewportTier,
   specialized: readonly EditorialType[],
 ): readonly EditorialType[] {
-  return tier === 'compact' ? FACT_EDITORIAL_TYPES : specialized
+  return specialized
 }
+
+export type BalloonRole =
+  | 'inline-note'
+  | 'section-break'
+  | 'grid-tile'
+  | 'aside-note'
+
+export type BalloonBudget = 'compact-v1' | 'standard-v1'
 
 export type BalloonSlot = {
   anchor: string
   ariaLabel: string
+  budget: BalloonBudget
   editorialTypes: readonly EditorialType[]
   layout?: BalloonLayout
-  minHeight?: number
+  priority?: number
+  role: BalloonRole
+  section: string
   size: ConbalSize
   topics: string[]
+}
+
+export type BalloonCandidate = Omit<BalloonSlot, 'budget' | 'role' | 'section'> & {
+  budget?: BalloonBudget
+  role?: BalloonRole
+  section?: string
 }
 
 export type BalloonLayout =
@@ -70,12 +87,13 @@ export type TieredCreative = {
 }
 
 export type BalloonPlanInput = {
-  candidates: BalloonSlot[]
+  candidates: BalloonCandidate[]
   featureGroups?: number
   interactiveSteps?: number
   itemCount?: number
   mediaBlocks?: number
   narrativeSections?: number
+  maxPlacements?: number
   routeKey: string
   tier?: ViewportTier
 }
@@ -88,13 +106,6 @@ export type BalloonPlan = {
 
 const MIN_BALLOONS = 3
 const MAX_BALLOONS = 8
-const MAX_BALLOONS_BY_TIER: Record<ViewportTier, number> = {
-  compact: 4,
-  tablet: 6,
-  desktop: MAX_BALLOONS,
-  wide: MAX_BALLOONS,
-}
-
 /** Resolve the creative requested at a breakpoint, inheriting smaller tiers. */
 export function sizeForTier(tier: ViewportTier, creative: TieredCreative): ConbalSize {
   if (tier === 'wide') return creative.wide || creative.desktop || creative.tablet || creative.compact
@@ -114,26 +125,29 @@ export function withTieredSize(slot: BalloonSlot, tier: ViewportTier, creative?:
  * DOM, where interactive controls and commerce actions would be indistinct.
  */
 export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
-  const tier = input.tier || 'compact'
-  const compatibleCandidates = input.candidates.filter(isLayoutCompatible)
+  const compatibleCandidates = uniqueSemanticSections(
+    input.candidates.map(normalizeCandidate).filter(isLayoutCompatible),
+  )
   const density =
     (input.narrativeSections || 0) * 2 +
     (input.featureGroups || 0) +
     Math.ceil((input.itemCount || 0) / 6) +
     (input.mediaBlocks || 0) +
     Math.floor((input.interactiveSteps || 0) / 2)
-  const requested = Math.max(
-    MIN_BALLOONS,
-    Math.min(MAX_BALLOONS_BY_TIER[tier], 2 + Math.floor(density / 3)),
+  const requested = Math.min(
+    input.maxPlacements ?? MAX_BALLOONS,
+    Math.max(MIN_BALLOONS, 2 + Math.floor(density / 3)),
   )
   const count = Math.min(requested, compatibleCandidates.length)
   const slots = evenlyDistributed(compatibleCandidates, count)
   const signature = JSON.stringify({
     routeKey: input.routeKey,
-    tier,
-    slots: slots.map(({ anchor, layout = 'inline', size, topics, editorialTypes }) => ({
+    slots: slots.map(({ anchor, budget, layout = 'inline', role, section, size, topics, editorialTypes }) => ({
       anchor,
+      budget,
       layout,
+      role,
+      section,
       size,
       topics,
       editorialTypes,
@@ -144,8 +158,11 @@ export function deriveBalloonPlan(input: BalloonPlanInput): BalloonPlan {
 }
 
 /** Fluid host layouts fail closed instead of centering a fixed ad-size canvas. */
-export function isLayoutCompatible(slot: BalloonSlot) {
+export function isLayoutCompatible(candidate: BalloonCandidate) {
+  const slot = normalizeCandidate(candidate)
   const layout = slot.layout || 'inline'
+  if (slot.role === 'grid-tile' && layout !== 'product-card') return false
+  if (slot.role !== 'grid-tile' && layout === 'product-card') return false
   if (['inline', 'panel', 'product-card'].includes(layout)) {
     return slot.size === 'responsive'
   }
@@ -156,6 +173,31 @@ export function isLayoutCompatible(slot: BalloonSlot) {
     return ['responsive', '160x600'].includes(slot.size)
   }
   return true
+}
+
+function normalizeCandidate(candidate: BalloonCandidate): BalloonSlot {
+  const layout = candidate.layout || 'inline'
+  const role = candidate.role || (layout === 'product-card'
+    ? 'grid-tile'
+    : layout === 'panel'
+      ? 'section-break'
+      : 'inline-note')
+  return {
+    ...candidate,
+    budget: candidate.budget || (role === 'grid-tile' || role === 'aside-note' ? 'compact-v1' : 'standard-v1'),
+    role,
+    section: candidate.section || candidate.anchor,
+  }
+}
+
+/** A page may expose multiple candidate anchors, but only one can own a section. */
+function uniqueSemanticSections(items: BalloonSlot[]) {
+  const sections = new Set<string>()
+  return items.filter((item) => {
+    if (sections.has(item.section)) return false
+    sections.add(item.section)
+    return true
+  })
 }
 
 function evenlyDistributed<T>(items: T[], count: number): T[] {

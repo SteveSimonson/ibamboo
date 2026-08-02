@@ -9,17 +9,19 @@ import {
 } from '../src/lib/contentBalloonHistory.ts'
 import { validatedContentBalloonDeck } from '../src/lib/contentBalloonValidation.ts'
 import { deriveBalloonPlan } from '../src/lib/balloonPlan.ts'
+import { legacyBalloonCopy } from '../src/lib/contentBalloonContent.ts'
 import {
   canReplaceShelfProduct,
+  shopBalloonTarget,
   shopGridInsertions,
 } from '../src/lib/shopBalloonGrid.ts'
 
-test('history is site-wide, bounded, deduplicated, and rejects malformed storage', () => {
-  assert.equal(contentBalloonHistoryKey('site-a'), 'ibamboo:content-balloon:previous:site-a')
+test('history is route-aware, bounded, deduplicated, and rejects malformed storage', () => {
+  assert.equal(contentBalloonHistoryKey('site-a', 'product:kitchen'), 'ibamboo:content-balloon:previous:site-a:product%3Akitchen')
   assert.deepEqual(parseRecentBalloonSlugs('{bad json'), [])
   assert.deepEqual(parseRecentBalloonSlugs(JSON.stringify(['valid-slug', 'NOPE', 'valid-slug'])), ['valid-slug'])
 
-  const many = Array.from({ length: 20 }, (_, index) => `fact-${index}`)
+  const many = Array.from({ length: 40 }, (_, index) => `fact-${index}`)
   assert.equal(recentBalloonSlugs(many).length, MAX_RECENT_BALLOON_SLUGS)
 })
 
@@ -62,6 +64,35 @@ test('response validation rejects a mismatched layout while accepting legacy pay
   assert.deepEqual(Object.keys(deck), ['two', 'three'])
 })
 
+test('structured delivery enforces role, budget, and copy limits', () => {
+  const plan = deriveBalloonPlan({
+    routeKey: 'structured',
+    candidates: [
+      { anchor: 'one', ariaLabel: 'One', budget: 'compact-v1', editorialTypes: ['fun_fact'], layout: 'product-card', role: 'grid-tile', section: 'grid', size: 'responsive', topics: ['general'] },
+      { anchor: 'two', ariaLabel: 'Two', budget: 'standard-v1', editorialTypes: ['did_you_know'], layout: 'inline', role: 'inline-note', section: 'article', size: 'responsive', topics: ['general'] },
+      { anchor: 'three', ariaLabel: 'Three', budget: 'standard-v1', editorialTypes: ['nature_note'], layout: 'panel', role: 'section-break', section: 'close', size: 'responsive', topics: ['general'] },
+    ],
+  })
+  const valid = validatedContentBalloonDeck(plan, {
+    one: { slug: 'compact-fact', budget: 'compact-v1', role: 'grid-tile', editorial_type: 'fun_fact', content: { headline: 'A compact fact', body: 'Short enough to fit safely inside an iBamboo product-grid card.' } },
+    two: { slug: 'wrong-role', budget: 'standard-v1', role: 'aside-note', editorial_type: 'did_you_know', content: { headline: 'Wrong role', body: 'This assignment must be rejected because the role does not match.' } },
+    three: { slug: 'too-long', budget: 'standard-v1', role: 'section-break', editorial_type: 'nature_note', content: { headline: 'Too long', body: 'x'.repeat(181) } },
+  })
+  assert.deepEqual(Object.keys(valid), ['one'])
+})
+
+test('legacy HTML is reduced to copy and never needs remote CSS to render', () => {
+  assert.deepEqual(legacyBalloonCopy('<aside><span>45</span><div><p>iBamboo field note</p><strong>Lucky bamboo is a look-alike</strong><span>Lucky bamboo is a dracaena; the plants are not closely related.</span></div></aside>'), {
+    headline: 'Lucky bamboo is a look-alike',
+    body: 'Lucky bamboo is a dracaena; the plants are not closely related.',
+  })
+  assert.equal(legacyBalloonCopy('<style>body{display:none}</style><p>no structured copy</p>'), null)
+  assert.deepEqual(legacyBalloonCopy('<strong>Safe numeric entities</strong><p>A malformed code &#999999999; cannot crash the host renderer.</p>'), {
+    headline: 'Safe numeric entities',
+    body: 'A malformed code cannot crash the host renderer.',
+  })
+})
+
 test('planner preserves the editorial types authored for each placement', () => {
   const plan = deriveBalloonPlan({
     routeKey: 'relevance',
@@ -92,7 +123,11 @@ test('shop editorial cards occupy unique progressive product-grid positions', ()
   assert.ok(full.every((item, index) => index === 0 || item.afterIndex > full[index - 1].afterIndex))
 
   assert.deepEqual(shopGridInsertions(0), [])
-  assert.equal(shopGridInsertions(3).length, 2)
+  assert.equal(shopGridInsertions(3).length, 1)
+  assert.equal(shopBalloonTarget(5), 1)
+  assert.equal(shopBalloonTarget(8), 2)
+  assert.equal(shopBalloonTarget(12), 3)
+  assert.equal(shopBalloonTarget(98), 4)
 })
 
 test('home shelf replacement never drops a product without inserting a note', () => {

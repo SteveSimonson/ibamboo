@@ -145,9 +145,9 @@ export function Quiz() {
     () => deriveBalloonPlan({
       routeKey: 'quiz', tier: viewportTier, narrativeSections: 3, featureGroups: 2, interactiveSteps: 6,
       candidates: [
-        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact before the quiz', layout: 'panel', size: 'responsive', minHeight: 108, topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-midpoint', ariaLabel: 'Bamboo fact during the quiz', layout: 'panel', size: 'responsive', minHeight: 108, topics: ['quiz', 'home', 'material'], editorialTypes: FACT_EDITORIAL_TYPES },
-        { anchor: 'quiz-picks', ariaLabel: 'Bamboo field note among your picks', layout: 'product-card', size: 'responsive', minHeight: 108, topics: ['quiz', 'care', 'design'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-intro', ariaLabel: 'Bamboo fact before the quiz', budget: 'standard-v1', layout: 'panel', role: 'section-break', section: 'quiz-intro', size: 'responsive', topics: ['quiz', 'lifestyle'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-midpoint', ariaLabel: 'Bamboo fact during the quiz', budget: 'standard-v1', layout: 'panel', role: 'aside-note', section: 'quiz-midpoint', size: 'responsive', topics: ['quiz', 'home', 'material'], editorialTypes: FACT_EDITORIAL_TYPES },
+        { anchor: 'quiz-picks', ariaLabel: 'Bamboo field note among your picks', budget: 'compact-v1', layout: 'product-card', role: 'grid-tile', section: 'quiz-results', size: 'responsive', topics: ['quiz', 'care', 'design'], editorialTypes: FACT_EDITORIAL_TYPES },
       ],
     }), [viewportTier],
   )

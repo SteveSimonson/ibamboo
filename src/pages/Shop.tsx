@@ -15,14 +15,12 @@ import { resolveCollectionToCategory } from '../data/collectionRedirect'
 import { ProductCard } from '../components/ProductCard'
 import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
-import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
 import { useViewportTier } from '../hooks/useViewportTier'
 import {
   FACT_EDITORIAL_TYPES,
   deriveBalloonPlan,
-  hasBalloonAnchor,
 } from '../lib/balloonPlan'
 import { Seo } from '../components/Seo'
 import { shopSeo } from '../lib/seoData'
@@ -95,22 +93,11 @@ export function Shop() {
           ...gridInsertions.map((item) => ({
             anchor: item.anchor,
             ariaLabel: 'Bamboo fact among products',
+            budget: 'compact-v1' as const,
             layout: 'product-card' as const,
+            role: 'grid-tile' as const,
+            section: `product-grid-${item.anchor}`,
             size: 'responsive' as const,
-            minHeight: 112,
-            topics: [cat || 'home', item.topic],
-            editorialTypes: FACT_EDITORIAL_TYPES,
-          })),
-          ...[
-            { anchor: 'shop-top', topic: 'product-research' },
-            { anchor: 'shop-after-grid', topic: 'bamboo-basics' },
-            { anchor: 'shop-end', topic: 'lifestyle' },
-          ].slice(0, filtered.length === 0 ? 0 : Math.min(filtered.length < 4 ? 1 : 2, Math.max(0, 3 - gridInsertions.length))).map((item) => ({
-            anchor: item.anchor,
-            ariaLabel: 'Bamboo shopping fact',
-            layout: 'inline' as const,
-            size: 'responsive' as const,
-            minHeight: 112,
             topics: [cat || 'home', item.topic],
             editorialTypes: FACT_EDITORIAL_TYPES,
           })),
@@ -265,12 +252,6 @@ export function Shop() {
           )}
         </div>
 
-        {hasBalloonAnchor(balloonPlan, 'shop-top') && balloonDeck['shop-top'] ? (
-          <div className="mb-8">
-            <AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-top" />
-          </div>
-        ) : null}
-
         {/* Room → vibe engagement (quiz / registration funnel) */}
         {cat ? (
           <CategoryVibeCheck category={cat as Category} placement="mid" />
@@ -297,7 +278,6 @@ export function Shop() {
               return [
                 <ProductCard key={p.id} product={p} listName={cat ? `shop_${cat}` : limited ? 'shop_limited' : 'shop_all'} />,
                 placement &&
-                hasBalloonAnchor(balloonPlan, placement) &&
                 balloonDeck[placement] ? (
                   <ProductGridBalloonCard
                     key={`${p.id}-${placement}`}
@@ -311,16 +291,9 @@ export function Shop() {
           </div>
         )}
 
-        {hasBalloonAnchor(balloonPlan, 'shop-after-grid') && balloonDeck['shop-after-grid'] ? (
-          <div className="mt-8"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-after-grid" /></div>
-        ) : null}
-
         {/* Second touch after browsing — stronger CTA */}
         {cat ? (
           <CategoryVibeCheck category={cat as Category} placement="end" />
-        ) : null}
-        {hasBalloonAnchor(balloonPlan, 'shop-end') && balloonDeck['shop-end'] ? (
-          <div className="mt-10"><AdaptiveContentBalloon plan={balloonPlan} deck={balloonDeck} anchor="shop-end" /></div>
         ) : null}
       </div>
     </div>

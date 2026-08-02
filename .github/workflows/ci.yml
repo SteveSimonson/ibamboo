@@ -27,8 +27,17 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Unit tests
+        run: npm test
+
       - name: Lint
         run: npm run lint
 
       - name: Build
         run: npm run build
+
+      - name: Install browser for layout gates
+        run: npx playwright install --with-deps chromium
+
+      - name: Cross-viewport layout gates
+        run: npm run test:e2e
