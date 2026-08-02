@@ -26,17 +26,22 @@ function finalizePool(list: Product[]): Product[] {
   return out
 }
 
+/**
+ * Merge flash over static house catalog.
+ * Flash alone is still too thin (~12 SKUs) to own the full shop; until Flash
+ * publish depth is production-grade, keep static assortment and layer flash on top.
+ */
+function mergeFlashOverStatic(flash: Product[]): Product[] {
+  return finalizePool([...flash, ...shopProducts])
+}
+
 export type FlashCatalogState = {
-  /**
-   * Active shop assortment.
-   * When source === 'flash', this is flash-only (control plane SoT).
-   * When source === 'static', emergency fallback (static BSR/curated).
-   */
+  /** Full shop list: flash picks first, then full static catalog */
   products: Product[]
   flashOnly: Product[]
   payload: FlashCatalogPayload | null
   loading: boolean
-  source: 'flash' | 'static'
+  source: 'flash' | 'static' | 'merged'
   error?: string
   generatedAt?: string
   weekOf?: string
@@ -44,8 +49,8 @@ export type FlashCatalogState = {
 }
 
 /**
- * Load site assortment from Flash Catalog (source of truth).
- * Static catalog is emergency fallback only when flash is empty/unreachable.
+ * Load flash catalog and merge onto the static house/BSR assortment.
+ * Static is the bulk shelf; flash is live control-plane overlay (not a wipe).
  */
 export function useFlashCatalog(siteId = 'ibamboo'): FlashCatalogState {
   const catalogBaseUrl = flashCatalogBaseUrl()
@@ -89,14 +94,14 @@ export function useFlashCatalog(siteId = 'ibamboo'): FlashCatalogState {
 
   return useMemo(() => {
     const flashOnly = finalizePool(mapFlashProducts(payload))
+    const staticPool = finalizePool(shopProducts)
     if (flashOnly.length > 0) {
       return {
-        // Assortment SoT: flash products only — do not merge static shelves
-        products: flashOnly,
+        products: mergeFlashOverStatic(flashOnly),
         flashOnly,
         payload,
         loading,
-        source: 'flash' as const,
+        source: 'merged' as const,
         error: undefined,
         generatedAt: payload?.generatedAt,
         weekOf: payload?.weekOf,
@@ -104,12 +109,12 @@ export function useFlashCatalog(siteId = 'ibamboo'): FlashCatalogState {
       }
     }
     return {
-      products: finalizePool(shopProducts),
+      products: staticPool,
       flashOnly: [],
       payload: null,
       loading,
       source: 'static' as const,
-      error: error || (loading ? undefined : 'Using static emergency catalog'),
+      error: error || (loading ? undefined : undefined),
       weekOf: undefined,
       generatedAt: undefined,
       catalogBaseUrl,

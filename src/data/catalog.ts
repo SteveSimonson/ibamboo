@@ -1,7 +1,7 @@
 /**
  * iBamboo catalog helpers.
- * Live assortment SoT is Flash Catalog (see useFlashCatalog).
- * Static merge below is emergency fallback when flash is unreachable.
+ * Static house + BSR catalog is the bulk shelf. Flash layers on top when live
+ * (see useFlashCatalog merge) until Flash publish depth can own full assortment.
  */
 export type { Category, Product, ProductSpec } from './types'
 export { products as curatedProducts } from './products'

@@ -68,11 +68,24 @@ describe('flash catalog Phase A contract', () => {
     )
   })
 
-  it('flash-only SoT: empty flash means fallback, non-empty means no static merge needed', () => {
-    // Document the contract used by useFlashCatalog
-    const flashOnly = [{ id: 'flash-A' }, { id: 'flash-B' }]
-    const products = flashOnly.length > 0 ? flashOnly : ['static']
-    assert.deepEqual(products, flashOnly)
-    assert.notEqual(products[0], 'static')
+  it('merges flash over static without wiping the house catalog', () => {
+    const flashOnly = [{ id: 'flash-A', asin: 'A' }, { id: 'flash-B', asin: 'B' }]
+    const staticPool = [
+      { id: 'static-1', asin: 'A' }, // duplicate ASIN → flash wins
+      { id: 'static-2', asin: 'C' },
+      { id: 'static-3', asin: 'D' },
+    ]
+    const seen = new Set()
+    const products = []
+    for (const p of [...flashOnly, ...staticPool]) {
+      if (seen.has(p.asin)) continue
+      seen.add(p.asin)
+      products.push(p)
+    }
+    assert.equal(products.length, 4)
+    assert.equal(products[0].id, 'flash-A')
+    assert.ok(products.some((p) => p.id === 'static-2'))
+    assert.ok(products.some((p) => p.id === 'static-3'))
   })
 })
+
