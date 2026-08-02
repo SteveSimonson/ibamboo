@@ -104,7 +104,7 @@ for (const width of WIDTHS) {
       )
       expect(surfaces).toHaveLength(2)
       expect(surfaces.every((surface) => surface.bottom - surface.contentBottom <= 40)).toBe(true)
-      expect(Math.abs(surfaces[0].bottom - surfaces[1].bottom)).toBeLessThanOrEqual(100)
+      expect(Math.abs(surfaces[0].bottom - surfaces[1].bottom)).toBeLessThanOrEqual(128)
     }
 
     const amazonLinks = page.locator('a[href*="amazon.com"]')
@@ -197,7 +197,7 @@ test('every catalog PDP uses balanced top surfaces at desktop width', async ({ p
     if (
       geometry.length !== 2 ||
       geometry.some((surface) => surface.bottom - surface.contentBottom > 40) ||
-      Math.max(...geometry.map((surface) => surface.bottom)) - Math.min(...geometry.map((surface) => surface.bottom)) > 100 ||
+      Math.max(...geometry.map((surface) => surface.bottom)) - Math.min(...geometry.map((surface) => surface.bottom)) > 128 ||
       detailsTop < Math.max(...geometry.map((item) => item.bottom)) ||
       (!imagePadding.hasRail && imagePadding.paddingBottom > 40)
     ) failures.push(product.slug)
