@@ -107,6 +107,20 @@ with the React pages); edit SEO copy there, never in the Worker.
 - `npm run deploy` = build + `wrangler deploy`.
 - Custom domain is configured in `wrangler.jsonc`; do not casually change worker/domain names.
 
+## Gift guides (SEO listicles)
+
+Avatar-locked bamboo gift guides at `/gifts` and `/gifts/:slug`.
+
+- **Skill:** `~/.grok/skills/affiliate-gifting-seo` (`/affiliate-gifting-seo`)
+- **Data:** `src/data/giftGuides.ts` — catalog-backed `productEntries` only
+- **Pages:** `Gifts.tsx` hub, `GiftGuide.tsx` listicle
+- **SEO:** ItemList + FAQPage via `giftsHubSeo` / `giftGuideSeo`; sitemap + routeMeta
+- **Heroes:** reuse brand category / vibe / flatlay art (`heroImage` paths) until dedicated `/brand/gifts/` assets exist
+- **Voice:** calm natural living; prefer role (host, couple, new home) over forced gender
+- **Rules:** original prose; `giftWhy` ≠ PDP paste; footer disclosure only; no Conbal unless integrated
+
+Wave-1 slugs: `housewarming-gifts`, `gifts-for-the-host`, `kitchen-gifts`, `eco-friendly-gifts`, `christmas-home-gifts`.
+
 ## Product page enrichment
 
 PDPs should be **destinations** (judgment + depth), not thin Amazon hops.

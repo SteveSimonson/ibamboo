@@ -7,6 +7,7 @@
  * the React app sets after hydration. og:image stays sitewide per scope.
  */
 import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
+import { giftGuides } from '../src/data/giftGuides'
 import { getProductEnrichment } from '../src/data/productEnrichments'
 import { VIBE_LIST } from '../src/data/vibes'
 import {
@@ -16,6 +17,8 @@ import {
 } from '../src/lib/seo'
 import {
   finalizeRouteMeta,
+  giftGuideSeo,
+  giftsHubSeo,
   homeSeo,
   productSeo,
   quizSeo,
@@ -46,6 +49,11 @@ export function buildRouteMeta(): RouteMetaFile {
   }
   routes['/quiz'] = finalizeRouteMeta(quizSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
+  routes['/gifts'] = finalizeRouteMeta(giftsHubSeo())
+
+  for (const g of giftGuides) {
+    routes[`/gifts/${g.slug}`] = finalizeRouteMeta(giftGuideSeo(g))
+  }
 
   for (const vibe of VIBE_LIST) {
     routes[`/vibe/${vibe.id}`] = finalizeRouteMeta(vibeSeo(vibe))

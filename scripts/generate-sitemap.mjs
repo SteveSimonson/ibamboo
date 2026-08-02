@@ -52,11 +52,29 @@ const products = [...new Set(productSlugs)].filter(
   (s) => !s.startsWith('fill-'),
 )
 
+/** Only top-level guide slugs (avoid product slugs inside productEntries). */
+function extractGiftGuideSlugs(filePath) {
+  try {
+    const src = readFileSync(filePath, 'utf8')
+    const slugs = []
+    for (const m of src.matchAll(
+      /\{\s*slug:\s*['"]([a-z0-9][a-z0-9-]*)['"]\s*,\s*title:/g,
+    )) {
+      slugs.push(m[1])
+    }
+    return [...new Set(slugs)]
+  } catch {
+    return []
+  }
+}
+const giftSlugs = extractGiftGuideSlugs(join(ROOT, 'src/data/giftGuides.ts'))
+
 /** @type {{ loc: string, changefreq: string, priority: string }[]} */
 const urls = [
   { loc: '/', changefreq: 'daily', priority: '1.0' },
   { loc: '/shop', changefreq: 'daily', priority: '0.95' },
   { loc: '/shop?limited=1', changefreq: 'daily', priority: '0.9' },
+  { loc: '/gifts', changefreq: 'weekly', priority: '0.9' },
   { loc: '/quiz', changefreq: 'weekly', priority: '0.85' },
   { loc: '/why', changefreq: 'monthly', priority: '0.7' },
 ]
@@ -82,6 +100,14 @@ for (const slug of products) {
     loc: `/product/${slug}`,
     changefreq: 'weekly',
     priority: '0.75',
+  })
+}
+
+for (const slug of giftSlugs) {
+  urls.push({
+    loc: `/gifts/${slug}`,
+    changefreq: 'monthly',
+    priority: '0.85',
   })
 }
 
@@ -113,7 +139,7 @@ ${body}
 const out = join(ROOT, 'public/sitemap.xml')
 writeFileSync(out, xml)
 console.log(
-  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${vibes.length} vibes, ${categories.length} categories)`,
+  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gifts, ${vibes.length} vibes, ${categories.length} categories)`,
 )
 
 /**

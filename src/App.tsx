@@ -9,6 +9,8 @@ import { ProductPage } from './pages/Product'
 import { Why } from './pages/Why'
 import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
+import { GiftsHubPage } from './pages/Gifts'
+import { GiftGuidePage } from './pages/GiftGuide'
 
 const Admin = lazy(() =>
   import('./pages/Admin').then((m) => ({ default: m.Admin })),
@@ -39,6 +41,8 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="product/:slug" element={<ProductPage />} />
+          <Route path="gifts" element={<GiftsHubPage />} />
+          <Route path="gifts/:slug" element={<GiftGuidePage />} />
           <Route path="why" element={<Why />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="vibe/:vibeId" element={<VibePage />} />
