@@ -17,7 +17,8 @@ import {
   vibePath,
   type VibeProfile,
 } from '../data/vibes'
-import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
+import { CATEGORY_LABELS } from '../data/catalog'
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 import { ProductCard } from '../components/ProductCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
 import { useAdaptiveContentBalloons } from '../hooks/useAdaptiveContentBalloons'
@@ -50,14 +51,19 @@ export function VibePage() {
     trackVibeView({ vibeId: vibeKey, vibeTitle })
   }, [vibeKey, vibeTitle])
 
+  const flash = useFlashCatalog('ibamboo')
   const picks = useMemo(() => {
     if (!vibe) return []
-    const pool = shopProducts.filter(
+    const pool = flash.products.filter(
       (p) => vibe.categories.includes(p.category) && p.images?.length,
     )
-    const limited = pool.filter((p) => p.limitedTime)
-    return (limited.length >= 4 ? limited : pool).slice(0, 6)
-  }, [vibe])
+    // Prefer products with images; fall back to category pool if sparse
+    const withImg = pool.length ? pool : flash.products.filter(
+      (p) => vibe.categories.includes(p.category),
+    )
+    const limited = withImg.filter((p) => p.limitedTime)
+    return (limited.length >= 4 ? limited : withImg).slice(0, 6)
+  }, [vibe, flash.products])
   const balloonPlan = useMemo(
     () => deriveBalloonPlan({
       routeKey: `vibe:${vibeId || 'unknown'}`,

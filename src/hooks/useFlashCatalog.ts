@@ -4,17 +4,16 @@ import { withProductMedia } from '../data/productMedia'
 import type { Product } from '../data/types'
 import {
   fetchFlashCatalog,
+  flashCatalogBaseUrl,
   mapFlashProducts,
   type FlashCatalogPayload,
 } from '../lib/flashCatalog'
 
-function mergeFlashOverStatic(flash: Product[]): Product[] {
+function finalizePool(list: Product[]): Product[] {
   const seenAsin = new Set<string>()
   const seenSlug = new Set<string>()
   const out: Product[] = []
-
-  // Flash limited drop first, then full static catalog (BSR + curated)
-  for (const p of [...flash, ...shopProducts]) {
+  for (const p of list) {
     if (!isMerchandisableProduct(p)) continue
     if (p.asin && seenAsin.has(p.asin)) continue
     if (p.asin) seenAsin.add(p.asin)
@@ -28,35 +27,57 @@ function mergeFlashOverStatic(flash: Product[]): Product[] {
 }
 
 export type FlashCatalogState = {
-  /** Full shop list with live flash products preferred */
+  /**
+   * Active shop assortment.
+   * When source === 'flash', this is flash-only (control plane SoT).
+   * When source === 'static', emergency fallback (static BSR/curated).
+   */
   products: Product[]
   flashOnly: Product[]
   payload: FlashCatalogPayload | null
   loading: boolean
   source: 'flash' | 'static'
+  error?: string
   generatedAt?: string
   weekOf?: string
+  catalogBaseUrl: string
 }
 
 /**
- * Prefer live flash catalog for limited-time merchandising.
- * Falls back to static BSR-generated catalog when URL unset or fetch fails.
+ * Load site assortment from Flash Catalog (source of truth).
+ * Static catalog is emergency fallback only when flash is empty/unreachable.
  */
 export function useFlashCatalog(siteId = 'ibamboo'): FlashCatalogState {
+  const catalogBaseUrl = flashCatalogBaseUrl()
   const [payload, setPayload] = useState<FlashCatalogPayload | null>(null)
-  const [loading, setLoading] = useState(Boolean(import.meta.env.VITE_FLASH_CATALOG_URL))
+  const [loading, setLoading] = useState(Boolean(catalogBaseUrl))
+  const [error, setError] = useState<string | undefined>()
 
   useEffect(() => {
     let cancelled = false
-    const base = import.meta.env.VITE_FLASH_CATALOG_URL
+    const base = flashCatalogBaseUrl()
     if (!base) {
       setLoading(false)
+      setError('Flash catalog URL not configured')
       return
     }
     setLoading(true)
+    setError(undefined)
     fetchFlashCatalog(siteId)
       .then((data) => {
-        if (!cancelled) setPayload(data)
+        if (cancelled) return
+        if (!data) {
+          setPayload(null)
+          setError('Flash catalog unreachable or empty')
+          return
+        }
+        setPayload(data)
+        setError(undefined)
+      })
+      .catch((e) => {
+        if (cancelled) return
+        setPayload(null)
+        setError(e instanceof Error ? e.message : 'Flash catalog fetch failed')
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -67,26 +88,31 @@ export function useFlashCatalog(siteId = 'ibamboo'): FlashCatalogState {
   }, [siteId])
 
   return useMemo(() => {
-    const flashOnly = mapFlashProducts(payload)
+    const flashOnly = finalizePool(mapFlashProducts(payload))
     if (flashOnly.length > 0) {
       return {
-        products: mergeFlashOverStatic(flashOnly),
+        // Assortment SoT: flash products only — do not merge static shelves
+        products: flashOnly,
         flashOnly,
         payload,
         loading,
         source: 'flash' as const,
+        error: undefined,
         generatedAt: payload?.generatedAt,
         weekOf: payload?.weekOf,
+        catalogBaseUrl,
       }
     }
     return {
-      products: shopProducts,
+      products: finalizePool(shopProducts),
       flashOnly: [],
       payload: null,
       loading,
       source: 'static' as const,
+      error: error || (loading ? undefined : 'Using static emergency catalog'),
       weekOf: undefined,
       generatedAt: undefined,
+      catalogBaseUrl,
     }
-  }, [payload, loading])
+  }, [payload, loading, error, catalogBaseUrl])
 }

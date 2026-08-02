@@ -7,7 +7,6 @@ import {
   formatExpiry,
   limitedProducts,
   limitedTimeCopy,
-  shopProducts,
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
@@ -31,21 +30,22 @@ export function Home() {
   const flash = useFlashCatalog('ibamboo')
   const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const pool = flash.products
-  const limited = limitedTimeCopy(pool)
+  const limited = limitedTimeCopy(pool, {
+    weekOf: flash.weekOf,
+    generatedAt: flash.generatedAt,
+  })
   const weekLeaders = bsrLeaders(8, pool)
   const limitedAll = limitedProducts(pool)
   const until = formatExpiry(limited.expiresAt ?? undefined)
 
   const featured = useMemo(() => {
-    const base = pool.length ? pool : shopProducts
-    return [...base.filter((p) => p.badge), ...base]
+    return [...pool.filter((p) => p.badge), ...pool]
       .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
       .slice(0, 8)
   }, [pool])
 
   const newArrivals = useMemo(() => {
-    const base = pool.length ? pool : shopProducts
-    return base.slice().reverse().slice(0, 4)
+    return pool.slice().reverse().slice(0, 4)
   }, [pool])
   const weeklyBalloonEligible = canReplaceShelfProduct(weekLeaders.length, 2)
   const featuredBalloonEligible = canReplaceShelfProduct(featured.length, 2)
@@ -314,7 +314,7 @@ export function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CATEGORY_OPTIONS.map((c) => {
               const hero = HEROES[c.id]
-              const count = shopProducts.filter((p) => p.category === c.id).length
+              const count = pool.filter((p) => p.category === c.id).length
               return (
                 <Link
                   key={c.id}

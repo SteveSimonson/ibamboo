@@ -619,12 +619,26 @@ export function Admin() {
                   <p>
                     Status:{' '}
                     <strong className={flash.ok ? 'text-bamboo' : 'text-red-300'}>
-                      {flash.ok ? 'OK' : 'Error'}
+                      {flash.ok ? 'OK — assortment controller reachable' : 'Error'}
                     </strong>
+                  </p>
+                  {!flash.ok && flash.error ? (
+                    <p className="text-red-300/90 text-xs font-mono break-all">
+                      {String(flash.error)}
+                      {flash.status != null ? ` · HTTP ${String(flash.status)}` : ''}
+                    </p>
+                  ) : null}
+                  <p className="text-white/50 text-xs break-all">
+                    Probe URL: {String(flash.catalogUrl || config.flash.catalogUrl || '—')}
                   </p>
                   <p>Products: {String(flash.productCount ?? '—')}</p>
                   <p>Week of: {String(flash.weekOf || '—')}</p>
                   <p>Generated: {String(flash.generatedAt || '—')}</p>
+                  <p className="text-white/45 text-xs pt-1">
+                    Flash Catalog owns assortment (cron, targeting, filters). This site
+                    only presents the published catalog — change merch in Flash admin,
+                    then refresh there.
+                  </p>
                   {Array.isArray(flash.sample) && flash.sample.length > 0 ? (
                     <ul className="mt-3 space-y-1 max-h-64 overflow-auto text-xs">
                       {(flash.sample as { asin?: string; title?: string; siteCategory?: string }[]).map(
@@ -645,7 +659,7 @@ export function Admin() {
                 <p className="text-sm text-white/50">Loading flash status…</p>
               )}
               <label className="block text-xs text-white/50">
-                Catalog URL
+                Catalog URL (admin probe; storefront uses built-in default if unset)
                 <input
                   className="mt-1 w-full rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-sm text-white"
                   value={config.flash.catalogUrl}

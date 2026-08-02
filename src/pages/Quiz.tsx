@@ -22,10 +22,8 @@ import {
   type QuizQuestion,
 } from '../data/quiz'
 import { getVibe, VIBE_LIST, vibePath, writeStoredVibeId } from '../data/vibes'
-import {
-  CATEGORY_LABELS,
-  shopProducts,
-} from '../data/catalog'
+import { CATEGORY_LABELS } from '../data/catalog'
+import { useFlashCatalog } from '../hooks/useFlashCatalog'
 import { ProductCard } from '../components/ProductCard'
 import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
 import { AdaptiveContentBalloon } from '../components/AdaptiveContentBalloons'
@@ -129,17 +127,18 @@ export function Quiz() {
         ? 100
         : 0
 
+  const flash = useFlashCatalog('ibamboo')
   const picks = useMemo(
     () =>
       buildQuizPicks(
-        shopProducts,
+        flash.products,
         scored.persona.id,
         scored.topCategories.length
           ? scored.topCategories
           : scored.persona.categories,
         5,
       ),
-    [scored],
+    [scored, flash.products],
   )
   const balloonPlan = useMemo(
     () => deriveBalloonPlan({

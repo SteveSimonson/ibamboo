@@ -1,5 +1,7 @@
 /**
- * iBamboo catalog — curated house + weekly Amazon BSR limited drop.
+ * iBamboo catalog helpers.
+ * Live assortment SoT is Flash Catalog (see useFlashCatalog).
+ * Static merge below is emergency fallback when flash is unreachable.
  */
 export type { Category, Product, ProductSpec } from './types'
 export { products as curatedProducts } from './products'
@@ -177,7 +179,7 @@ export function filterProducts(
     /** Include ASIN-less pads (default false — prevents house-edit walls) */
     includePads?: boolean
   },
-  /** Optional live catalog (flash + static). Defaults to static shopProducts. */
+  /** Active assortment pool (prefer flash SoT). Defaults to static emergency. */
   pool?: Product[],
 ) {
   let list = opts.includePads
@@ -225,9 +227,13 @@ export function bsrLeaders(limit = 12, pool: Product[] = shopProducts): Product[
     .slice(0, limit)
 }
 
-/** Same category + collection first, then same category. */
-export function similarProducts(product: Product, limit = 4): Product[] {
-  const rest = shopProducts.filter((p) => p.id !== product.id)
+/** Same category + collection first, then same category. Pass live pool when available. */
+export function similarProducts(
+  product: Product,
+  limit = 4,
+  pool: Product[] = shopProducts,
+): Product[] {
+  const rest = pool.filter((p) => p.id !== product.id)
   const sameCollection = rest.filter(
     (p) =>
       p.collection === product.collection && p.category === product.category,
@@ -240,7 +246,11 @@ export function similarProducts(product: Product, limit = 4): Product[] {
   return [...sameCollection, ...sameCategory].slice(0, limit)
 }
 
-export function youMayAlsoLike(product: Product, limit = 4): Product[] {
+export function youMayAlsoLike(
+  product: Product,
+  limit = 4,
+  pool: Product[] = shopProducts,
+): Product[] {
   const adjacent: Record<Category, Category[]> = {
     kitchen: ['cutting-boards', 'dining', 'organization'],
     'cutting-boards': ['kitchen', 'dining', 'organization'],
@@ -256,7 +266,7 @@ export function youMayAlsoLike(product: Product, limit = 4): Product[] {
   const lo = (product.priceHint || 20) * 0.45
   const hi = (product.priceHint || 20) * 2.4
 
-  const scored = shopProducts
+  const scored = pool
     .filter((p) => p.id !== product.id)
     .map((p) => {
       let score = 0
@@ -291,13 +301,20 @@ export function formatRating(n?: number) {
   return n.toFixed(1)
 }
 
-export function limitedTimeCopy(pool: Product[] = shopProducts) {
+export function limitedTimeCopy(
+  pool: Product[] = shopProducts,
+  meta?: { weekOf?: string; generatedAt?: string },
+) {
+  const limitedCount = limitedProducts(pool).length
+  // When flash is SoT, "this week" = whole published drop if nothing is flagged limited
+  const count = limitedCount > 0 ? limitedCount : pool.length
   return {
     headline: bsrMarketing.headline,
     subhead: bsrMarketing.subhead,
-    weekOf: bsrWeekOf || null,
+    weekOf: meta?.weekOf || bsrWeekOf || null,
     expiresAt: bsrExpiresAt || null,
-    count: limitedProducts(pool).length,
+    generatedAt: meta?.generatedAt || null,
+    count,
   }
 }
 

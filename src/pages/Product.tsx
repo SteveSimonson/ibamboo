@@ -162,8 +162,8 @@ export function ProductPage() {
     searchKeywords: p.searchKeywords,
     name: p.name,
   })
-  const similar = similarProducts(p, 4)
-  const alsoLike = youMayAlsoLike(p, 4)
+  const similar = similarProducts(p, 4, flash.products)
+  const alsoLike = youMayAlsoLike(p, 4, flash.products)
   const main = mainSrc || mainChain[0] || ''
   const until = formatExpiry(p.expiresAt)
 
