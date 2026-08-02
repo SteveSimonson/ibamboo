@@ -3,8 +3,8 @@
  * busy brand lifestyle fillers as the primary merchandising image.
  */
 
-import { amazonAsinImage } from './amazon'
-import type { Category, Product } from '../data/types'
+import { amazonAsinImage } from './amazon.ts'
+import type { Category, Product } from '../data/types.ts'
 
 const BUSY_BRAND_PATHS = [
   '/brand/products-flatlay.webp',
@@ -220,6 +220,20 @@ function upgradeAmazonThumb(url: string, size: 500 | 1000 = 500): string {
 }
 
 /**
+ * Scraped Amazon pages can contain recommendation images outside the active
+ * ASIN's gallery. Until an ASIN-scoped API verifies the gallery, trust only
+ * the primary catalog image and use ASIN-derived fallbacks after it.
+ */
+function catalogImagesForProduct(product: Product): string[] {
+  const images = product.images || []
+  const externallySourced =
+    product.source === 'amazon-bsr' || product.source === 'amazon-search'
+  return externallySourced && !product.imageGalleryVerified
+    ? images.slice(0, 1)
+    : images
+}
+
+/**
  * Ordered gallery for display / onError chain:
  * 1) Real Amazon CDN images from catalog
  * 2) ASIN-based Amazon URL attempts (if ASIN known)
@@ -245,12 +259,12 @@ export function resolveProductImages(
     out.push(u)
   }
 
-  for (const img of product.images || []) {
+  for (const img of catalogImagesForProduct(product)) {
     if (isAmazonCdnImage(img)) push(img)
   }
 
   // Non-Amazon, non-busy extras (e.g. local brand product photography later)
-  for (const img of product.images || []) {
+  for (const img of catalogImagesForProduct(product)) {
     if (
       !isAmazonCdnImage(img) &&
       !isBusyBrandFallback(img) &&
@@ -284,7 +298,7 @@ export function galleryThumbImages(
 ): string[] {
   const out: string[] = []
   const seen = new Set<string>()
-  for (const img of product.images || []) {
+  for (const img of catalogImagesForProduct(product)) {
     if (!isReliableAmazonImage(img)) continue
     const u = upgradeAmazonThumb(img.trim(), size)
     if (!u || seen.has(u)) continue

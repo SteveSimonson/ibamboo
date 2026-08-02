@@ -133,7 +133,7 @@ function upgradeAmazonImageUrl(url) {
 }
 
 /** Extract product photo URLs from a list-card HTML chunk. */
-function extractListImages(chunk, { max = 4 } = {}) {
+function extractListImages(chunk, { max = 1 } = {}) {
   const found = []
   const patterns = [
     /src="(https:\/\/[^"]+(?:media-amazon|ssl-images-amazon)\.com\/images\/I\/[^"]+)"/gi,
@@ -385,7 +385,7 @@ async function enrichAsin(asin) {
     return {
       asin,
       title,
-      images: images.slice(0, 6),
+      images: images.slice(0, 1),
       price,
       rating,
       reviewCount,
@@ -587,6 +587,15 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
     outdoor: 120,
     baby: 200,
   }
+  const resolvedImages = resolveProductImages({
+    listImages: meta.images || [],
+    enrichedImages: enriched.images || [],
+    category: meta.ibambooCategory,
+    asin: enriched.asin,
+  })
+  const images = enriched.imageGalleryVerified
+    ? resolvedImages
+    : resolvedImages.slice(0, 1)
 
   return {
     id: `bsr-${enriched.asin}`,
@@ -628,12 +637,8 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
     asin: enriched.asin,
     searchKeywords: enriched.title,
     badge,
-    images: resolveProductImages({
-      listImages: meta.images || [],
-      enrichedImages: enriched.images || [],
-      category: meta.ibambooCategory,
-      asin: enriched.asin,
-    }),
+    images,
+    ...(enriched.imageGalleryVerified ? { imageGalleryVerified: true } : {}),
     ...(enriched.rating != null ? { rating: enriched.rating } : {}),
     ...(enriched.reviewCount != null
       ? { reviewCount: enriched.reviewCount }
@@ -873,13 +878,11 @@ async function main() {
       continue
     }
 
-    // Prefer Creators images; fill gaps from list-page photos
+    // Creators galleries are ASIN-scoped. Never mix them with scraped page
+    // images; use the single list-card primary only when the API has no image.
     if ((!enriched.images || enriched.images.length === 0) && meta.images?.length) {
       enriched.images = meta.images
-    } else if (meta.images?.length) {
-      for (const img of meta.images) {
-        if (!enriched.images.includes(img)) enriched.images.push(img)
-      }
+      enriched.imageGalleryVerified = false
     }
     console.log(
       `OK ${enriched.title.slice(0, 50)} imgs=${(enriched.images || meta.images || []).length}`,

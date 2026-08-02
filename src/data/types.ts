@@ -48,6 +48,8 @@ export interface Product {
   badge?: string
   /** Primary + gallery images (Amazon CDN, brand, or photography) */
   images: string[]
+  /** True only when every secondary image came from an ASIN-scoped trusted API. */
+  imageGalleryVerified?: boolean
   rating?: number
   reviewCount?: number
   hue: number

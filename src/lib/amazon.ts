@@ -4,7 +4,7 @@
  */
 
 export const AMAZON_ASSOCIATE_TAG =
-  import.meta.env.VITE_AMAZON_ASSOCIATE_TAG || 'iu0e3-20'
+  import.meta.env?.VITE_AMAZON_ASSOCIATE_TAG || 'iu0e3-20'
 
 /** Product detail page with Associates tag. */
 export function amazonProductUrl(asin: string, extras?: Record<string, string>) {

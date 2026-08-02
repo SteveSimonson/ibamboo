@@ -275,6 +275,7 @@ export function mapCreatorsItem(item, fallback = {}) {
     asin: item.asin,
     title: displayValue(itemInfo.title) || fallback.title,
     images: [...new Set(imageCandidates)].slice(0, 6),
+    imageGalleryVerified: true,
     price: listing?.price?.money?.amount,
     listPrice: listing?.price?.savingBasis?.money?.amount,
     rating:
