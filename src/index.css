@@ -80,6 +80,20 @@
 @layer components {
   .content-balloon {
     animation: ibamboo-fade-up 0.45s ease-out both;
+    container-type: inline-size;
+    min-width: 0;
+  }
+  .content-balloon > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* A desktop media query inside an imported creative cannot see the host
+     column's width.  Collapse multi-column panel payloads at the container
+     boundary so headings and body copy never run outside the balloon. */
+  @container (max-width: 38rem) {
+    .content-balloon--layout-panel > div {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
   }
   .content-balloon--banner {
     margin-inline: auto;

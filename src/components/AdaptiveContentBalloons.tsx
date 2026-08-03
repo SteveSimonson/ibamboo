@@ -13,7 +13,10 @@ const LABELS: Record<EditorialType, string> = {
 
 function slotStyle(slot: BalloonSlot): CSSProperties {
   if (slot.size === 'responsive') {
-    return { minHeight: slot.minHeight, overflow: 'hidden', width: '100%' }
+    // The creative owns its internal height.  Clipping the host here turns a
+    // perfectly valid responsive payload into a truncated card when a panel
+    // is placed in a narrow grid column.
+    return { minHeight: slot.minHeight, minWidth: 0, width: '100%' }
   }
   const [width, height] = slot.size.split('x').map(Number)
   return { height, marginInline: 'auto', maxWidth: '100%', overflow: 'hidden', width }
