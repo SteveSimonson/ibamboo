@@ -107,6 +107,17 @@ with the React pages); edit SEO copy there, never in the Worker.
 - `npm run deploy` = build + `wrangler deploy`.
 - Custom domain is configured in `wrangler.jsonc`; do not casually change worker/domain names.
 
+
+## Buyer-intent guides (`/guides`)
+
+Money-keyword bamboo home jobs (board care, prep, bath humidity, swaps, picnic, entry, desk, hosting, dinnerware, utensils).
+
+- **Data:** `src/data/buyerGuides.ts`
+- **Pages:** `BuyerGuides.tsx` hub, `BuyerGuide.tsx` listicle
+- **SEO:** `buyerGuidesHubSeo` / `buyerGuideSeo` + route-meta + sitemap
+- **Skill:** `~/.grok/skills/affiliate-buyer-guides`
+- Calm natural living voice; separate from `/gifts`
+
 ## Gift guides (SEO listicles)
 
 Avatar-locked bamboo gift guides at `/gifts` and `/gifts/:slug`.
