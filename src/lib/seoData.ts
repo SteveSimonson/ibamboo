@@ -15,7 +15,9 @@ import {
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
 import { giftGuides } from '../data/giftGuides'
-import type { Category, GiftGuide, Product } from '../data/types'
+import { buyerGuides } from '../data/buyerGuides'
+import type { Category, BuyerGuide,
+  GiftGuide, Product } from '../data/types'
 import type { VibeProfile } from '../data/vibes'
 import { isQuietPlaceholder } from './productImages'
 import {
@@ -243,6 +245,73 @@ export function giftGuideSeo(g: GiftGuide): PageSeo {
     breadcrumbJsonLd([
       { name: 'Home', path: '/' },
       { name: 'Gifts', path: '/gifts' },
+      { name: g.title, path },
+    ]),
+    itemListJsonLd({
+      name: g.title,
+      path,
+      items: products.map((p, i) => ({
+        name: p.name,
+        path: `/product/${p.slug}`,
+        position: g.productEntries[i]?.rank ?? i + 1,
+      })),
+    }),
+  ]
+
+  if (g.faq.length) {
+    const faqLd = faqPageJsonLd(g.faq, path)
+    if (faqLd) jsonLd.push(faqLd)
+  }
+
+  return {
+    title: g.title,
+    description: clipMeta(
+      `${g.dek} ${g.productEntries.length} bamboo picks on iBamboo. Updated ${g.updatedAt.slice(0, 4)}.`,
+    ),
+    path,
+    type: 'article',
+    image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
+    jsonLd,
+  }
+}
+
+
+export function buyerGuidesHubSeo(): PageSeo {
+  return {
+    title: 'Buyer guides — boards, bath, desk, table',
+    description: clipMeta(
+      `${buyerGuides.length} high-intent iBamboo guides: cutting board care, prep boards, humid baths, kitchen swaps, picnic gear, entry trays, desks, hosting, dinnerware, utensils. Catalog-backed.`,
+    ),
+    path: '/guides',
+    image: '/brand/social.png',
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: 'Home', path: '/' },
+        { name: 'Guides', path: '/guides' },
+      ]),
+      itemListJsonLd({
+        name: 'iBamboo buyer guides',
+        path: '/guides',
+        items: buyerGuides.map((g, i) => ({
+          name: g.title,
+          path: `/guides/${g.slug}`,
+          position: i + 1,
+        })),
+      }),
+    ],
+  }
+}
+
+export function buyerGuideSeo(g: BuyerGuide): PageSeo {
+  const path = `/guides/${g.slug}`
+  const products = g.productEntries
+    .map((e) => getProduct(e.productSlug))
+    .filter(Boolean) as Product[]
+
+  const jsonLd: Record<string, unknown>[] = [
+    breadcrumbJsonLd([
+      { name: 'Home', path: '/' },
+      { name: 'Guides', path: '/guides' },
       { name: g.title, path },
     ]),
     itemListJsonLd({

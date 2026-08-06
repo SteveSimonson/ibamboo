@@ -16,6 +16,7 @@ type NavItem =
  */
 const nav: NavItem[] = [
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
+  { kind: 'link', to: '/guides', label: 'Guides' },
   { kind: 'link', to: '/gifts', label: 'Gifts' },
   { kind: 'shop', mode: 'cat', cat: 'kitchen', label: 'Kitchen' },
   { kind: 'shop', mode: 'cat', cat: 'cutting-boards', label: 'Boards' },
@@ -37,6 +38,7 @@ function useShopNavActive() {
   return (item: NavItem): boolean => {
     if (item.kind === 'link') {
       if (item.to === '/quiz') return pathname.startsWith('/quiz')
+      if (item.to === '/guides') return pathname.startsWith('/guides')
       if (item.to === '/gifts') return pathname.startsWith('/gifts')
       return pathname === item.to
     }
@@ -241,6 +243,9 @@ export function Layout() {
                 </Link>
               </li>
               <li>
+                <Link to="/guides" className="hover:text-leaf">
+                  Buyer guides
+                </Link>
                 <Link to="/gifts" className="hover:text-leaf">
                   Gift guides
                 </Link>

@@ -175,3 +175,40 @@ export interface GiftGuide {
   }
   readMinutes?: number
 }
+
+
+/** Buyer-intent job guides — money keywords, catalog-backed (not gift avatars) */
+export interface BuyerGuideProductEntry {
+  productSlug: string
+  rank?: number
+  /** Why this fits the job — original prose */
+  pickWhy: string
+  badge?: string
+}
+
+export interface BuyerGuideSection {
+  heading: string
+  body: string
+}
+
+export interface BuyerGuideFaq {
+  q: string
+  a: string
+}
+
+export interface BuyerGuide {
+  slug: string
+  title: string
+  dek: string
+  primaryQuery: string
+  category: Category
+  productEntries: BuyerGuideProductEntry[]
+  intro: string
+  sections: BuyerGuideSection[]
+  faq: BuyerGuideFaq[]
+  hardNo?: string
+  heroImage?: string
+  publishedAt: string
+  updatedAt: string
+  readMinutes?: number
+}
