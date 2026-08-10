@@ -52,6 +52,16 @@ export function buildRouteMeta(): RouteMetaFile {
   }
   routes['/quiz'] = finalizeRouteMeta(quizSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
+  routes['/privacy'] = finalizeRouteMeta({
+    title: 'Privacy Policy',
+    description: 'Privacy Policy for iBamboo.',
+    path: '/privacy',
+  } as any)
+  routes['/terms'] = finalizeRouteMeta({
+    title: 'Terms of Use',
+    description: 'Terms of Use for iBamboo.',
+    path: '/terms',
+  } as any)
   routes['/gifts'] = finalizeRouteMeta(giftsHubSeo())
   routes['/guides'] = finalizeRouteMeta(buyerGuidesHubSeo())
 
