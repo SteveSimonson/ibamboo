@@ -290,7 +290,14 @@ export function Layout() {
           <p>© {new Date().getFullYear()} iBamboo · Bamboo living, elevated</p>
           <p>
             As an affiliate, iBamboo may earn a referral commission on
-            qualifying purchases.
+            qualifying purchases.{' '}
+            <Link to="/privacy" className="underline hover:text-paper">
+              Privacy
+            </Link>
+            {' · '}
+            <Link to="/terms" className="underline hover:text-paper">
+              Terms
+            </Link>
           </p>
         </div>
       </footer>

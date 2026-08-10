@@ -7,6 +7,8 @@ import { Home } from './pages/Home'
 import { Shop } from './pages/Shop'
 import { ProductPage } from './pages/Product'
 import { Why } from './pages/Why'
+import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
 import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
 import { GiftsHubPage } from './pages/Gifts'
@@ -50,6 +52,8 @@ export default function App() {
           <Route path="why" element={<Why />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="vibe/:vibeId" element={<VibePage />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
