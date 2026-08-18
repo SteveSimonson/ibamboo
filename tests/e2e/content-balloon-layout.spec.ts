@@ -88,6 +88,17 @@ async function expectNoHorizontalOverflow(page: Page) {
   expect(geometry.scroll).toBeLessThanOrEqual(geometry.client + 1)
 }
 
+test('content balloons honor reduced-motion preferences', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await loadWithFacts(page, PRODUCT_PATH)
+  const animationNames = await page.locator('[data-content-balloon]').evaluateAll((nodes) =>
+    nodes.map((node) => getComputedStyle(node).animationName),
+  )
+  expect(animationNames.length).toBeGreaterThan(0)
+  expect(animationNames.every((name) => name === 'none')).toBe(true)
+})
+
 for (const width of WIDTHS) {
   test(`PDP smart placements are safe at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
