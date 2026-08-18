@@ -110,6 +110,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .content-balloon {
+    animation: none !important;
+  }
+}
+
 @keyframes vibe-shimmer {
   0% {
     background-position: 0% 50%;
