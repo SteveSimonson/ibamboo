@@ -8,6 +8,16 @@ export const DEFAULT_DESCRIPTION =
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/social.png`
 export const TWITTER_HANDLE = '' // set if brand X account exists
 
+export type CrawlerFaq = { q: string; a: string }
+
+/** Visible HTML body for raw-fetch crawlers / answer engines (Worker injection). */
+export type CrawlerBody = {
+  h1: string
+  paragraphs: string[]
+  faq: CrawlerFaq[]
+  disclosure: string
+}
+
 export type PageSeo = {
   title: string
   description: string
@@ -19,6 +29,7 @@ export type PageSeo = {
   type?: 'website' | 'article' | 'product'
   noindex?: boolean
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  crawler?: CrawlerBody
 }
 
 export function absoluteUrl(pathOrUrl: string): string {

@@ -16,8 +16,13 @@ import {
 import { getCategoryHero } from '../data/categoryHeroes'
 import { giftGuides } from '../data/giftGuides'
 import { buyerGuides } from '../data/buyerGuides'
-import type { Category, BuyerGuide,
-  GiftGuide, Product } from '../data/types'
+import type {
+  Category,
+  BuyerGuide,
+  GiftGuide,
+  Product,
+  ProductEnrichment,
+} from '../data/types'
 import type { VibeProfile } from '../data/vibes'
 import { isQuietPlaceholder } from './productImages'
 import {
@@ -30,8 +35,78 @@ import {
   itemListJsonLd,
   pageTitle,
   productJsonLd,
+  type CrawlerBody,
   type PageSeo,
 } from './seo'
+
+export const AFFILIATE_DISCLOSURE =
+  'As an Amazon Associate, iBamboo may earn from qualifying purchases.'
+
+function collapseWs(s: string): string {
+  return s.replace(/\s+/g, ' ').trim()
+}
+
+/** Keep crawler judgment in the 2–6 paragraph / ~400-word band. */
+export function takeCrawlerParagraphs(
+  parts: string[],
+  maxWords = 400,
+  maxParagraphs = 6,
+): string[] {
+  const out: string[] = []
+  let used = 0
+  for (const raw of parts) {
+    const text = collapseWs(raw)
+    if (!text) continue
+    if (out.length >= maxParagraphs || used >= maxWords) break
+    const words = text.split(' ')
+    if (used + words.length <= maxWords) {
+      out.push(text)
+      used += words.length
+      continue
+    }
+    const remain = maxWords - used
+    if (remain >= 20) {
+      out.push(`${words.slice(0, remain).join(' ')}…`)
+    }
+    break
+  }
+  return out
+}
+
+function productCrawler(p: Product, enrichment?: ProductEnrichment): CrawlerBody {
+  if (enrichment) {
+    return {
+      h1: p.name,
+      paragraphs: takeCrawlerParagraphs([
+        enrichment.reviewSnapshot.verdict,
+        ...enrichment.blog.sections.slice(0, 3).map((s) => s.body),
+      ]),
+      faq: enrichment.faq.map(({ q, a }) => ({ q, a })),
+      disclosure: AFFILIATE_DISCLOSURE,
+    }
+  }
+  return {
+    h1: p.name,
+    paragraphs: [p.tagline, p.description]
+      .map((s) => (s ? collapseWs(s) : ''))
+      .filter(Boolean),
+    faq: [],
+    disclosure: AFFILIATE_DISCLOSURE,
+  }
+}
+
+function guideCrawler(g: BuyerGuide): CrawlerBody {
+  return {
+    h1: g.title,
+    paragraphs: takeCrawlerParagraphs([
+      g.dek,
+      g.intro,
+      ...g.sections.map((s) => s.body),
+    ]),
+    faq: g.faq.map(({ q, a }) => ({ q, a })),
+    disclosure: AFFILIATE_DISCLOSURE,
+  }
+}
 
 export function homeSeo(): PageSeo {
   return {
@@ -103,7 +178,7 @@ export function shopSeo(opts: {
 
 export function productSeo(
   p: Product,
-  enrichment?: import('../data/types').ProductEnrichment,
+  enrichment?: ProductEnrichment,
 ): PageSeo {
   const productPath = `/product/${p.slug}`
   // SL1000: og/schema images should be high-res (PDP-grade), not card thumbs
@@ -158,6 +233,7 @@ export function productSeo(
     image: ogImage,
     type: 'product',
     jsonLd,
+    crawler: productCrawler(p, enrichment),
   }
 }
 
@@ -277,11 +353,13 @@ export function giftGuideSeo(g: GiftGuide): PageSeo {
 
 
 export function buyerGuidesHubSeo(): PageSeo {
+  const title = 'Buyer guides — boards, bath, desk, table'
+  const description = clipMeta(
+    `${buyerGuides.length} high-intent iBamboo guides: cutting board care, prep boards, humid baths, kitchen swaps, picnic gear, entry trays, desks, hosting, dinnerware, utensils. Catalog-backed.`,
+  )
   return {
-    title: 'Buyer guides — boards, bath, desk, table',
-    description: clipMeta(
-      `${buyerGuides.length} high-intent iBamboo guides: cutting board care, prep boards, humid baths, kitchen swaps, picnic gear, entry trays, desks, hosting, dinnerware, utensils. Catalog-backed.`,
-    ),
+    title,
+    description,
     path: '/guides',
     image: '/brand/social.png',
     jsonLd: [
@@ -299,6 +377,12 @@ export function buyerGuidesHubSeo(): PageSeo {
         })),
       }),
     ],
+    crawler: {
+      h1: title,
+      paragraphs: [description],
+      faq: [],
+      disclosure: AFFILIATE_DISCLOSURE,
+    },
   }
 }
 
@@ -339,6 +423,7 @@ export function buyerGuideSeo(g: BuyerGuide): PageSeo {
     type: 'article',
     image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
     jsonLd,
+    crawler: guideCrawler(g),
   }
 }
 
@@ -352,6 +437,7 @@ export type RouteMeta = {
   jsonLd: Record<string, unknown>[] | null
   /** Same-origin LCP image the Worker preloads; absent when the route has none */
   preloadImage?: string
+  crawler?: CrawlerBody
 }
 
 /**
@@ -373,5 +459,6 @@ export function finalizeRouteMeta(seo: PageSeo): RouteMeta {
     jsonLd,
     // undefined keys drop out of routeMeta.json on JSON.stringify
     preloadImage: seo.preloadImage,
+    ...(seo.crawler ? { crawler: seo.crawler } : {}),
   }
 }

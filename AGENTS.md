@@ -140,6 +140,7 @@ PDPs should be **destinations** (judgment + depth), not thin Amazon hops.
 - **Data:** `src/data/productEnrichments.ts` via `getProductEnrichment(slug)`
 - **UI:** `src/components/ProductEnrichment.tsx` on `Product.tsx` (after specs / why; before similar)
 - **SEO:** `productSeo(product, enrichment?)` appends FAQPage JSON-LD; `scripts/route-meta.ts` must call it **with** enrichment so raw HTML has FAQ schema
+- **AEO crawler body:** `productSeo` / `buyerGuidesHubSeo` / `buyerGuideSeo` attach `crawler`; Worker injects `<article id="aeo-main">` immediately before `#root` (`html.js` clip/sr-only, never `display:none`)
 - **Non-negotiable:** original prose only (research → synthesize). No Associate-tag chrome on-page; tag only in buy `href`
 - **Coverage:** every ASIN SKU should have enrichment **or** a tracked GitHub issue for backlog
 - Research helper (optional): copy skill script → `scripts/research-product-enrichment.mjs` + TinyFish key
