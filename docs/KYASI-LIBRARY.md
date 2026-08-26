@@ -6,7 +6,7 @@ iBamboo consumes the federated product library at **https://z9go.com**.
 
 ```bash
 export Z9GO_LIBRARY_URL=https://z9go.com
-export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN from Z9GO (kyasi-net worker)
+export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN from Z9GO
 
 npm run library:sync:dry
 npm run library:sync

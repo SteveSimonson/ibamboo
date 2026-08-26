@@ -163,7 +163,7 @@ Nits on style are optional; bugs block merge.
 iBamboo is a **consumer** of the network product library at **https://z9go.com** (Z9GO).
 
 ```bash
-export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO (kyasi-net worker)
+export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO
 npm run library:sync:dry
 npm run library:sync           # write-back only (catalog → library)
 ```
