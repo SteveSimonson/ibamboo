@@ -160,15 +160,22 @@ Nits on style are optional; bugs block merge.
 
 ## Federated product library (Z9GO)
 
-iBamboo is a **consumer** of the network product library at **https://z9go.com** (Z9GO).
+iBamboo is a **consumer** of the network product library at **https://z9go.com** (Z9GO). Z9GO is source of truth for **curated** active SKUs / URL health. BSR weekly stays fenced (`src/data/products.bsr.generated.ts` is not a default inbound or write-back path).
 
 ```bash
-export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO
-npm run library:sync:dry
-npm run library:sync           # write-back only (catalog → library)
+export Z9GO_LIBRARY_URL=https://z9go.com   # optional; this is the default
+export Z9GO_LIBRARY_TOKEN=…               # ADMIN_API_TOKEN on Z9GO
+
+# Cadence
+npm run library:sync:curated   # write-back curated products.ts → Z9GO
+# then Z9GO health cron/run (fetch_status ok/partial/blocked)
+npm run library:pull:dry       # report keep/hide/inbound; no sidecar write
+npm run library:pull           # overwrite src/data/z9go-gate.json (enabled)
 ```
 
-- Client: `scripts/lib/kyasi-library.mjs`
-- Sync: `scripts/sync-from-library.mjs` (`imagesMode: replace`; no library→catalog image pull)
-- Docs: `docs/KYASI-LIBRARY.md` (Z9GO catalog core)
+- Client: `scripts/lib/kyasi-library.mjs` (`listSiteCatalog` / `listSiteCatalogAll`)
+- Write-back: `scripts/sync-from-library.mjs` — default `PRODUCT_FILES=src/data/products.ts` (override via env). `imagesMode: replace`; no library→catalog image pull.
+- Pull: `scripts/pull-from-library.mjs` — gated catalog sidecar `src/data/z9go-gate.json`. Does **not** rewrite `products.ts`. v1 inbound ASINs are listed only.
+- Shop gate: `src/data/z9goGate.ts` + `catalog.ts`. Missing / `enabled: false` = fail-open. Checked-in default is disabled empty ASINs. BSR / `limitedTime` skip the gate.
+- Docs: `docs/KYASI-LIBRARY.md`
 - Associate tag stays in site config / buy URLs only — never in library payloads.

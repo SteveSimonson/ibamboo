@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-import { isMerchandisableProduct, shopProducts } from '../data/catalog'
+import {
+  isMerchandisableProduct,
+  isZ9goGatedProduct,
+  shopProducts,
+} from '../data/catalog'
 import { withProductMedia } from '../data/productMedia'
 import type { Product } from '../data/types'
 import {
@@ -15,6 +19,7 @@ function finalizePool(list: Product[]): Product[] {
   const out: Product[] = []
   for (const p of list) {
     if (!isMerchandisableProduct(p)) continue
+    if (!isZ9goGatedProduct(p)) continue
     if (p.asin && seenAsin.has(p.asin)) continue
     if (p.asin) seenAsin.add(p.asin)
     let slug = p.slug

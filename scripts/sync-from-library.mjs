@@ -9,9 +9,9 @@
  *   npm run library:sync:dry
  *
  * Configure via env:
- *   SITE_ID (required) e.g. kyasi, adazo, mrcuts, ibamboo
+ *   SITE_ID default ibamboo
  *   PRODUCT_FILES comma-separated paths relative to repo root
- *     default: src/data/products.ts
+ *     default: src/data/products.ts (curated only — BSR is fenced)
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -27,7 +27,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const SITE_ID = process.env.SITE_ID || "ibamboo";
-const PRODUCT_FILES = (process.env.PRODUCT_FILES || "src/data/products.ts,src/data/products.bsr.generated.ts")
+const PRODUCT_FILES = (process.env.PRODUCT_FILES || "src/data/products.ts")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);

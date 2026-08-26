@@ -99,6 +99,92 @@ export async function listSiteItems(siteId, limit = 100) {
   return data;
 }
 
+const CATALOG_LIMIT_MAX = 250;
+const CATALOG_LIMIT_DEFAULT = 100;
+
+function catalogLimit(n) {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return CATALOG_LIMIT_DEFAULT;
+  return Math.min(CATALOG_LIMIT_MAX, Math.max(1, Math.floor(v)));
+}
+
+function catalogOffset(n) {
+  const v = Number(n);
+  if (!Number.isFinite(v) || v < 0) return 0;
+  return Math.floor(v);
+}
+
+function catalogUnknown(policy) {
+  return policy === "exclude" ? "exclude" : "include";
+}
+
+/** Coerce API totals so a string "250" still pages. */
+export function catalogNumber(n, fallback = NaN) {
+  const v = Number(n);
+  if (!Number.isFinite(v) || v < 0) return fallback;
+  return Math.floor(v);
+}
+
+/**
+ * Gated merchandisable catalog for a site.
+ * GET /api/library/sites/:siteId/catalog?unknown=&limit=&offset=
+ * Items are active site_items with fetch_status ok/partial (and unknown when
+ * policy=include). Never blocked.
+ */
+export async function listSiteCatalog(
+  siteId,
+  { unknown = "include", limit = CATALOG_LIMIT_DEFAULT, offset = 0 } = {},
+) {
+  const params = new URLSearchParams({
+    unknown: catalogUnknown(unknown),
+    limit: String(catalogLimit(limit)),
+    offset: String(catalogOffset(offset)),
+  });
+  return req(
+    `/api/library/sites/${encodeURIComponent(siteId)}/catalog?${params}`,
+  );
+}
+
+/** Page catalog until a short page or offset covers total. */
+export async function listSiteCatalogAll(siteId, { unknown = "include" } = {}) {
+  const limit = CATALOG_LIMIT_DEFAULT;
+  const policy = catalogUnknown(unknown);
+  const items = [];
+  let offset = 0;
+  let total = Infinity;
+  let last = null;
+  let pages = 0;
+  while (offset < total) {
+    if (++pages > 500) break;
+    const page = await listSiteCatalog(siteId, {
+      unknown: policy,
+      limit,
+      offset,
+    });
+    last = page;
+    const batch = Array.isArray(page?.items) ? page.items : [];
+    const batchLen = catalogNumber(batch.length, 0);
+    items.push(...batch);
+    const pageTotal = catalogNumber(page?.total);
+    if (Number.isFinite(pageTotal)) {
+      total = pageTotal;
+    } else {
+      total = offset + batchLen;
+    }
+    offset += batchLen;
+    if (batchLen < limit) break;
+  }
+  const returned = catalogNumber(items.length, 0);
+  return {
+    siteId: last?.siteId ?? siteId,
+    siteName: last?.siteName,
+    policy: last?.policy ?? policy,
+    items,
+    total: catalogNumber(last?.total, returned),
+    returned,
+  };
+}
+
 export async function upsertAmazonItem(input) {
   return req("/api/library/items", {
     method: "POST",

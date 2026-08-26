@@ -27,30 +27,37 @@ const categories = [
 
 const vibes = ['craft', 'ritual', 'focus', 'host', 'nest', 'patio']
 
-function extractSlugs(filePath) {
-  try {
-    const src = readFileSync(filePath, 'utf8')
-    const slugs = new Set()
-    // Matches slug: 'x' | slug: "x" | "slug": "x"
-    for (const m of src.matchAll(
-      /["']?slug["']?\s*:\s*["']([a-z0-9][a-z0-9-]*)["']/gi,
-    )) {
-      slugs.add(m[1])
-    }
-    return [...slugs]
-  } catch {
-    return []
-  }
+/**
+ * Bundle scripts/route-meta.ts with esbuild (already present via vite/wrangler)
+ * and run it — the catalog chain is TypeScript with extensionless imports and
+ * `import.meta.env`, which plain node cannot load directly. Product URLs come
+ * from shopProducts so a Z9GO-enabled gate drops hidden curated SKUs.
+ */
+async function buildRouteMetaBundle() {
+  const { build } = await import('esbuild')
+  const result = await build({
+    entryPoints: [join(ROOT, 'scripts/route-meta.ts')],
+    bundle: true,
+    format: 'esm',
+    platform: 'node',
+    write: false,
+    logLevel: 'silent',
+    define: {
+      // src/lib/amazon.ts reads this at module scope; irrelevant to route meta
+      'import.meta.env.VITE_AMAZON_ASSOCIATE_TAG': '""',
+    },
+  })
+  const tmpDir = join(ROOT, 'node_modules/.tmp')
+  mkdirSync(tmpDir, { recursive: true })
+  const bundlePath = join(tmpDir, 'route-meta.bundle.mjs')
+  writeFileSync(bundlePath, result.outputFiles[0].text)
+  return import(`${pathToFileURL(bundlePath).href}?v=${Date.now()}`)
 }
 
-const productSlugs = [
-  ...extractSlugs(join(ROOT, 'src/data/products.bsr.generated.ts')),
-  ...extractSlugs(join(ROOT, 'src/data/products.ts')),
-]
-// Prefer unique, skip fill- pads
-const products = [...new Set(productSlugs)].filter(
-  (s) => !s.startsWith('fill-'),
-)
+const catalogMod = await buildRouteMetaBundle()
+const products = (catalogMod.shopProducts || [])
+  .map((p) => p.slug)
+  .filter((s) => s && !s.startsWith('fill-'))
 
 /** Only top-level guide slugs (avoid product slugs inside productEntries). */
 function extractGiftGuideSlugs(filePath) {
@@ -156,34 +163,7 @@ console.log(
   `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gifts, ${buyerGuideSlugs.length} guides, ${vibes.length} vibes, ${categories.length} categories)`,
 )
 
-/**
- * Bundle scripts/route-meta.ts with esbuild (already present via vite/wrangler)
- * and run it — the catalog chain is TypeScript with extensionless imports and
- * `import.meta.env`, which plain node cannot load directly.
- */
-async function buildRouteMetaJson() {
-  const { build } = await import('esbuild')
-  const result = await build({
-    entryPoints: [join(ROOT, 'scripts/route-meta.ts')],
-    bundle: true,
-    format: 'esm',
-    platform: 'node',
-    write: false,
-    logLevel: 'silent',
-    define: {
-      // src/lib/amazon.ts reads this at module scope; irrelevant to route meta
-      'import.meta.env.VITE_AMAZON_ASSOCIATE_TAG': '""',
-    },
-  })
-  const tmpDir = join(ROOT, 'node_modules/.tmp')
-  mkdirSync(tmpDir, { recursive: true })
-  const bundlePath = join(tmpDir, 'route-meta.bundle.mjs')
-  writeFileSync(bundlePath, result.outputFiles[0].text)
-  const mod = await import(`${pathToFileURL(bundlePath).href}?v=${Date.now()}`)
-  return mod.buildRouteMeta()
-}
-
-const routeMeta = await buildRouteMetaJson()
+const routeMeta = catalogMod.buildRouteMeta()
 const metaOut = join(ROOT, 'worker/generated/routeMeta.json')
 mkdirSync(dirname(metaOut), { recursive: true })
 writeFileSync(metaOut, JSON.stringify(routeMeta))
