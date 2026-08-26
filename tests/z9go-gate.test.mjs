@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
+import { catalogNumber } from '../scripts/lib/kyasi-library.mjs'
 import { productPassesZ9goGate } from '../src/data/z9goGate.ts'
 
 const curated = {
@@ -75,5 +76,21 @@ describe('productPassesZ9goGate', () => {
       false,
     )
     assert.equal(productPassesZ9goGate({ asin: 'B0CURATED01' }, on), true)
+  })
+})
+
+describe('catalogNumber (pagination coercion)', () => {
+  it('coerces string total/returned/items.length so paging continues', () => {
+    assert.equal(catalogNumber('250'), 250)
+    assert.equal(catalogNumber('100'), 100)
+    assert.equal(catalogNumber(98), 98)
+    assert.equal(catalogNumber(['a', 'b'].length), 2)
+  })
+
+  it('falls back when the value is missing or invalid', () => {
+    assert.equal(catalogNumber(undefined, 0), 0)
+    assert.equal(catalogNumber('nope', 0), 0)
+    assert.equal(catalogNumber(-1, 0), 0)
+    assert.ok(Number.isNaN(catalogNumber('nope')))
   })
 })

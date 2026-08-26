@@ -132,6 +132,12 @@ async function main() {
   );
   console.log("report →", REPORT_REL);
 
+  if (libraryAsins.length === 0) {
+    throw new Error(
+      "empty gated catalog (0 ASINs) — refusing to write enabled:true sidecar (would hide all curated SKUs). Sidecar left unchanged (enabled: false).",
+    );
+  }
+
   if (dryRun) {
     console.log("dry-run: sidecar not written");
     return;

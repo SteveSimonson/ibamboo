@@ -118,6 +118,13 @@ function catalogUnknown(policy) {
   return policy === "exclude" ? "exclude" : "include";
 }
 
+/** Coerce API totals so a string "250" still pages. */
+export function catalogNumber(n, fallback = NaN) {
+  const v = Number(n);
+  if (!Number.isFinite(v) || v < 0) return fallback;
+  return Math.floor(v);
+}
+
 /**
  * Gated merchandisable catalog for a site.
  * GET /api/library/sites/:siteId/catalog?unknown=&limit=&offset=
@@ -156,22 +163,25 @@ export async function listSiteCatalogAll(siteId, { unknown = "include" } = {}) {
     });
     last = page;
     const batch = Array.isArray(page?.items) ? page.items : [];
+    const batchLen = catalogNumber(batch.length, 0);
     items.push(...batch);
-    if (typeof page?.total === "number" && Number.isFinite(page.total)) {
-      total = page.total;
+    const pageTotal = catalogNumber(page?.total);
+    if (Number.isFinite(pageTotal)) {
+      total = pageTotal;
     } else {
-      total = offset + batch.length;
+      total = offset + batchLen;
     }
-    offset += batch.length;
-    if (batch.length < limit) break;
+    offset += batchLen;
+    if (batchLen < limit) break;
   }
+  const returned = catalogNumber(items.length, 0);
   return {
     siteId: last?.siteId ?? siteId,
     siteName: last?.siteName,
     policy: last?.policy ?? policy,
     items,
-    total: typeof last?.total === "number" ? last.total : items.length,
-    returned: items.length,
+    total: catalogNumber(last?.total, returned),
+    returned,
   };
 }
 
