@@ -1,9 +1,11 @@
 /**
- * Client for the federated product library at kyasi.us
- * Reads and writes require KYASI_LIBRARY_TOKEN (ADMIN_API_TOKEN on kyasi-net).
+ * Client for the federated product library at z9go.com
+ * Reads and writes need a token. Z9GO_LIBRARY_* preferred; KYASI_LIBRARY_* still works.
  */
 const DEFAULT_BASE =
-  process.env.KYASI_LIBRARY_URL || "https://kyasi.us";
+  process.env.Z9GO_LIBRARY_URL ||
+  process.env.KYASI_LIBRARY_URL ||
+  "https://z9go.com";
 
 export function libraryBase() {
   return DEFAULT_BASE.replace(/\/+$/, "");
@@ -11,6 +13,7 @@ export function libraryBase() {
 
 export function libraryToken() {
   return (
+    process.env.Z9GO_LIBRARY_TOKEN ||
     process.env.KYASI_LIBRARY_TOKEN ||
     process.env.ADMIN_API_TOKEN ||
     ""
@@ -52,7 +55,7 @@ async function req(path, opts = {}) {
     const msg =
       (data && (data.error || data.message)) ||
       `${res.status} ${res.statusText}`;
-    const err = new Error(`kyasi library ${opts.method || "GET"} ${path}: ${msg}`);
+    const err = new Error(`z9go library ${opts.method || "GET"} ${path}: ${msg}`);
     err.status = res.status;
     err.data = data;
     throw err;

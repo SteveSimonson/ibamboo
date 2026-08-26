@@ -21,7 +21,7 @@ Session: HMAC cookie (`ADMIN_SESSION_SECRET` or password). Config in KV `ADMIN_K
 | Tab | Purpose |
 |-----|---------|
 | Flash catalog | Live flash status + link to Flash Catalog admin |
-| Product library | Review kyasi.us links for site `ibamboo` |
+| Product library | Review Z9GO (z9go.com) links for site `ibamboo` |
 | Conbal | Origin + site key + health probe |
 | Avatars | Edit house persona avatars (KV; storefront still ships vibes.ts until wired) |
 | Editor in Chief | System prompt, demeanor, audience, language, guardrails, targeting categories |
@@ -158,17 +158,17 @@ When reviewing PRs, prioritize:
 
 Nits on style are optional; bugs block merge.
 
-## Federated product library (kyasi.us)
+## Federated product library (Z9GO)
 
-iBamboo is a **consumer** of the network product library at **https://kyasi.us**.
+iBamboo is a **consumer** of the network product library at **https://z9go.com** (Z9GO).
 
 ```bash
-export KYASI_LIBRARY_TOKEN=…   # kyasi-net ADMIN_API_TOKEN
+export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO (kyasi-net worker)
 npm run library:sync:dry
 npm run library:sync           # write-back only (catalog → library)
 ```
 
 - Client: `scripts/lib/kyasi-library.mjs`
 - Sync: `scripts/sync-from-library.mjs` (`imagesMode: replace`; no library→catalog image pull)
-- Docs: `docs/KYASI-LIBRARY.md`
+- Docs: `docs/KYASI-LIBRARY.md` (Z9GO catalog core)
 - Associate tag stays in site config / buy URLs only — never in library payloads.

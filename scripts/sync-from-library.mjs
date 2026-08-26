@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * SPA affiliate site ↔ kyasi.us library sync (write-back only)
+ * SPA affiliate site ↔ Z9GO library sync (write-back only)
  *
  * GET each ASIN from library; write-back house metadata + local images
  * with imagesMode: replace. Does NOT pull library images into catalog.
  *
- *   KYASI_LIBRARY_TOKEN=… npm run library:sync
+ *   Z9GO_LIBRARY_TOKEN=… npm run library:sync
  *   npm run library:sync:dry
  *
  * Configure via env:
