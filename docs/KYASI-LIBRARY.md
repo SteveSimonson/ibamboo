@@ -1,12 +1,12 @@
-# iBamboo ↔ kyasi.us library
+# iBamboo ↔ Z9GO library
 
-iBamboo consumes the federated product library at **https://kyasi.us**.
+iBamboo consumes the federated product library at **https://z9go.com**.
 
 ## Commands
 
 ```bash
-export KYASI_LIBRARY_URL=https://kyasi.us
-export KYASI_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN from kyasi-net
+export Z9GO_LIBRARY_URL=https://z9go.com
+export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN from Z9GO (kyasi-net worker)
 
 npm run library:sync:dry
 npm run library:sync

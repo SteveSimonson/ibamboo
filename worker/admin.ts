@@ -263,10 +263,10 @@ function defaultConfig(): AdminConfig {
         'Assortment source of truth. Cron, targeting, and filters live in Flash Catalog admin (GitHub OAuth). Storefront consumes published JSON only.',
     },
     library: {
-      baseUrl: 'https://kyasi.us',
+      baseUrl: 'https://z9go.com',
       siteId: 'ibamboo',
       notes:
-        'Federated ASIN library for this storefront only (site ibamboo). Site catalog remains shelf source of truth; library:sync writes house metadata + images to kyasi.us.',
+        'Federated ASIN library for this storefront only (site ibamboo). Site catalog remains shelf source of truth; library:sync writes house metadata + images to z9go.com.',
     },
     featureFlags: {
       flashEnabled: true,
@@ -1017,14 +1017,14 @@ export async function handleAdmin(
   // Library review — this storefront only (never network-wide bySite dump)
   if (path === '/api/admin/library/status' && method === 'GET') {
     const cfg = await loadConfig(env)
-    const base = (env.LIBRARY_URL || cfg.library.baseUrl || 'https://kyasi.us').replace(
+    const base = (env.LIBRARY_URL || cfg.library.baseUrl || 'https://z9go.com').replace(
       /\/$/,
       '',
     )
     // Always this site: admin panel is site-local (ibamboo), not a network hub.
     const siteId = 'ibamboo'
     try {
-      // Site-filtered list only. kyasi.us reads require Bearer or operator session.
+      // Site-filtered list only. z9go.com reads require Bearer or operator session.
       const headers: Record<string, string> = { Accept: 'application/json' }
       if (env.LIBRARY_TOKEN) {
         headers.Authorization = `Bearer ${env.LIBRARY_TOKEN}`
