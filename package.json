@@ -18,7 +18,10 @@
     "deploy": "VITE_FLASH_CATALOG_URL=${VITE_FLASH_CATALOG_URL:-https://amazon-flash-catalog.tech-bf6.workers.dev} npm run build && wrangler deploy",
     "deploy:flash": "npm run deploy",
     "library:sync": "node scripts/sync-from-library.mjs",
-    "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run"
+    "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run",
+    "library:sync:curated": "PRODUCT_FILES=src/data/products.ts node scripts/sync-from-library.mjs",
+    "library:pull": "node scripts/pull-from-library.mjs",
+    "library:pull:dry": "node scripts/pull-from-library.mjs --dry-run"
   },
   "dependencies": {
     "lucide-react": "^1.25.0",

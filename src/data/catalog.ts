@@ -28,6 +28,18 @@ import {
 } from './products.bsr.generated'
 import { withProductMedia } from './productMedia'
 import type { Category, Product } from './types'
+import z9goGateFile from './z9go-gate.json' with { type: 'json' }
+import { productPassesZ9goGate, type Z9goGate } from './z9goGate'
+
+const z9goGate = z9goGateFile as Z9goGate
+
+/**
+ * Curated SKUs with an ASIN must be in the Z9GO sidecar when it is enabled.
+ * Missing / disabled gate is fail-open. BSR weekly is fenced (always passes).
+ */
+export function isZ9goGatedProduct(p: Product): boolean {
+  return productPassesZ9goGate(p, z9goGate)
+}
 
 /**
  * Storefront-ready product: real Amazon listing (ASIN required).
@@ -49,8 +61,10 @@ export function hasAmazonCatalogImage(p: Product): boolean {
 /** Merged storefront catalog: limited BSR drop first, then curated (deduped by ASIN). */
 export const products: Product[] = mergeCatalog(bsrProducts, curated)
 
-/** Shop/home grids — merchandisable only (no ASIN-less house-edit walls). */
-export const shopProducts: Product[] = products.filter(isMerchandisableProduct)
+/** Shop/home grids — merchandisable + Z9GO gate (fail-open when disabled). */
+export const shopProducts: Product[] = products.filter(
+  (p) => isMerchandisableProduct(p) && isZ9goGatedProduct(p),
+)
 
 function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
   const seenAsin = new Set<string>()
@@ -130,9 +144,11 @@ export function getProduct(
 ): Product | undefined {
   if (pool?.length) {
     const hit = pool.find((p) => p.slug === slug)
-    if (hit) return hit
+    if (hit && isZ9goGatedProduct(hit)) return hit
   }
-  return products.find((p) => p.slug === slug)
+  const fallback = products.find((p) => p.slug === slug)
+  if (fallback && isZ9goGatedProduct(fallback)) return fallback
+  return undefined
 }
 
 /** Best display image: Amazon CDN first, then ASIN attempts, then quiet monogram. */
@@ -185,6 +201,7 @@ export function filterProducts(
   let list = opts.includePads
     ? (pool ?? products).slice()
     : (pool ?? shopProducts).slice()
+  list = list.filter(isZ9goGatedProduct)
   if (opts.cat && opts.cat in CATEGORY_LABELS) {
     list = list.filter((p) => p.category === opts.cat)
   }

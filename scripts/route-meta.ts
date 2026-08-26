@@ -6,7 +6,7 @@
  * All copy comes from src/lib/seoData.ts so the Worker cannot drift from what
  * the React app sets after hydration. og:image stays sitewide per scope.
  */
-import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
+import { CATEGORY_OPTIONS, shopProducts } from '../src/data/catalog'
 import { giftGuides } from '../src/data/giftGuides'
 import { buyerGuides } from '../src/data/buyerGuides'
 import { getProductEnrichment } from '../src/data/productEnrichments'
@@ -77,7 +77,7 @@ export function buildRouteMeta(): RouteMetaFile {
     routes[`/vibe/${vibe.id}`] = finalizeRouteMeta(vibeSeo(vibe))
   }
 
-  for (const p of products) {
+  for (const p of shopProducts) {
     const enrichment = getProductEnrichment(p.slug)
     routes[`/product/${p.slug}`] = finalizeRouteMeta(
       productSeo(p, enrichment),
@@ -91,3 +91,5 @@ export function buildRouteMeta(): RouteMetaFile {
     routes,
   }
 }
+
+export { shopProducts }
