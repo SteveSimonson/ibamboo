@@ -291,6 +291,10 @@ export function Layout() {
           <p>
             As an affiliate, iBamboo may earn a referral commission on
             qualifying purchases.{' '}
+            <Link to="/about" className="underline hover:text-paper">
+              About
+            </Link>
+            {' · '}
             <Link to="/privacy" className="underline hover:text-paper">
               Privacy
             </Link>

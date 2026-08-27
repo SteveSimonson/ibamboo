@@ -24,6 +24,7 @@ export { getProductEnrichment } from './src/data/productEnrichments.ts'
 export { buyerGuides } from './src/data/buyerGuides.ts'
 export {
   AFFILIATE_DISCLOSURE,
+  aboutSeo,
   buyerGuideSeo,
   buyerGuidesHubSeo,
   finalizeRouteMeta,
@@ -48,6 +49,7 @@ export {
 writeFileSync(bundlePath, bundled.outputFiles[0].text)
 const {
   AFFILIATE_DISCLOSURE,
+  aboutSeo,
   buyerGuideSeo,
   buyerGuidesHubSeo,
   buyerGuides,
@@ -121,6 +123,24 @@ test('renderShell injects crawler article before #root for a product', () => {
     false,
     'Associate tag must not appear in visible crawler HTML',
   )
+})
+
+test('about routeMeta is indexable with AboutPage JSON-LD and crawler body', () => {
+  const meta = finalizeRouteMeta(aboutSeo())
+  assert.equal(meta.canonical, 'https://ibamboo.com/about')
+  assert.equal(meta.robots, 'index,follow')
+  assert.equal(meta.crawler?.h1, 'About iBamboo')
+  assert.ok(
+    meta.crawler?.paragraphs.some((p) => p.includes('Best Sellers')),
+  )
+  assert.equal(meta.crawler?.disclosure, AFFILIATE_DISCLOSURE)
+  assert.ok(
+    meta.jsonLd?.some((block) => block['@type'] === 'AboutPage'),
+  )
+  const html = renderShell(SHELL, meta, OG)
+  assert.match(html, /<article id="aeo-main">/)
+  assert.match(html, /About iBamboo/)
+  assert.equal(html.includes('iu0e3-20'), false)
 })
 
 test('renderShell skips crawler article on routes without crawler meta', () => {

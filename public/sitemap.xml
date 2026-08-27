@@ -2,817 +2,823 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ibamboo.com/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?limited=1</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/quiz</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/why</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ibamboo.com/about</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://ibamboo.com/privacy</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/terms</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=kitchen</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=cutting-boards</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=dining</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=bath</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=organization</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=desk</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=outdoor</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/shop?cat=baby</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/craft</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/ritual</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/focus</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/host</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/nest</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/vibe/patio</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/astercook-deep-carbonized-bamboo-cutting-boards-for-kitchen-with-wood-storage-st</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/royal-craft-wood-wooden-cutting-boards-for-kitchen-meal-prep-serving-non-toxic-b</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/niagara-sleep-solution-ultra-soft-queen-size-mattress-topper-rayon-derived-from-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/keechee-bamboo-cutting-board-durable-wood-cutting-boards-for-kitchen-with-deep-j</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bedlore-queen-mattress-topper-viscose-derived-from-bamboo-thick-pillow-top-mattr</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/zeawec-3-piece-set-deep-carbonized-bamboo-cutting-board-for-kitchen-crack-resist</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/riveira-dark-bamboo-wooden-spoons-for-cooking-6-piece-apartment-essentials-wood-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/greener-chef-luxury-xl-bamboo-cutting-board-set-of-3-with-vertical-grain-strengt</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/greener-chef-luxury-bamboo-cutting-board-set-of-3-with-glue-free-surface-technol</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/3-packs-bamboo-cutting-board-set-with-non-slip-feet-and-over-sink-nice-solid-thi</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/freshware-bamboo-cutting-board-set-of-3-wooden-cutting-boards-for-kitchen-knife-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/kitsure-bamboo-cutting-board-for-chopping-serving-large-natural-multi-sizes-wood</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/fibogollo-bamboo-cutting-boards-for-kitchen-set-of-3-chopping-boards-with-juice-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/chef-studio-bamboo-salad-hands-wooden-salad-serving-utensils-natural-wood-salad-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/kikcoin-17-11-bamboo-cutting-boards-for-kitchen-knife-friendly-food-grade-wooden</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/edelhaus-carbonized-bamboo-cutting-boards-cutting-board-set-of-3-heat-treated-fo</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-cutting-board-set-of-3-with-stand-carbonized-bamboo-juice-groove-carboniz</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/greener-chef-luxury-wood-cutting-board-3-piece-set-with-vertical-grain-strength-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/zarler-bamboo-cutting-boards-for-kitchen-wood-cutting-board-with-juice-grooves-a</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/farberware-bamboo-cutting-board-with-clear-locking-lid-11x14-inch-charcuterie-bo</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-cutting-board-for-kitchen-3-piece-set-with-juice-grooves-side-handles-non</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/hiware-extra-large-18-x-12-bamboo-cutting-board-for-kitchen-heavy-duty-wood-cutt</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-cutting-board-set-with-stand-3pcs-double-sided-chopping-boards-for-kitche</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/keechee-dishwasher-safe-bamboo-cutting-board-lightweight-durable-wood-cutting-bo</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/cooler-kitchen-bamboo-wood-cutting-board-set-with-6-color-coded-flexible-plastic</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-salad-tossers-set-of-2-natural-wooden-salad-servers-with-thumb-hook-ergon</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/3-pcs-wood-cutting-board-set-with-innovative-stand-durable-double-sided-bamboo-c</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-bamboo-cutting-boards-for-kitchen-wood-cutting-board-for-meal-prep-servin</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/3-pack-heavy-duty-bamboo-cutting-board-set-non-toxic-wooden-cutting-board-for-ki</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/3-piece-bamboo-cutting-board-set-cutting-boards-for-kitchen-hampton-distribution</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-cutting-board-for-kitchen-3-piece-wooden-cutting-board-set-with-juice-gro</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/romguar-craft-3-tier-bamboo-shoe-rack-for-closet-free-standing-wood-shoe-shelf-s</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-cutting-board-for-kitchen-18-large-wood-charcuterie-cheese-board-wooden-c</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/acethrills-dad-birthday-gift-for-dad-gifts-from-daughter-son-gifts-for-dads-who-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/homaxy-extra-large-organic-bamboo-cutting-boards-for-kitchen-17-5-x12-wooden-xl-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/3-piece-carbonized-bamboo-cutting-boards-groove-handles-stand-15-12-9-carbonized</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/dujen-2-pieces-bamboo-toast-tongs-10-2-inches-long-wood-toaster-tongs-with-anti-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/gfware-toothbrush-holders-for-bathrooms-5-slots-bamboo-toothbrush-holder-kids-el</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/personalized-cutting-board-custom-bamboo-engraved-charcuterie-boards-best-presen</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/besilord-silverware-organizer-kitchen-drawer-organizer-utensil-organizer-bamboo-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/farberware-bamboo-cutting-board-with-clear-locking-lid-11-x-14-inch-build-a-boar</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/2-pack-small-bamboo-wood-cutting-board-for-kitchen-8-6-x-6-mini-wooden-charcuter</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/hefild-7-pcs-small-wooden-spoons-5-8-inch-honey-spoons-for-tea-hardwood-wooden-h</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/67pcs-baby-shower-prizes-charcuterie-boards-bulk-for-guests-bamboo-cheese-board-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/wooden-laptop-stand-vertical-laptop-for-13-18-6in-bamboo-stand-for-desk-laptop-s</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/nuvograin-laptop-stand-wooden-vertical-laptop-stand-for-desk-bamboo-laptop-stand</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/wooden-vertical-laptop-stand-for-desk-bamboo-laptop-holder-compatible-with-macbo</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-laptop-stand-for-desk-ergonomic-space-saving-lightweight-stand-for-laptop</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/wkwker-bamboo-laptop-desk-with-folding-legs-tilting-surface-workstation-table-ad</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-wooden-laptop-stand-portable-wood-laptop-stand-for-desk-tablet-with-carry</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-monitor-stand-riser-4-adjustable-height-easy-assembly-laptop-stand-with-a</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/riveira-bamboo-cooking-spoons-6-piece-wooden-cooking-utensils-set-with-wooden-sp</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/best-non-toxic-wooden-spatula-for-cooking-utensils-teak-wood-wok-spatulas-for-ki</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/best-non-toxic-wooden-spatula-for-cooking-utensils-set-wood-spurtle-flat-spatula</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/royal-craft-wood-wooden-cutting-boards-for-kitchen-meal-prep-and-serving-bamboo-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/royal-craft-wood-wooden-cutting-boards-for-kitchen-meal-prep-and-serving-bamboo--bsr-B07WFF17BQ</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/5-pcs-scalloped-cutting-board-wood-bulk-15-7-x-11-inch-mini-charcuterie-boards-b</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-charcuterie-large-bamboo-cheese-board-set-for-serving-house-warming-gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-charcuterie-boards-set-large-cheese-board-set-natural-bamboo-charcuterie-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-charcuterie-board-set-large-bamboo-cheese-board-for-serving-house-warming</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-charcuterie-boards-set-large-bamboo-cheese-board-set-house-warming-gifts-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/smirly-charcuterie-boards-set-large-bamboo-cheese-board-set-house-warming-gifts--bsr-B09FRZPWHD</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/eco-soul-6-inch-disposable-palm-leaf-bamboo-plates-50-pack-square-premium-natura</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/eco-soul-7and10-inch-disposable-palm-leaf-bamboo-bundle-plates-100-pack-premium-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/eco-soul-6-inch-disposable-palm-leaf-bamboo-plates-400-pack-square-premium-natur</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vivago-bamboo-toothbrushes-10-pack-bpa-free-soft-bristles-toothbrushes-eco-72v3y</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vivago-bamboo-toothbrushes-medium-bristles-10-pack-bpa-free-medium-bristles-toot</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vivago-bamboo-toothbrushes-10-pack-natural-toothbrushes-plant-based-soft-bristle</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/navona-30-pcs-bamboo-toothbrushes-pack-bpa-free-medium-soft-bristles-toothbrushe</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/genkent-bamboo-toothbrushes-12-pack-natural-toothbrushes-bpa-free-soft-bristles-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/amazerbath-soap-holder-soap-dish-bamboo-soap-dish-2-pack-wood-bar-soap-holder-fo</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vaefae-6-pack-adjustable-bamboo-drawer-dividers-expandable-drawer-organizer-for-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vaefae-premium-bamboo-drawer-organizer-expandable-silverware-drawer-organizer-cu</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/vaefae-in-drawer-knife-block-bamboo-knife-drawer-organizer-insert-kitchen-knife-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/maplegrace-bamboo-drawer-organizer-set-individual-wood-storage-organizers-5-pcs-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/pipishell-bamboo-expandable-silverware-drawer-organizer-adjustable-kitchen-utens</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-dual-monitor-stand-riser-natural-2-tier-desk-monitor-riser-for-2-monitors</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-monitor-stand-riser-with-drawer-ergonomic-computer-riser-for-desk-with-ca</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/dual-monitor-stand-riser-with-drawer-for-desk-laptop-desk-shelf-with-adjustable-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/flexispot-solid-bamboo-standing-desk-55-34-x-28-34-real-bamboo-desktop-with-natu</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/flexispot-e6-bamboo-3-stage-dual-motor-electric-standing-desk-55-x-28-sit-stand-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/mumtop-bamboo-wind-chimes-deep-tone-wooden-wind-chime-outdoor-garden-decor-natur</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/virekm-bamboo-wind-chimes-memorial-sympathy-wood-wind-chimes-wooden-windchimes-f</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/suction-plates-bowls-set-for-baby-toddler-non-toxic-bamboo-feeding-set-with-sili</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/let-39-s-make-bamboo-suction-plates-bowls-set-for-baby-toddler-divided-platter-f</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-bath-mat-foldable-wooden-bathmat-24-x-16-inches-accessories-for-bathroom-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-bath-mat-foldable-wood-bathmat-34-x-18-inches-modern-farmhouse-decor-and-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/mind-reader-bath-mat-shower-mat-bathtub-mat-bathroom-accessory-wood-rayon-from-b</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/qtlcohd-2-pcs-bamboo-bath-mat-wood-shower-bathroom-mat-16-x-24-inch-non-slip-bat</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/cariloha-bamboo-viscose-bath-towels-plush-quick-dry-towel-turkish-cotton-bamboo-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bathtub-tray-caddy-bath-tray-bath-tub-tray-caddy-bamboo-bath-table-tray-for-tub-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/sen-yi-bao-luxury-bamboo-bathtub-tray-wooden-expandable-caddy-with-book-tablet-w</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bathtub-tray-caddy-bath-tray-bath-tub-table-tray-caddy-3mdgq2</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/unibambou-bamboo-shower-bench-inside-shower-stool-with-storage-shelf-spa-bath-ch</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/serenelife-bamboo-bath-and-shower-mat-non-slip-floor-mat-with-extra-grips-slatte</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/back-scrubber-for-shower-17in-bamboo-with-curved-long-handle-stiff-natural-boar-</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-shower-bench-for-inside-shower-to-sit-on-waterproof-shower-stool-for-shav</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/product/bamboo-corner-shower-stool-2-tier-waterproof-shower-stool-for-inside-shower-shav</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts/housewarming-gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts/gifts-for-the-host</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts/kitchen-gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts/eco-friendly-gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/gifts/christmas-home-gifts</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/bamboo-cutting-board-care</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/first-bamboo-prep-board</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/bathroom-organizer-humid</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/sustainable-swap-starter</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/bamboo-lunch-picnic-gear</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/entryway-drop-zone</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/desk-bamboo-setup</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/charcuterie-board-hosting</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/bamboo-dinnerware-everyday</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://ibamboo.com/guides/kitchen-utensil-set-worth-it</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
