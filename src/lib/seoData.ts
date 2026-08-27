@@ -276,6 +276,43 @@ export function whySeo(): PageSeo {
   }
 }
 
+const ABOUT_DESCRIPTION =
+  'iBamboo is a bamboo living storefront. Each week we curate Amazon Best Sellers drops for kitchen, table, bath, desk, and home.'
+
+export function aboutSeo(): PageSeo {
+  const path = '/about'
+  return {
+    title: 'About iBamboo',
+    description: ABOUT_DESCRIPTION,
+    path,
+    type: 'article',
+    jsonLd: [
+      breadcrumbJsonLd([
+        { name: 'Home', path: '/' },
+        { name: 'About', path },
+      ]),
+      {
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: 'About iBamboo',
+        description: ABOUT_DESCRIPTION,
+        url: absoluteUrl(path),
+      },
+    ],
+    crawler: {
+      h1: 'About iBamboo',
+      paragraphs: takeCrawlerParagraphs([
+        'iBamboo is a bamboo living storefront. We gather kitchen, table, bath, desk, and home pieces so you can browse a calmer house language in one place, then continue to Amazon when you are ready to buy.',
+        'Each week we refresh a limited-time house edit from Amazon Best Sellers lists, kept to bamboo living. Rankings rotate. The shop stays current without becoming a warehouse catalog.',
+        'We are an Amazon Associates editorial site. We do not warehouse, sell, or ship the products featured here. Checkout, shipping, taxes, and returns belong to Amazon or the listed seller.',
+        'iBamboo is operated by SYMO, LLC, Sheridan, Wyoming, USA.',
+      ]),
+      faq: [],
+      disclosure: AFFILIATE_DISCLOSURE,
+    },
+  }
+}
+
 export function quizSeo(): PageSeo {
   return {
     title: 'Bamboo Vibe Check — find your house energy',

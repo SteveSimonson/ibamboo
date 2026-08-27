@@ -22,6 +22,7 @@ import {
   buyerGuideSeo,
   buyerGuidesHubSeo,
   giftsHubSeo,
+  aboutSeo,
   homeSeo,
   productSeo,
   quizSeo,
@@ -52,6 +53,7 @@ export function buildRouteMeta(): RouteMetaFile {
   }
   routes['/quiz'] = finalizeRouteMeta(quizSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
+  routes['/about'] = finalizeRouteMeta(aboutSeo())
   routes['/privacy'] = finalizeRouteMeta({
     title: 'Privacy Policy',
     description: 'Privacy Policy for iBamboo.',
