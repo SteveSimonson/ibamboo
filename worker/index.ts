@@ -7,7 +7,8 @@
  *   by scripts/generate-sitemap.mjs from src/lib/seoData.ts (same source the
  *   React app hydrates from). og:image stays sitewide.
  * - Real 404 status for unknown routes (SPA shell + noindex)
- * - Cache-Control: immutable for Vite-hashed /assets/*, 7d for unhashed media
+ * - Cache-Control: immutable 1y for hashed /assets/* and /fonts; 1d
+ *   must-revalidate for unhashed JS/CSS; 7d for unhashed media
  * - HSTS on every response
  * - CRM: GoHighLevel contact upsert (secrets GHL_PIT, GHL_LOCATION_ID)
  * - Email: Cloudflare Email Sending binding (`EMAIL`) from hello@ibamboo.com
@@ -17,6 +18,7 @@
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
 import { handleAdmin, type AdminEnv } from './admin'
+import { cacheControlForPath } from './cache'
 import { renderShell, type RouteMeta } from './renderShell'
 
 export { renderShell }
@@ -395,14 +397,9 @@ async function serveShell(
   return new Response(html, { status, headers })
 }
 
-/** Long cache for Vite-hashed assets; medium for unhashed public media. */
+/** Long cache for hashed /assets and fonts; 1d for unhashed JS/CSS; 7d media. */
 function withCacheHeaders(res: Response, path: string): Response {
-  let cacheControl: string | null = null
-  if (path.startsWith('/assets/')) {
-    cacheControl = 'public, max-age=31536000, immutable'
-  } else if (/^\/(brand|images|products|videos)\//.test(path)) {
-    cacheControl = 'public, max-age=604800'
-  }
+  const cacheControl = cacheControlForPath(path)
   if (!cacheControl) return res
   const out = new Response(res.body, res)
   out.headers.set('Cache-Control', cacheControl)

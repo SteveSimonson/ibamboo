@@ -83,8 +83,9 @@ export function Home() {
           src="/brand/hero.webp"
           alt="Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+          width={1280}
+          height={720}
           fetchPriority="high"
-          decoding="async"
         />
         {/* Soft editorial wash: readable type without crushing the photo */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/35 to-charcoal/10" />
@@ -314,6 +315,7 @@ export function Home() {
               src="/brand/products-flatlay.webp"
               alt="iBamboo kitchenware collection"
               className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           <div className="flex flex-col justify-center px-8 sm:px-14 py-16 space-y-5">
@@ -458,6 +460,7 @@ export function Home() {
           src="/brand/soho-collection.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-charcoal/70" />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-24 text-center text-white">

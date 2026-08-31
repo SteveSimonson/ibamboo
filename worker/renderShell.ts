@@ -108,13 +108,30 @@ export function renderShell(
     out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
   }
   const schemas = [...globalJsonLd, ...(meta?.jsonLd ?? [])]
-  const preload = meta?.preloadImage
-    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}" fetchpriority="high">`
+  const preloadType = meta?.preloadImage?.endsWith('.webp')
+    ? ' type="image/webp"'
     : ''
+  const preload = meta?.preloadImage
+    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}"${preloadType} fetchpriority="high">`
+    : ''
+  // Image preload first so it wins bandwidth over fonts/JS (SPA LCP).
+  if (preload) {
+    out = out.replace('<head>', `<head>${preload}`)
+  }
   out = out.replace(
     '</head>',
-    `${preload}${schemas.map(jsonLdScript).join('')}</head>`,
+    `${schemas.map(jsonLdScript).join('')}</head>`,
   )
+  const isHomeHero = meta?.preloadImage === '/brand/hero.webp'
+  if (isHomeHero && meta?.preloadImage) {
+    const hero = `<style>#lcp-hero-wrap{position:absolute;inset:0 0 auto;height:min(92vh,52rem);z-index:0;overflow:hidden;pointer-events:none;background:#0f1610}#lcp-hero-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 40%}#lcp-hero-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,16,.9),rgba(15,22,16,.35),rgba(15,22,16,.1)),linear-gradient(to right,rgba(15,22,16,.55),transparent)}#root{position:relative;z-index:1}</style><div id="lcp-hero-wrap" aria-hidden="true"><img src="${escapeHtmlAttr(meta.preloadImage)}" alt="" width="1280" height="720" fetchpriority="high"></div>`
+    out = out.replace('<body>', `<body>${hero}`)
+    // Tailwind bundle is render-blocking; don't wait on it to paint the shell LCP img.
+    out = out.replace(
+      /<link rel="stylesheet"([^>]*href="[^"]+\.css"[^>]*)>/i,
+      `<link rel="stylesheet"$1 media="print" onload="this.media='all'">`,
+    )
+  }
   if (meta?.crawler) {
     out = injectCrawler(out, meta.crawler)
   }
