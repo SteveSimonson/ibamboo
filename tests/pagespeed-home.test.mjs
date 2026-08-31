@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
+import { hideLcpHeroWrap, LCP_HERO_WRAP_ID } from '../src/lib/lcpHeroWrap.ts'
 import { renderShell } from '../worker/renderShell.ts'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -97,4 +98,83 @@ test('homepage React LCP img has dimensions and no decoding=async', () => {
     home.indexOf('src="/brand/hero.webp"') + 500,
   )
   assert.equal(heroBlock.includes('decoding'), false)
+})
+
+const HOME_META = {
+  title: 'iBamboo — Bamboo living, elevated',
+  description: 'Discover bamboo for kitchen, table, bath, desk, and home.',
+  canonical: 'https://ibamboo.com/',
+  robots: 'index,follow',
+  ogType: 'website',
+  jsonLd: null,
+  preloadImage: '/brand/hero.webp',
+}
+
+const SHOP_META = {
+  title: 'Shop bamboo for every room | iBamboo',
+  description: 'Shop bamboo kitchen tools, cutting boards, tabletop, bath, desk, and home.',
+  canonical: 'https://ibamboo.com/shop',
+  robots: 'index,follow',
+  ogType: 'website',
+  jsonLd: null,
+  preloadImage: '/brand/categories/kitchen.webp',
+}
+
+test('LCP wrap is homepage-only and React tears it down', () => {
+  const homeHtml = renderShell(SHELL, HOME_META, 'https://ibamboo.com/brand/social.png')
+  const shopHtml = renderShell(SHELL, SHOP_META, 'https://ibamboo.com/brand/social.png')
+  const noPreloadHtml = renderShell(
+    SHELL,
+    { ...SHOP_META, preloadImage: undefined },
+    'https://ibamboo.com/brand/social.png',
+  )
+  assert.ok(homeHtml.includes('id="lcp-hero-wrap"'))
+  assert.equal(shopHtml.includes('id="lcp-hero-wrap"'), false)
+  assert.equal(noPreloadHtml.includes('id="lcp-hero-wrap"'), false)
+  assert.equal(shopHtml.includes('media="print"'), false)
+  assert.ok(homeHtml.includes('#lcp-hero-wrap.is-gone'))
+  assert.equal(homeHtml.includes('decoding="async"'), false)
+
+  const home = readFileSync(join(ROOT, 'src/pages/Home.tsx'), 'utf8')
+  const layout = readFileSync(join(ROOT, 'src/components/Layout.tsx'), 'utf8')
+  const render = readFileSync(join(ROOT, 'worker/renderShell.ts'), 'utf8')
+  assert.ok(home.includes('hideLcpHeroWrap'))
+  assert.ok(home.includes('heroRef'))
+  assert.equal(home.includes('decoding="async"'), false)
+  assert.ok(layout.includes('hideLcpHeroWrap'))
+  assert.ok(layout.includes("pathname !== '/'"))
+  assert.ok(render.includes("preloadImage === '/brand/hero.webp'"))
+  assert.equal(render.includes('decoding="async"'), false)
+})
+
+test('hideLcpHeroWrap removes #lcp-hero-wrap', () => {
+  let removed = false
+  const wrap = {
+    hidden: false,
+    classList: {
+      added: [],
+      add(name) {
+        this.added.push(name)
+      },
+    },
+    attrs: {},
+    setAttribute(name, value) {
+      this.attrs[name] = value
+    },
+    remove() {
+      removed = true
+    },
+  }
+  const doc = {
+    getElementById(id) {
+      return id === LCP_HERO_WRAP_ID ? wrap : null
+    },
+  }
+  assert.equal(hideLcpHeroWrap(doc), true)
+  assert.equal(wrap.hidden, true)
+  assert.equal(wrap.attrs.hidden, '')
+  assert.equal(wrap.attrs['aria-hidden'], 'true')
+  assert.deepEqual(wrap.classList.added, ['is-gone'])
+  assert.equal(removed, true)
+  assert.equal(hideLcpHeroWrap({ getElementById: () => null }), false)
 })

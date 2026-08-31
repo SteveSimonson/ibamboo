@@ -1,10 +1,11 @@
 import { Link, NavLink, Outlet, useLocation, useSearchParams } from 'react-router-dom'
 import { Menu, Search, X } from 'lucide-react'
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import type { Category } from '../data/types'
 import { GlobalSeo } from './Seo'
+import { hideLcpHeroWrap } from '../lib/lcpHeroWrap'
 
 type NavItem =
   | { kind: 'link'; to: string; label: string }
@@ -57,9 +58,14 @@ function navClass(active: boolean) {
 
 export function Layout() {
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
   const limited = limitedTimeCopy()
   const until = formatExpiry(limited.expiresAt ?? undefined)
   const isActive = useShopNavActive()
+
+  useLayoutEffect(() => {
+    if (pathname !== '/') hideLcpHeroWrap()
+  }, [pathname])
 
   return (
     <div className="min-h-screen flex flex-col">
