@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Clock3 } from 'lucide-react'
 import {
@@ -26,9 +26,30 @@ import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
 import { canReplaceShelfProduct } from '../lib/shopBalloonGrid'
+import { hideLcpHeroWrap } from '../lib/lcpHeroWrap'
 
 export function Home() {
+  const heroRef = useRef<HTMLImageElement>(null)
   const flash = useFlashCatalog('ibamboo')
+
+  // Worker #lcp-hero-wrap is outside React. Keep it until this hero is painted.
+  useLayoutEffect(() => {
+    const img = heroRef.current
+    if (!img || img.complete) {
+      hideLcpHeroWrap()
+      return () => {
+        hideLcpHeroWrap()
+      }
+    }
+    const done = () => hideLcpHeroWrap()
+    img.addEventListener('load', done, { once: true })
+    img.addEventListener('error', done, { once: true })
+    return () => {
+      img.removeEventListener('load', done)
+      img.removeEventListener('error', done)
+      hideLcpHeroWrap()
+    }
+  }, [])
   const { tier: viewportTier, ready: viewportReady } = useViewportTier()
   const pool = flash.products
   const limited = limitedTimeCopy(pool, {
@@ -80,11 +101,14 @@ export function Home() {
       {/* Hero — photoreal lifestyle, not illustration */}
       <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
         <img
+          ref={heroRef}
           src="/brand/hero.webp"
           alt="Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+          width={1280}
+          height={720}
           fetchPriority="high"
-          decoding="async"
+          onLoad={() => hideLcpHeroWrap()}
         />
         {/* Soft editorial wash: readable type without crushing the photo */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/35 to-charcoal/10" />
@@ -314,6 +338,7 @@ export function Home() {
               src="/brand/products-flatlay.webp"
               alt="iBamboo kitchenware collection"
               className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           <div className="flex flex-col justify-center px-8 sm:px-14 py-16 space-y-5">
@@ -458,6 +483,7 @@ export function Home() {
           src="/brand/soho-collection.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-charcoal/70" />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-24 text-center text-white">
