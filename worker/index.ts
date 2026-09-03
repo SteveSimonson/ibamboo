@@ -286,13 +286,15 @@ async function handleQuiz(request: Request, env: WorkerEnv) {
     return json({ ok: false, error: 'Valid email required' }, 400, request)
   }
 
+  if (!env.GHL_PIT || !env.GHL_LOCATION_ID) {
+    console.error('quiz: missing GHL_PIT or GHL_LOCATION_ID')
+    return json({ ok: false, error: 'Submission could not be completed.' }, 503, request)
+  }
+
   try {
-    // CRM still lives in GHL when secrets are present
     let contactId: string | null = null
-    if (env.GHL_PIT && env.GHL_LOCATION_ID) {
-      const upsert = await ghlUpsertContact(env, body)
-      contactId = upsert.contactId
-    }
+    const upsert = await ghlUpsertContact(env, body)
+    contactId = upsert.contactId
 
     let emailSent = false
     let emailProvider: string | null = null
