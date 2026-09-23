@@ -59,7 +59,9 @@ export function hasAmazonCatalogImage(p: Product): boolean {
 }
 
 /** Merged storefront catalog: limited BSR drop first, then curated (deduped by ASIN). */
-export const products: Product[] = mergeCatalog(bsrProducts, curated)
+export const products: Product[] = mergeCatalog(bsrProducts, curated).map(
+  presentForStorefront,
+)
 
 /** Shop/home grids — merchandisable + Z9GO gate (fail-open when disabled). */
 export const shopProducts: Product[] = products.filter(
@@ -318,31 +320,135 @@ export function formatRating(n?: number) {
   return n.toFixed(1)
 }
 
+/** True only when the ISO timestamp is still in the future. */
+export function isFreshExpiry(iso?: string | null): boolean {
+  if (!iso) return false
+  const t = Date.parse(iso)
+  return Number.isFinite(t) && t > Date.now()
+}
+
+export function showLimitedPlacement(p: {
+  limitedTime?: boolean
+  expiresAt?: string | null
+}): boolean {
+  return Boolean(p.limitedTime && isFreshExpiry(p.expiresAt))
+}
+
+/** Mattress toppers and rayon/viscose-derived titles are not bamboo furniture. */
+export function isOffFurnitureClaim(p: Product): boolean {
+  const title = `${p.name} ${p.slug}`.toLowerCase()
+  return (
+    title.includes('mattress topper') ||
+    title.includes('rayon derived from bamboo') ||
+    title.includes('viscose derived from bamboo')
+  )
+}
+
+export function isHomepageFeature(p: Product): boolean {
+  return !isOffFurnitureClaim(p)
+}
+
+function stripStaleScarcity(text: string): string {
+  return text
+    .replace(/options rotate and are only available for a limited time\.?/gi, '')
+    .replace(/only available for a limited time\.?/gi, '')
+    .replace(/limited-time placement on ibamboo this week\.?/gi, '')
+    .replace(/limited-time house edit\.?/gi, '')
+    .replace(/limited-time options\.?/gi, '')
+    .replace(/this week['’]s list\.?/gi, '')
+    .replace(/this week['’]s amazon bamboo picks\s*·?\s*/gi, '')
+    .replace(/\s*[·|]\s*[·|]\s*/g, ' · ')
+    .replace(/\s*[·|]\s*$/g, '')
+    .replace(/^\s*[·|]\s*/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+function stripFurnitureRank(text: string): string {
+  return text
+    .replace(/#\d+\s+in\s+furniture/gi, '')
+    .replace(/amazon best sellers\s*·\s*/gi, '')
+    .replace(/list position \(this week\)/gi, 'List note')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+/** Drop false deadlines and furniture-rank copy. Catalog rows stay. */
+export function presentForStorefront(p: Product): Product {
+  const fresh = isFreshExpiry(p.expiresAt || bsrExpiresAt)
+  const misranked = isOffFurnitureClaim(p)
+  if (fresh && !misranked) return p
+
+  let tagline = p.tagline || ''
+  let description = p.description || ''
+  let features = p.features || []
+  let specs = p.specs || []
+  let bsrCategory = p.bsrCategory
+  let bsrRank = p.bsrRank
+
+  if (!fresh) {
+    tagline = stripStaleScarcity(tagline)
+    description = stripStaleScarcity(description)
+    features = features
+      .map((f) => stripStaleScarcity(f))
+      .filter((f) => f.length > 0)
+  }
+  if (misranked) {
+    tagline = stripFurnitureRank(stripStaleScarcity(tagline))
+    description = stripFurnitureRank(stripStaleScarcity(description))
+    features = features
+      .map((f) => stripFurnitureRank(stripStaleScarcity(f)))
+      .filter((f) => f.length > 0 && !/furniture/i.test(f))
+    specs = specs
+      .map((s) => ({
+        label: stripStaleScarcity(s.label),
+        value: stripFurnitureRank(stripStaleScarcity(s.value)),
+      }))
+      .filter((s) => s.value.length > 0 && !/furniture/i.test(s.value))
+    if (/furniture/i.test(bsrCategory || '')) {
+      bsrCategory = undefined
+      bsrRank = undefined
+    }
+  }
+  if (!tagline) tagline = p.material || p.name
+
+  return {
+    ...p,
+    tagline,
+    description,
+    features,
+    specs,
+    bsrCategory,
+    bsrRank,
+  }
+}
+
 export function limitedTimeCopy(
   pool: Product[] = shopProducts,
   meta?: { weekOf?: string; generatedAt?: string },
 ) {
+  const active = isFreshExpiry(bsrExpiresAt)
   const limitedCount = limitedProducts(pool).length
-  // When flash is SoT, "this week" = whole published drop if nothing is flagged limited
-  const count = limitedCount > 0 ? limitedCount : pool.length
+  const count = active ? (limitedCount > 0 ? limitedCount : pool.length) : 0
   return {
-    headline: bsrMarketing.headline,
-    subhead: bsrMarketing.subhead,
-    weekOf: meta?.weekOf || bsrWeekOf || null,
-    expiresAt: bsrExpiresAt || null,
+    headline: active ? bsrMarketing.headline : 'The house edit',
+    subhead: active ? bsrMarketing.subhead : '',
+    weekOf: active ? meta?.weekOf || bsrWeekOf || null : null,
+    expiresAt: active ? bsrExpiresAt || null : null,
     generatedAt: meta?.generatedAt || null,
     count,
+    active,
   }
 }
 
 export function formatExpiry(iso?: string) {
-  if (!iso) return null
+  if (!isFreshExpiry(iso)) return null
   try {
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
-    }).format(new Date(iso))
+    }).format(new Date(iso as string))
   } catch {
     return null
   }

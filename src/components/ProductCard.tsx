@@ -4,6 +4,7 @@ import {
   type Product,
   categoryLabel,
   formatMoney,
+  showLimitedPlacement,
   primaryImage,
   productImageChain,
 } from '../data/catalog'
@@ -98,7 +99,7 @@ export function ProductCard({
             <div className="absolute inset-0 bg-paper-2" />
           )}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
-            {product.limitedTime && (
+            {showLimitedPlacement(product) && (
               <span className="inline-flex items-center gap-1 rounded-full bg-[#b45309] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm">
                 <Clock3 className="size-3" /> Limited time
               </span>
@@ -120,12 +121,12 @@ export function ProductCard({
           {pickLabel ? (
             <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-bamboo">
               {pickLabel}
-              {product.limitedTime ? ' · This week' : ''}
+              {showLimitedPlacement(product) ? ' · This week' : ''}
             </p>
           ) : (
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
               {categoryLabel(product.category)}
-              {product.limitedTime ? ' · This week' : ''}
+              {showLimitedPlacement(product) ? ' · This week' : ''}
             </p>
           )}
           <h3

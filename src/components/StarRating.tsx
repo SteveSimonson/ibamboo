@@ -12,6 +12,12 @@ export function StarRating({
   if (rating == null) return null
   const dim = size === 'md' ? 'size-4' : 'size-3.5'
   const full = Math.round(rating)
+  const countLabel =
+    count == null
+      ? null
+      : count % 1000 === 0
+        ? `about ${count.toLocaleString('en-US')} approx`
+        : count.toLocaleString('en-US')
 
   return (
     <div className="flex items-center gap-1.5">
@@ -28,7 +34,7 @@ export function StarRating({
         {count != null ? (
           <span className="font-normal text-muted">
             {' '}
-            ({count.toLocaleString()})
+            ({countLabel})
           </span>
         ) : null}
       </span>

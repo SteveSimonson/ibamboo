@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   isMerchandisableProduct,
   isZ9goGatedProduct,
+  presentForStorefront,
   shopProducts,
 } from '../data/catalog'
 import { withProductMedia } from '../data/productMedia'
@@ -26,7 +27,7 @@ function finalizePool(list: Product[]): Product[] {
     if (seenSlug.has(slug)) slug = `${slug}-${p.id}`
     seenSlug.add(slug)
     const merged = slug === p.slug ? p : { ...p, slug }
-    out.push(withProductMedia(merged))
+    out.push(presentForStorefront(withProductMedia(merged)))
   }
   return out
 }

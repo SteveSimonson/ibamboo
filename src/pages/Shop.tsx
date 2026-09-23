@@ -46,7 +46,12 @@ export function Shop() {
 
   const cat = (params.get('cat') as Category | '') || ''
   const q = params.get('q') || ''
-  const limited = params.get('limited') === '1'
+  const limited =
+    params.get('limited') === '1' &&
+    limitedTimeCopy(pool, {
+      weekOf: flash.weekOf,
+      generatedAt: flash.generatedAt,
+    }).active
 
   // Track filter/search changes (debounced for typing)
   const filterKey = `${cat}|${limited ? 1 : 0}|${q}`

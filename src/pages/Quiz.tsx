@@ -22,7 +22,7 @@ import {
   type QuizQuestion,
 } from '../data/quiz'
 import { getVibe, VIBE_LIST, vibePath, writeStoredVibeId } from '../data/vibes'
-import { CATEGORY_LABELS } from '../data/catalog'
+import { CATEGORY_LABELS, limitedTimeCopy } from '../data/catalog'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
 import { ProductCard } from '../components/ProductCard'
 import { ProductGridBalloonCard } from '../components/ProductGridBalloonCard'
@@ -1018,10 +1018,10 @@ function ResultStep({
                 </Link>
               )}
               <Link
-                to="/shop?limited=1"
+                to={limitedTimeCopy().active ? '/shop?limited=1' : '/shop'}
                 className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
               >
-                This week’s limited drop
+                {limitedTimeCopy().active ? 'This week’s limited drop' : 'Shop the house'}
               </Link>
               <button
                 type="button"
