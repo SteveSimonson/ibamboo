@@ -10,6 +10,7 @@ import {
   categoryLabel,
   filterProducts,
   getProduct,
+  limitedTimeCopy,
   productGalleryThumbs,
   productImageChain,
 } from '../data/catalog'
@@ -125,7 +126,7 @@ export function shopSeo(opts: {
 }): PageSeo {
   const rawCat = opts.cat || ''
   const cat = rawCat && rawCat in CATEGORY_LABELS ? (rawCat as Category) : ''
-  const limited = opts.limited === true
+  const limited = opts.limited === true && limitedTimeCopy().active
   const q = opts.q || ''
   const categoryHero = getCategoryHero(cat || null)
   const count = filterProducts({ cat, q, limited }).length

@@ -70,10 +70,11 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <GlobalSeo />
-      <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
+      {limited.active ? (
+      <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide overflow-hidden min-w-0">
         <Link
           to="/shop?limited=1"
-          className="hover:underline underline-offset-2"
+          className="block overflow-hidden min-w-0 truncate hover:underline underline-offset-2"
         >
           <span className="font-semibold text-gold">Limited-time options</span>
           {limited.count > 0 ? ` · ${limited.count} this week` : ''}
@@ -84,6 +85,7 @@ export function Layout() {
           </span>
         </Link>
       </div>
+      ) : null}
 
       <header className="sticky top-0 z-50 bg-paper/92 backdrop-blur-xl border-b border-line shadow-[0_1px_0_rgba(18,26,18,0.04)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-4">
@@ -142,10 +144,10 @@ export function Layout() {
               Search
             </Link>
             <Link
-              to="/shop?limited=1"
-              className="hidden sm:inline-flex btn-primary !py-2.5 !px-5 text-xs"
+              to={limited.active ? '/shop?limited=1' : '/shop'}
+              className="hidden sm:inline-flex btn-primary !py-2.5 !px-5 text-xs overflow-hidden min-w-0 truncate"
             >
-              Shop this week
+              {limited.active ? 'Shop this week' : 'Shop the house'}
             </Link>
             <button
               type="button"
@@ -179,11 +181,11 @@ export function Layout() {
               )
             })}
             <Link
-              to="/shop?limited=1"
+              to={limited.active ? '/shop?limited=1' : '/shop'}
               onClick={() => setOpen(false)}
-              className="btn-primary w-full !py-3 mt-2 text-sm"
+              className="btn-primary w-full !py-3 mt-2 text-sm overflow-hidden min-w-0 truncate"
             >
-              Shop this week
+              {limited.active ? 'Shop this week' : 'Shop the house'}
             </Link>
           </div>
         )}

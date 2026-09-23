@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Clock3 } from 'lucide-react'
 import {
   bsrLeaders,
+  isHomepageFeature,
   CATEGORY_OPTIONS,
   formatExpiry,
   limitedProducts,
@@ -56,18 +57,19 @@ export function Home() {
     weekOf: flash.weekOf,
     generatedAt: flash.generatedAt,
   })
-  const weekLeaders = bsrLeaders(8, pool)
+  const weekLeaders = bsrLeaders(24, pool).filter(isHomepageFeature).slice(0, 8)
   const limitedAll = limitedProducts(pool)
   const until = formatExpiry(limited.expiresAt ?? undefined)
 
   const featured = useMemo(() => {
     return [...pool.filter((p) => p.badge), ...pool]
+      .filter(isHomepageFeature)
       .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
       .slice(0, 8)
   }, [pool])
 
   const newArrivals = useMemo(() => {
-    return pool.slice().reverse().slice(0, 4)
+    return pool.filter(isHomepageFeature).slice().reverse().slice(0, 4)
   }, [pool])
   const weeklyBalloonEligible = canReplaceShelfProduct(weekLeaders.length, 2)
   const featuredBalloonEligible = canReplaceShelfProduct(featured.length, 2)
@@ -116,9 +118,9 @@ export function Home() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 sm:pb-20 pt-28 sm:pt-36">
           <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
-              <Clock3 className="size-3.5 text-gold" />
-              Limited-time house edit
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6 overflow-hidden min-w-0 max-w-full">
+              <Clock3 className="size-3.5 text-gold shrink-0" />
+              <span className="truncate">{limited.active ? 'Limited-time house edit' : 'House edit'}</span>
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
               Living designed in bamboo.
@@ -129,10 +131,10 @@ export function Home() {
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                to="/shop?limited=1"
-                className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)]"
+                to={limited.active ? '/shop?limited=1' : '/shop'}
+                className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)] overflow-hidden min-w-0 truncate"
               >
-                Shop this week’s drop <ArrowRight className="size-4" />
+                {limited.active ? 'Shop this week’s drop' : 'Shop the house'} <ArrowRight className="size-4" />
               </Link>
               <Link
                 to="/quiz"
@@ -160,14 +162,14 @@ export function Home() {
             <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#9a3412] mb-2">
-                  {limited.headline}
+                  {limited.active ? limited.headline : 'House edit'}
                 </p>
                 <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink">
-                  This week’s Amazon Best Sellers
+                  {limited.active ? 'This week’s Amazon Best Sellers' : 'Amazon Best Sellers'}
                 </h2>
                 <p className="text-ink-soft mt-2 max-w-xl font-light">
                   Ranked placements from Amazon’s public Best Sellers lists—curated
-                  for bamboo living. Lists rotate weekly.
+                  for bamboo living.{limited.active ? ' Lists rotate weekly.' : ''}
                 </p>
               </div>
               <Link

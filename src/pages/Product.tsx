@@ -14,6 +14,7 @@ import {
   categoryLabel,
   formatExpiry,
   formatMoney,
+  showLimitedPlacement,
   getProduct,
   productGalleryThumbs,
   productImageChain,
@@ -284,7 +285,7 @@ export function ProductPage() {
 
           {/* Buy box */}
           <div className="space-y-4 rounded-3xl border border-line bg-card p-6 shadow-[0_20px_60px_-52px_rgba(18,26,18,0.55)] sm:p-8 xl:col-span-5" data-balloon-zone="commerce" data-product-surface="purchase">
-            {product.limitedTime && (
+            {showLimitedPlacement(product) && (
               <div className="flex items-center gap-2 rounded-full border border-[#fdba74] bg-[#fff7ed] px-3 py-2 text-xs font-semibold text-[#9a3412]">
                 <Clock3 className="size-4 shrink-0" />
                 <span>
