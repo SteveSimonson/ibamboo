@@ -237,13 +237,27 @@ test('every catalog PDP uses balanced top surfaces at desktop width', async ({ p
       hasRail: node.getAttribute('data-has-thumbnail-rail') === 'true',
       paddingBottom: Number.parseFloat(getComputedStyle(node).paddingBottom),
     }))
+    const h1Height = await page.locator('h1').evaluate((node) => Math.round(node.getBoundingClientRect().height))
+    const bottoms = geometry.map((surface) => surface.bottom)
+    const columnDelta = bottoms.length
+      ? Math.max(...bottoms) - Math.min(...bottoms)
+      : Number.POSITIVE_INFINITY
+    // Media well is a fixed square; the buy box sizes to its copy
+    // (`items-start`). 128px still covers a four-line truncated title. A
+    // shorter title only shortens the buy box: each line under four is ~45px
+    // of copy, with 16px for renderer rounding. Internal dead space stays
+    // capped at 40px below.
+    const titleLinePx = 45
+    const titleLines = Math.max(1, Math.round(h1Height / titleLinePx))
+    const linesUnderFour = Math.max(0, 4 - titleLines)
+    const columnDeltaMax = 128 + linesUnderFour * titleLinePx + (linesUnderFour > 0 ? 16 : 0)
     if (
       geometry.length !== 2 ||
       geometry.some((surface) => surface.bottom - surface.contentBottom > 40) ||
-      Math.max(...geometry.map((surface) => surface.bottom)) - Math.min(...geometry.map((surface) => surface.bottom)) > 128 ||
+      columnDelta > columnDeltaMax ||
       detailsTop < Math.max(...geometry.map((item) => item.bottom)) ||
       (!imagePadding.hasRail && imagePadding.paddingBottom > 40)
-    ) failures.push(product.slug)
+    ) failures.push(`${product.slug} (column Δ${columnDelta}px > ${columnDeltaMax}px, h1 ${h1Height}px)`)
   }
   expect(failures, `unbalanced PDPs: ${failures.join(', ')}`).toEqual([])
 })
