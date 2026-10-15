@@ -43,6 +43,8 @@ const routeMeta = routeMetaJson as unknown as RouteMetaFile
 const SITE = 'https://ibamboo.com'
 const CANONICAL_HOST = 'ibamboo.com'
 const HSTS = 'max-age=31536000'
+const CSP =
+  "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://conbal.us https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://amazon-flash-catalog.tech-bf6.workers.dev; upgrade-insecure-requests"
 
 type QuizPayload = {
   email?: string
@@ -481,6 +483,9 @@ export default {
     const res = await handleRequest(request, env)
     const out = new Response(res.body, res)
     out.headers.set('Strict-Transport-Security', HSTS)
+    out.headers.set('X-Content-Type-Options', 'nosniff')
+    out.headers.set('X-Frame-Options', 'DENY')
+    out.headers.set('Content-Security-Policy', CSP)
     return out
   },
 }
