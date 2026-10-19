@@ -19,7 +19,7 @@ import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
 import { handleAdmin, type AdminEnv } from './admin'
 import { cacheControlForPath } from './cache'
-import { renderShell, type RouteMeta } from './renderShell'
+import { htmlShellAsset, renderShell, type RouteMeta } from './renderShell'
 
 export { renderShell }
 export type { RouteMeta }
@@ -349,31 +349,44 @@ function findRouteMeta(url: URL): RouteMeta | null {
   return routes[path] ?? null
 }
 
-let shellPromise: Promise<string> | null = null
+const shellPromises = new Map<string, Promise<string>>()
 
-/** SPA shell (dist/index.html) via the assets binding, memoized per isolate. */
-function getShell(request: Request, env: WorkerEnv): Promise<string> {
-  if (!shellPromise) {
-    const origin = new URL(request.url).origin
-    // Always an explicit GET: passing the incoming request as init copies its
-    // method, and a HEAD subfetch returns an empty body (intermittent 500s on
-    // HEAD-first cold isolates).
-    shellPromise = env.ASSETS.fetch(new Request(`${origin}/`, { method: 'GET' }))
-      .then((res) => res.text())
-      .then((text) => {
-        // Never memoize a broken shell (deploy in progress, bad fallback…)
-        if (!text.includes('</head>')) {
-          shellPromise = null
-          throw new Error('Assets binding returned an invalid HTML shell')
-        }
-        return text
-      })
-      .catch((err) => {
-        shellPromise = null
-        throw err
-      })
-  }
-  return shellPromise
+/** SPA shell via the assets binding, memoized per isolate and asset path. */
+function getShell(
+  request: Request,
+  env: WorkerEnv,
+  assetPath: string,
+): Promise<string> {
+  const cached = shellPromises.get(assetPath)
+  if (cached) return cached
+  const origin = new URL(request.url).origin
+  const url = assetPath === '/' ? `${origin}/` : `${origin}${assetPath}`
+  // Always an explicit GET: passing the incoming request as init copies its
+  // method, and a HEAD subfetch returns an empty body (intermittent 500s on
+  // HEAD-first cold isolates).
+  const pending = env.ASSETS.fetch(new Request(url, { method: 'GET' }))
+    .then((res) => res.text())
+    .then((text) => {
+      // Never memoize a broken shell (deploy in progress, bad fallback…)
+      if (!text.includes('</head>')) {
+        shellPromises.delete(assetPath)
+        throw new Error('Assets binding returned an invalid HTML shell')
+      }
+      if (
+        assetPath === '/spa-shell.html' &&
+        !/<div id="root">\s*<\/div>/.test(text)
+      ) {
+        shellPromises.delete(assetPath)
+        throw new Error('spa-shell.html is missing or is not an empty SPA shell')
+      }
+      return text
+    })
+    .catch((err) => {
+      shellPromises.delete(assetPath)
+      throw err
+    })
+  shellPromises.set(assetPath, pending)
+  return pending
 }
 
 async function serveShell(
@@ -391,7 +404,11 @@ async function serveShell(
     return new Response(null, { status, headers })
   }
   const html = renderShell(
-    await getShell(request, env),
+    await getShell(
+      request,
+      env,
+      htmlShellAsset(new URL(request.url).pathname),
+    ),
     meta,
     routeMeta.ogImage,
     routeMeta.globalJsonLd || [],
@@ -449,6 +466,10 @@ async function handleRequest(
   }
 
   if (request.method === 'GET' || request.method === 'HEAD') {
+    if (url.pathname === '/spa-shell.html') {
+      return new Response('Not found', { status: 404 })
+    }
+
     const meta = findRouteMeta(url)
     if (meta) return serveShell(request, env, meta, 200)
 

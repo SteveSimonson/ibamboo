@@ -27,7 +27,7 @@ import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 import { useFlashCatalog } from '../hooks/useFlashCatalog'
 import { canReplaceShelfProduct } from '../lib/shopBalloonGrid'
-import { hideLcpHeroWrap } from '../lib/lcpHeroWrap'
+import { hideLcpHeroWrap, HOME_HERO_ALT } from '../lib/lcpHeroWrap'
 
 export function Home() {
   const heroRef = useRef<HTMLImageElement>(null)
@@ -105,7 +105,7 @@ export function Home() {
         <img
           ref={heroRef}
           src="/brand/hero.webp"
-          alt="Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden"
+          alt={HOME_HERO_ALT}
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
           width={1280}
           height={720}
