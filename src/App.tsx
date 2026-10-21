@@ -21,9 +21,9 @@ const Admin = lazy(() =>
   import('./pages/Admin').then((m) => ({ default: m.Admin })),
 )
 
-export default function App() {
+export function AppShell() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <GoogleAnalytics />
       <Routes>
@@ -59,6 +59,14 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   )
 }

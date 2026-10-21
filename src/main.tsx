@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
@@ -46,8 +46,12 @@ window.addEventListener('pageshow', (event) => {
   void refreshPersistedPageIfStale(event)
 })
 
-createRoot(document.getElementById('root')!).render(
+const rootEl = document.getElementById('root')
+if (!rootEl) throw new Error('Root element #root is missing')
+const app = (
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 )
+if (rootEl.childElementCount > 0) hydrateRoot(rootEl, app)
+else createRoot(rootEl).render(app)

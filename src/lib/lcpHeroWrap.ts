@@ -2,6 +2,9 @@
 
 export const LCP_HERO_WRAP_ID = 'lcp-hero-wrap'
 
+export const HOME_HERO_ALT =
+  'Sunlit modern kitchen with bamboo boards and utensils overlooking a bamboo garden'
+
 export type LcpWrapEl = {
   hidden: boolean
   classList?: { add(name: string): void }

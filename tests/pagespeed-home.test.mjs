@@ -4,8 +4,8 @@ import { dirname, join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
-import { hideLcpHeroWrap, LCP_HERO_WRAP_ID } from '../src/lib/lcpHeroWrap.ts'
-import { renderShell } from '../worker/renderShell.ts'
+import { hideLcpHeroWrap, HOME_HERO_ALT, LCP_HERO_WRAP_ID } from '../src/lib/lcpHeroWrap.ts'
+import { htmlShellAsset, renderShell } from '../worker/renderShell.ts'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -83,6 +83,8 @@ test('home routeMeta preloads WebP LCP and Worker injects a static hero img', ()
   assert.equal(html.includes('decoding="async"'), false)
   assert.ok(html.includes('width="1280"'))
   assert.ok(html.includes('height="720"'))
+  assert.ok(html.includes(`alt="${HOME_HERO_ALT}"`))
+  assert.equal(html.includes('alt=""'), false)
   assert.ok(html.includes('media="print"'))
   assert.ok(html.includes("onload=\"this.media='all'\""))
 })
@@ -90,6 +92,7 @@ test('home routeMeta preloads WebP LCP and Worker injects a static hero img', ()
 test('homepage React LCP img has dimensions and no decoding=async', () => {
   const home = readFileSync(join(ROOT, 'src/pages/Home.tsx'), 'utf8')
   assert.ok(home.includes('src="/brand/hero.webp"'))
+  assert.ok(home.includes('alt={HOME_HERO_ALT}'))
   assert.ok(home.includes('width={1280}'))
   assert.ok(home.includes('height={720}'))
   assert.ok(home.includes('fetchPriority="high"'))
@@ -119,6 +122,28 @@ const SHOP_META = {
   jsonLd: null,
   preloadImage: '/brand/categories/kitchen.webp',
 }
+
+test('homepage shell asset is prerendered and other routes stay empty', () => {
+  assert.equal(htmlShellAsset('/'), '/')
+  assert.equal(htmlShellAsset(''), '/spa-shell.html')
+  assert.equal(htmlShellAsset('/shop'), '/spa-shell.html')
+  assert.equal(htmlShellAsset('/shop/'), '/spa-shell.html')
+  assert.equal(htmlShellAsset('/product/board'), '/spa-shell.html')
+})
+
+test('worker shell keeps prerendered homepage content and a descriptive hero alt', () => {
+  const prerendered = SHELL.replace(
+    '<div id="root"></div>',
+    `<div id="root"><h1>Living designed in bamboo.</h1><nav><a href="/quiz">Vibe check</a><a href="/shop">Shop</a></nav><img src="/brand/hero.webp" alt="${HOME_HERO_ALT}" width="1280" height="720"></div>`,
+  )
+  const html = renderShell(prerendered, HOME_META, 'https://ibamboo.com/brand/social.png')
+  assert.match(html, /<h1>Living designed in bamboo\.<\/h1>/)
+  assert.match(html, /href="\/quiz"/)
+  assert.match(html, /href="\/shop"/)
+  const heroes = [...html.matchAll(/<img\b[^>]*src="\/brand\/hero\.webp"[^>]*>/gi)]
+  assert.equal(heroes.length, 2)
+  for (const img of heroes) assert.match(img[0], new RegExp(`alt="${HOME_HERO_ALT}"`))
+})
 
 test('LCP wrap is homepage-only and React tears it down', () => {
   const homeHtml = renderShell(SHELL, HOME_META, 'https://ibamboo.com/brand/social.png')
