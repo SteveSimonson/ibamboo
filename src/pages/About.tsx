@@ -3,8 +3,8 @@ import { Seo } from '../components/Seo'
 import { aboutSeo } from '../lib/seoData'
 
 const HTML = `<p>iBamboo is a <strong>bamboo living storefront</strong>. We gather kitchen, table, bath, desk, and home pieces so you can browse a calmer house language in one place, then continue to Amazon when you are ready to buy.</p>
-<h2>Weekly Amazon Best Sellers drops</h2>
-<p>Each week we refresh a limited-time house edit from Amazon Best Sellers lists, kept to bamboo living. Rankings rotate. The shop stays current without becoming a warehouse catalog.</p>
+<h2>How the shelf is chosen</h2>
+<p>iBamboo keeps a short house edit of bamboo living pieces. When a Best Sellers list is current, a limited row can sit on top and show its rank. When that list is past, the rank comes off. Prices, delivery, and the exact piece count live on Amazon.</p>
 <h2>How shopping works</h2>
 <p>We are an Amazon Associates editorial site. We do not warehouse, sell, or ship the products featured here. Checkout, shipping, taxes, and returns belong to Amazon or the listed seller. As an Amazon Associate, we may earn from qualifying purchases.</p>
 <h2>Who we are</h2>

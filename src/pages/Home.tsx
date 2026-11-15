@@ -7,6 +7,7 @@ import {
   CATEGORY_OPTIONS,
   formatExpiry,
   limitedProducts,
+  isBlackFridaySeason,
   limitedTimeCopy,
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
@@ -120,21 +121,32 @@ export function Home() {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6 overflow-hidden min-w-0 max-w-full">
               <Clock3 className="size-3.5 text-gold shrink-0" />
-              <span className="truncate">{limited.active ? 'Limited-time house edit' : 'House edit'}</span>
+              <span className="truncate">{limited.active ? 'Limited-time house edit' : isBlackFridaySeason() ? 'Black Friday list' : 'House edit'}</span>
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
               Living designed in bamboo.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
-              A calmer kitchen, table, bath, and workspace—curated weekly from
-              Weekly house edit from the best sellers lists.
+              A calmer kitchen, table, bath, and workspace. Boards, tools, and
+              the table pieces a house actually uses.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                to={limited.active ? '/shop?limited=1' : '/shop'}
+                to={
+                  limited.active
+                    ? '/shop?limited=1'
+                    : isBlackFridaySeason()
+                      ? '/gifts/black-friday'
+                      : '/shop'
+                }
                 className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)] overflow-hidden min-w-0 truncate"
               >
-                {limited.active ? 'Shop this week’s drop' : 'Shop the house'} <ArrowRight className="size-4" />
+                {limited.active
+                  ? 'Shop this week’s drop'
+                  : isBlackFridaySeason()
+                    ? 'Black Friday list'
+                    : 'Shop the house'}{' '}
+                <ArrowRight className="size-4" />
               </Link>
               <Link
                 to="/quiz"
@@ -165,15 +177,16 @@ export function Home() {
                   {limited.active ? limited.headline : 'House edit'}
                 </p>
                 <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink">
-                  {limited.active ? 'This week’s Amazon Best Sellers' : 'Amazon Best Sellers'}
+                  {limited.active ? 'This week’s Amazon Best Sellers' : 'From the shelf'}
                 </h2>
                 <p className="text-ink-soft mt-2 max-w-xl font-light">
-                  Ranked placements from Amazon’s public Best Sellers lists—curated
-                  for bamboo living.{limited.active ? ' Lists rotate weekly.' : ''}
+                  {limited.active
+                    ? 'Ranked placements from Amazon’s public Best Sellers lists—curated for bamboo living. Lists rotate weekly.'
+                    : 'Pieces the house still stands behind. Rank numbers stay off until a fresh list is in.'}
                 </p>
               </div>
               <Link
-                to="/shop?limited=1"
+                to={limited.active ? '/shop?limited=1' : '/shop'}
                 className="text-sm font-semibold text-[#9a3412] inline-flex items-center gap-1"
               >
                 View all {limitedAll.length || ''} <ArrowRight className="size-4" />

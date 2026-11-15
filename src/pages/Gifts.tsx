@@ -3,7 +3,7 @@ import { ArrowRight, Gift } from 'lucide-react'
 import {
   BUDGET_LABELS,
   RECIPIENT_LABELS,
-  giftGuides,
+  orderedGiftGuides,
 } from '../data/giftGuides'
 import { Seo } from '../components/Seo'
 import { giftsHubSeo } from '../lib/seoData'
@@ -35,7 +35,7 @@ export function GiftsHubPage() {
             Bought on Amazon.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
-            {giftGuides.map((g) => (
+            {orderedGiftGuides().map((g) => (
               <Link
                 key={g.slug}
                 to={`/gifts/${g.slug}`}
@@ -58,7 +58,7 @@ export function GiftsHubPage() {
           </div>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {giftGuides.map((g) => {
+          {orderedGiftGuides().map((g) => {
             const recipients = g.recipientIds
               .map((id) => RECIPIENT_LABELS[id] || id)
               .filter(Boolean)

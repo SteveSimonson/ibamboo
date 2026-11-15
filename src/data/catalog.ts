@@ -357,9 +357,13 @@ function stripStaleScarcity(text: string): string {
     .replace(/limited-time options\.?/gi, '')
     .replace(/this week['’]s list\.?/gi, '')
     .replace(/this week['’]s amazon bamboo picks\s*·?\s*/gi, '')
+    .replace(/selected from amazon best sellers for ibamboo['’]s weekly house edit\.?/gi, '')
+    .replace(/amazon best sellers\s*[·|:]\s*/gi, '')
+    .replace(/#\d+\s+in\s+[^·.\n]+/gi, '')
     .replace(/\s*[·|]\s*[·|]\s*/g, ' · ')
     .replace(/\s*[·|]\s*$/g, '')
     .replace(/^\s*[·|]\s*/g, '')
+    .replace(/\s*[—–-]\s*$/g, '')
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
@@ -385,6 +389,7 @@ export function presentForStorefront(p: Product): Product {
   let specs = p.specs || []
   let bsrCategory = p.bsrCategory
   let bsrRank = p.bsrRank
+  let badge = p.badge
 
   if (!fresh) {
     tagline = stripStaleScarcity(tagline)
@@ -392,6 +397,10 @@ export function presentForStorefront(p: Product): Product {
     features = features
       .map((f) => stripStaleScarcity(f))
       .filter((f) => f.length > 0)
+    specs = specs.filter((s) => !/best sellers rank/i.test(s.label))
+    bsrRank = undefined
+    bsrCategory = undefined
+    if (badge && /best seller|^#\d+/i.test(badge)) badge = undefined
   }
   if (misranked) {
     tagline = stripFurnitureRank(stripStaleScarcity(tagline))
@@ -418,6 +427,7 @@ export function presentForStorefront(p: Product): Product {
     description,
     features,
     specs,
+    badge,
     bsrCategory,
     bsrRank,
   }
@@ -452,4 +462,11 @@ export function formatExpiry(iso?: string) {
   } catch {
     return null
   }
+}
+
+/** Nov 1 through Dec 2, 2026. Amazon’s sale window, not a house discount. */
+export function isBlackFridaySeason(now = Date.now()): boolean {
+  const start = Date.parse('2026-11-01T00:00:00Z')
+  const end = Date.parse('2026-12-03T08:00:00Z')
+  return now >= start && now < end
 }
