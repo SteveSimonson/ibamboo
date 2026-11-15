@@ -4,6 +4,7 @@ import {
   type Product,
   categoryLabel,
   formatMoney,
+  isFreshExpiry,
   showLimitedPlacement,
   primaryImage,
   productImageChain,
@@ -110,7 +111,9 @@ export function ProductCard({
               </span>
             )}
           </div>
-          {product.bsrRank != null && product.bsrRank <= 100 && (
+          {product.bsrRank != null &&
+            product.bsrRank <= 100 &&
+            isFreshExpiry(product.expiresAt) && (
             <span className="absolute bottom-3 left-3 rounded-full bg-white/95 text-ink text-[10px] font-bold px-2.5 py-1 shadow-sm border border-line/80">
               #{product.bsrRank}
               {product.bsrCategory ? ` · ${product.bsrCategory}` : ''}

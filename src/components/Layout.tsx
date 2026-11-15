@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet, useLocation, useSearchParams } from 'react-router-dom'
 import { Menu, Search, X } from 'lucide-react'
 import { useLayoutEffect, useState } from 'react'
-import { formatExpiry, limitedTimeCopy } from '../data/catalog'
+import { formatExpiry, isBlackFridaySeason, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import type { Category } from '../data/types'
 import { GlobalSeo } from './Seo'
@@ -82,6 +82,19 @@ export function Layout() {
           <span className="text-paper/70">
             {' '}
             · Shop the house edit
+          </span>
+        </Link>
+      </div>
+      ) : isBlackFridaySeason() ? (
+      <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide overflow-hidden min-w-0">
+        <Link
+          to="/gifts/black-friday"
+          className="block overflow-hidden min-w-0 truncate hover:underline underline-offset-2"
+        >
+          <span className="font-semibold text-gold">Black Friday list</span>
+          <span className="text-paper/70">
+            {' '}
+            · Prices live on Amazon · Confirm the piece count
           </span>
         </Link>
       </div>

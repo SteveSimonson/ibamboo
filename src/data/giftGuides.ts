@@ -518,6 +518,112 @@ export const giftGuides: GiftGuide[] = [
       },
     ],
   },
+  {
+    slug: 'black-friday',
+    title: 'Black Friday House List',
+    dek: 'Boards, trays, and table pieces worth opening. The price and the piece count live on Amazon.',
+    primaryQuery: 'black friday bamboo gifts',
+    recipientIds: ['host', 'cook', 'friend'],
+    occasionIds: ['black-friday', 'christmas'],
+    budgetBands: ['under-50', '50-150'],
+    heroImage: '/brand/categories/dining.webp',
+    publishedAt: '2026-11-15',
+    updatedAt: '2026-11-15',
+    readMinutes: 7,
+    seasonal: { peakMonths: [11, 12], yearHint: 2026 },
+    intro:
+      'A bamboo gift should still be in the hand in January. This Black Friday list is the house edit for hosts and cooks: a prep board, a charcuterie board, a tray, a turntable, a bowl, a box, plates, and the utensil crock. iBamboo does not print a discount. Amazon does, when it does.\n\nPiece count and material are the checks. A set of three is not a set of one. Bamboo fiber dinnerware is not a solid board. Read the title, then the count in the bullet Amazon shows. If either moved, choose the next object. Delivery dates live on that same page.',
+    productEntries: [
+      {
+        productSlug: 'grand-prep-board',
+        rank: 1,
+        priceBand: 'under-50',
+        badge: 'The board',
+        giftWhy:
+          'The surface a kitchen is missing. Confirm it is a prep board and not a thin serving paddle, and read the inch size in the title before you assume it fits the counter.',
+      },
+      {
+        productSlug: 'charcuterie-board',
+        rank: 2,
+        priceBand: 'under-50',
+        badge: 'Confirm the size',
+        giftWhy:
+          'A board for the person who actually has people over. This page means the board, not a knife-and-bowl kit. Read the inches in the title. A set with tools is a different listing.',
+      },
+      {
+        productSlug: 'handled-serving-tray',
+        rank: 3,
+        priceBand: 'under-50',
+        giftWhy:
+          'Coffee, breakfast, a lap that needs a surface. Confirm handles and the length. A tray that does not clear the doorway is a beautiful mistake.',
+      },
+      {
+        productSlug: 'lazy-susan-turntable',
+        rank: 4,
+        priceBand: 'under-50',
+        giftWhy:
+          'The cabinet and the table both get calmer. Confirm diameter so it fits the shelf they meant, not the one in the photo.',
+      },
+      {
+        productSlug: 'family-salad-bowl',
+        rank: 5,
+        priceBand: '50-150',
+        giftWhy:
+          'One bowl for the table, not a stack of cereal bowls. Read whether servers are included. Size is the gift. A snack bowl wearing the same word is not.',
+      },
+      {
+        productSlug: 'lidded-storage-boxes',
+        rank: 6,
+        priceBand: 'under-50',
+        giftWhy:
+          'Tea, onions, the shelf that looks unfinished. Confirm how many boxes and whether the lids actually seal in the title. A single crate is not a set.',
+      },
+      {
+        productSlug: 'dinner-plate-set-of-four',
+        rank: 7,
+        priceBand: 'under-50',
+        giftWhy:
+          'Four plates for a first real meal. Confirm four, and whether the listing is bamboo fiber that wants a gentle wash. Dishwasher habits belong in the care lines, not in a guess.',
+      },
+      {
+        productSlug: 'artisan-cooking-utensil-set',
+        rank: 8,
+        priceBand: 'under-50',
+        badge: 'Everyday',
+        giftWhy:
+          'Spoons and spatulas that live in a crock. Confirm the piece count. Six tools and a two-piece “set” are not the same wrap.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'No house discount',
+        body: 'If Amazon’s price on the board is ordinary, it is still a good board. Buy it because they will use it, or wait. iBamboo will not stamp a percent on a page to make the weekend feel louder. The street hints on the cards are there so a tray and a salad bowl do not blur together.',
+      },
+      {
+        heading: 'What to read on the listing',
+        body: 'Piece count, inches, and material. Solid bamboo, bamboo fiber, and a mixed host set all photograph as “wood.” The title is the contract. Care lines matter for plates. A board wants oil and a dry towel. A fiber plate may not want a hot cycle. That sentence is on Amazon, not in our memory of last summer.',
+      },
+      {
+        heading: 'One object is enough',
+        body: 'A grand board with a short note beats a pile of small tools that feel like a coupon haul. Pair a tray with the board only when you have seen the kitchen. New home and Christmas guides on iBamboo go deeper on those rooms. This page is the short list for the weekend the price might move.',
+      },
+    ],
+    faq: [
+      AMAZON_FAQ,
+      {
+        q: 'Are these Black Friday prices?',
+        a: 'Only if Amazon says so on the listing you open. iBamboo does not freeze a sale price. Confirm the number, the piece count, and the delivery date before you wrap anything.',
+      },
+      {
+        q: 'What if the set is smaller than the photo?',
+        a: 'Trust the title and the bullet that counts pieces. Photos get reused across sizes. A two-piece board is not the nesting set, and a single utensil is not the artisan set.',
+      },
+      {
+        q: 'Which guide if they just moved?',
+        a: 'The housewarming guide. Use the host guide if the brief is the table, and the kitchen guide if the brief is the counter. This Black Friday list is the overlap, with the price check said out loud.',
+      },
+    ],
+  },
 ]
 
 const bySlug = new Map(giftGuides.map((g) => [g.slug, g]))
@@ -540,12 +646,27 @@ export function guidesForRecipient(recipient: GiftRecipientId): GiftGuide[] {
   return giftGuides.filter((g) => g.recipientIds.includes(recipient))
 }
 
+function blackFridayBoost(now = new Date()): number {
+  const y = now.getFullYear()
+  const m = now.getMonth() + 1
+  const d = now.getDate()
+  if (y === 2026 && (m === 11 || (m === 12 && d <= 2))) return 80
+  return 0
+}
+
+export function orderedGiftGuides(): GiftGuide[] {
+  const friday = giftGuides.find((g) => g.slug === 'black-friday')
+  if (!friday || blackFridayBoost() <= 0) return giftGuides
+  return [friday, ...giftGuides.filter((g) => g !== friday)]
+}
+
 export function featuredGiftGuides(limit = 5): GiftGuide[] {
   const month = new Date().getMonth() + 1
   const scored = giftGuides.map((g) => {
     const seasonalBoost = g.seasonal?.peakMonths.includes(month) ? 100 : 0
+    const friday = g.slug === 'black-friday' ? blackFridayBoost() : 0
     const updated = g.updatedAt || g.publishedAt
-    return { g, score: seasonalBoost + (updated >= U ? 10 : 0) }
+    return { g, score: seasonalBoost + friday + (updated >= U ? 10 : 0) }
   })
   scored.sort((a, b) => b.score - a.score)
   return scored.slice(0, limit).map((x) => x.g)
