@@ -431,10 +431,13 @@ export function ProductPage() {
               Why this piece is in the edit
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink-soft sm:text-base">
-              {product.description}
+              {enrichment?.blog.dek || product.description}
             </p>
             <ul className="mt-7 grid gap-4 sm:grid-cols-2">
-              {product.features.map((feature) => (
+              {(enrichment && enrichment.reviewSnapshot.love.length > 0
+                ? enrichment.reviewSnapshot.love
+                : product.features
+              ).map((feature) => (
                 <li key={feature} className="flex items-start gap-3 rounded-2xl bg-paper/70 p-4 text-sm leading-relaxed text-ink-soft">
                   <Check className="mt-0.5 size-4 shrink-0 text-bamboo" />
                   <span>{feature}</span>
