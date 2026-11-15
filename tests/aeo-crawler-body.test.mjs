@@ -167,8 +167,15 @@ test('buyer guide and hub populate crawler from existing copy', () => {
 })
 
 test('product without enrichment uses tagline/description only', () => {
-  const p = products.find((item) => !getProductEnrichment(item.slug))
-  assert.ok(p)
+  const base = products[0]
+  assert.ok(base)
+  const p = {
+    ...base,
+    slug: 'enrichment-fixture-absent',
+    tagline: 'A calm bamboo fixture.',
+    description: 'Fixture description for the unenriched path.',
+  }
+  assert.equal(getProductEnrichment(p.slug), undefined)
   const meta = finalizeRouteMeta(productSeo(p, undefined))
   assert.equal(meta.crawler?.h1, p.name)
   assert.equal(meta.crawler?.faq.length, 0)
