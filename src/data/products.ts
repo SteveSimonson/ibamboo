@@ -3667,5 +3667,1677 @@ export const products: Product[] = [
     "rating": 4.6,
     "reviewCount": 820,
     "hue": 38
-  }
+  },
+{
+  "id": "ib-101",
+  "slug": "gobam-gobam-natural-bamboo-bath-mat",
+  "name": "GOBAM Natural Bamboo Bath Mat",
+  "tagline": "Small, 19.7 x 13 inches",
+  "description": "GOBAM Natural Bamboo Bath Mat. Small, 19.7 x 13 inches",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "GOBAM",
+  "material": "Bamboo",
+  "features": [
+    "Small, 19.7 x 13 inches",
+    "Listed around $32 on the product page",
+    "GOBAM bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Small, 19.7 x 13 inches"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $32"
+    },
+    {
+      "label": "Brand",
+      "value": "GOBAM"
+    }
+  ],
+  "priceHint": 32,
+  "asin": "B01N1HZYWZ",
+  "searchKeywords": "GOBAM GOBAM Natural Bamboo Bath Mat",
+  "badge": "New",
+  "images": [],
+  "hue": 179,
+  "source": "curated",
+},
+{
+  "id": "ib-102",
+  "slug": "gaia-guy-gaia-guy-bamboo-toothbrush-travel-case",
+  "name": "Gaia Guy Bamboo Toothbrush Travel Case 2 Pack",
+  "tagline": "2 pack; fits standard toothbrush sizes; airholes at both ends for drying",
+  "description": "Gaia Guy Bamboo Toothbrush Travel Case 2 Pack. 2 pack; fits standard toothbrush sizes; airholes at both ends for drying",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "Gaia Guy",
+  "material": "Bamboo",
+  "features": [
+    "2 pack; fits standard toothbrush sizes; airholes at both ends for drying",
+    "Listed around $11 on the product page",
+    "Gaia Guy bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "2 pack; fits standard toothbrush sizes; airholes at both ends for drying"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $11"
+    },
+    {
+      "label": "Brand",
+      "value": "Gaia Guy"
+    }
+  ],
+  "priceHint": 11,
+  "asin": "B0CMXFRSM2",
+  "searchKeywords": "Gaia Guy Gaia Guy Bamboo Toothbrush Travel Case 2 Pack",
+  "badge": "New",
+  "images": [],
+  "hue": 2,
+  "source": "curated",
+},
+{
+  "id": "ib-103",
+  "slug": "empune-empune-3-1-pcs-large-bamboo-cutting",
+  "name": "Empune 3+1 PCS Large Bamboo Cutting Boards for",
+  "tagline": "3+1 piece set: 16x11, 12.6x8.7, and 10x7 in bamboo boards plus storage rack",
+  "description": "Empune 3+1 PCS Large Bamboo Cutting Boards for. 3+1 piece set: 16x11, 12.6x8.7, and 10x7 in bamboo boards plus storage rack",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Empune",
+  "material": "Bamboo",
+  "features": [
+    "3+1 piece set: 16x11, 12.6x8.7, and 10x7 in bamboo boards plus storage rack",
+    "Listed around $20 on the product page",
+    "Empune cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "3+1 piece set: 16x11, 12.6x8.7, and 10x7 in bamboo boards plus storage rack"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $20"
+    },
+    {
+      "label": "Brand",
+      "value": "Empune"
+    }
+  ],
+  "priceHint": 20,
+  "asin": "B0DLK3G2Y1",
+  "searchKeywords": "Empune Empune 3+1 PCS Large Bamboo Cutting Boards for",
+  "badge": "New",
+  "images": [],
+  "hue": 1,
+  "source": "curated",
+},
+{
+  "id": "ib-104",
+  "slug": "kikcoin-kikcoin-extra-large-bamboo-cutting-board",
+  "name": "Kikcoin Extra Large Bamboo Cutting Board",
+  "tagline": "Hand wash recommended; set of 3 boards; XL 17.0x12.0x1.0 in, L 14.0x10.0x1.0 in, M 10.0x7",
+  "description": "Kikcoin Extra Large Bamboo Cutting Board. Hand wash recommended; set of 3 boards; XL 17.0x12.0x1.0 in, L 14.0x10.0x1.0 in, M 10.0x7.1x0.8 in",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Kikcoin",
+  "material": "Bamboo",
+  "features": [
+    "Hand wash recommended; set of 3 boards; XL 17.0x12.0x1.0 in, L 14.0x10.0x1.0 in, M 10.0x",
+    "Listed around $52 on the product page",
+    "Kikcoin cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Hand wash recommended; set of 3 boards; XL 17.0x12.0x1.0 in, L 14.0x10.0x1.0 in,"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $52"
+    },
+    {
+      "label": "Brand",
+      "value": "Kikcoin"
+    }
+  ],
+  "priceHint": 52,
+  "asin": "B089W55YNJ",
+  "searchKeywords": "Kikcoin Kikcoin Extra Large Bamboo Cutting Board",
+  "badge": "New",
+  "images": [],
+  "hue": 271,
+  "source": "curated",
+},
+{
+  "id": "ib-105",
+  "slug": "totally-bamboo-small-bamboo-cutting-board-9-x",
+  "name": "Totally Bamboo Small Bamboo Cutting Board, 9 x 6.5",
+  "tagline": "Hand wash only; do not soak or wash in dishwasher; measures 9 x 6.5 x 5/8 inches",
+  "description": "Totally Bamboo Small Bamboo Cutting Board, 9 x 6.5. Hand wash only; do not soak or wash in dishwasher; measures 9 x 6.5 x 5/8 inches",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Totally Bamboo",
+  "material": "Bamboo",
+  "features": [
+    "Hand wash only; do not soak or wash in dishwasher; measures 9 x 6.5 x 5/8 inches",
+    "Listed around $15 on the product page",
+    "Totally Bamboo cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Hand wash only; do not soak or wash in dishwasher; measures 9 x 6.5 x 5/8 inches"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $15"
+    },
+    {
+      "label": "Brand",
+      "value": "Totally Bamboo"
+    }
+  ],
+  "priceHint": 15,
+  "asin": "B001FOPU1O",
+  "searchKeywords": "Totally Bamboo Totally Bamboo Small Bamboo Cutting Board, 9 x 6.5",
+  "badge": "New",
+  "images": [],
+  "hue": 276,
+  "source": "curated",
+},
+{
+  "id": "ib-106",
+  "slug": "yirilan-bamboo-bath-tray-foldable-premium-bath-caddy",
+  "name": "Yirilan Bamboo Bath Tray, Foldable Premium Bath Caddy",
+  "tagline": "Expands from 28.5 in to 41 in; wipe with damp cloth",
+  "description": "Yirilan Bamboo Bath Tray, Foldable Premium Bath Caddy. Expands from 28.5 in to 41 in; wipe with damp cloth",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "Yirilan",
+  "material": "Bamboo",
+  "features": [
+    "Expands from 28.5 in to 41 in; wipe with damp cloth",
+    "Listed around $23 on the product page",
+    "Yirilan bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Expands from 28.5 in to 41 in; wipe with damp cloth"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $23"
+    },
+    {
+      "label": "Brand",
+      "value": "Yirilan"
+    }
+  ],
+  "priceHint": 23,
+  "asin": "B0B519YBQ4",
+  "searchKeywords": "Yirilan Yirilan Bamboo Bath Tray, Foldable Premium Bath Caddy",
+  "badge": "New",
+  "images": [],
+  "hue": 292,
+  "source": "curated",
+},
+{
+  "id": "ib-107",
+  "slug": "entokic-entokic-carbonized-bamboo-cooking-utensils-set-6pc",
+  "name": "ENTOKIC Carbonized Bamboo Cooking Utensils Set, 6Pc Wooden",
+  "tagline": "6-piece set; each utensil 12 in long; caramelized (not dyed) bamboo, gentle on nonstick an",
+  "description": "ENTOKIC Carbonized Bamboo Cooking Utensils Set, 6Pc Wooden. 6-piece set; each utensil 12 in long; caramelized (not dyed) bamboo, gentle on nonstick and cast iron",
+  "category": "kitchen",
+  "collection": "Kitchen",
+  "brand": "ENTOKIC",
+  "material": "Bamboo",
+  "features": [
+    "6-piece set; each utensil 12 in long; caramelized (not dyed) bamboo, gentle on nonstick ",
+    "Listed around $13 on the product page",
+    "ENTOKIC kitchen",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "6-piece set; each utensil 12 in long; caramelized (not dyed) bamboo, gentle on n"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $13"
+    },
+    {
+      "label": "Brand",
+      "value": "ENTOKIC"
+    }
+  ],
+  "priceHint": 13,
+  "asin": "B0H9YLYPQ1",
+  "searchKeywords": "ENTOKIC ENTOKIC Carbonized Bamboo Cooking Utensils Set, 6Pc Wooden",
+  "badge": "New",
+  "images": [],
+  "hue": 73,
+  "source": "curated",
+},
+{
+  "id": "ib-108",
+  "slug": "lochantie-lochantie-wooden-spoons-cooking-bamboo-utensils-set",
+  "name": "Lochantie Wooden Spoons for Cooking Bamboo Utensils Set",
+  "tagline": "Hand wash only and dry promptly; not dishwasher-safe, not for long soaking; 6 pieces; 11.8",
+  "description": "Lochantie Wooden Spoons for Cooking Bamboo Utensils Set. Hand wash only and dry promptly; not dishwasher-safe, not for long soaking; 6 pieces; 11.8\"L x 2.3\"W",
+  "category": "kitchen",
+  "collection": "Kitchen",
+  "brand": "Lochantie",
+  "material": "Bamboo",
+  "features": [
+    "Hand wash only and dry promptly; not dishwasher-safe, not for long soaking; 6 pieces; 11",
+    "Listed around $8 on the product page",
+    "Lochantie kitchen",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Hand wash only and dry promptly; not dishwasher-safe, not for long soaking; 6 pi"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $8"
+    },
+    {
+      "label": "Brand",
+      "value": "Lochantie"
+    }
+  ],
+  "priceHint": 8,
+  "asin": "B08H4RP7Z2",
+  "searchKeywords": "Lochantie Lochantie Wooden Spoons for Cooking Bamboo Utensils Set",
+  "badge": "New",
+  "images": [],
+  "hue": 326,
+  "source": "curated",
+},
+{
+  "id": "ib-109",
+  "slug": "totally-bamboo-totally-bamboo-cutting-board-set",
+  "name": "Totally Bamboo Cutting Board Set",
+  "tagline": "Hand wash only; not dishwasher safe; boards measure 8\", 11\" and 13\"; 3-piece set",
+  "description": "Totally Bamboo Cutting Board Set. Hand wash only; not dishwasher safe; boards measure 8\", 11\" and 13\"; 3-piece set",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Totally Bamboo",
+  "material": "Bamboo",
+  "features": [
+    "Hand wash only; not dishwasher safe; boards measure 8\", 11\" and 13\"; 3-piece set",
+    "Listed around $20 on the product page",
+    "Totally Bamboo cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Hand wash only; not dishwasher safe; boards measure 8\", 11\" and 13\"; 3-piece set"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $20"
+    },
+    {
+      "label": "Brand",
+      "value": "Totally Bamboo"
+    }
+  ],
+  "priceHint": 20,
+  "asin": "B002M782UO",
+  "searchKeywords": "Totally Bamboo Totally Bamboo Cutting Board Set",
+  "badge": "New",
+  "images": [],
+  "hue": 96,
+  "source": "curated",
+},
+{
+  "id": "ib-110",
+  "slug": "greener-chef-organic-medium-bamboo-cutting-board-by",
+  "name": "Greener Chef Organic Medium Bamboo Cutting Board by Greener",
+  "tagline": "15\"L x 11\"W x 0.7\"Th",
+  "description": "Greener Chef Organic Medium Bamboo Cutting Board by Greener. 15\"L x 11\"W x 0.7\"Th",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Greener Chef",
+  "material": "Bamboo",
+  "features": [
+    "15\"L x 11\"W x 0.7\"Th",
+    "Listed around $25 on the product page",
+    "Greener Chef cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "15\"L x 11\"W x 0.7\"Th"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $25"
+    },
+    {
+      "label": "Brand",
+      "value": "Greener Chef"
+    }
+  ],
+  "priceHint": 25,
+  "asin": "B0949NW75G",
+  "searchKeywords": "Greener Chef Greener Chef Organic Medium Bamboo Cutting Board by Greener",
+  "badge": "New",
+  "images": [],
+  "hue": 196,
+  "source": "curated",
+},
+{
+  "id": "ib-111",
+  "slug": "cluzelar-cluzelar-bamboo-plates-7-5inch-round",
+  "name": "cluzelar Bamboo Plates 7.5Inch Round",
+  "tagline": "Hand wash only; do not soak; 7.5 inch diameter; set of 3",
+  "description": "cluzelar Bamboo Plates 7.5Inch Round. Hand wash only; do not soak; 7.5 inch diameter; set of 3",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "cluzelar",
+  "material": "Bamboo",
+  "features": [
+    "Hand wash only; do not soak; 7.5 inch diameter; set of 3",
+    "Listed around $46 on the product page",
+    "cluzelar dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Hand wash only; do not soak; 7.5 inch diameter; set of 3"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $46"
+    },
+    {
+      "label": "Brand",
+      "value": "cluzelar"
+    }
+  ],
+  "priceHint": 46,
+  "asin": "B0B6G3WG1V",
+  "searchKeywords": "cluzelar cluzelar Bamboo Plates 7.5Inch Round",
+  "badge": "New",
+  "images": [],
+  "hue": 67,
+  "source": "curated",
+},
+{
+  "id": "ib-112",
+  "slug": "songmics-songmics-3-tier-bamboo-over-toilet-storage",
+  "name": "SONGMICS 3-Tier Bamboo Over The Toilet Storage",
+  "tagline": "3 tiers, 4 hooks; 10.2\"D x 24.8\"W x 66.9\"H",
+  "description": "SONGMICS 3-Tier Bamboo Over The Toilet Storage. 3 tiers, 4 hooks; 10.2\"D x 24.8\"W x 66.9\"H",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "SONGMICS",
+  "material": "Bamboo",
+  "features": [
+    "3 tiers, 4 hooks; 10.2\"D x 24.8\"W x 66.9\"H",
+    "Listed around $66 on the product page",
+    "SONGMICS bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "3 tiers, 4 hooks; 10.2\"D x 24.8\"W x 66.9\"H"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $66"
+    },
+    {
+      "label": "Brand",
+      "value": "SONGMICS"
+    }
+  ],
+  "priceHint": 66,
+  "asin": "B07TBDS9BC",
+  "searchKeywords": "SONGMICS SONGMICS 3-Tier Bamboo Over The Toilet Storage",
+  "badge": "New",
+  "images": [],
+  "hue": 336,
+  "source": "curated",
+},
+{
+  "id": "ib-113",
+  "slug": "songmics-songmics-4-tier-bamboo-over-toilet-storage",
+  "name": "SONGMICS 4-Tier Bamboo Over The Toilet Storage",
+  "tagline": "10.2 x 24.8 x 72.8 inches; 4-tier over-the-toilet bathroom organizer, model UBTS041N01",
+  "description": "SONGMICS 4-Tier Bamboo Over The Toilet Storage. 10.2 x 24.8 x 72.8 inches; 4-tier over-the-toilet bathroom organizer, model UBTS041N01",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "SONGMICS",
+  "material": "Bamboo",
+  "features": [
+    "10.2 x 24.8 x 72.8 inches; 4-tier over-the-toilet bathroom organizer, model UBTS041N01",
+    "Listed around $68 on the product page",
+    "SONGMICS bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "10.2 x 24.8 x 72.8 inches; 4-tier over-the-toilet bathroom organizer, model UBTS"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $68"
+    },
+    {
+      "label": "Brand",
+      "value": "SONGMICS"
+    }
+  ],
+  "priceHint": 68,
+  "asin": "B0CMPW7K5J",
+  "searchKeywords": "SONGMICS SONGMICS 4-Tier Bamboo Over The Toilet Storage",
+  "badge": "New",
+  "images": [],
+  "hue": 343,
+  "source": "curated",
+},
+{
+  "id": "ib-114",
+  "slug": "bia-cordon-bleu-bamboo-cooking-utensils-bamboo-tasting",
+  "name": "BIA Cordon Bleu Bamboo Cooking Utensils",
+  "tagline": "6-piece set; solid bamboo",
+  "description": "BIA Cordon Bleu Bamboo Cooking Utensils. 6-piece set; solid bamboo",
+  "category": "kitchen",
+  "collection": "Kitchen",
+  "brand": "BIA Cordon Bleu",
+  "material": "Bamboo",
+  "features": [
+    "6-piece set; solid bamboo",
+    "Listed around $9 on the product page",
+    "BIA Cordon Bleu kitchen",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "6-piece set; solid bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $9"
+    },
+    {
+      "label": "Brand",
+      "value": "BIA Cordon Bleu"
+    }
+  ],
+  "priceHint": 9,
+  "asin": "B00CLCL0SQ",
+  "searchKeywords": "BIA Cordon Bleu BIA Cordon Bleu Bamboo Cooking Utensils",
+  "badge": "New",
+  "images": [],
+  "hue": 26,
+  "source": "curated",
+},
+{
+  "id": "ib-115",
+  "slug": "empune-empune-extra-large-cutting-board-17-6",
+  "name": "Empune Extra Large Cutting Board, 17.6\" Bamboo Cutting",
+  "tagline": "17.6 x 12 x 0.7 in; hand-wash only; solid bamboo",
+  "description": "Empune Extra Large Cutting Board, 17.6\" Bamboo Cutting. 17.6 x 12 x 0.7 in; hand-wash only; solid bamboo",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Empune",
+  "material": "Bamboo",
+  "features": [
+    "17.6 x 12 x 0.7 in; hand-wash only; solid bamboo",
+    "Listed around $14 on the product page",
+    "Empune cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "17.6 x 12 x 0.7 in; hand-wash only; solid bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $14"
+    },
+    {
+      "label": "Brand",
+      "value": "Empune"
+    }
+  ],
+  "priceHint": 14,
+  "asin": "B08LPST857",
+  "searchKeywords": "Empune Empune Extra Large Cutting Board, 17.6\" Bamboo Cutting",
+  "badge": "New",
+  "images": [],
+  "hue": 187,
+  "source": "curated",
+},
+{
+  "id": "ib-116",
+  "slug": "brite-concepts-bamboo-cutting-board-8-x-10",
+  "name": "Brite Concepts Bamboo Cutting Board – 8 x 10",
+  "tagline": "10 x 8 x 0.6 in; hand wash only; solid bamboo",
+  "description": "Brite Concepts Bamboo Cutting Board – 8 x 10. 10 x 8 x 0.6 in; hand wash only; solid bamboo",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "Brite Concepts",
+  "material": "Bamboo",
+  "features": [
+    "10 x 8 x 0.6 in; hand wash only; solid bamboo",
+    "Listed around $10 on the product page",
+    "Brite Concepts cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "10 x 8 x 0.6 in; hand wash only; solid bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $10"
+    },
+    {
+      "label": "Brand",
+      "value": "Brite Concepts"
+    }
+  ],
+  "priceHint": 10,
+  "asin": "B0CB95X4BZ",
+  "searchKeywords": "Brite Concepts Brite Concepts Bamboo Cutting Board – 8 x 10",
+  "badge": "New",
+  "images": [],
+  "hue": 71,
+  "source": "curated",
+},
+{
+  "id": "ib-117",
+  "slug": "bthw-bamboo-cutting-board-3-piece-wood-cutting",
+  "name": "BTHW Bamboo Cutting Board 3-Piece,Wood Cutting Board Set",
+  "tagline": "3-piece set; 15\"L x 12\"W x 11\"Th as listed; bamboo, deep-carbonized",
+  "description": "BTHW Bamboo Cutting Board 3-Piece,Wood Cutting Board Set. 3-piece set; 15\"L x 12\"W x 11\"Th as listed; bamboo, deep-carbonized",
+  "category": "cutting-boards",
+  "collection": "Cutting Boards",
+  "brand": "BTHW",
+  "material": "Bamboo",
+  "features": [
+    "3-piece set; 15\"L x 12\"W x 11\"Th as listed; bamboo, deep-carbonized",
+    "Listed around $22 on the product page",
+    "BTHW cutting boards",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "3-piece set; 15\"L x 12\"W x 11\"Th as listed; bamboo, deep-carbonized"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $22"
+    },
+    {
+      "label": "Brand",
+      "value": "BTHW"
+    }
+  ],
+  "priceHint": 22,
+  "asin": "B0HG9PQQK6",
+  "searchKeywords": "BTHW BTHW Bamboo Cutting Board 3-Piece,Wood Cutting Board Set",
+  "badge": "New",
+  "images": [],
+  "hue": 6,
+  "source": "curated",
+},
+{
+  "id": "ib-118",
+  "slug": "belari-belari-6-25-bamboo-bowl-set-bamboo",
+  "name": "Belari 6.25\" Bamboo Bowl Set - Bamboo Reusable",
+  "tagline": "6.25 x 6.25 x 2.75 in each; 4-pack; hand-wash only; 100% pure bamboo, no melamine",
+  "description": "Belari 6.25\" Bamboo Bowl Set - Bamboo Reusable. 6.25 x 6.25 x 2.75 in each; 4-pack; hand-wash only; 100% pure bamboo, no melamine",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Belari",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "6.25 x 6.25 x 2.75 in each; 4-pack; hand-wash only; 100% pure bamboo, no melamine",
+    "Listed around $26 on the product page",
+    "Belari dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "6.25 x 6.25 x 2.75 in each; 4-pack; hand-wash only; 100% pure bamboo, no melamin"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $26"
+    },
+    {
+      "label": "Brand",
+      "value": "Belari"
+    }
+  ],
+  "priceHint": 26,
+  "asin": "B08FF8R5L9",
+  "searchKeywords": "Belari Belari 6.25\" Bamboo Bowl Set - Bamboo Reusable",
+  "badge": "New",
+  "images": [],
+  "hue": 189,
+  "source": "curated",
+},
+{
+  "id": "ib-119",
+  "slug": "songmics-songmics-5-tier-bamboo-shelf-freestanding-bathroom",
+  "name": "SONGMICS 5-Tier Bamboo Shelf, Freestanding Bathroom Storage Rack",
+  "tagline": "10.2 x 23.6 x 51.2 in (26 x 60 x 130 cm); 5-tier freestanding rack, each shelf holds up to",
+  "description": "SONGMICS 5-Tier Bamboo Shelf, Freestanding Bathroom Storage Rack. 10.2 x 23.6 x 51.2 in (26 x 60 x 130 cm); 5-tier freestanding rack, each shelf holds up to 22 lb; solid bamboo, no",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "SONGMICS",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "10.2 x 23.6 x 51.2 in (26 x 60 x 130 cm); 5-tier freestanding rack, each shelf holds up ",
+    "Listed around $55 on the product page",
+    "SONGMICS bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "10.2 x 23.6 x 51.2 in (26 x 60 x 130 cm); 5-tier freestanding rack, each shelf h"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $55"
+    },
+    {
+      "label": "Brand",
+      "value": "SONGMICS"
+    }
+  ],
+  "priceHint": 55,
+  "asin": "B0D41Q3L2G",
+  "searchKeywords": "SONGMICS SONGMICS 5-Tier Bamboo Shelf, Freestanding Bathroom Storage Rack",
+  "badge": "New",
+  "images": [],
+  "hue": 232,
+  "source": "curated",
+},
+{
+  "id": "ib-120",
+  "slug": "generic-certified-international-tropicali-melamine-bamboo-fiber-bowl",
+  "name": "Generic Certified International Tropicali Melamine / Bamboo Fiber",
+  "tagline": "Set of 4 bowls, 12 x 3.5 in; dishwasher safe; 70% bamboo fiber / 30% heavyweight melamine ",
+  "description": "Generic Certified International Tropicali Melamine / Bamboo Fiber. Set of 4 bowls, 12 x 3.5 in; dishwasher safe; 70% bamboo fiber / 30% heavyweight melamine composite",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Generic",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "Set of 4 bowls, 12 x 3.5 in; dishwasher safe; 70% bamboo fiber / 30% heavyweight melamin",
+    "Listed around $25 on the product page",
+    "Generic dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Set of 4 bowls, 12 x 3.5 in; dishwasher safe; 70% bamboo fiber / 30% heavyweight"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $25"
+    },
+    {
+      "label": "Brand",
+      "value": "Generic"
+    }
+  ],
+  "priceHint": 25,
+  "asin": "B08X3ZPBPP",
+  "searchKeywords": "Generic Generic Certified International Tropicali Melamine / Bamboo Fiber",
+  "badge": "New",
+  "images": [],
+  "hue": 61,
+  "source": "curated",
+},
+{
+  "id": "ib-121",
+  "slug": "amazerbath-amazerbath-bamboo-over-toilet-storage-shelf-3",
+  "name": "AmazerBath Bamboo Over The Toilet Storage Shelf -",
+  "tagline": "3-tier; 10.04 x 25.2 x 70.87 in; solid bamboo; tool-free assembly; no melamine",
+  "description": "AmazerBath Bamboo Over The Toilet Storage Shelf -. 3-tier; 10.04 x 25.2 x 70.87 in; solid bamboo; tool-free assembly; no melamine",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "AmazerBath",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "3-tier; 10.04 x 25.2 x 70.87 in; solid bamboo; tool-free assembly; no melamine",
+    "Listed around $30 on the product page",
+    "AmazerBath bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "3-tier; 10.04 x 25.2 x 70.87 in; solid bamboo; tool-free assembly; no melamine"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $30"
+    },
+    {
+      "label": "Brand",
+      "value": "AmazerBath"
+    }
+  ],
+  "priceHint": 30,
+  "asin": "B0DNSLFMBK",
+  "searchKeywords": "AmazerBath AmazerBath Bamboo Over The Toilet Storage Shelf -",
+  "badge": "New",
+  "images": [],
+  "hue": 344,
+  "source": "curated",
+},
+{
+  "id": "ib-122",
+  "slug": "vriccc-laundry-hamper-22-5-gallon-85l-bamboo",
+  "name": "Vriccc Laundry Hamper, 22.5 Gallon",
+  "tagline": "16 x 16 x 26 in; 2-piece set (hamper with lid + removable liner); natural bamboo wood",
+  "description": "Vriccc Laundry Hamper, 22.5 Gallon. 16 x 16 x 26 in; 2-piece set (hamper with lid + removable liner); natural bamboo wood",
+  "category": "organization",
+  "collection": "Organization",
+  "brand": "Vriccc",
+  "material": "Bamboo",
+  "features": [
+    "16 x 16 x 26 in; 2-piece set (hamper with lid + removable liner); natural bamboo wood",
+    "Listed around $50 on the product page",
+    "Vriccc organization",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "16 x 16 x 26 in; 2-piece set (hamper with lid + removable liner); natural bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $50"
+    },
+    {
+      "label": "Brand",
+      "value": "Vriccc"
+    }
+  ],
+  "priceHint": 50,
+  "asin": "B0D3GGKR7Q",
+  "searchKeywords": "Vriccc Vriccc Laundry Hamper, 22.5 Gallon",
+  "badge": "New",
+  "images": [],
+  "hue": 134,
+  "source": "curated",
+},
+{
+  "id": "ib-123",
+  "slug": "gehe-gehe-bamboo-fiber-salad-bowl-servers-set",
+  "name": "GEHE Bamboo Fiber Salad Bowl with Servers Set",
+  "tagline": "9.8 in diameter x 5.2 in tall bowl, 8.7 in spoon; 4-piece set (bowl, serving spoon, spork,",
+  "description": "GEHE Bamboo Fiber Salad Bowl with Servers Set. 9.8 in diameter x 5.2 in tall bowl, 8.7 in spoon; 4-piece set (bowl, serving spoon, spork, bamboo lid); bamboo fiber/powder, BPA- and",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "GEHE",
+  "material": "Bamboo",
+  "features": [
+    "9.8 in diameter x 5.2 in tall bowl, 8.7 in spoon; 4-piece set (bowl, serving spoon, spor",
+    "Listed around $21 on the product page",
+    "GEHE dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "9.8 in diameter x 5.2 in tall bowl, 8.7 in spoon; 4-piece set (bowl, serving spo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $21"
+    },
+    {
+      "label": "Brand",
+      "value": "GEHE"
+    }
+  ],
+  "priceHint": 21,
+  "asin": "B08LMY5XZH",
+  "searchKeywords": "GEHE GEHE Bamboo Fiber Salad Bowl with Servers Set",
+  "badge": "New",
+  "images": [],
+  "hue": 341,
+  "source": "curated",
+},
+{
+  "id": "ib-124",
+  "slug": "bamboo-land-bamboo-land-extra-large-salad-bowl",
+  "name": "BAMBOO LAND Extra Large Salad Bowl with Wooden Lid,",
+  "tagline": "11.6-inch diameter; 4-piece set (bowl, wooden lid, spoon and fork); bamboo fiber bowl with",
+  "description": "BAMBOO LAND Extra Large Salad Bowl with Wooden Lid,. 11.6-inch diameter; 4-piece set (bowl, wooden lid, spoon and fork); bamboo fiber bowl with sustainably sourced wooden lid",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "BAMBOO LAND",
+  "material": "Bamboo",
+  "features": [
+    "11.6-inch diameter; 4-piece set (bowl, wooden lid, spoon and fork); bamboo fiber bowl wi",
+    "Listed around $26 on the product page",
+    "BAMBOO LAND dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "11.6-inch diameter; 4-piece set (bowl, wooden lid, spoon and fork); bamboo fiber"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $26"
+    },
+    {
+      "label": "Brand",
+      "value": "BAMBOO LAND"
+    }
+  ],
+  "priceHint": 26,
+  "asin": "B0DC5MTNHX",
+  "searchKeywords": "BAMBOO LAND BAMBOO LAND Extra Large Salad Bowl with Wooden Lid,",
+  "badge": "New",
+  "images": [],
+  "hue": 285,
+  "source": "curated",
+},
+{
+  "id": "ib-125",
+  "slug": "zoofox-zoofox-bamboo-desk-organizer-drawer-adjustable-shelf",
+  "name": "ZOOFOX Bamboo Desk Organizer with Drawer and Adjustable",
+  "tagline": "13.3 x 6.7 x 11.9 in, expands to 25 in; 8 compartments; 100% natural bamboo; no melamine; ",
+  "description": "ZOOFOX Bamboo Desk Organizer with Drawer and Adjustable. 13.3 x 6.7 x 11.9 in, expands to 25 in; 8 compartments; 100% natural bamboo; no melamine; no assembly required",
+  "category": "desk",
+  "collection": "Desk",
+  "brand": "ZOOFOX",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "13.3 x 6.7 x 11.9 in, expands to 25 in; 8 compartments; 100% natural bamboo; no melamine",
+    "Listed around $40 on the product page",
+    "ZOOFOX desk",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "13.3 x 6.7 x 11.9 in, expands to 25 in; 8 compartments; 100% natural bamboo; no "
+    },
+    {
+      "label": "Price seen",
+      "value": "about $40"
+    },
+    {
+      "label": "Brand",
+      "value": "ZOOFOX"
+    }
+  ],
+  "priceHint": 40,
+  "asin": "B0DD7BQ2VC",
+  "searchKeywords": "ZOOFOX ZOOFOX Bamboo Desk Organizer with Drawer and Adjustable",
+  "badge": "New",
+  "images": [],
+  "hue": 336,
+  "source": "curated",
+},
+{
+  "id": "ib-126",
+  "slug": "zavoos-zavoos-bamboo-desk-organizer-drawer-pen-holder",
+  "name": "ZAVOOS Bamboo Desk Organizer with Drawer Pen Holder,",
+  "tagline": "12.2 x 6.7 x 7.8 in; 5 compartments including a slide-out drawer; arrives fully assembled;",
+  "description": "ZAVOOS Bamboo Desk Organizer with Drawer Pen Holder,. 12.2 x 6.7 x 7.8 in; 5 compartments including a slide-out drawer; arrives fully assembled; 100% natural bamboo with lacquered ",
+  "category": "desk",
+  "collection": "Desk",
+  "brand": "ZAVOOS",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "12.2 x 6.7 x 7.8 in; 5 compartments including a slide-out drawer; arrives fully assemble",
+    "Listed around $27 on the product page",
+    "ZAVOOS desk",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "12.2 x 6.7 x 7.8 in; 5 compartments including a slide-out drawer; arrives fully "
+    },
+    {
+      "label": "Price seen",
+      "value": "about $27"
+    },
+    {
+      "label": "Brand",
+      "value": "ZAVOOS"
+    }
+  ],
+  "priceHint": 27,
+  "asin": "B0DS1ZF2VQ",
+  "searchKeywords": "ZAVOOS ZAVOOS Bamboo Desk Organizer with Drawer Pen Holder,",
+  "badge": "New",
+  "images": [],
+  "hue": 62,
+  "source": "curated",
+},
+{
+  "id": "ib-127",
+  "slug": "island-bamboo-island-bamboo-4-piece-pakkawood-cooking",
+  "name": "Island Bamboo 4 Piece Pakkawood Cooking and Serving Utensil",
+  "tagline": "4-piece set; 12 in L x 4 in W; pakkawood (material listed as bamboo)",
+  "description": "Island Bamboo 4 Piece Pakkawood Cooking and Serving Utensil. 4-piece set; 12 in L x 4 in W; pakkawood (material listed as bamboo)",
+  "category": "kitchen",
+  "collection": "Kitchen",
+  "brand": "Island Bamboo",
+  "material": "Bamboo",
+  "features": [
+    "4-piece set; 12 in L x 4 in W; pakkawood (material listed as bamboo)",
+    "Listed around $25 on the product page",
+    "Island Bamboo kitchen",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "4-piece set; 12 in L x 4 in W; pakkawood (material listed as bamboo)"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $25"
+    },
+    {
+      "label": "Brand",
+      "value": "Island Bamboo"
+    }
+  ],
+  "priceHint": 25,
+  "asin": "B0FRJHC8G1",
+  "searchKeywords": "Island Bamboo Island Bamboo 4 Piece Pakkawood Cooking and Serving Utensil",
+  "badge": "New",
+  "images": [],
+  "hue": 1,
+  "source": "curated",
+},
+{
+  "id": "ib-128",
+  "slug": "peker-peker-bamboo-bathroom-organizer-countertop-small-vanity",
+  "name": "PEKER Bamboo Bathroom Organizer Countertop – Small Vanity",
+  "tagline": "10.24 x 5.12 x 8.46 in; wipe clean with a damp cloth; solid bamboo",
+  "description": "PEKER Bamboo Bathroom Organizer Countertop – Small Vanity. 10.24 x 5.12 x 8.46 in; wipe clean with a damp cloth; solid bamboo",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "PEKER",
+  "material": "Bamboo",
+  "features": [
+    "10.24 x 5.12 x 8.46 in; wipe clean with a damp cloth; solid bamboo",
+    "Listed around $18 on the product page",
+    "PEKER bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "10.24 x 5.12 x 8.46 in; wipe clean with a damp cloth; solid bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $18"
+    },
+    {
+      "label": "Brand",
+      "value": "PEKER"
+    }
+  ],
+  "priceHint": 18,
+  "asin": "B0F3VCGN91",
+  "searchKeywords": "PEKER PEKER Bamboo Bathroom Organizer Countertop – Small Vanity",
+  "badge": "New",
+  "images": [],
+  "hue": 181,
+  "source": "curated",
+},
+{
+  "id": "ib-129",
+  "slug": "x-cosrack-large-makeup-organizer-vanity-large-capacity",
+  "name": "X-cosrack Large Makeup Organizer For Vanity, Large Capacity",
+  "tagline": "6.7 x 16.14 x 12 in; 3 removable drawers and 13 compartments (10 open shelves); solid bamb",
+  "description": "X-cosrack Large Makeup Organizer For Vanity, Large Capacity. 6.7 x 16.14 x 12 in; 3 removable drawers and 13 compartments (10 open shelves); solid bamboo, no melamine",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "X-cosrack",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "6.7 x 16.14 x 12 in; 3 removable drawers and 13 compartments (10 open shelves); solid ba",
+    "Listed around $35 on the product page",
+    "X-cosrack bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "6.7 x 16.14 x 12 in; 3 removable drawers and 13 compartments (10 open shelves); "
+    },
+    {
+      "label": "Price seen",
+      "value": "about $35"
+    },
+    {
+      "label": "Brand",
+      "value": "X-cosrack"
+    }
+  ],
+  "priceHint": 35,
+  "asin": "B088CPWJLV",
+  "searchKeywords": "X-cosrack X-cosrack Large Makeup Organizer For Vanity, Large Capacity",
+  "badge": "New",
+  "images": [],
+  "hue": 67,
+  "source": "curated",
+},
+{
+  "id": "ib-130",
+  "slug": "suwyaner-bamboo-toilet-paper-holder-free-standing-wood",
+  "name": "Suwyaner Bamboo Toilet Paper Holder Free Standing, Wood",
+  "tagline": "5.9 x 5.9 x 16.1 in; holds 3 mega toilet paper rolls; solid natural bamboo, free-standing",
+  "description": "Suwyaner Bamboo Toilet Paper Holder Free Standing, Wood. 5.9 x 5.9 x 16.1 in; holds 3 mega toilet paper rolls; solid natural bamboo, free-standing",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "Suwyaner",
+  "material": "Bamboo",
+  "features": [
+    "5.9 x 5.9 x 16.1 in; holds 3 mega toilet paper rolls; solid natural bamboo, free-standin",
+    "Listed around $34 on the product page",
+    "Suwyaner bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "5.9 x 5.9 x 16.1 in; holds 3 mega toilet paper rolls; solid natural bamboo, free"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $34"
+    },
+    {
+      "label": "Brand",
+      "value": "Suwyaner"
+    }
+  ],
+  "priceHint": 34,
+  "asin": "B0G7F3363H",
+  "searchKeywords": "Suwyaner Suwyaner Bamboo Toilet Paper Holder Free Standing, Wood",
+  "badge": "New",
+  "images": [],
+  "hue": 341,
+  "source": "curated",
+},
+{
+  "id": "ib-131",
+  "slug": "wealone-4-in-1-bamboo-toilet-paper-holder",
+  "name": "Wealone 4-in-1 Bamboo Toilet Paper Holder Stand with",
+  "tagline": "9.8 x 7.1 x 25.7 in; solid bamboo; free-standing assembly required; no melamine",
+  "description": "Wealone 4-in-1 Bamboo Toilet Paper Holder Stand with. 9.8 x 7.1 x 25.7 in; solid bamboo; free-standing assembly required; no melamine",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "Wealone",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "9.8 x 7.1 x 25.7 in; solid bamboo; free-standing assembly required; no melamine",
+    "Listed around $43 on the product page",
+    "Wealone bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "9.8 x 7.1 x 25.7 in; solid bamboo; free-standing assembly required; no melamine"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $43"
+    },
+    {
+      "label": "Brand",
+      "value": "Wealone"
+    }
+  ],
+  "priceHint": 43,
+  "asin": "B0C53CT9X4",
+  "searchKeywords": "Wealone Wealone 4-in-1 Bamboo Toilet Paper Holder Stand with",
+  "badge": "New",
+  "images": [],
+  "hue": 328,
+  "source": "curated",
+},
+{
+  "id": "ib-132",
+  "slug": "totally-bamboo-totally-bamboo-baltique-marrakesh-collection-14",
+  "name": "Totally Bamboo Baltique Marrakesh Collection 14\" Salad Serving Bowl",
+  "tagline": "14 inch square salad bowl with 2 salad hands; hand-wash only, do not soak or wash in dishw",
+  "description": "Totally Bamboo Baltique Marrakesh Collection 14\" Salad Serving Bowl. 14 inch square salad bowl with 2 salad hands; hand-wash only, do not soak or wash in dishwasher; bamboo with co",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Totally Bamboo",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "14 inch square salad bowl with 2 salad hands; hand-wash only, do not soak or wash in dis",
+    "Listed around $60 on the product page",
+    "Totally Bamboo dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "14 inch square salad bowl with 2 salad hands; hand-wash only, do not soak or was"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $60"
+    },
+    {
+      "label": "Brand",
+      "value": "Totally Bamboo"
+    }
+  ],
+  "priceHint": 60,
+  "asin": "B08DHJCMBK",
+  "searchKeywords": "Totally Bamboo Totally Bamboo Baltique Marrakesh Collection 14\" Salad Serving Bowl",
+  "badge": "New",
+  "images": [],
+  "hue": 128,
+  "source": "curated",
+},
+{
+  "id": "ib-133",
+  "slug": "lexa-lexa-12-handmade-bamboo-salad-bowl-130",
+  "name": "LEXA 12\" Handmade Bamboo Salad Bowl – 130",
+  "tagline": "11.8 in diameter x 3.55 in high, 130 oz; 1 piece; hand-wash only; solid bamboo, no melamin",
+  "description": "LEXA 12\" Handmade Bamboo Salad Bowl – 130. 11.8 in diameter x 3.55 in high, 130 oz; 1 piece; hand-wash only; solid bamboo, no melamine",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "LEXA",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "11.8 in diameter x 3.55 in high, 130 oz; 1 piece; hand-wash only; solid bamboo, no melam",
+    "Listed around $21 on the product page",
+    "LEXA dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "11.8 in diameter x 3.55 in high, 130 oz; 1 piece; hand-wash only; solid bamboo, "
+    },
+    {
+      "label": "Price seen",
+      "value": "about $21"
+    },
+    {
+      "label": "Brand",
+      "value": "LEXA"
+    }
+  ],
+  "priceHint": 21,
+  "asin": "B0BBQH6JYC",
+  "searchKeywords": "LEXA LEXA 12\" Handmade Bamboo Salad Bowl – 130",
+  "badge": "New",
+  "images": [],
+  "hue": 12,
+  "source": "curated",
+},
+{
+  "id": "ib-134",
+  "slug": "fibogollo-fibogollo-2-pack-bamboo-bed-tray-table",
+  "name": "Fibogollo 2 Pack Bamboo Bed Tray Table with",
+  "tagline": "2-pack; 15.75 x 11.81 x 7.48 in; wipe with damp cloth only; solid natural bamboo",
+  "description": "Fibogollo 2 Pack Bamboo Bed Tray Table with. 2-pack; 15.75 x 11.81 x 7.48 in; wipe with damp cloth only; solid natural bamboo",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Fibogollo",
+  "material": "Bamboo",
+  "features": [
+    "2-pack; 15.75 x 11.81 x 7.48 in; wipe with damp cloth only; solid natural bamboo",
+    "Listed around $20 on the product page",
+    "Fibogollo dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "2-pack; 15.75 x 11.81 x 7.48 in; wipe with damp cloth only; solid natural bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $20"
+    },
+    {
+      "label": "Brand",
+      "value": "Fibogollo"
+    }
+  ],
+  "priceHint": 20,
+  "asin": "B0DN6HH7TQ",
+  "searchKeywords": "Fibogollo Fibogollo 2 Pack Bamboo Bed Tray Table with",
+  "badge": "New",
+  "images": [],
+  "hue": 134,
+  "source": "curated",
+},
+{
+  "id": "ib-135",
+  "slug": "birdrock-home-birdrock-home-bamboo-bed-tray-wooden",
+  "name": "BirdRock Home Bamboo Bed Tray",
+  "tagline": "20.5 x 11.75 x 10.5 in (2.75 in when collapsed); wipe with a damp cloth and mild soap; sol",
+  "description": "BirdRock Home Bamboo Bed Tray. 20.5 x 11.75 x 10.5 in (2.75 in when collapsed); wipe with a damp cloth and mild soap; solid bamboo, no melamine",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "BirdRock Home",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "20.5 x 11.75 x 10.5 in (2.75 in when collapsed); wipe with a damp cloth and mild soap; s",
+    "Listed around $33 on the product page",
+    "BirdRock Home dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "20.5 x 11.75 x 10.5 in (2.75 in when collapsed); wipe with a damp cloth and mild"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $33"
+    },
+    {
+      "label": "Brand",
+      "value": "BirdRock Home"
+    }
+  ],
+  "priceHint": 33,
+  "asin": "B01M6BSNC0",
+  "searchKeywords": "BirdRock Home BirdRock Home Bamboo Bed Tray",
+  "badge": "New",
+  "images": [],
+  "hue": 144,
+  "source": "curated",
+},
+{
+  "id": "ib-136",
+  "slug": "eastalolo-bamboo-bathroom-storage-cabinet-drawers-floor-cabinet",
+  "name": "EASTALOLO Bamboo Bathroom Storage Cabinet with Drawers, Floor",
+  "tagline": "31 x 13 x 64.77 in; 100% natural bamboo; magnetic door closure; no melamine",
+  "description": "EASTALOLO Bamboo Bathroom Storage Cabinet with Drawers, Floor. 31 x 13 x 64.77 in; 100% natural bamboo; magnetic door closure; no melamine",
+  "category": "bath",
+  "collection": "Bath",
+  "brand": "EASTALOLO",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "31 x 13 x 64.77 in; 100% natural bamboo; magnetic door closure; no melamine",
+    "Listed around $136 on the product page",
+    "EASTALOLO bath",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "31 x 13 x 64.77 in; 100% natural bamboo; magnetic door closure; no melamine"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $136"
+    },
+    {
+      "label": "Brand",
+      "value": "EASTALOLO"
+    }
+  ],
+  "priceHint": 136,
+  "asin": "B0HCZHRMQ7",
+  "searchKeywords": "EASTALOLO EASTALOLO Bamboo Bathroom Storage Cabinet with Drawers, Floor",
+  "badge": "New",
+  "images": [],
+  "hue": 79,
+  "source": "curated",
+},
+{
+  "id": "ib-137",
+  "slug": "qenwkxz-bamboo-salad-bowl-set-2-salad-hands",
+  "name": "QENWKXZ Bamboo Salad Bowl Set with 2 Salad",
+  "tagline": "Bowl 9.84 x 9.84 x 3.15 in plus two 7.1 x 3.74 x 0.31 in mixing forks; hand-wash only, not",
+  "description": "QENWKXZ Bamboo Salad Bowl Set with 2 Salad. Bowl 9.84 x 9.84 x 3.15 in plus two 7.1 x 3.74 x 0.31 in mixing forks; hand-wash only, not dishwasher safe; solid carbonized bamboo, no ",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "QENWKXZ",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "Bowl 9.84 x 9.84 x 3.15 in plus two 7.1 x 3.74 x 0.31 in mixing forks; hand-wash only, n",
+    "Listed around $21 on the product page",
+    "QENWKXZ dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Bowl 9.84 x 9.84 x 3.15 in plus two 7.1 x 3.74 x 0.31 in mixing forks; hand-wash"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $21"
+    },
+    {
+      "label": "Brand",
+      "value": "QENWKXZ"
+    }
+  ],
+  "priceHint": 21,
+  "asin": "B0F4N2MX62",
+  "searchKeywords": "QENWKXZ QENWKXZ Bamboo Salad Bowl Set with 2 Salad",
+  "badge": "New",
+  "images": [],
+  "hue": 218,
+  "source": "curated",
+},
+{
+  "id": "ib-138",
+  "slug": "shineme-salad-bowl-set-9-8inches-large-salad",
+  "name": "ShineMe Salad Bowl Set, 9.8inches Large Salad Bowl",
+  "tagline": "Big bowl 9.8 in diameter x 4.4 in deep, ~3.7 qt (3500 ml); 4 small bowls 5.9 x 1.8 in, 400",
+  "description": "ShineMe Salad Bowl Set, 9.8inches Large Salad Bowl. Big bowl 9.8 in diameter x 4.4 in deep, ~3.7 qt (3500 ml); 4 small bowls 5.9 x 1.8 in, 400 ml; utensils 8.8 x 2.4 in; hand-wash ",
+  "category": "kitchen",
+  "collection": "Kitchen",
+  "brand": "ShineMe",
+  "material": "Bamboo",
+  "features": [
+    "Big bowl 9.8 in diameter x 4.4 in deep, ~3.7 qt (3500 ml); 4 small bowls 5.9 x 1.8 in, 4",
+    "Listed around $26 on the product page",
+    "ShineMe kitchen",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "Big bowl 9.8 in diameter x 4.4 in deep, ~3.7 qt (3500 ml); 4 small bowls 5.9 x 1"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $26"
+    },
+    {
+      "label": "Brand",
+      "value": "ShineMe"
+    }
+  ],
+  "priceHint": 26,
+  "asin": "B0B3DQFQDW",
+  "searchKeywords": "ShineMe ShineMe Salad Bowl Set, 9.8inches Large Salad Bowl",
+  "badge": "New",
+  "images": [],
+  "hue": 140,
+  "source": "curated",
+},
+{
+  "id": "ib-139",
+  "slug": "stephan-roberts-stephan-roberts-bamboo-dinnerware-set-eco",
+  "name": "Stephan Roberts Bamboo Dinnerware Set, Eco-Friendly Bamboo Fiber Dinne",
+  "tagline": "12-piece set (4 plates, 4 bowls, 4 cups); dishwasher safe; bamboo fiber",
+  "description": "Stephan Roberts Bamboo Dinnerware Set, Eco-Friendly Bamboo Fiber Dinne. 12-piece set (4 plates, 4 bowls, 4 cups); dishwasher safe; bamboo fiber",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Stephan Roberts",
+  "material": "Bamboo",
+  "features": [
+    "12-piece set (4 plates, 4 bowls, 4 cups); dishwasher safe; bamboo fiber",
+    "Listed around $28 on the product page",
+    "Stephan Roberts dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "12-piece set (4 plates, 4 bowls, 4 cups); dishwasher safe; bamboo fiber"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $28"
+    },
+    {
+      "label": "Brand",
+      "value": "Stephan Roberts"
+    }
+  ],
+  "priceHint": 28,
+  "asin": "B098V1Z7BW",
+  "searchKeywords": "Stephan Roberts Stephan Roberts Bamboo Dinnerware Set, Eco-Friendly Bamboo Fiber Dinne",
+  "badge": "New",
+  "images": [],
+  "hue": 140,
+  "source": "curated",
+},
+{
+  "id": "ib-140",
+  "slug": "get-fresh-bamboo-dinnerware-set-4-pack-bamboo",
+  "name": "GET FRESH Bamboo Dinnerware Set - 4 Pack Bamboo",
+  "tagline": "4 plates, each 10 x 1.2 in; top-rack dishwasher safe, not microwave safe; bamboo fiber (BP",
+  "description": "GET FRESH Bamboo Dinnerware Set - 4 Pack Bamboo. 4 plates, each 10 x 1.2 in; top-rack dishwasher safe, not microwave safe; bamboo fiber (BPA-free)",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "GET FRESH",
+  "material": "Bamboo",
+  "features": [
+    "4 plates, each 10 x 1.2 in; top-rack dishwasher safe, not microwave safe; bamboo fiber (",
+    "Listed around $19 on the product page",
+    "GET FRESH dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "4 plates, each 10 x 1.2 in; top-rack dishwasher safe, not microwave safe; bamboo"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $19"
+    },
+    {
+      "label": "Brand",
+      "value": "GET FRESH"
+    }
+  ],
+  "priceHint": 19,
+  "asin": "B07KW5PLW9",
+  "searchKeywords": "GET FRESH GET FRESH Bamboo Dinnerware Set - 4 Pack Bamboo",
+  "badge": "New",
+  "images": [],
+  "hue": 297,
+  "source": "curated",
+},
+{
+  "id": "ib-141",
+  "slug": "kitzini-kitzini-bamboo-dinnerware-sets-bamboo-plates-bowls",
+  "name": "Kitzini Bamboo Dinnerware Sets. Bamboo Plates and Bowls",
+  "tagline": "17-piece set; dishwasher safe; 85% bamboo fiber and 15% melamine",
+  "description": "Kitzini Bamboo Dinnerware Sets. Bamboo Plates and Bowls. 17-piece set; dishwasher safe; 85% bamboo fiber and 15% melamine",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Kitzini",
+  "material": "Bamboo fiber and melamine",
+  "features": [
+    "17-piece set; dishwasher safe; 85% bamboo fiber and 15% melamine",
+    "Listed around $55 on the product page",
+    "Kitzini dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "17-piece set; dishwasher safe; 85% bamboo fiber and 15% melamine"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $55"
+    },
+    {
+      "label": "Brand",
+      "value": "Kitzini"
+    }
+  ],
+  "priceHint": 55,
+  "asin": "B088FRG8CC",
+  "searchKeywords": "Kitzini Kitzini Bamboo Dinnerware Sets. Bamboo Plates and Bowls",
+  "badge": "New",
+  "images": [],
+  "hue": 12,
+  "source": "curated",
+},
+{
+  "id": "ib-142",
+  "slug": "artmeer-artmeer-fsc-100-bamboo-bed-tray-folding",
+  "name": "Artmeer FSC 100% Bamboo Bed Tray with Folding",
+  "tagline": "15.7 x 12.2 x 1.57 in; FSC 100% solid bamboo; foldable legs with handles and raised edges",
+  "description": "Artmeer FSC 100% Bamboo Bed Tray with Folding. 15.7 x 12.2 x 1.57 in; FSC 100% solid bamboo; foldable legs with handles and raised edges",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "Artmeer",
+  "material": "Bamboo",
+  "features": [
+    "15.7 x 12.2 x 1.57 in; FSC 100% solid bamboo; foldable legs with handles and raised edge",
+    "Listed around $17 on the product page",
+    "Artmeer dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "15.7 x 12.2 x 1.57 in; FSC 100% solid bamboo; foldable legs with handles and rai"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $17"
+    },
+    {
+      "label": "Brand",
+      "value": "Artmeer"
+    }
+  ],
+  "priceHint": 17,
+  "asin": "B0BTRW29LM",
+  "searchKeywords": "Artmeer Artmeer FSC 100% Bamboo Bed Tray with Folding",
+  "badge": "New",
+  "images": [],
+  "hue": 274,
+  "source": "curated",
+},
+{
+  "id": "ib-143",
+  "slug": "boomlatu-bamboo-woven-handmade-decorative-candle-lantern-handle",
+  "name": "BOOMLATU Bamboo Woven Handmade Decorative Candle Lantern with",
+  "tagline": "8.2 x 12.5 in (S size); handmade woven bamboo strips with wood and glass; candle not inclu",
+  "description": "BOOMLATU Bamboo Woven Handmade Decorative Candle Lantern with. 8.2 x 12.5 in (S size); handmade woven bamboo strips with wood and glass; candle not included",
+  "category": "outdoor",
+  "collection": "Outdoor",
+  "brand": "BOOMLATU",
+  "material": "Bamboo",
+  "features": [
+    "8.2 x 12.5 in (S size); handmade woven bamboo strips with wood and glass; candle not inc",
+    "Listed around $70 on the product page",
+    "BOOMLATU outdoor",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "8.2 x 12.5 in (S size); handmade woven bamboo strips with wood and glass; candle"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $70"
+    },
+    {
+      "label": "Brand",
+      "value": "BOOMLATU"
+    }
+  ],
+  "priceHint": 70,
+  "asin": "B0C81589YC",
+  "searchKeywords": "BOOMLATU BOOMLATU Bamboo Woven Handmade Decorative Candle Lantern with",
+  "badge": "New",
+  "images": [],
+  "hue": 300,
+  "source": "curated",
+},
+{
+  "id": "ib-144",
+  "slug": "magiclulu-woven-candlestick-lantern-25x25x25cm-bamboo-holder-candle",
+  "name": "MAGICLULU Woven Candlestick Lantern 25x25x25cm Bamboo Holder for",
+  "tagline": "9.84 x 9.84 x 9.84 in (25x25x25 cm); 1 piece; handmade woven bamboo holder for tealight ca",
+  "description": "MAGICLULU Woven Candlestick Lantern 25x25x25cm Bamboo Holder for. 9.84 x 9.84 x 9.84 in (25x25x25 cm); 1 piece; handmade woven bamboo holder for tealight candles; no care instructi",
+  "category": "dining",
+  "collection": "Dining",
+  "brand": "MAGICLULU",
+  "material": "Bamboo",
+  "features": [
+    "9.84 x 9.84 x 9.84 in (25x25x25 cm); 1 piece; handmade woven bamboo holder for tealight ",
+    "Listed around $42 on the product page",
+    "MAGICLULU dining",
+    "Confirm the live Amazon page before you buy"
+  ],
+  "specs": [
+    {
+      "label": "Limit",
+      "value": "9.84 x 9.84 x 9.84 in (25x25x25 cm); 1 piece; handmade woven bamboo holder for t"
+    },
+    {
+      "label": "Price seen",
+      "value": "about $42"
+    },
+    {
+      "label": "Brand",
+      "value": "MAGICLULU"
+    }
+  ],
+  "priceHint": 42,
+  "asin": "B0GW6V85G4",
+  "searchKeywords": "MAGICLULU MAGICLULU Woven Candlestick Lantern 25x25x25cm Bamboo Holder for",
+  "badge": "New",
+  "images": [],
+  "hue": 4,
+  "source": "curated",
+}
 ]
